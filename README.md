@@ -17,5 +17,9 @@ A list of git repos that contain rego polices which can be combined with this re
 - [deprek8ion: Rego policies to monitor Kubernetes APIs deprecations](https://github.com/swade1987/deprek8ion)
 
 ## Conftest
-conftest is a CLI to execute rego policies. It can be used to test locally before pushing to OPA.
+conftest is a CLI to execute rego policies. It can be used to test locally before pushing to [OPA](https://www.openpolicyagent.org/).
 - https://www.conftest.dev/install/
+
+## OPA Playground
+OPA provides a web based playground, which can highlight which lines have been activated. Having issues with your policy? check it out with "Coverage" enabled:
+- https://play.openpolicyagent.org/
