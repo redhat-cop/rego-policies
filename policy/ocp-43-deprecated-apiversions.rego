@@ -1,5 +1,10 @@
 package main
 
+# catch all
+deny[msg] {
+  msg := _deny
+}
+
 deny[msg] {
   input.apiVersion == "template.openshift.io/v1"
   input.kind == "Template"
