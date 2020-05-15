@@ -1,0 +1,35 @@
+name: Execute BATS using conftest
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install bats
+        run: |
+          export BATS_VERSION=master
+          wget https://github.com/bats-core/bats-core/archive/${BATS_VERSION}.tar.gz
+          tar -C /tmp -xzf ${BATS_VERSION}.tar.gz
+          /tmp/bats-core-${BATS_VERSION}/install.sh /opt/bats
+          sudo ln -s /opt/bats/bin/bats /usr/local/bin/bats
+          bats --version
+
+      - name: Install conftest
+        run: |
+          export CONFTEST_VERSION=0.18.2
+          wget https://github.com/instrumenta/conftest/releases/download/v${CONFTEST_VERSION}/conftest_${CONFTEST_VERSION}_Linux_x86_64.tar.gz
+          tar -C /tmp -xzf conftest_${CONFTEST_VERSION}_Linux_x86_64.tar.gz
+          sudo ln -s /tmp/conftest /usr/local/bin/conftest
+          conftest --version
+
+      - name: Pull external policies
+        run: |
+          conftest pull github.com/swade1987/deprek8ion.git//policies --policy deprek8ion
+          cp deprek8ion/*.rego policy
+
+      - name: Run conftest via bats
+        run: bats _test/tests.bats
