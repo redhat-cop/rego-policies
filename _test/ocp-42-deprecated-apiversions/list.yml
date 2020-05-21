@@ -1,0 +1,28 @@
+---
+apiVersion: v1
+kind: List
+items:
+- apiVersion: servicecatalog.k8s.io/v1beta1
+  kind: Foo
+  metadata:
+    name: Bar
+- apiVersion: automationbroker.io/v1alpha1
+  kind: Foo
+  metadata:
+    name: Bar
+- apiVersion: osb.openshift.io/v1
+  kind: Foo
+  metadata:
+    name: Bar
+- apiVersion: operatorsources.operators.coreos.com/v1
+  kind: Foo
+  metadata:
+    name: Bar
+- apiVersion: catalogsourceconfigs.operators.coreos.com/v1
+  kind: Foo
+  metadata:
+    name: Bar
+- apiVersion: catalogsourceconfigs.operators.coreos.com/v2
+  kind: Foo
+  metadata:
+    name: Bar

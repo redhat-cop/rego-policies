@@ -1,0 +1,35 @@
+---
+apiVersion: v1
+kind: Template
+metadata:
+  name: Foo
+---
+apiVersion: template.openshift.io/v1
+kind: Template
+metadata:
+  name: Foo
+objects:
+- apiVersion: v1
+  kind: ProjectRequest
+  metadata:
+    name: Bar
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    name: Bar
+- apiVersion: v1
+  kind: BuildConfig
+  metadata:
+    name: Bar
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    name: Bar
+- apiVersion: v1
+  kind: RoleBinding
+  metadata:
+    name: Bar
+- apiVersion: v1
+  kind: Route
+  metadata:
+    name: Bar
