@@ -1,0 +1,16 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+reviewers:
+  - etsauer
+  - garethahealy
+  - oybed
+  - pabrahamsson
+  - sabre1041
+  - tylerauerbeck
+approvers:
+  - etsauer
+  - garethahealy
+  - oybed
+  - pabrahamsson
+  - sabre1041
+  - tylerauerbeck
