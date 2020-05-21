@@ -1,4 +1,4 @@
-# testing
+# Testing
 This repo uses as a combination of [bats](https://github.com/bats-core/bats-core) and [conftest](https://github.com/open-policy-agent/conftest)
 to validate the rego policies.
 
