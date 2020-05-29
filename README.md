@@ -18,8 +18,8 @@ A list of git repos that contain rego polices which can be combined with this re
 
 ## Conftest
 conftest is a CLI to execute rego policies. It can be used to test locally before pushing to [OPA](https://www.openpolicyagent.org/).
-- https://www.conftest.dev/install/
+- [https://www.conftest.dev/install/]
 
 ## OPA Playground
 OPA provides a web based playground, which can highlight which lines have been activated. Having issues with your policy? check it out with "Coverage" enabled:
-- https://play.openpolicyagent.org/
+- [https://play.openpolicyagent.org/]
