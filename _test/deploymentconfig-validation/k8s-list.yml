@@ -1,0 +1,43 @@
+---
+apiVersion: v1
+kind: List
+items:
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    name: ProbsSet
+  spec:
+    template:
+      spec:
+        containers:
+          - name: Bar
+            livenessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/livenessProbe.sh
+              failureThreshold: 3
+              initialDelaySeconds: 60
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            readinessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/readinessProbe.sh
+              failureThreshold: 3
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    name: NoProbsSet
+  spec:
+    template:
+      spec:
+        containers:
+        - name: Bar
