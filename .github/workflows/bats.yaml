@@ -21,7 +21,7 @@ jobs:
       - name: Install conftest
         run: |
           export CONFTEST_VERSION=0.18.2
-          wget https://github.com/instrumenta/conftest/releases/download/v${CONFTEST_VERSION}/conftest_${CONFTEST_VERSION}_Linux_x86_64.tar.gz
+          wget https://github.com/open-policy-agent/conftest/releases/download/v${CONFTEST_VERSION}/conftest_${CONFTEST_VERSION}_Linux_x86_64.tar.gz
           tar -C /tmp -xzf conftest_${CONFTEST_VERSION}_Linux_x86_64.tar.gz
           sudo ln -s /tmp/conftest /usr/local/bin/conftest
           conftest --version
