@@ -9,6 +9,7 @@ kind: Template
 metadata:
   name: Foo
 objects:
+# Project Scoped
 - apiVersion: v1
   kind: ProjectRequest
   metadata:
@@ -31,5 +32,10 @@ objects:
     name: Bar
 - apiVersion: v1
   kind: Route
+  metadata:
+    name: Bar
+# Cluster Scoped
+- apiVersion: v1
+  kind: SecurityContextConstraints
   metadata:
     name: Bar

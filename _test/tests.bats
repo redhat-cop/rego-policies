@@ -33,5 +33,6 @@
     [ "${lines[5]}" = "not ok 5 - _test/ocp-43-deprecated-apiversions/template.yml - DeploymentConfig/Bar: API v1 for DeploymentConfig is no longer served by default, use apps.openshift.io/v1 instead." ]
     [ "${lines[6]}" = "not ok 6 - _test/ocp-43-deprecated-apiversions/template.yml - RoleBinding/Bar: API v1 for RoleBinding is no longer served by default, use rbac.authorization.k8s.io/v1 instead." ]
     [ "${lines[7]}" = "not ok 7 - _test/ocp-43-deprecated-apiversions/template.yml - Route/Bar: API v1 for Route is no longer served by default, use route.openshift.io/v1 instead." ]
-    [ "${lines[8]}" = "# Successes" ]
+    [ "${lines[8]}" = "not ok 8 - _test/ocp-43-deprecated-apiversions/template.yml - SecurityContextConstraints/Bar: API v1 for SecurityContextConstraints is no longer served by default, use security.openshift.io/v1 instead." ]
+    [ "${lines[9]}" = "# Successes" ]
 }
