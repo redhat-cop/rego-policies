@@ -2,16 +2,17 @@
 [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/) policies collection
 
 ## Policies
-Current policies in this repo are below.
+Current policies in this repo are below. The naming of the policy files follows the below convention:
+- {policy-type}-{platform}-{kind}-{other...}
 
 ### Deny Policies
-- [ocp-42-deprecated-apiversions.rego](policy/ocp-42-deprecated-apiversions.rego)
+- [deny-ocp42-all-deprecated-apiversions](policy/deny-ocp42-all-deprecated-apiversion.rego)
     - [deny rules for OCP 4.2 apiVersion deprecations](https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html#ocp-4-2-deprecated-features)
 
-- [ocp-43-deprecated-apiversions.rego](policy/ocp-43-deprecated-apiversions.rego)
+- [deny-ocp43-all-deprecated-apiversions.rego](policy/deny-ocp43-all-deprecated-apiversions.rego)
     - deny rules for OCP 4.3 apiVersion deprecations. Changing OCP specific kinds from v1 to *.openshift.io/v1
 
-- [k8s-validation-rolebinding.rego](policy/k8s-validation-rolebinding.rego)
+- [deny-k8s-rolebinding-roleref.rego](policy/deny-k8s-rolebinding-roleref.rego)
     - deny rules to check roleRef.apiGroup and roleRef.kind for rbac.authorization.k8s.io/v1:RoleBinding are set, which were not required in OCP 3.x
 
 ## 3rd Party Policies
