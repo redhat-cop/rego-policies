@@ -2,7 +2,9 @@
 [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/) policies collection
 
 ## Policies
-Current policies in this repo:
+Current policies in this repo are below.
+
+### Deny Policies
 - [ocp-42-deprecated-apiversions.rego](policy/ocp-42-deprecated-apiversions.rego)
     - [deny rules for OCP 4.2 apiVersion deprecations](https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html#ocp-4-2-deprecated-features)
 
