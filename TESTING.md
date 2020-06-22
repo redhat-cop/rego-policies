@@ -14,3 +14,10 @@ end with the expected success line.
 ```bash
 rm -rf /tmp/rego-policies; _test/conftest.sh
 ```
+
+## Tools used for testing
+The following tools are required:
+
+- [conftest](https://www.conftest.dev/install)
+- [jq](https://stedolan.github.io/jq/download)
+- [yq](https://pypi.org/project/yq)
