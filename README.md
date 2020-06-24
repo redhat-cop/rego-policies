@@ -15,6 +15,10 @@ Current policies in this repo are below. The naming of the policy files follows 
 - [deny-k8s-rolebinding-roleref.rego](policy/deny-k8s-rolebinding-roleref.rego)
     - deny rules to check roleRef.apiGroup and roleRef.kind for rbac.authorization.k8s.io/v1:RoleBinding are set, which were not required in OCP 3.x
 
+### Warn Policies
+- [warn-k8s-deployment-conftestcombine-bestpractices.rego](policy/warn-k8s-deployment-conftestcombine-bestpractices.rego)
+    - warn rules to check Deployments combined with other objects match; i.e.: Deployment -> Service selectors
+
 ## 3rd Party Policies
 A list of git repos that contain rego polices which can be combined with this repo:
 - [deprek8ion: Rego policies to monitor Kubernetes APIs deprecations](https://github.com/swade1987/deprek8ion)

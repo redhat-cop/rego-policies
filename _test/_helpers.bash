@@ -31,6 +31,15 @@ copy_file_via_yq() {
   yq --yaml-output "." ${FILE_PATH} > /tmp/rego-policies/${FILE_DIR}/$(basename ${FILE_PATH})
 }
 
+copy_file_via_jq() {
+  FILE_PATH=$1
+  FILE_DIR=$(dirname "$1")
+
+  mkdir -p /tmp/rego-policies/${FILE_DIR}
+
+  jq "." ${FILE_PATH} > /tmp/rego-policies/${FILE_DIR}/$(basename ${FILE_PATH})
+}
+
 copy_dir_via_jq() {
   SEARCH_PATH=$1
   SEARCH_DIR=$(dirname "$1")
@@ -40,4 +49,8 @@ copy_dir_via_jq() {
   for file in $(ls ${SEARCH_PATH} | xargs) ; do
     jq '.' ${file} > /tmp/rego-policies/${SEARCH_DIR}/$(basename ${file})
   done
+}
+
+print_err() {
+  if [ "$1" -ne 0 ]; then echo "$2"; fi
 }

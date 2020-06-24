@@ -12,5 +12,5 @@ jobs:
       - name: Conftest
         uses: garethahealy/github-actions/confbatstest@regotmp
         with:
-          tests: _test/tests.bats
+          tests: _test/conftest.sh
           policies: '[{"name": "deprek8ion", "url":"github.com/swade1987/deprek8ion.git//policies"}]'
