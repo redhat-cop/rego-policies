@@ -75,3 +75,15 @@ load _helpers
   [ "${lines[2]}" = "not ok 1 - Combined - Namespace/Foo does not have a networking.k8s.io/v1:NetworkPolicy. See: https://docs.openshift.com/container-platform/4.4/networking/configuring-networkpolicy.html" ]
   [ "${lines[3]}" = "# Successes" ]
 }
+
+@test "_test/warn-k8s-service-conftestcombine-bestpractices" {
+  split_via_yq "_test/warn-k8s-service-conftestcombine-bestpractices/*.yml" ".items[]"
+  run conftest test /tmp/rego-policies/_test/warn-k8s-service-conftestcombine-bestpractices --output tap --combine
+
+  print_err "$status" "$output"
+  [ "$status" -eq 0 ]
+  [ "${lines[1]}" = "# Warnings" ]
+  [ "${lines[2]}" = "not ok 1 - Combined - Service/HasMissingSvcMon does not have a monitoring.coreos.com/v1:ServiceMonitor or its selector labels dont match. See: https://docs.openshift.com/container-platform/4.4/monitoring/monitoring-your-own-services.html" ]
+  [ "${lines[3]}" = "not ok 2 - Combined - Service/HasSvcMonWithIncorrectLabels does not have a monitoring.coreos.com/v1:ServiceMonitor or its selector labels dont match. See: https://docs.openshift.com/container-platform/4.4/monitoring/monitoring-your-own-services.html" ]
+  [ "${lines[4]}" = "# Successes" ]
+}
