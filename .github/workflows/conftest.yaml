@@ -1,0 +1,16 @@
+name: Validate
+
+on: [push, pull_request]
+
+jobs:
+  conftest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Conftest
+        uses: garethahealy/github-actions/confbatstest@regotmp
+        with:
+          tests: _test/tests.bats
+          policies: '[{"name": "deprek8ion", "url":"github.com/swade1987/deprek8ion.git//policies"}]'
