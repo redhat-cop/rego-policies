@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: List
+items:
+- apiVersion: v1
+  kind: Namespace
+  metadata:
+    name: Foo
+- apiVersion: v1
+  kind: RandomResource
+  metadata:
+    name: FooBar

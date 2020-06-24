@@ -64,3 +64,14 @@ load _helpers
   [ "${lines[7]}" = "not ok 6 - Combined - Deployment/HasMissingPVC has persistentVolumeClaim in its spec.template.spec.volumes but could not find corrasponding v1:PersistentVolumeClaim." ]
   [ "${lines[8]}" = "# Successes" ]
 }
+
+@test "_test/warn-k8s-namespace-conftestcombine-bestpractices" {
+  split_via_yq "_test/warn-k8s-namespace-conftestcombine-bestpractices/*.yml" ".items[]"
+  run conftest test /tmp/rego-policies/_test/warn-k8s-namespace-conftestcombine-bestpractices --output tap --combine
+
+  print_err "$status" "$output"
+  [ "$status" -eq 0 ]
+  [ "${lines[1]}" = "# Warnings" ]
+  [ "${lines[2]}" = "not ok 1 - Combined - Namespace/Foo does not have a networking.k8s.io/v1:NetworkPolicy. See: https://docs.openshift.com/container-platform/4.4/networking/configuring-networkpolicy.html" ]
+  [ "${lines[3]}" = "# Successes" ]
+}
