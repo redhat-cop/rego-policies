@@ -34,6 +34,9 @@ Current policies in this repo are below. The naming of the policy files follows 
 - [warn-ocp-deploymentconfig-bestpractices.rego](policy/warn-ocp-deploymentconfig-bestpractices.rego)
     - warn rules to check DeploymentConfig conform to standard practices; i.e.: triggers are set
 
+- [warn-podman-history-bestpractices.rego](policy/warn-podman-history-bestpractices.rego)
+    - warn rules to check a wrapped JSON output of "podman history"; i.e.: expected base layer is found.
+
 ## 3rd Party Policies
 A list of git repos that contain rego polices which can be combined with this repo:
 - [deprek8ion: Rego policies to monitor Kubernetes APIs deprecations](https://github.com/swade1987/deprek8ion)
