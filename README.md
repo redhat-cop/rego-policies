@@ -31,6 +31,9 @@ Current policies in this repo are below. The naming of the policy files follows 
 - [warn-k8s_ocp-deployment_deploymentconfig-bestpractices.rego](policy/warn-k8s_ocp-deployment_deploymentconfig-bestpractices.rego)
     - warn rules to check Deployment/DeploymentConfig conform to standard practices; i.e.: health-check probs are set
 
+- [warn-ocp-deploymentconfig-bestpractices.rego](policy/warn-ocp-deploymentconfig-bestpractices.rego)
+    - warn rules to check DeploymentConfig conform to standard practices; i.e.: triggers are set
+
 ## 3rd Party Policies
 A list of git repos that contain rego polices which can be combined with this repo:
 - [deprek8ion: Rego policies to monitor Kubernetes APIs deprecations](https://github.com/swade1987/deprek8ion)
