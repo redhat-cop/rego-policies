@@ -176,3 +176,15 @@ load _helpers
   [ "${lines[30]}" = "not ok 29 - /tmp/rego-policies/_test/warn-k8s_ocp-deployment_deploymentconfig-bestpractices/list-DeploymentConfig.yml - DeploymentConfig/MemoryRequestTooLarge: container 'Bar' has a memory request of '3Gi' which is larger than the upper '2Gi' limit." ]
   [ "${lines[31]}" = "# Successes" ]
 }
+
+@test "_test/warn-ocp-deploymentconfig-bestpractices" {
+  split_via_yq "_test/warn-ocp-deploymentconfig-bestpractices/*.yml" ".items[]"
+  run conftest test /tmp/rego-policies/_test/warn-ocp-deploymentconfig-bestpractices --output tap
+
+  print_err "$status" "$output"
+  [ "$status" -eq 0 ]
+  [ "$status" -eq 0 ]
+  [ "${lines[1]}" = "# Warnings" ]
+  [ "${lines[2]}" = "not ok 1 - /tmp/rego-policies/_test/warn-ocp-deploymentconfig-bestpractices/list-DeploymentConfig.yml - DeploymentConfig/NoTriggers: has no triggers set. Could you use a k8s native Deployment? See: https://kubernetes.io/docs/concepts/workloads/controllers/deployment" ]
+  [ "${lines[3]}" = "# Successes" ]
+}
