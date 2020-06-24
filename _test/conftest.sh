@@ -47,5 +47,20 @@ load _helpers
   [ "${lines[5]}" = "not ok 5 - /tmp/rego-policies/_test/deny-ocp43-all-deprecated-apiversions/list.yml - DeploymentConfig/Bar: API v1 for DeploymentConfig is no longer served by default, use apps.openshift.io/v1 instead." ]
   [ "${lines[6]}" = "not ok 6 - /tmp/rego-policies/_test/deny-ocp43-all-deprecated-apiversions/list.yml - RoleBinding/Bar: API v1 for RoleBinding is no longer served by default, use rbac.authorization.k8s.io/v1 instead." ]
   [ "${lines[7]}" = "not ok 7 - /tmp/rego-policies/_test/deny-ocp43-all-deprecated-apiversions/list.yml - Route/Bar: API v1 for Route is no longer served by default, use route.openshift.io/v1 instead." ]
+}
+
+@test "_test/warn-k8s-deployment-conftestcombine-bestpractices" {
+  split_via_yq "_test/warn-k8s-deployment-conftestcombine-bestpractices/*.yml" ".items[]"
+  run conftest test /tmp/rego-policies/_test/warn-k8s-deployment-conftestcombine-bestpractices --output tap --combine
+
+  print_err "$status" "$output"
+  [ "$status" -eq 0 ]
+  [ "${lines[1]}" = "# Warnings" ]
+  [ "${lines[2]}" = "not ok 1 - Combined - Deployment/HasMissingSvc does not have a v1:Service or its selector labels dont match. See: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#service-and-replicationcontroller" ]
+  [ "${lines[3]}" = "not ok 2 - Combined - Deployment/HasSvcWithIncorrectLabels does not have a v1:Service or its selector labels dont match. See: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#service-and-replicationcontroller" ]
+  [ "${lines[4]}" = "not ok 3 - Combined - Deployment/HasMissingPDB does not have a policy/v1beta1:PodDisruptionBudget or its selector labels dont match. See: https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget" ]
+  [ "${lines[5]}" = "not ok 4 - Combined - Deployment/PDBHasIncorrectLabels does not have a policy/v1beta1:PodDisruptionBudget or its selector labels dont match. See: https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget" ]
+  [ "${lines[6]}" = "not ok 5 - Combined - Deployment/HasMissingSvcAccount has spec.serviceAccountName 'missing' but could not find corrasponding v1:ServiceAccount." ]
+  [ "${lines[7]}" = "not ok 6 - Combined - Deployment/HasMissingPVC has persistentVolumeClaim in its spec.template.spec.volumes but could not find corrasponding v1:PersistentVolumeClaim." ]
   [ "${lines[8]}" = "# Successes" ]
 }
