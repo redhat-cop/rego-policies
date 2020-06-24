@@ -37,6 +37,9 @@ Current policies in this repo are below. The naming of the policy files follows 
 - [warn-podman-history-bestpractices.rego](policy/warn-podman-history-bestpractices.rego)
     - warn rules to check a wrapped JSON output of "podman history"; i.e.: expected base layer is found.
 
+- [warn-podman-images-bestpractices.rego](policy/warn-podman-images-bestpractices.rego)
+    - warn rules to check a wrapped JSON output of "podman images"; i.e.: check image size is within bounds.
+
 ## 3rd Party Policies
 A list of git repos that contain rego polices which can be combined with this repo:
 - [deprek8ion: Rego policies to monitor Kubernetes APIs deprecations](https://github.com/swade1987/deprek8ion)
