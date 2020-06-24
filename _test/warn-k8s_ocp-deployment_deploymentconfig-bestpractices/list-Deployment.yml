@@ -1,0 +1,1310 @@
+---
+apiVersion: v1
+kind: List
+items:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: ShouldNeverFire
+  spec:
+    replicas: 3
+    template:
+      metadata:
+        labels:
+          app.kubernetes.io/name: Foo
+          app.kubernetes.io/instance: Bar
+          app.kubernetes.io/component: FooBar
+          app.kubernetes.io/part-of: Foo
+          app.kubernetes.io/managed-by: Bar
+      spec:
+        containers:
+          - name: Bar
+            image: quay.io/redhat-cop/openshift-applier@sha256:8a99a0105f85e350bff43802b204b5ce2a501cad1aa7df5253638ced1d108957
+            command: ["ansible-playbook"]
+            args: ["-i .applier/", "cluster-seed.yml"]
+            env:
+              - name: CONTAINER_MAX_MEMORY
+                valueFrom:
+                  resourceFieldRef:
+                    resource: limits.memory
+            livenessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/livenessProbe.sh
+              failureThreshold: 3
+              initialDelaySeconds: 60
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            readinessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/readinessProbe.sh
+              failureThreshold: 3
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            resources:
+              requests:
+                memory: 100Mi
+                cpu: 100m
+              limits:
+                memory: 2Gi
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: ReplicaIsNull
+  spec:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: ReplicaIsOne
+  spec:
+    replicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: ReplicaIsEven
+  spec:
+    replicas: 2
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: NoProbsSet
+  spec:
+    replicas: 3
+    template:
+      spec:
+        containers:
+        - name: Bar
+          env:
+            - name: CONTAINER_MAX_MEMORY
+              valueFrom:
+                resourceFieldRef:
+                  resource: limits.memory
+          resources:
+            requests:
+              memory: 100Mi
+              cpu: 100m
+            limits:
+              memory: 2Gi
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: ProbsSetAreSame
+  spec:
+    replicas: 3
+    template:
+      spec:
+        containers:
+          - name: Bar
+            env:
+              - name: CONTAINER_MAX_MEMORY
+                valueFrom:
+                  resourceFieldRef:
+                    resource: limits.memory
+            livenessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/livenessProbe.sh
+              failureThreshold: 3
+              initialDelaySeconds: 60
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            readinessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/livenessProbe.sh
+              failureThreshold: 3
+              initialDelaySeconds: 60
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            resources:
+              requests:
+                memory: 100Mi
+                cpu: 100m
+              limits:
+                memory: 2Gi
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: ResourceLimitsAndRequestsNotSet
+  spec:
+    replicas: 3
+    template:
+      spec:
+        containers:
+          - name: Bar
+            env:
+              - name: CONTAINER_MAX_MEMORY
+                valueFrom:
+                  resourceFieldRef:
+                    resource: limits.memory
+            livenessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/livenessProbe.sh
+              failureThreshold: 3
+              initialDelaySeconds: 60
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            readinessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/readinessProbe.sh
+              failureThreshold: 3
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            resources:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: InvalidResourcesRequestsMemoryUnits
+  spec:
+    replicas: 3
+    template:
+      spec:
+        containers:
+          - name: Bar
+            env:
+              - name: CONTAINER_MAX_MEMORY
+                valueFrom:
+                  resourceFieldRef:
+                    resource: limits.memory
+            livenessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/livenessProbe.sh
+              failureThreshold: 3
+              initialDelaySeconds: 60
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            readinessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/readinessProbe.sh
+              failureThreshold: 3
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            resources:
+              requests:
+                memory: 100MB
+                cpu: 100m
+              limits:
+                memory: 2Gi
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: InvalidResourcesLimitsMemoryUnits
+  spec:
+    replicas: 3
+    template:
+      spec:
+        containers:
+          - name: Bar
+            env:
+              - name: CONTAINER_MAX_MEMORY
+                valueFrom:
+                  resourceFieldRef:
+                    resource: limits.memory
+            livenessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/livenessProbe.sh
+              failureThreshold: 3
+              initialDelaySeconds: 60
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            readinessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/readinessProbe.sh
+              failureThreshold: 3
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            resources:
+              requests:
+                memory: 100Mi
+                cpu: 100m
+              limits:
+                memory: 2GB
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: InvalidResourcesRequestCpuUnits
+  spec:
+    replicas: 3
+    template:
+      spec:
+        containers:
+          - name: Bar
+            env:
+              - name: CONTAINER_MAX_MEMORY
+                valueFrom:
+                  resourceFieldRef:
+                    resource: limits.memory
+            livenessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/livenessProbe.sh
+              failureThreshold: 3
+              initialDelaySeconds: 60
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            readinessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/readinessProbe.sh
+              failureThreshold: 3
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            resources:
+              requests:
+                memory: 100Mi
+                cpu: 100M
+              limits:
+                memory: 2Gi
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: InvertedMemoryResources
+  spec:
+    replicas: 3
+    template:
+      spec:
+        containers:
+          - name: Bar
+            env:
+              - name: CONTAINER_MAX_MEMORY
+                valueFrom:
+                  resourceFieldRef:
+                    resource: limits.memory
+            livenessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/livenessProbe.sh
+              failureThreshold: 3
+              initialDelaySeconds: 60
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            readinessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/readinessProbe.sh
+              failureThreshold: 3
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            resources:
+              requests:
+                memory: 2Gi
+                cpu: 100m
+              limits:
+                memory: 1Gi
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: ResourcesLimitsCpuSet
+  spec:
+    replicas: 3
+    template:
+      spec:
+        containers:
+          - name: Bar
+            env:
+              - name: CONTAINER_MAX_MEMORY
+                valueFrom:
+                  resourceFieldRef:
+                    resource: limits.memory
+            livenessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/livenessProbe.sh
+              failureThreshold: 3
+              initialDelaySeconds: 60
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            readinessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/readinessProbe.sh
+              failureThreshold: 3
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            resources:
+              requests:
+                memory: 100Mi
+                cpu: 100m
+              limits:
+                memory: 2Gi
+                cpu: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: ImageUsesLatestTag
+  spec:
+    replicas: 3
+    template:
+      spec:
+        containers:
+          - name: Bar
+            env:
+              - name: CONTAINER_MAX_MEMORY
+                valueFrom:
+                  resourceFieldRef:
+                    resource: limits.memory
+            image: quay.io/redhat-cop/openshift-applier:latest
+            livenessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/livenessProbe.sh
+              failureThreshold: 3
+              initialDelaySeconds: 60
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            readinessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/readinessProbe.sh
+              failureThreshold: 3
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            resources:
+              requests:
+                memory: 100Mi
+                cpu: 100m
+              limits:
+                memory: 2Gi
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: HostNetworkIsSet
+  spec:
+    replicas: 3
+    template:
+      spec:
+        hostNetwork: "true"
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: MissingVolumeMount
+  spec:
+    replicas: 3
+    template:
+      spec:
+        containers:
+          - name: BarBar
+            env:
+              - name: CONTAINER_MAX_MEMORY
+                valueFrom:
+                  resourceFieldRef:
+                    resource: limits.memory
+            livenessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/livenessProbe.sh
+              failureThreshold: 3
+              initialDelaySeconds: 60
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            readinessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/readinessProbe.sh
+              failureThreshold: 3
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            resources:
+              requests:
+                memory: 100Mi
+                cpu: 100m
+              limits:
+                memory: 2Gi
+            volumeMounts:
+              - name: my-pvc
+                mountPath: /var/run/io.redhat-cop/my-pvc
+          - name: Bar
+            env:
+              - name: CONTAINER_MAX_MEMORY
+                valueFrom:
+                  resourceFieldRef:
+                    resource: limits.memory
+            livenessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/livenessProbe.sh
+              failureThreshold: 3
+              initialDelaySeconds: 60
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            readinessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/readinessProbe.sh
+              failureThreshold: 3
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            resources:
+              requests:
+                memory: 100Mi
+                cpu: 100m
+              limits:
+                memory: 2Gi
+            volumeMounts:
+              - name: my-configmap
+                mountPath: /var/run/io.redhat-cop/my-configmap
+              - name: my-secret
+                mountPath: /var/run/io.redhat-cop/my-secret
+        volumes:
+          - name: my-configmap
+            configMap:
+              name: FooBar
+          - name: my-secret
+            secret:
+              secretName: FooBar
+          - name: my-pvc
+            persistentVolumeClaim:
+              claimName: FooBar
+          - name: my-missing-pvc
+            persistentVolumeClaim:
+              claimName: FooBar
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: MissingVolumes
+  spec:
+    replicas: 3
+    template:
+      spec:
+        containers:
+          - name: BarBar
+            env:
+              - name: CONTAINER_MAX_MEMORY
+                valueFrom:
+                  resourceFieldRef:
+                    resource: limits.memory
+            livenessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/livenessProbe.sh
+              failureThreshold: 3
+              initialDelaySeconds: 60
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            readinessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/readinessProbe.sh
+              failureThreshold: 3
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            resources:
+              requests:
+                memory: 100Mi
+                cpu: 100m
+              limits:
+                memory: 2Gi
+            volumeMounts:
+              - name: my-pvc
+                mountPath: /var/run/io.redhat-cop/my-missing-pvc
+          - name: Bar
+            env:
+              - name: CONTAINER_MAX_MEMORY
+                valueFrom:
+                  resourceFieldRef:
+                    resource: limits.memory
+            livenessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/livenessProbe.sh
+              failureThreshold: 3
+              initialDelaySeconds: 60
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            readinessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/readinessProbe.sh
+              failureThreshold: 3
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            resources:
+              requests:
+                memory: 100Mi
+                cpu: 100m
+              limits:
+                memory: 2Gi
+            volumeMounts:
+              - name: my-configmap
+                mountPath: /var/run/io.redhat-cop/my-configmap
+              - name: my-secret
+                mountPath: /var/run/io.redhat-cop/my-secret
+        volumes:
+          - name: my-configmap
+            configMap:
+              name: FooBar
+          - name: my-secret
+            secret:
+              secretName: FooBar
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: NotVarRunVolumeMountsPath
+  spec:
+    replicas: 3
+    template:
+      spec:
+        containers:
+          - name: Bar
+            env:
+              - name: CONTAINER_MAX_MEMORY
+                valueFrom:
+                  resourceFieldRef:
+                    resource: limits.memory
+            livenessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/livenessProbe.sh
+              failureThreshold: 3
+              initialDelaySeconds: 60
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            readinessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/readinessProbe.sh
+              failureThreshold: 3
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            resources:
+              requests:
+                memory: 100Mi
+                cpu: 100m
+              limits:
+                memory: 2Gi
+            volumeMounts:
+              - name: my-secret
+                mountPath: /some/random/path/my-secret
+        volumes:
+          - name: my-secret
+            secret:
+              secretName: FooBar
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: SecretEnvVars
+  spec:
+    replicas: 3
+    template:
+      spec:
+        containers:
+          - name: Bar
+            env:
+            - name: CONTAINER_MAX_MEMORY
+              valueFrom:
+                resourceFieldRef:
+                  resource: limits.memory
+            - name: TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: my-secret
+                  key: token
+            livenessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/livenessProbe.sh
+              failureThreshold: 3
+              initialDelaySeconds: 60
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            readinessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/readinessProbe.sh
+              failureThreshold: 3
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            resources:
+              requests:
+                memory: 100Mi
+                cpu: 100m
+              limits:
+                memory: 2Gi
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: MissingK8sCommonLabel
+  spec:
+    replicas: 3
+    template:
+      metadata:
+        labels:
+          app.kubernetes.io/missing: ShouldBeName
+          app.kubernetes.io/instance: Bar
+          app.kubernetes.io/component: FooBar
+          app.kubernetes.io/part-of: Foo
+          app.kubernetes.io/managed-by: Bar
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: NoDownwardMemoryEnv
+  spec:
+    replicas: 3
+    template:
+      metadata:
+        labels:
+          app.kubernetes.io/name: Foo
+          app.kubernetes.io/instance: Bar
+          app.kubernetes.io/component: FooBar
+          app.kubernetes.io/part-of: Foo
+          app.kubernetes.io/managed-by: Bar
+      spec:
+        containers:
+          - name: Bar
+            livenessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/livenessProbe.sh
+              failureThreshold: 3
+              initialDelaySeconds: 60
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            readinessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/readinessProbe.sh
+              failureThreshold: 3
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            resources:
+              requests:
+                memory: 100Mi
+                cpu: 100m
+              limits:
+                memory: 2Gi
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+      redhat-cop.github.com/team: rego-polices
+      app: Foo
+    name: NoneStandardLabel
+  spec:
+    replicas: 3
+    template:
+      metadata:
+        labels:
+          app.kubernetes.io/name: Foo
+          app.kubernetes.io/instance: Bar
+          app.kubernetes.io/component: FooBar
+          app.kubernetes.io/part-of: Foo
+          app.kubernetes.io/managed-by: Bar
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: CommandNotArray
+  spec:
+    replicas: 3
+    template:
+      metadata:
+        labels:
+          app.kubernetes.io/name: Foo
+          app.kubernetes.io/instance: Bar
+          app.kubernetes.io/component: FooBar
+          app.kubernetes.io/part-of: Foo
+          app.kubernetes.io/managed-by: Bar
+      spec:
+        containers:
+          - name: Bar
+            command: "ansible-playbook -i .applier/ cluster-seed.yml"
+            env:
+              - name: CONTAINER_MAX_MEMORY
+                valueFrom:
+                  resourceFieldRef:
+                    resource: limits.memory
+            livenessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/livenessProbe.sh
+              failureThreshold: 3
+              initialDelaySeconds: 60
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            readinessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/readinessProbe.sh
+              failureThreshold: 3
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            resources:
+              requests:
+                memory: 100Mi
+                cpu: 100m
+              limits:
+                memory: 2Gi
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: ArgNotArray
+  spec:
+    replicas: 3
+    template:
+      metadata:
+        labels:
+          app.kubernetes.io/name: Foo
+          app.kubernetes.io/instance: Bar
+          app.kubernetes.io/component: FooBar
+          app.kubernetes.io/part-of: Foo
+          app.kubernetes.io/managed-by: Bar
+      spec:
+        containers:
+          - name: Bar
+            args: "-i .applier/ cluster-seed.yml"
+            env:
+              - name: CONTAINER_MAX_MEMORY
+                valueFrom:
+                  resourceFieldRef:
+                    resource: limits.memory
+            livenessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/livenessProbe.sh
+              failureThreshold: 3
+              initialDelaySeconds: 60
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            readinessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/readinessProbe.sh
+              failureThreshold: 3
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            resources:
+              requests:
+                memory: 100Mi
+                cpu: 100m
+              limits:
+                memory: 2Gi
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: XmxViaCommand
+  spec:
+    replicas: 3
+    template:
+      metadata:
+        labels:
+          app.kubernetes.io/name: Foo
+          app.kubernetes.io/instance: Bar
+          app.kubernetes.io/component: FooBar
+          app.kubernetes.io/part-of: Foo
+          app.kubernetes.io/managed-by: Bar
+      spec:
+        containers:
+          - name: Bar
+            command: ["java", "-jar", "foo.jar", "-Xmx=512m"]
+            env:
+              - name: CONTAINER_MAX_MEMORY
+                valueFrom:
+                  resourceFieldRef:
+                    resource: limits.memory
+            livenessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/livenessProbe.sh
+              failureThreshold: 3
+              initialDelaySeconds: 60
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            readinessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/readinessProbe.sh
+              failureThreshold: 3
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            resources:
+              requests:
+                memory: 100Mi
+                cpu: 100m
+              limits:
+                memory: 2Gi
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: XmxViaArgs
+  spec:
+    replicas: 3
+    template:
+      metadata:
+        labels:
+          app.kubernetes.io/name: Foo
+          app.kubernetes.io/instance: Bar
+          app.kubernetes.io/component: FooBar
+          app.kubernetes.io/part-of: Foo
+          app.kubernetes.io/managed-by: Bar
+      spec:
+        containers:
+          - name: Bar
+            args: ["foo.jar", "-Xmx=512m"]
+            env:
+              - name: CONTAINER_MAX_MEMORY
+                valueFrom:
+                  resourceFieldRef:
+                    resource: limits.memory
+            livenessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/livenessProbe.sh
+              failureThreshold: 3
+              initialDelaySeconds: 60
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            readinessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/readinessProbe.sh
+              failureThreshold: 3
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            resources:
+              requests:
+                memory: 100Mi
+                cpu: 100m
+              limits:
+                memory: 2Gi
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: XmxViaEnv
+  spec:
+    replicas: 3
+    template:
+      metadata:
+        labels:
+          app.kubernetes.io/name: Foo
+          app.kubernetes.io/instance: Bar
+          app.kubernetes.io/component: FooBar
+          app.kubernetes.io/part-of: Foo
+          app.kubernetes.io/managed-by: Bar
+      spec:
+        containers:
+          - name: Bar
+            env:
+              - name: CONTAINER_MAX_MEMORY
+                valueFrom:
+                  resourceFieldRef:
+                    resource: limits.memory
+              - name: JAVA_OPTS
+                value: "-Xmx=512m"
+            livenessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/livenessProbe.sh
+              failureThreshold: 3
+              initialDelaySeconds: 60
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            readinessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/readinessProbe.sh
+              failureThreshold: 3
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            resources:
+              requests:
+                memory: 100Mi
+                cpu: 100m
+              limits:
+                memory: 2Gi
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: MemoryLimitTooLarge
+  spec:
+    replicas: 3
+    template:
+      metadata:
+        labels:
+          app.kubernetes.io/name: Foo
+          app.kubernetes.io/instance: Bar
+          app.kubernetes.io/component: FooBar
+          app.kubernetes.io/part-of: Foo
+          app.kubernetes.io/managed-by: Bar
+      spec:
+        containers:
+          - name: Bar
+            env:
+              - name: CONTAINER_MAX_MEMORY
+                valueFrom:
+                  resourceFieldRef:
+                    resource: limits.memory
+            livenessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/livenessProbe.sh
+              failureThreshold: 3
+              initialDelaySeconds: 60
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            readinessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/readinessProbe.sh
+              failureThreshold: 3
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            resources:
+              requests:
+                memory: 100Mi
+                cpu: 100m
+              limits:
+                memory: 7Gi
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: MemoryRequestTooLarge
+  spec:
+    replicas: 3
+    template:
+      metadata:
+        labels:
+          app.kubernetes.io/name: Foo
+          app.kubernetes.io/instance: Bar
+          app.kubernetes.io/component: FooBar
+          app.kubernetes.io/part-of: Foo
+          app.kubernetes.io/managed-by: Bar
+      spec:
+        containers:
+          - name: Bar
+            env:
+              - name: CONTAINER_MAX_MEMORY
+                valueFrom:
+                  resourceFieldRef:
+                    resource: limits.memory
+            livenessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/livenessProbe.sh
+              failureThreshold: 3
+              initialDelaySeconds: 60
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            readinessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/readinessProbe.sh
+              failureThreshold: 3
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            resources:
+              requests:
+                memory: 3Gi
+                cpu: 100m
+              limits:
+                memory: 3Gi
