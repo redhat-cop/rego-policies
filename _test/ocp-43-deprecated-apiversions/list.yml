@@ -1,0 +1,36 @@
+---
+apiVersion: v1
+kind: List
+metadata:
+  name: Foo
+items:
+# Cluster Scoped
+- apiVersion: v1
+  kind: SecurityContextConstraints
+  metadata:
+    name: Bar
+# Project Scoped
+- apiVersion: v1
+  kind: ProjectRequest
+  metadata:
+    name: Bar
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    name: Bar
+- apiVersion: v1
+  kind: BuildConfig
+  metadata:
+    name: Bar
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    name: Bar
+- apiVersion: v1
+  kind: RoleBinding
+  metadata:
+    name: Bar
+- apiVersion: v1
+  kind: Route
+  metadata:
+    name: Bar
