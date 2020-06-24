@@ -87,3 +87,14 @@ load _helpers
   [ "${lines[3]}" = "not ok 2 - Combined - Service/HasSvcMonWithIncorrectLabels does not have a monitoring.coreos.com/v1:ServiceMonitor or its selector labels dont match. See: https://docs.openshift.com/container-platform/4.4/monitoring/monitoring-your-own-services.html" ]
   [ "${lines[4]}" = "# Successes" ]
 }
+
+@test "_test/warn-k8s_ocp-all-bestpractices" {
+  split_via_yq "_test/warn-k8s_ocp-all-bestpractices/*.yml" ".items[]"
+  run conftest test /tmp/rego-policies/_test/warn-k8s_ocp-all-bestpractices --output tap
+
+  print_err "$status" "$output"
+  [ "$status" -eq 0 ]
+  [ "${lines[1]}" = "# Warnings" ]
+  [ "${lines[2]}" = "not ok 1 - /tmp/rego-policies/_test/warn-k8s_ocp-all-bestpractices/list.yml - Service/NoLabels: does not contain all the expected k8s labels in 'metadata.labels'. See: https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels" ]
+  [ "${lines[3]}" = "# Successes" ]
+}

@@ -25,6 +25,9 @@ Current policies in this repo are below. The naming of the policy files follows 
 - [warn-k8s-service-conftestcombine-bestpractices.rego](policy/warn-k8s-service-conftestcombine-bestpractices.rego)
     - warn rules to check Services combined with other objects match; i.e.: Service -> ServiceMonitor
 
+- [warn-k8s_ocp-all-bestpractices.rego](policy/warn-k8s_ocp-all-bestpractices.rego)
+    - warn rules to check all k8s objects - has a 'kind' and 'metadata.name'; i.e.: metadata.labels are set
+
 ## 3rd Party Policies
 A list of git repos that contain rego polices which can be combined with this repo:
 - [deprek8ion: Rego policies to monitor Kubernetes APIs deprecations](https://github.com/swade1987/deprek8ion)

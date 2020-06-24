@@ -5,24 +5,60 @@ items:
 - apiVersion: servicecatalog.k8s.io/v1beta1
   kind: Foo
   metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
     name: Bar
 - apiVersion: automationbroker.io/v1alpha1
   kind: Foo
   metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
     name: Bar
 - apiVersion: osb.openshift.io/v1
   kind: Foo
   metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
     name: Bar
 - apiVersion: operatorsources.operators.coreos.com/v1
   kind: Foo
   metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
     name: Bar
 - apiVersion: catalogsourceconfigs.operators.coreos.com/v1
   kind: Foo
   metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
     name: Bar
 - apiVersion: catalogsourceconfigs.operators.coreos.com/v2
   kind: Foo
   metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
     name: Bar
