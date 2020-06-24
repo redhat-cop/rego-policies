@@ -188,3 +188,14 @@ load _helpers
   [ "${lines[2]}" = "not ok 1 - /tmp/rego-policies/_test/warn-ocp-deploymentconfig-bestpractices/list-DeploymentConfig.yml - DeploymentConfig/NoTriggers: has no triggers set. Could you use a k8s native Deployment? See: https://kubernetes.io/docs/concepts/workloads/controllers/deployment" ]
   [ "${lines[3]}" = "# Successes" ]
 }
+
+@test "_test/warn-podman-history-bestpractices" {
+  copy_file_via_jq "_test/warn-podman-history-bestpractices/jenkins-python-mising.json"
+  run conftest test /tmp/rego-policies/_test/warn-podman-history-bestpractices/jenkins-python-mising.json --output tap
+
+  print_err "$status" "$output"
+  [ "$status" -eq 0 ]
+  [ "${lines[1]}" = "# Warnings" ]
+  [ "${lines[2]}" = "not ok 1 - /tmp/rego-policies/_test/warn-podman-history-bestpractices/jenkins-python-mising.json - quay.io/redhat-cop/jenkins-agent-python:has-missing-sha: did not find expected SHA" ]
+  [ "${lines[3]}" = "# Successes" ]
+}
