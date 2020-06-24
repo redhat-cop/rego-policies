@@ -199,3 +199,14 @@ load _helpers
   [ "${lines[2]}" = "not ok 1 - /tmp/rego-policies/_test/warn-podman-history-bestpractices/jenkins-python-mising.json - quay.io/redhat-cop/jenkins-agent-python:has-missing-sha: did not find expected SHA" ]
   [ "${lines[3]}" = "# Successes" ]
 }
+
+@test "_test/warn-podman-images-bestpractices" {
+  copy_dir_via_jq "_test/warn-podman-images-bestpractices/*.json"
+  run conftest test /tmp/rego-policies/_test/warn-podman-images-bestpractices --output tap
+
+  print_err "$status" "$output"
+  [ "$status" -eq 0 ]
+  [ "${lines[1]}" = "# Warnings" ]
+  [ "${lines[2]}" = "not ok 1 - /tmp/rego-policies/_test/warn-podman-images-bestpractices/jenkins-base.json - quay.io/openshift/origin-jenkins-agent-base:4.4: has a size of '692.095652Mi', which is greater than '512Mi' limit." ]
+  [ "${lines[3]}" = "# Successes" ]
+}
