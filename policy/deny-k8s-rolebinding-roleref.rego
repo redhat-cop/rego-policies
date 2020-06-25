@@ -1,34 +1,37 @@
 package main
 
+import data.utils.kubernetes
+import data.utils.openshift
+
 # catch all
 deny[msg] {
   msg := _deny
 }
 
 deny[msg] {
-  input.apiVersion == "template.openshift.io/v1"
-  input.kind == "Template"
+  openshift.isTemplate
+
   obj := input.objects[_]
   msg := _deny with input as obj
 }
 
 deny[msg] {
-  input.apiVersion != "template.openshift.io/v1"
-  input.kind != "Template"
+  openshift.isNotTemplate
+
   obj := input.objects[_]
   msg := _deny
 }
 
 deny[msg] {
-  input.apiVersion == "v1"
-  input.kind == "List"
+  kubernetes.isList
+
   obj := input.items[_]
   msg := _deny with input as obj
 }
 
 deny[msg] {
-  input.apiVersion != "v1"
-  input.kind != "List"
+  kubernetes.isNotList
+
   msg := _deny
 }
 
