@@ -1,44 +1,34 @@
 package main
 
-warn[msg] {
-  apis := ["apps/v1", "apps.openshift.io/v1"]
-  kinds := ["Deployment", "DeploymentConfig"]
+import data.utils.openshift
 
-  input.apiVersion == apis[_]
-  input.kind == kinds[_]
+warn[msg] {
+  openshift.isDeploymentOrDeploymentConfig
+
   not input.spec.replicas
 
   msg := sprintf("%s/%s: replicas is null.", [input.kind, input.metadata.name])
 }
 
 warn[msg] {
-  apis := ["apps/v1", "apps.openshift.io/v1"]
-  kinds := ["Deployment", "DeploymentConfig"]
+  openshift.isDeploymentOrDeploymentConfig
 
-  input.apiVersion == apis[_]
-  input.kind == kinds[_]
   input.spec.replicas <= 1
 
   msg := sprintf("%s/%s: replicas is %d - expected replicas to be greater than 1 for HA guarantees.", [input.kind, input.metadata.name, input.spec.replicas])
 }
 
 warn[msg] {
-  apis := ["apps/v1", "apps.openshift.io/v1"]
-  kinds := ["Deployment", "DeploymentConfig"]
+  openshift.isDeploymentOrDeploymentConfig
 
-  input.apiVersion == apis[_]
-  input.kind == kinds[_]
   input.spec.replicas % 2 == 0
 
   msg := sprintf("%s/%s: replicas is %d - expected an odd number for HA guarantees.", [input.kind, input.metadata.name, input.spec.replicas])
 }
 
 warn[msg] {
-  apis := ["apps/v1", "apps.openshift.io/v1"]
-  kinds := ["Deployment", "DeploymentConfig"]
+  openshift.isDeploymentOrDeploymentConfig
 
-  input.apiVersion == apis[_]
-  input.kind == kinds[_]
   container := input.spec.template.spec.containers[_]
   not container.readinessProbe
 
@@ -46,11 +36,8 @@ warn[msg] {
 }
 
 warn[msg] {
-  apis := ["apps/v1", "apps.openshift.io/v1"]
-  kinds := ["Deployment", "DeploymentConfig"]
+  openshift.isDeploymentOrDeploymentConfig
 
-  input.apiVersion == apis[_]
-  input.kind == kinds[_]
   container := input.spec.template.spec.containers[_]
   not container.livenessProbe
 
@@ -58,11 +45,8 @@ warn[msg] {
 }
 
 warn[msg] {
-  apis := ["apps/v1", "apps.openshift.io/v1"]
-  kinds := ["Deployment", "DeploymentConfig"]
+  openshift.isDeploymentOrDeploymentConfig
 
-  input.apiVersion == apis[_]
-  input.kind == kinds[_]
   container := input.spec.template.spec.containers[_]
   container.livenessProbe
   container.readinessProbe
@@ -72,14 +56,11 @@ warn[msg] {
 }
 
 warn[msg] {
-  apis := ["apps/v1", "apps.openshift.io/v1"]
-  kinds := ["Deployment", "DeploymentConfig"]
+  openshift.isDeploymentOrDeploymentConfig
 
-  input.apiVersion == apis[_]
-  input.kind == kinds[_]
   container := input.spec.template.spec.containers[_]
 
-  # "Factor out" is_limits_or_requests_set to do an OR
+  # "Factor out" isLimitsOrRequestsSet to do an OR
   not isLimitsOrRequestsSet with input as container
 
   msg := sprintf("%s/%s: container '%s' has no limits/request for its resources. See: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers", [input.kind, input.metadata.name, container.name])
@@ -94,11 +75,8 @@ isLimitsOrRequestsSet {
 }
 
 warn[msg] {
-  apis := ["apps/v1", "apps.openshift.io/v1"]
-  kinds := ["Deployment", "DeploymentConfig"]
+  openshift.isDeploymentOrDeploymentConfig
 
-  input.apiVersion == apis[_]
-  input.kind == kinds[_]
   container := input.spec.template.spec.containers[_]
   not container.resources.limits.memory
 
@@ -106,11 +84,8 @@ warn[msg] {
 }
 
 warn[msg] {
-  apis := ["apps/v1", "apps.openshift.io/v1"]
-  kinds := ["Deployment", "DeploymentConfig"]
+  openshift.isDeploymentOrDeploymentConfig
 
-  input.apiVersion == apis[_]
-  input.kind == kinds[_]
   container := input.spec.template.spec.containers[_]
 
   not isResourceMemoryUnitsValid with input as container
@@ -128,11 +103,8 @@ isResourceMemoryUnitsValid {
 }
 
 warn[msg] {
-  apis := ["apps/v1", "apps.openshift.io/v1"]
-  kinds := ["Deployment", "DeploymentConfig"]
+  openshift.isDeploymentOrDeploymentConfig
 
-  input.apiVersion == apis[_]
-  input.kind == kinds[_]
   container := input.spec.template.spec.containers[_]
 
   not isResourceCpuRequestsUnitsValid with input as container
@@ -160,11 +132,8 @@ isResourceCpuRequestsUnitsValid {
 }
 
 warn[msg] {
-  apis := ["apps/v1", "apps.openshift.io/v1"]
-  kinds := ["Deployment", "DeploymentConfig"]
+  openshift.isDeploymentOrDeploymentConfig
 
-  input.apiVersion == apis[_]
-  input.kind == kinds[_]
   container := input.spec.template.spec.containers[_]
 
   isResourceMemoryInverted with input as container
@@ -180,11 +149,8 @@ isResourceMemoryInverted {
 }
 
 warn[msg] {
-  apis := ["apps/v1", "apps.openshift.io/v1"]
-  kinds := ["Deployment", "DeploymentConfig"]
+  openshift.isDeploymentOrDeploymentConfig
 
-  input.apiVersion == apis[_]
-  input.kind == kinds[_]
   container := input.spec.template.spec.containers[_]
   container.resources.limits.cpu
 
@@ -192,11 +158,8 @@ warn[msg] {
 }
 
 warn[msg] {
-  apis := ["apps/v1", "apps.openshift.io/v1"]
-  kinds := ["Deployment", "DeploymentConfig"]
+  openshift.isDeploymentOrDeploymentConfig
 
-  input.apiVersion == apis[_]
-  input.kind == kinds[_]
   container := input.spec.template.spec.containers[_]
   endswith(container.image, ":latest")
 
@@ -204,22 +167,16 @@ warn[msg] {
 }
 
 warn[msg] {
-  apis := ["apps/v1", "apps.openshift.io/v1"]
-  kinds := ["Deployment", "DeploymentConfig"]
+  openshift.isDeploymentOrDeploymentConfig
 
-  input.apiVersion == apis[_]
-  input.kind == kinds[_]
   input.spec.template.spec.hostNetwork
 
   msg := sprintf("%s/%s: hostNetwork is present which gives the pod access to the loopback device, services listening on localhost, and could be used to snoop on network activity of other pods on the same node.", [input.kind, input.metadata.name])
 }
 
 warn[msg] {
-  apis := ["apps/v1", "apps.openshift.io/v1"]
-  kinds := ["Deployment", "DeploymentConfig"]
+  openshift.isDeploymentOrDeploymentConfig
 
-  input.apiVersion == apis[_]
-  input.kind == kinds[_]
   volume := input.spec.template.spec.volumes[_]
   not containersVolumeMountsContainsVolume(input.spec.template.spec.containers, volume)
 
@@ -231,11 +188,8 @@ containersVolumeMountsContainsVolume(containers, volume) {
 }
 
 warn[msg] {
-  apis := ["apps/v1", "apps.openshift.io/v1"]
-  kinds := ["Deployment", "DeploymentConfig"]
+  openshift.isDeploymentOrDeploymentConfig
 
-  input.apiVersion == apis[_]
-  input.kind == kinds[_]
   container := input.spec.template.spec.containers[_]
   volumeMount := container.volumeMounts[_]
   not volumesContainsVolumeMount(input.spec.template.spec.volumes, volumeMount)
@@ -248,11 +202,8 @@ volumesContainsVolumeMount(volumes, volumeMount) {
 }
 
 warn[msg] {
-  apis := ["apps/v1", "apps.openshift.io/v1"]
-  kinds := ["Deployment", "DeploymentConfig"]
+  openshift.isDeploymentOrDeploymentConfig
 
-  input.apiVersion == apis[_]
-  input.kind == kinds[_]
   container := input.spec.template.spec.containers[_]
   volumeMount := container.volumeMounts[_]
   not startswith(volumeMount.mountPath, "/var/run")
@@ -261,11 +212,8 @@ warn[msg] {
 }
 
 warn[msg] {
-  apis := ["apps/v1", "apps.openshift.io/v1"]
-  kinds := ["Deployment", "DeploymentConfig"]
+  openshift.isDeploymentOrDeploymentConfig
 
-  input.apiVersion == apis[_]
-  input.kind == kinds[_]
   container := input.spec.template.spec.containers[_]
   env := container.env[_]
   env.valueFrom.secretKeyRef
@@ -274,11 +222,8 @@ warn[msg] {
 }
 
 warn[msg] {
-  apis := ["apps/v1", "apps.openshift.io/v1"]
-  kinds := ["Deployment", "DeploymentConfig"]
+  openshift.isDeploymentOrDeploymentConfig
 
-  input.apiVersion == apis[_]
-  input.kind == kinds[_]
   container := input.spec.template.spec.containers[_]
   env := container.env[_]
   env.valueFrom.secretKeyRef
@@ -287,11 +232,8 @@ warn[msg] {
 }
 
 warn[msg] {
-  apis := ["apps/v1", "apps.openshift.io/v1"]
-  kinds := ["Deployment", "DeploymentConfig"]
+  openshift.isDeploymentOrDeploymentConfig
 
-  input.apiVersion == apis[_]
-  input.kind == kinds[_]
   isCommonK8sLabelNotSet with input as input.spec.template.metadata
 
   msg := sprintf("%s/%s: does not contain all the expected k8s labels in 'spec.template.metadata.labels'. See: https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels", [input.kind, input.metadata.name])
@@ -318,11 +260,8 @@ isCommonK8sLabelNotSet {
 }
 
 warn[msg] {
-  apis := ["apps/v1", "apps.openshift.io/v1"]
-  kinds := ["Deployment", "DeploymentConfig"]
+  openshift.isDeploymentOrDeploymentConfig
 
-  input.apiVersion == apis[_]
-  input.kind == kinds[_]
   container := input.spec.template.spec.containers[_]
   not isEnvMaxMemorySet with input as container
 
@@ -336,11 +275,7 @@ isEnvMaxMemorySet {
 }
 
 warn[msg] {
-  apis := ["apps/v1", "apps.openshift.io/v1"]
-  kinds := ["Deployment", "DeploymentConfig"]
-
-  input.apiVersion == apis[_]
-  input.kind == kinds[_]
+  openshift.isDeploymentOrDeploymentConfig
 
   some key
   value := input.metadata.labels[key]
@@ -359,11 +294,8 @@ labelKeyStartsWithExpected(key) {
 }
 
 warn[msg] {
-  apis := ["apps/v1", "apps.openshift.io/v1"]
-  kinds := ["Deployment", "DeploymentConfig"]
+  openshift.isDeploymentOrDeploymentConfig
 
-  input.apiVersion == apis[_]
-  input.kind == kinds[_]
   container := input.spec.template.spec.containers[_]
   not is_array(container.command)
 
@@ -371,11 +303,8 @@ warn[msg] {
 }
 
 warn[msg] {
-  apis := ["apps/v1", "apps.openshift.io/v1"]
-  kinds := ["Deployment", "DeploymentConfig"]
+  openshift.isDeploymentOrDeploymentConfig
 
-  input.apiVersion == apis[_]
-  input.kind == kinds[_]
   container := input.spec.template.spec.containers[_]
   not is_array(container.args)
 
@@ -383,11 +312,8 @@ warn[msg] {
 }
 
 warn[msg] {
-  apis := ["apps/v1", "apps.openshift.io/v1"]
-  kinds := ["Deployment", "DeploymentConfig"]
+  openshift.isDeploymentOrDeploymentConfig
 
-  input.apiVersion == apis[_]
-  input.kind == kinds[_]
   container := input.spec.template.spec.containers[_]
   containerOptsContainsXmx with input as container
 
@@ -412,16 +338,13 @@ containerOptsContainsXmx {
 warn[msg] {
   #NOTE: upperBound is an arbitrary number and it should be changed to what your company believes is the correct policy
 
-  apis := ["apps/v1", "apps.openshift.io/v1"]
-  kinds := ["Deployment", "DeploymentConfig"]
+  openshift.isDeploymentOrDeploymentConfig
 
   kb := 1024
   mb := kb * 1024
   gb := mb * 1024
   upperBound := 6 * gb
 
-  input.apiVersion == apis[_]
-  input.kind == kinds[_]
   container := input.spec.template.spec.containers[_]
   memoryInBytes := units.parse_bytes(container.resources.limits.memory)
   memoryInBytes > upperBound
@@ -432,16 +355,13 @@ warn[msg] {
 warn[msg] {
   #NOTE: upperBound is an arbitrary number and it should be changed to what your company believes is the correct policy
 
-  apis := ["apps/v1", "apps.openshift.io/v1"]
-  kinds := ["Deployment", "DeploymentConfig"]
+  openshift.isDeploymentOrDeploymentConfig
 
   kb := 1024
   mb := kb * 1024
   gb := mb * 1024
   upperBound := 2 * gb
 
-  input.apiVersion == apis[_]
-  input.kind == kinds[_]
   container := input.spec.template.spec.containers[_]
   memoryInBytes := units.parse_bytes(container.resources.requests.memory)
   memoryInBytes > upperBound
