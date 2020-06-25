@@ -7,7 +7,7 @@ Each test is expected to have a directory under [_test](_test) which contains th
 containing a OCP Template or k8s List. Each block of YAML should match exactly 1 policy, due to the order of the failure output
 which needs to be predictable for bats.
 
-The tests are executed by [_test/tests.bats](_test/tests.bats). The test should validate each expected bats output and always
+The tests are executed by [_test/conftest.sh](_test/conftest.sh). The test should validate each expected bats output and always
 end with the expected success line.
 
 ## Execute Locally
