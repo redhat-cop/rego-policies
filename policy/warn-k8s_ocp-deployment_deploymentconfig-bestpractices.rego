@@ -89,6 +89,8 @@ warn[msg] {
 
   container := input.spec.template.spec.containers[_]
 
+  not startswith(container.resources.requests.memory, "$")
+  not startswith(container.resources.limits.memory, "$")
   not isResourceMemoryUnitsValid with input as container
 
   msg := sprintf("%s/%s: container '%s' memory resources for limits or requests (%s / %s) has an incorrect unit. See: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes", [input.kind, input.metadata.name, container.name, container.resources.limits.memory, container.resources.requests.memory])
@@ -136,6 +138,9 @@ warn[msg] {
   openshift.isDeploymentOrDeploymentConfig
 
   container := input.spec.template.spec.containers[_]
+
+  not startswith(container.resources.requests.memory, "$")
+  not startswith(container.resources.limits.memory, "$")
 
   isResourceMemoryInverted with input as container
 
@@ -327,6 +332,8 @@ warn[msg] {
   upperBound := 6 * gb
 
   container := input.spec.template.spec.containers[_]
+
+  not startswith(container.resources.limits.memory, "$")
   memoryInBytes := units.parse_bytes(container.resources.limits.memory)
   memoryInBytes > upperBound
 
@@ -344,6 +351,8 @@ warn[msg] {
   upperBound := 2 * gb
 
   container := input.spec.template.spec.containers[_]
+
+  not startswith(container.resources.requests.memory, "$")
   memoryInBytes := units.parse_bytes(container.resources.requests.memory)
   memoryInBytes > upperBound
 
