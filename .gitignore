@@ -37,3 +37,6 @@ local.properties
 ## File-based project format:
 *.iws
 *.iml
+
+# BATS
+test/test_helper/
