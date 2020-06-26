@@ -1360,6 +1360,6 @@ items:
             resources:
               requests:
                 memory: ${PARAM}
-                cpu: 1
+                cpu: ${PARAM}
               limits:
                 memory: ${PARAM}
