@@ -1,0 +1,16 @@
+{
+  "apiVersion": "redhat-cop.github.com/v1",
+  "kind": "PodmanImages",
+  "image": "quay.io/openshift/origin-jenkins-agent-base:4.4",
+  "items": [
+    {
+      "id": "cd343f0d83042932fa992e095cd4a93a89a3520873f99b0e15fde69eb46e7e10",
+      "names": [
+        "quay.io/openshift/origin-jenkins-agent-base:4.4"
+      ],
+      "digest": "sha256:1d59d3b1902a3581b6a9b1955fbd1d44490d9f470abbd60591948942a4ef7437",
+      "created": "2020-06-13T00:10:44.644429651Z",
+      "size": 725714890
+    }
+  ]
+}

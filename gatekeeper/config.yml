@@ -1,0 +1,30 @@
+---
+apiVersion: config.gatekeeper.sh/v1alpha1
+kind: Config
+metadata:
+  name: config
+  namespace: "gatekeeper-system"
+spec:
+  sync:
+    syncOnly:
+      - version: "v1"
+        group: ""
+        kind: "Namespace"
+      - version: "v1"
+        group: ""
+        kind: "PersistentVolumeClaim"
+      - version: "v1"
+        group: "networking.k8s.io"
+        kind: "NetworkPolicy"
+      - version: "v1"
+        group: ""
+        kind: "Service"
+      - version: "v1"
+        group: "monitoring.coreos.com"
+        kind: "ServiceMonitor"
+      - version: "v1"
+        group: "apps"
+        kind: "Deployment"
+      - version: "v1beta1"
+        group: "policy"
+        kind: "PodDisruptionBudget"

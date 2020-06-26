@@ -1,0 +1,36 @@
+---
+apiVersion: v1
+kind: List
+items:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: notvarrunvolumemountspath
+  spec:
+    template:
+      spec:
+        containers:
+          - name: bar
+            volumeMounts:
+              - name: my-secret
+                mountPath: /some/random/path/my-secret
+        volumes:
+          - name: my-secret
+            secret:
+              secretName: FooBar
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    name: notvarrunvolumemountspath
+  spec:
+    template:
+      spec:
+        containers:
+          - name: bar
+            volumeMounts:
+              - name: my-secret
+                mountPath: /some/random/path/my-secret
+        volumes:
+          - name: my-secret
+            secret:
+              secretName: FooBar

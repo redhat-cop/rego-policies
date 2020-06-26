@@ -1,0 +1,68 @@
+---
+apiVersion: v1
+kind: List
+items:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: xmxviacommand
+  spec:
+    template:
+      spec:
+        containers:
+          - name: bar
+            command: ["java", "-jar", "foo.jar", "-Xmx=512m"]
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: xmxviaargs
+  spec:
+    template:
+      spec:
+        containers:
+          - name: bar
+            args: ["foo.jar", "-Xmx=512m"]
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: xmxviaenv
+  spec:
+    template:
+      spec:
+        containers:
+          - name: bar
+            env:
+              - name: JAVA_OPTS
+                value: "-Xmx=512m"
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    name: xmxviacommand
+  spec:
+    template:
+      spec:
+        containers:
+          - name: bar
+            command: ["java", "-jar", "foo.jar", "-Xmx=512m"]
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    name: xmxviaargs
+  spec:
+    template:
+      spec:
+        containers:
+          - name: bar
+            args: ["foo.jar", "-Xmx=512m"]
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    name: xmxviaenv
+  spec:
+    template:
+      spec:
+        containers:
+          - name: bar
+            env:
+              - name: JAVA_OPTS
+                value: "-Xmx=512m"

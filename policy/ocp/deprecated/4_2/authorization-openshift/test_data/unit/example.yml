@@ -1,0 +1,5 @@
+---
+apiVersion: authorization.openshift.io
+kind: ClusterRole
+metadata:
+  name: bar

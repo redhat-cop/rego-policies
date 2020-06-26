@@ -1,0 +1,9 @@
+---
+kind: BuildConfig
+apiVersion: build.openshift.io/v1
+metadata:
+  name: custombuild
+spec:
+  strategy:
+    customStrategy:
+      exposeDockerSocket: true
