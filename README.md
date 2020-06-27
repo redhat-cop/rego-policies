@@ -1,3 +1,5 @@
+![Validate](https://github.com/redhat-cop/rego-policies/workflows/Validate/badge.svg)
+
 # rego-policies
 [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/) policies collection
 
