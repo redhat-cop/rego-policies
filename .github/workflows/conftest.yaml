@@ -10,7 +10,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Conftest
-        uses: garethahealy/github-actions/confbatstest@regotmp
+        uses: redhat-cop/github-actions/confbatstest@master
         with:
           tests: _test/conftest.sh
           policies: '[{"name": "deprek8ion", "url":"github.com/swade1987/deprek8ion.git//policies"}]'
