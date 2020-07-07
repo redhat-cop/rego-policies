@@ -1364,3 +1364,60 @@ items:
                 memory: 3Gi
     triggers:
       - type: ConfigChange
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: ResourcesAsParamsShouldNotFire
+  spec:
+    replicas: 3
+    template:
+      metadata:
+        labels:
+          app.kubernetes.io/name: Foo
+          app.kubernetes.io/instance: Bar
+          app.kubernetes.io/component: FooBar
+          app.kubernetes.io/part-of: Foo
+          app.kubernetes.io/managed-by: Bar
+      spec:
+        containers:
+          - name: Bar
+            env:
+              - name: CONTAINER_MAX_MEMORY
+                valueFrom:
+                  resourceFieldRef:
+                    resource: limits.memory
+            livenessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/livenessProbe.sh
+              failureThreshold: 3
+              initialDelaySeconds: 60
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            readinessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/readinessProbe.sh
+              failureThreshold: 3
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            resources:
+              requests:
+                memory: ${PARAM}
+                cpu: 1
+              limits:
+                memory: ${PARAM}
+    triggers:
+      - type: ConfigChange
