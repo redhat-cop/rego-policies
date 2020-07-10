@@ -110,9 +110,15 @@ warn[msg] {
 
   container := input.spec.template.spec.containers[_]
 
+  not isResourceCpuRequestsContainsDollar with input as container
   not isResourceCpuRequestsUnitsValid with input as container
 
   msg := sprintf("%s/%s container '%s' cpu resources for requests (%s) has an incorrect unit. See: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes", [input.kind, input.metadata.name, container.name, container.resources.requests.cpu])
+}
+
+isResourceCpuRequestsContainsDollar {
+  not isResourceCpuRequestsAnCore
+  startswith(input.resources.requests.cpu, "$")
 }
 
 isResourceCpuRequestsAnCore {
@@ -128,10 +134,10 @@ isResourceCpuRequestsUnitsValid {
   not isResourceCpuRequestsAnCore
 
   # 'cpu' can be a quoted number, which is why we concat an empty string[] to match whole cpu cores
-  cpuLimitsUnit := array.concat(regex.find_n("[A-Za-z]+", input.resources.requests.cpu, 1), [""])[0]
+  cpuRequestsUnit := array.concat(regex.find_n("[A-Za-z]+", input.resources.requests.cpu, 1), [""])[0]
 
   units := ["m", ""]
-  cpuLimitsUnit == units[_]
+  cpuRequestsUnit == units[_]
 }
 
 warn[msg] {
