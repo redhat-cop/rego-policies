@@ -7,7 +7,6 @@ items:
   metadata:
     name: hasmissingpdb
   spec:
-    replicas: 3
     template:
       metadata:
         labels:
@@ -16,15 +15,11 @@ items:
           app.kubernetes.io/component: FooBar
           app.kubernetes.io/part-of: Foo
           app.kubernetes.io/managed-by: Bar
-      spec:
-        containers:
-          - name: bar
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
     name: pdbhasincorrectlabels
   spec:
-    replicas: 3
     template:
       metadata:
         labels:

@@ -7,7 +7,6 @@ items:
   metadata:
     name: hasmissingsvc
   spec:
-    replicas: 3
     template:
       metadata:
         labels:
@@ -21,7 +20,6 @@ items:
   metadata:
     name: hassvcwithincorrectlabels
   spec:
-    replicas: 3
     template:
       metadata:
         labels:
@@ -35,11 +33,5 @@ items:
   metadata:
     name: missingselectorlabels
   spec:
-    ports:
-      - port: 8080
-        targetPort: 8080
-      - name: metrics
-        port: 9779
-        targetPort: 9779
     selector:
       app: Foo
