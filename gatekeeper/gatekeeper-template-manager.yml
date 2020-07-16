@@ -1,0 +1,59 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: gatekeeper-constraintsmanager-role
+rules:
+- apiGroups:
+    - constraints.gatekeeper.sh
+  resources:
+    - '*'
+  verbs:
+    - create
+    - delete
+    - get
+    - list
+    - patch
+    - update
+    - watch
+- apiGroups:
+    - status.gatekeeper.sh
+  resources:
+    - '*'
+  verbs:
+    - create
+    - delete
+    - get
+    - list
+    - patch
+    - update
+    - watch
+- apiGroups:
+    - templates.gatekeeper.sh
+  resources:
+    - constrainttemplates
+  verbs:
+    - create
+    - delete
+    - get
+    - list
+    - patch
+    - update
+    - watch
+- apiGroups:
+    - templates.gatekeeper.sh
+  resources:
+    - constrainttemplates/finalizers
+  verbs:
+    - delete
+    - get
+    - patch
+    - update
+- apiGroups:
+    - templates.gatekeeper.sh
+  resources:
+    - constrainttemplates/status
+  verbs:
+    - get
+    - patch
+    - update

@@ -9,18 +9,28 @@ Every policy must have a test_data directory; within that directory, there shoul
 - integration: should contain valid YAML which can be deployed to a cluster which only triggers the policy under-test
 
 Each policy must have a BATS test executed by its usecase:
-- unit test files will be executed by [_test/conftest-unittests.sh].
-- integration test files will be executed by [_test/gatekeeper-integrationtests.sh]. 
+- unit test files will be executed by [_test/conftest-unittests.sh](_test/conftest-unittests.sh).
+- integration test files will be executed by [_test/gatekeeper-integrationtests.sh](_test/gatekeeper-integrationtests.sh). 
 
 ## Execute unit tests
 ```bash
-rm -rf /tmp/rhcop; bats _test/conftest-unittests.sh
+bats _test/conftest-unittests.sh
 ```
 
 ## Execute integration units
 ```bash
-_test/deploy-gatekeeper.sh
-rm -rf /tmp/rhrepo; bats _test/gatekeeper-integrationtests.sh
+_test/deploy-gatekeeper.sh deploy_gatekeeper
+_test/deploy-gatekeeper.sh deploy_constraints
+bats _test/gatekeeper-integrationtests.sh
+```
+
+### Limit Gatekeeper to integration test project only
+By default, Gatekeeper watches all projects, unless they are labeled `control-plane` or `admission.gatekeeper.sh/ignore`.
+If you only want Gatekeeper to watch the project created by [_test/gatekeeper-integrationtests.sh](_test/gatekeeper-integrationtests.sh),
+run the below before `deploy_constraints`:
+
+```bash
+_test/deploy-gatekeeper.sh patch_namespaceselector
 ```
 
 ## Tools used for testing

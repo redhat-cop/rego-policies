@@ -4,6 +4,10 @@ load bats-support-clone
 load test_helper/bats-support/load
 load test_helper/redhatcop-bats-library/load
 
+setup_file() {
+  rm -rf /tmp/rhcop
+}
+
 ####################
 # all-namespaces
 ####################
