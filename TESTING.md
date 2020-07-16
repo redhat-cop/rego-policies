@@ -9,8 +9,8 @@ Every policy must have a test_data directory; within that directory, there shoul
 - integration: should contain valid YAML which can be deployed to a cluster which only triggers the policy under-test
 
 Each policy must have a BATS test executed by its usecase:
-- unit test files will be executed by [_test/conftest-unittests.sh].
-- integration test files will be executed by [_test/gatekeeper-integrationtests.sh]. 
+- unit test files will be executed by [_test/conftest-unittests.sh](_test/conftest-unittests.sh).
+- integration test files will be executed by [_test/gatekeeper-integrationtests.sh](_test/gatekeeper-integrationtests.sh). 
 
 ## Execute unit tests
 ```bash
