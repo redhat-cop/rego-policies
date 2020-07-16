@@ -17,7 +17,7 @@ violation[msg] {
 is_common_labels_set(metadata) {
   metadata.labels["app.kubernetes.io/name"]
   metadata.labels["app.kubernetes.io/instance"]
-  #metadata.labels["app.kubernetes.io/version"]
+  metadata.labels["app.kubernetes.io/version"]
   metadata.labels["app.kubernetes.io/component"]
   metadata.labels["app.kubernetes.io/part-of"]
   metadata.labels["app.kubernetes.io/managed-by"]

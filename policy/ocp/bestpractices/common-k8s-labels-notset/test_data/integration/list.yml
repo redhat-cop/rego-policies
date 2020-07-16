@@ -12,6 +12,7 @@ items:
       matchLabels:
         app.kubernetes.io/name: Foo
         app.kubernetes.io/instance: Bar
+        app.kubernetes.io/version: v1
         app.kubernetes.io/component: FooBar
         app.kubernetes.io/part-of: Foo
         app.kubernetes.io/managed-by: Bar
@@ -20,6 +21,7 @@ items:
         labels:
           app.kubernetes.io/name: Foo
           app.kubernetes.io/instance: Bar
+          app.kubernetes.io/version: v1
           app.kubernetes.io/component: FooBar
           app.kubernetes.io/part-of: Foo
           app.kubernetes.io/managed-by: Bar
@@ -72,6 +74,7 @@ items:
         labels:
           app.kubernetes.io/name: Foo
           app.kubernetes.io/instance: Bar
+          app.kubernetes.io/version: v1
           app.kubernetes.io/component: FooBar
           app.kubernetes.io/part-of: Foo
           app.kubernetes.io/managed-by: Bar
