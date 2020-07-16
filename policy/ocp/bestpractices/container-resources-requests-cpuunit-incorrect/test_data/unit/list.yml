@@ -1,0 +1,28 @@
+---
+apiVersion: v1
+kind: List
+items:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: invalidresourcesrequestcpuunits
+  spec:
+    template:
+      spec:
+        containers:
+          - name: bar
+            resources:
+              requests:
+                cpu: 100M
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    name: invalidresourcesrequestcpuunits
+  spec:
+    template:
+      spec:
+        containers:
+          - name: bar
+            resources:
+              requests:
+                cpu: 100M

@@ -1,0 +1,62 @@
+---
+apiVersion: v1
+kind: List
+items:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: invalidresourcesrequestsmemoryunits
+  spec:
+    template:
+      spec:
+        containers:
+          - name: bar
+            resources:
+              requests:
+                memory: 100m
+              limits:
+                memory: 2Gi
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: invalidresourceslimitsmemoryunits
+  spec:
+    template:
+      spec:
+        containers:
+          - name: bar
+            resources:
+              requests:
+                memory: 1Mi
+              limits:
+                memory: 20000000m
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    name: invalidresourcesrequestsmemoryunits
+  spec:
+    template:
+      spec:
+        containers:
+          - name: bar
+            resources:
+              requests:
+                memory: 100m
+              limits:
+                memory: 2Gi
+    triggers:
+      - type: ConfigChange
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    name: invalidresourceslimitsmemoryunits
+  spec:
+    template:
+      spec:
+        containers:
+          - name: bar
+            resources:
+              requests:
+                memory: 1Mi
+              limits:
+                memory: 20000000m

@@ -1,0 +1,26 @@
+---
+apiVersion: v1
+kind: List
+items:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: imageuseslatesttag
+  spec:
+    replicas: 3
+    template:
+      spec:
+        containers:
+          - name: bar
+            image: quay.io/redhat-cop/openshift-applier:latest
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    name: imageuseslatesttag
+  spec:
+    replicas: 3
+    template:
+      spec:
+        containers:
+          - name: bar
+            image: quay.io/redhat-cop/openshift-applier:latest

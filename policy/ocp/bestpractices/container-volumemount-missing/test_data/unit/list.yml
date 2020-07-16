@@ -1,0 +1,66 @@
+---
+apiVersion: v1
+kind: List
+items:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: missingvolumemount
+  spec:
+    template:
+      spec:
+        containers:
+          - name: barbar
+            volumeMounts:
+              - name: my-pvc
+                mountPath: /var/run/io.redhat-cop/my-pvc
+          - name: bar
+            volumeMounts:
+              - name: my-configmap
+                mountPath: /var/run/io.redhat-cop/my-configmap
+              - name: my-secret
+                mountPath: /var/run/io.redhat-cop/my-secret
+        volumes:
+          - name: my-configmap
+            configMap:
+              name: FooBar
+          - name: my-secret
+            secret:
+              secretName: FooBar
+          - name: my-pvc
+            persistentVolumeClaim:
+              claimName: FooBar
+          - name: my-missing-pvc
+            persistentVolumeClaim:
+              claimName: FooBar
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    name: missingvolumemount
+  spec:
+    template:
+      spec:
+        containers:
+          - name: barbar
+            volumeMounts:
+              - name: my-pvc
+                mountPath: /var/run/io.redhat-cop/my-pvc
+          - name: bar
+            volumeMounts:
+              - name: my-configmap
+                mountPath: /var/run/io.redhat-cop/my-configmap
+              - name: my-secret
+                mountPath: /var/run/io.redhat-cop/my-secret
+        volumes:
+          - name: my-configmap
+            configMap:
+              name: FooBar
+          - name: my-secret
+            secret:
+              secretName: FooBar
+          - name: my-pvc
+            persistentVolumeClaim:
+              claimName: FooBar
+          - name: my-missing-pvc
+            persistentVolumeClaim:
+              claimName: FooBar

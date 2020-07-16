@@ -1,0 +1,7 @@
+---
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  name: notriggers
+spec:
+  template:

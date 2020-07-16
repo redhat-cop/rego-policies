@@ -1,0 +1,22 @@
+---
+apiVersion: v1
+kind: List
+items:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: nodownwardmemoryenv
+  spec:
+    template:
+      spec:
+        containers:
+          - name: bar
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    name: nodownwardmemoryenv
+  spec:
+    template:
+      spec:
+        containers:
+          - name: bar

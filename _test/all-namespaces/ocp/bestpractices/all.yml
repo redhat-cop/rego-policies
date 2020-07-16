@@ -1,0 +1,140 @@
+apiVersion: v1
+kind: Template
+metadata:
+  name: bar
+objects:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: shouldneverfire${NAME}
+  spec:
+    replicas: 3
+    selector:
+      matchLabels:
+        app.kubernetes.io/name: Foo
+        app.kubernetes.io/instance: Bar
+        app.kubernetes.io/component: FooBar
+        app.kubernetes.io/part-of: Foo
+        app.kubernetes.io/managed-by: Bar
+    template:
+      metadata:
+        labels:
+          app.kubernetes.io/name: Foo
+          app.kubernetes.io/instance: Bar
+          app.kubernetes.io/component: FooBar
+          app.kubernetes.io/part-of: Foo
+          app.kubernetes.io/managed-by: Bar
+      spec:
+        containers:
+          - name: bar
+            image: quay.io/redhat-cop/openshift-applier@sha256:8a99a0105f85e350bff43802b204b5ce2a501cad1aa7df5253638ced1d108957
+            command: ["ansible-playbook"]
+            args: ["-i .applier/", "cluster-seed.yml"]
+            env:
+              - name: CONTAINER_MAX_MEMORY
+                valueFrom:
+                  resourceFieldRef:
+                    resource: limits.memory
+            livenessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/livenessProbe.sh
+              failureThreshold: 3
+              initialDelaySeconds: 60
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            readinessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/readinessProbe.sh
+              failureThreshold: 3
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            resources:
+              requests:
+                memory: 100Mi
+                cpu: 100m
+              limits:
+                memory: 2Gi
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: shouldneverfire${NAME}
+  spec:
+    replicas: 3
+    template:
+      metadata:
+        labels:
+          app.kubernetes.io/name: Foo
+          app.kubernetes.io/instance: Bar
+          app.kubernetes.io/component: FooBar
+          app.kubernetes.io/part-of: Foo
+          app.kubernetes.io/managed-by: Bar
+      spec:
+        containers:
+          - name: bar
+            image: quay.io/redhat-cop/openshift-applier@sha256:8a99a0105f85e350bff43802b204b5ce2a501cad1aa7df5253638ced1d108957
+            command: ["ansible-playbook"]
+            args: ["-i .applier/", "cluster-seed.yml"]
+            env:
+              - name: CONTAINER_MAX_MEMORY
+                valueFrom:
+                  resourceFieldRef:
+                    resource: limits.memory
+            livenessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/livenessProbe.sh
+              failureThreshold: 3
+              initialDelaySeconds: 60
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            readinessProbe:
+              exec:
+                command:
+                  - /bin/bash
+                  - '-c'
+                  - /opt/eap/bin/readinessProbe.sh
+              failureThreshold: 3
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            resources:
+              requests:
+                memory: ${REQUESTS_MEMORY}
+                cpu: ${REQUESTS_CPU}
+              limits:
+                memory: ${LIMITS_MEMORY}
+    triggers:
+      - type: ConfigChange
+parameters:
+- name: NAME
+  generate: expression
+  from: "[a-z]{6}"
+- name: REQUESTS_MEMORY
+  value: "100Mi"
+- name: REQUESTS_CPU
+  value: "100m"
+- name: LIMITS_MEMORY
+  value: "2Gi"

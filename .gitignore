@@ -40,3 +40,7 @@ local.properties
 
 # BATS
 test/test_helper/
+
+## Gatekeeper
+**/template.yaml
+**/constraint.yaml

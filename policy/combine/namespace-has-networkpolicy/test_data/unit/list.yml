@@ -1,0 +1,25 @@
+---
+apiVersion: v1
+kind: List
+items:
+- apiVersion: v1
+  kind: Namespace
+  metadata:
+    name: foo
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: conftestneedsaseconditem
+  spec:
+    ports:
+      - port: 8080
+        targetPort: 8080
+      - name: metrics
+        port: 9779
+        targetPort: 9779
+    selector:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar

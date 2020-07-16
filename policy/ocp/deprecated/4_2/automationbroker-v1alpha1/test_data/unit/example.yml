@@ -1,0 +1,5 @@
+---
+apiVersion: automationbroker.io/v1alpha1
+kind: Bundle
+metadata:
+  name: bar

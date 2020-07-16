@@ -1,0 +1,46 @@
+---
+apiVersion: v1
+kind: List
+items:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: hasmissingpvc
+  spec:
+    replicas: 3
+    template:
+      metadata:
+        labels:
+          app.kubernetes.io/name: Foo
+          app.kubernetes.io/instance: Bar
+          app.kubernetes.io/component: FooBar
+          app.kubernetes.io/part-of: Foo
+          app.kubernetes.io/managed-by: Bar
+      spec:
+        volumes:
+          - name: my-pvc
+            persistentVolumeClaim:
+              claimName: FooBar
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: conftestneedsaseconditem
+  spec:
+    ports:
+      - port: 8080
+        targetPort: 8080
+      - name: metrics
+        port: 9779
+        targetPort: 9779
+    selector:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
