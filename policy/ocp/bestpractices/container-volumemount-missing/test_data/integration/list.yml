@@ -110,16 +110,16 @@ items:
         volumes:
           - name: my-configmap
             configMap:
-              name: FooBar
+              name: foobar-config
           - name: my-secret
             secret:
-              secretName: FooBar
+              secretName: foobar-secret
           - name: my-pvc
             persistentVolumeClaim:
-              claimName: FooBar
+              claimName: foobar-pvc
           - name: my-missing-pvc
             persistentVolumeClaim:
-              claimName: FooBar
+              claimName: foobar-pvc
 - apiVersion: apps.openshift.io/v1
   kind: DeploymentConfig
   metadata:
@@ -221,15 +221,15 @@ items:
         volumes:
           - name: my-configmap
             configMap:
-              name: FooBar
+              name: foobar-config
           - name: my-secret
             secret:
-              secretName: FooBar
+              secretName: foobar-secret
           - name: my-pvc
             persistentVolumeClaim:
-              claimName: FooBar
+              claimName: foobar-pvc
           - name: my-missing-pvc
             persistentVolumeClaim:
-              claimName: FooBar
+              claimName: foobar-pvc
     triggers:
       - type: ConfigChange

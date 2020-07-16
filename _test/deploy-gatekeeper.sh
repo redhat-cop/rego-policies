@@ -67,18 +67,36 @@ patch_namespaceselector_for_webhook() {
 generate_constraints() {
   echo "Creating ConstraintTemplates via konstraint..."
   konstraint doc -o POLICIES.md
+  konstraint create
 
-  # Ignores explained:
-  # - podman: the data is 'off-cluster' so cant be tested against gatekeeper
-  # - ocp/deprecated: tests cant be deployed to a 4.x cluster so cant be tested against gatekeeper
-  # - ocp/bestpractices/deploymentconfig-triggers-notset: OCP API-Server adds a default ConfigChange trigger by default so cant be tested against gatekeeper
-  # - ocp/bestpractices/rolebinding-roleref-apigroup-notset: OCP API-Server does not accept data matching this criteria but they are good for conftest when people are moving from 3.11 to 4.x
-  # - ocp/bestpractices/rolebinding-roleref-kind-notset: OCP API-Server does not accept data matching this criteria but they are good for conftest when people are moving from 3.11 to 4.x
-  # TODO LIST
-  # - ocp/bestpractices/container-resources-limits-memory-greater-than: TODO: https://github.com/redhat-cop/rego-policies/issues/76
-  # - ocp/bestpractices/container-resources-requests-memory-greater-than: TODO: https://github.com/redhat-cop/rego-policies/issues/76
-  # - combine: TODO: https://github.com/redhat-cop/rego-policies/issues/70
-  konstraint create --ignore "(podman|ocp\/deprecated|ocp\/bestpractices\/deploymentconfig-triggers-notset|ocp\/bestpractices\/rolebinding-roleref-apigroup-notset|ocp\/bestpractices\/rolebinding-roleref-kind-notset|ocp\/bestpractices\/container-resources-limits-memory-greater-than|ocp\/bestpractices\/container-resources-requests-memory-greater-than|combine)"
+  # shellcheck disable=SC2038
+  for file in $(find policy/* \( -name "template.yaml" -o -name "constraint.yaml" \) -type f | xargs); do
+    if [[ "${file}" == *"/combine/"* ]]; then
+      # the data is 'off-cluster' so cant be tested against gatekeeper
+      rm -f "${file}"
+    elif [[ "${file}" == *"/ocp/deprecated/"* ]]; then
+      # tests cant be deployed to a 4.x cluster so cant be tested against gatekeeper
+      rm -f "${file}"
+    elif [[ "${file}" == *"/ocp/bestpractices/deploymentconfig-triggers-notset/"* ]]; then
+      # OCP API-Server adds a default ConfigChange trigger by default so cant be tested against gatekeeper
+      rm -f "${file}"
+    elif [[ "${file}" == *"/ocp/bestpractices/rolebinding-roleref-apigroup-notset/"* ]]; then
+      # OCP API-Server does not accept data matching this criteria but they are good for conftest when people are moving from 3.11 to 4.x
+      rm -f "${file}"
+    elif [[ "${file}" == *"/ocp/bestpractices/rolebinding-roleref-kind-notset/"* ]]; then
+      # OCP API-Server does not accept data matching this criteria but they are good for conftest when people are moving from 3.11 to 4.x
+      rm -f "${file}"
+    elif [[ "${file}" == *"/ocp/bestpractices/container-resources-limits-memory-greater-than/"* ]]; then
+      # TODO: https://github.com/redhat-cop/rego-policies/issues/76
+      rm -f "${file}"
+    elif [[ "${file}" == *"/ocp/bestpractices/container-resources-requests-memory-greater-than/"* ]]; then
+      # TODO: https://github.com/redhat-cop/rego-policies/issues/76
+      rm -f "${file}"
+    elif [[ "${file}" == *"/podman/"* ]]; then
+      # the data is 'off-cluster' so cant be tested against gatekeeper
+      rm -f "${file}"
+    fi
+  done
 }
 
 deploy_constraints() {

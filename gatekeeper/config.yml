@@ -3,13 +3,15 @@ apiVersion: config.gatekeeper.sh/v1alpha1
 kind: Config
 metadata:
   name: config
-  namespace: "gatekeeper-system"
 spec:
   sync:
     syncOnly:
       - version: "v1"
         group: ""
         kind: "Namespace"
+      - version: "v1"
+        group: ""
+        kind: "ServiceAccount"
       - version: "v1"
         group: ""
         kind: "PersistentVolumeClaim"
