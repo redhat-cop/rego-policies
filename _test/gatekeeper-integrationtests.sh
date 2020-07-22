@@ -4,6 +4,23 @@ load bats-support-clone
 load test_helper/bats-support/load
 load test_helper/redhatcop-bats-library/load
 
+setup_file() {
+  export project_name="regopolicies-undertest-$(date +'%d%m%Y-%H%M%S')"
+
+  rm -rf /tmp/rhcop
+  oc process -f _test/namespace-under-test.yml -p=PROJECT_NAME=${project_name} | oc create -f -
+}
+
+teardown_file() {
+  oc delete project/${project_name}
+}
+
+teardown() {
+  if [[ -n "${tmp}" ]]; then
+    oc delete -f "${tmp}" --ignore-not-found=true --wait=true > /dev/null 2>&1
+  fi
+}
+
 ####################
 # all-namespaces
 ####################
@@ -11,21 +28,12 @@ load test_helper/redhatcop-bats-library/load
 @test "_test/all-namespaces/ocp/bestpractices" {
   tmp=$(split_files "_test/all-namespaces/ocp/bestpractices")
 
-  cmd="oc create -f ${tmp}"
+  cmd="oc create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 0 ]
-
-  #Cleanup afterwards
-  oc delete -f "${tmp}" --ignore-not-found=true --wait=true
 }
-
-####################
-# combine
-####################
-
-## TODO ##
 
 ####################
 # ocp/bestpractices
@@ -34,7 +42,7 @@ load test_helper/redhatcop-bats-library/load
 @test "policy/ocp/bestpractices/common-k8s-labels-notset" {
   tmp=$(split_files "policy/ocp/bestpractices/common-k8s-labels-notset/test_data/integration")
 
-  cmd="oc create -f ${tmp}"
+  cmd="oc create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -47,7 +55,7 @@ load test_helper/redhatcop-bats-library/load
 @test "policy/ocp/bestpractices/container-env-maxmemory-notset" {
   tmp=$(split_files "policy/ocp/bestpractices/container-env-maxmemory-notset/test_data/integration")
 
-  cmd="oc create -f ${tmp}"
+  cmd="oc create -f ${tmp} -n ${project_name}"
   run ${cmd}
   
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -60,7 +68,7 @@ load test_helper/redhatcop-bats-library/load
 @test "policy/ocp/bestpractices/container-image-latest" {
   tmp=$(split_files "policy/ocp/bestpractices/container-image-latest/test_data/integration")
 
-  cmd="oc create -f ${tmp}"
+  cmd="oc create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -73,7 +81,7 @@ load test_helper/redhatcop-bats-library/load
 @test "policy/ocp/bestpractices/container-java-xmx-set" {
   tmp=$(split_files "policy/ocp/bestpractices/container-java-xmx-set/test_data/integration")
 
-  cmd="oc create -f ${tmp}"
+  cmd="oc create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -90,7 +98,7 @@ load test_helper/redhatcop-bats-library/load
 @test "policy/ocp/bestpractices/container-labelkey-inconsistent" {
   tmp=$(split_files "policy/ocp/bestpractices/container-labelkey-inconsistent/test_data/integration")
 
-  cmd="oc create -f ${tmp}"
+  cmd="oc create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -103,7 +111,7 @@ load test_helper/redhatcop-bats-library/load
 @test "policy/ocp/bestpractices/container-liveness-readinessprobe-equal" {
   tmp=$(split_files "policy/ocp/bestpractices/container-liveness-readinessprobe-equal/test_data/integration")
 
-  cmd="oc create -f ${tmp}"
+  cmd="oc create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -116,7 +124,7 @@ load test_helper/redhatcop-bats-library/load
 @test "policy/ocp/bestpractices/container-livenessprobe-notset" {
   tmp=$(split_files "policy/ocp/bestpractices/container-livenessprobe-notset/test_data/integration")
 
-  cmd="oc create -f ${tmp}"
+  cmd="oc create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -129,7 +137,7 @@ load test_helper/redhatcop-bats-library/load
 @test "policy/ocp/bestpractices/container-readinessprobe-notset" {
   tmp=$(split_files "policy/ocp/bestpractices/container-readinessprobe-notset/test_data/integration")
 
-  cmd="oc create -f ${tmp}"
+  cmd="oc create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -142,7 +150,7 @@ load test_helper/redhatcop-bats-library/load
 @test "policy/ocp/bestpractices/container-resources-limits-cpu-set" {
   tmp=$(split_files "policy/ocp/bestpractices/container-resources-limits-cpu-set/test_data/integration")
 
-  cmd="oc create -f ${tmp}"
+  cmd="oc create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -156,7 +164,7 @@ load test_helper/redhatcop-bats-library/load
   skip
   tmp=$(split_files "policy/ocp/bestpractices/container-resources-limits-memory-greater-than/test_data/integration")
 
-  cmd="oc create -f ${tmp}"
+  cmd="oc create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -169,7 +177,7 @@ load test_helper/redhatcop-bats-library/load
 @test "policy/ocp/bestpractices/container-resources-limits-memory-notset" {
   tmp=$(split_files "policy/ocp/bestpractices/container-resources-limits-memory-notset/test_data/integration")
 
-  cmd="oc create -f ${tmp}"
+  cmd="oc create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -182,7 +190,7 @@ load test_helper/redhatcop-bats-library/load
 @test "policy/ocp/bestpractices/container-resources-memoryunit-incorrect" {
   tmp=$(split_files "policy/ocp/bestpractices/container-resources-memoryunit-incorrect/test_data/integration")
 
-  cmd="oc create -f ${tmp}"
+  cmd="oc create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -197,7 +205,7 @@ load test_helper/redhatcop-bats-library/load
 @test "policy/ocp/bestpractices/container-resources-requests-cpuunit-incorrect" {
   tmp=$(split_files "policy/ocp/bestpractices/container-resources-requests-cpuunit-incorrect/test_data/integration")
 
-  cmd="oc create -f ${tmp}"
+  cmd="oc create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -211,7 +219,7 @@ load test_helper/redhatcop-bats-library/load
   skip
   tmp=$(split_files "policy/ocp/bestpractices/container-resources-requests-memory-greater-than/test_data/integration")
 
-  cmd="oc create -f ${tmp}"
+  cmd="oc create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -224,7 +232,7 @@ load test_helper/redhatcop-bats-library/load
 @test "policy/ocp/bestpractices/container-secret-mounted-envs" {
   tmp=$(split_files "policy/ocp/bestpractices/container-secret-mounted-envs/test_data/integration")
 
-  cmd="oc create -f ${tmp}"
+  cmd="oc create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -237,7 +245,7 @@ load test_helper/redhatcop-bats-library/load
 @test "policy/ocp/bestpractices/container-volumemount-inconsistent-path" {
   tmp=$(split_files "policy/ocp/bestpractices/container-volumemount-inconsistent-path/test_data/integration")
 
-  cmd="oc create -f ${tmp}"
+  cmd="oc create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -250,7 +258,7 @@ load test_helper/redhatcop-bats-library/load
 @test "policy/ocp/bestpractices/container-volumemount-missing" {
   tmp=$(split_files "policy/ocp/bestpractices/container-volumemount-missing/test_data/integration")
 
-  cmd="oc create -f ${tmp}"
+  cmd="oc create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -263,7 +271,7 @@ load test_helper/redhatcop-bats-library/load
 @test "policy/ocp/bestpractices/pod-hostnetwork" {
   tmp=$(split_files "policy/ocp/bestpractices/pod-hostnetwork/test_data/integration")
 
-  cmd="oc create -f ${tmp}"
+  cmd="oc create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -276,7 +284,7 @@ load test_helper/redhatcop-bats-library/load
 @test "policy/ocp/bestpractices/pod-replicas-below-one" {
   tmp=$(split_files "policy/ocp/bestpractices/pod-replicas-below-one/test_data/integration")
 
-  cmd="oc create -f ${tmp}"
+  cmd="oc create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -289,7 +297,7 @@ load test_helper/redhatcop-bats-library/load
 @test "policy/ocp/bestpractices/pod-replicas-not-odd" {
   tmp=$(split_files "policy/ocp/bestpractices/pod-replicas-not-odd/test_data/integration")
 
-  cmd="oc create -f ${tmp}"
+  cmd="oc create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
