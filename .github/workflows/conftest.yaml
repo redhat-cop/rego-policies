@@ -9,8 +9,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Validate integration test data via kubeval
+        uses: redhat-cop/github-actions/confbatstest@master
+        with:
+          raw: find policy/* -regex '.*test_data\/integration\/.*$' -exec kubeval --openshift --strict --skip-kinds ServiceMonitor {} \;
+
       - name: Generate konstraint docs
-        uses: garethahealy/github-actions/confbatstest@conftest-raw
+        uses: redhat-cop/github-actions/confbatstest@master
         with:
           raw: konstraint doc -o POLICIES.md
 
