@@ -1,4 +1,4 @@
-![Validate](https://github.com/redhat-cop/rego-policies/workflows/Validate/badge.svg)
+![Run conftest](https://github.com/redhat-cop/rego-policies/workflows/Run%20conftest/badge.svg)
 
 # rego-policies
 [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/) policies collection.

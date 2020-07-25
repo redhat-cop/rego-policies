@@ -1,4 +1,4 @@
-name: Validate
+name: Run conftest
 
 on: [push, pull_request]
 
@@ -13,23 +13,6 @@ jobs:
         uses: redhat-cop/github-actions/confbatstest@master
         with:
           raw: find policy/* -regex '.*test_data\/integration\/.*$' -exec kubeval --openshift --strict --skip-kinds ServiceMonitor {} \;
-
-      - name: Generate konstraint docs
-        uses: redhat-cop/github-actions/confbatstest@master
-        with:
-          raw: konstraint doc -o POLICIES.md
-
-      - name: Check if there are changes to POLICIES.md
-        id: changes
-        uses: UnicornGlobal/has-changes-action@master
-        with:
-          pathspec: POLICIES.md
-
-      - name: Fail if POLICIES.md changes found
-        if: steps.changes.outputs.changed == 1
-        run: |
-          echo "Uncommited changes to POLICIES.md exist. Failing."
-          exit 0
 
       - name: Conftest
         uses: redhat-cop/github-actions/confbatstest@master
