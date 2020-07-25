@@ -89,10 +89,10 @@ setup_file() {
   [ "${lines[2]}" = "" ]
 }
 
-@test "policy/combine/service-has-matching-servicenonitor" {
-  tmp=$(split_files "policy/combine/service-has-matching-servicenonitor/test_data/unit")
+@test "policy/combine/service-has-matching-servicemonitor" {
+  tmp=$(split_files "policy/combine/service-has-matching-servicemonitor/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --combine --namespace combine.service_has_matching_servicenonitor"
+  cmd="conftest test ${tmp} --output tap --combine --namespace combine.service_has_matching_servicemonitor"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"

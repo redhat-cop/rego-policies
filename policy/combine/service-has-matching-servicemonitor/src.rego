@@ -1,4 +1,4 @@
-package combine.service_has_matching_servicenonitor
+package combine.service_has_matching_servicemonitor
 
 import data.lib.konstraint
 
