@@ -1,7 +1,7 @@
 package podman.history.contains_layer
 
 # violation: Check the image contains a specific SHA in its history
-# @Kinds redhat-cop.github.com/PodmanHistory
+# @kinds redhat-cop.github.com/PodmanHistory
 violation[msg] {
   lower(input.apiVersion) == "redhat-cop.github.com/v1"
   lower(input.kind) == "podmanhistory"

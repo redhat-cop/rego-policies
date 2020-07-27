@@ -3,7 +3,7 @@ package ocp.deprecated.ocp3_11.deploymentconfig_v1
 import data.lib.konstraint
 
 # violation: Check for deprecated v1 apiVersion. OCP4.x expects apps.openshift.io/v1
-# @Kinds v1/DeploymentConfig
+# @kinds v1/DeploymentConfig
 violation[msg] {
   obj := konstraint.object
   lower(obj.apiVersion) == "v1"

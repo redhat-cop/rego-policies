@@ -3,7 +3,7 @@ package ocp.requiresinventory.service_has_matching_servicenonitor
 import data.lib.konstraint
 
 # violation: Check if a Service has a matching monitoring.coreos.com/v1:ServiceMonitor, via 'spec.selector'
-# @Kinds core/Service
+# @kinds core/Service
 violation[msg] {
   konstraint.is_service
 

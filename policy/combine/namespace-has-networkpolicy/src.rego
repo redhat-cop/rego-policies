@@ -3,7 +3,7 @@ package combine.namespace_has_networkpolicy
 import data.lib.konstraint
 
 # violation: Check if a Namespace has a networking.k8s.io/v1:NetworkPolicy
-# @Kinds core/Namespace networking.k8s.io/NetworkPolicy
+# @kinds core/Namespace networking.k8s.io/NetworkPolicy
 violation[msg] {
   manifests := input[_]
   some i

@@ -3,7 +3,7 @@ package ocp.deprecated.ocp3_11.imagestream_v1
 import data.lib.konstraint
 
 # violation: Check for deprecated v1 apiVersion. OCP4.x expects image.openshift.io/v1
-# @Kinds v1/ImageStream
+# @kinds v1/ImageStream
 violation[msg] {
   obj := konstraint.object
   lower(obj.apiVersion) == "v1"

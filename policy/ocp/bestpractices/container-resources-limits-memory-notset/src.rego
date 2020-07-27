@@ -4,7 +4,7 @@ import data.lib.konstraint
 import data.lib.openshift
 
 # violation: Check workload kinds has set their limits for memory
-# @Kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
+# @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
 violation[msg] {
   openshift.is_workload_kind
 

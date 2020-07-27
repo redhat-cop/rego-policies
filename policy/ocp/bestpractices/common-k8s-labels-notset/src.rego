@@ -4,7 +4,7 @@ import data.lib.konstraint
 import data.lib.openshift
 
 # violation: Check if all workload related kinds contain labels as suggested by https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels
-# @Kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet core/Service route.openshift.io/Route
+# @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet core/Service route.openshift.io/Route
 violation[msg] {
   openshift.is_all_kind
 
