@@ -4,7 +4,7 @@
 [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/) policies collection.
 
 ## Policies
-For a full list of policies, see the auto-generated [POLICIES.md](/POLICIES.md)
+For a full list of policies, see the auto-generated [POLICIES.md](POLICIES.md)
 
 The naming of the policies follows the Gatekeeper format, as described [here.](https://github.com/plexsystems/konstraint#how-template-and-constraint-naming-works)
 

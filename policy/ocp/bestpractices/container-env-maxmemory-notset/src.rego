@@ -3,7 +3,12 @@ package ocp.bestpractices.container_env_maxmemory_notset
 import data.lib.konstraint
 import data.lib.openshift
 
-# violation: Check workload kinds have the CONTAINER_MAX_MEMORY env set using the downward api
+# @title Container env has CONTAINER_MAX_MEMORY set
+#
+# Red Hat OpenJDK image uses CONTAINER_MAX_MEMORY env via the downward API to set Java memory settings.
+# Instead of manually setting -Xmx, let the image automatically set it for you.
+# See: https://github.com/jboss-openshift/cct_module/blob/master/jboss/container/java/jvm/bash/artifacts/opt/jboss/container/java/jvm/java-default-options
+#
 # @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
 violation[msg] {
   openshift.is_workload_kind

@@ -3,7 +3,13 @@ package ocp.bestpractices.container_liveness_readinessprobe_equal
 import data.lib.konstraint
 import data.lib.openshift
 
-# violation: Check workload kinds have not set their probes to be the same
+# @title Container liveness and readiness probes are equal
+#
+# When Liveness and Readiness probes are pointing to the same endpoint, the effects of the probes are combined.
+# When the app signals that it's not ready or live, the kubelet detaches the container from the Service and delete it at the same time.
+# You might notice dropping connections because the container does not have enough time to drain the current connections or process the incoming ones.
+# See: Health checks -> https://learnk8s.io/production-best-practices#application-development
+#
 # @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
 violation[msg] {
   openshift.is_workload_kind

@@ -3,7 +3,11 @@ package ocp.bestpractices.pod_replicas_below_one
 import data.lib.konstraint
 import data.lib.openshift
 
-# violation: Check workload kinds has replicas <= 1
+# @title Pod replica below 1
+#
+# Never run a single Pod individually.
+# See: Fault tolerance -> https://learnk8s.io/production-best-practices#application-development
+#
 # @kinds apps.openshift.io/DeploymentConfig apps/Deployment
 violation[msg] {
   openshift.is_workload_kind

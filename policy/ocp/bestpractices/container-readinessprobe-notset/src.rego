@@ -3,7 +3,12 @@ package ocp.bestpractices.container_readinessprobe_notset
 import data.lib.konstraint
 import data.lib.openshift
 
-# violation: Check workload kinds have their readiness prob set
+# @title Container readiness prob is not set
+#
+# A Readiness check determines if the container in which it is scheduled is ready to service requests.
+# If the readiness probe fails a container, the endpoints controller ensures the container has its IP address removed from the endpoints of all services.
+# See: https://docs.openshift.com/container-platform/4.4/applications/application-health.html
+#
 # @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
 violation[msg] {
   openshift.is_workload_kind

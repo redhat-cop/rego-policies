@@ -2,7 +2,11 @@ package ocp.requiresinventory.deployment_has_matching_serviceaccount
 
 import data.lib.konstraint
 
-# violation: Check if a Deployment has 'spec.serviceAccountName' set, there is a matching v1:ServiceAccount
+# @title Deployment has matching ServiceAccount
+#
+# If Deployment has 'spec.serviceAccountName' set, there should be matching ServiceAccount.
+# If not, this would suggest a mistake.
+#
 # @kinds apps/Deployment
 violation[msg] {
   konstraint.is_deployment

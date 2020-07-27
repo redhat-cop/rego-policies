@@ -3,7 +3,10 @@ package ocp.bestpractices.container_volumemount_missing
 import data.lib.konstraint
 import data.lib.openshift
 
-# violation: Check workload kinds does not specify a volume without a corresponding volume mount
+# @title Container volume mount not set
+#
+# A volume does not have a corresponding volume mount. There is probably a mistake in your definition.
+#
 # @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
 violation[msg] {
   openshift.is_workload_kind

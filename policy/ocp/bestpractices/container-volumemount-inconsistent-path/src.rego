@@ -3,7 +3,10 @@ package ocp.bestpractices.container_volumemount_inconsistent_path
 import data.lib.konstraint
 import data.lib.openshift
 
-# violation: Check workload kinds have consistent paths for their volume mounts
+# @title Container volume mount path is consistent
+#
+# Mount paths should be mounted at '/var/run/company.com' to allow a consistent understanding.
+#
 # @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
 violation[msg] {
   openshift.is_workload_kind

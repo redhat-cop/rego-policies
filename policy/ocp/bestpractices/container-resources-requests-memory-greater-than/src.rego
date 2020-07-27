@@ -4,7 +4,12 @@ import data.lib.konstraint
 import data.lib.memory
 import data.lib.openshift
 
-# violation: Check workload kinds requests for memory is not greater than an upper bound
+# @title Container resource requests memory not greater than
+#
+# Setting a too high memory request can cause under utilisation on a node.
+# It is better to run multiple pods which use smaller requests.
+# See: Resources utilisation -> https://learnk8s.io/production-best-practices#application-development
+#
 # @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
 violation[msg] {
   openshift.is_workload_kind

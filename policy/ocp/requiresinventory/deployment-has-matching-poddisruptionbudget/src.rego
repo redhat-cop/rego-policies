@@ -2,7 +2,12 @@ package ocp.requiresinventory.deployment_has_matching_poddisruptionbudget
 
 import data.lib.konstraint
 
-# violation: Check if a Deployment has a matching policy/v1beta1:PodDisruptionBudget, via 'spec.template.metadata.labels'
+# @title Deployment has a matching PodDisruptionBudget
+#
+# All Deployments should have matching PodDisruptionBudget, via 'spec.template.metadata.labels', to provide HA guarantees.
+# See: Fault tolerance -> https://learnk8s.io/production-best-practices#application-development
+# See: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
+#
 # @kinds apps/Deployment
 violation[msg] {
   konstraint.is_deployment

@@ -3,7 +3,11 @@ package ocp.bestpractices.container_java_xmx_set
 import data.lib.konstraint
 import data.lib.openshift
 
-# violation: Check workload kinds do not set the Java Xmx option
+# @title Container does not set Java Xmx option
+#
+# Red Hat OpenJDK image uses CONTAINER_MAX_MEMORY env via the downward API to set Java memory settings.
+# Instead of manually setting -Xmx, let the image automatically set it for you.
+#
 # @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
 violation[msg] {
   openshift.is_workload_kind

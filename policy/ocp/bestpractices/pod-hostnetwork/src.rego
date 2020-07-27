@@ -3,7 +3,10 @@ package ocp.bestpractices.pod_hostnetwork
 import data.lib.konstraint
 import data.lib.openshift
 
-# violation: Check workload kinds has 'spec.hostNetwork' set
+# @title Pod hostnetwork not set
+#
+# Pods which require 'spec.hostNetwork' should be limited due to security concerns.
+#
 # @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
 violation[msg] {
   openshift.is_workload_kind

@@ -1,6 +1,10 @@
 package podman.history.contains_layer
 
-# violation: Check the image contains a specific SHA in its history
+# @title Image contains expected SHA in history.
+#
+# Most images are built from a subset of authorised base images in a company,
+# this policy allows enforcement of that policy by checking for an expected SHA.
+#
 # @kinds redhat-cop.github.com/PodmanHistory
 violation[msg] {
   lower(input.apiVersion) == "redhat-cop.github.com/v1"

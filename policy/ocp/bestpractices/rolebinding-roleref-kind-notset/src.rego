@@ -3,7 +3,10 @@ package ocp.bestpractices.rolebinding_roleref_kind_notset
 import data.lib.konstraint
 import data.lib.kubernetes
 
-# violation: Check if a RoleBinding has 'roleRef.kind' set
+# @title RoleBinding has kind set
+#
+# Migrating from 3.11 to 4.x requires the 'roleRef.kind' to be set.
+#
 # @kinds rbac.authorization.k8s.io/RoleBinding
 violation[msg] {
   kubernetes.is_rolebinding

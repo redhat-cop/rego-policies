@@ -3,7 +3,10 @@ package ocp.bestpractices.container_labelkey_inconsistent
 import data.lib.konstraint
 import data.lib.openshift
 
-# violation: Check workload kinds have consistent key names for their labels
+# @title Label key is consistent
+#
+# Label keys should be qualified by 'app.kubernetes.io' or 'company.com' to allow a consistent understanding.
+#
 # @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
 violation[msg] {
   openshift.is_workload_kind
