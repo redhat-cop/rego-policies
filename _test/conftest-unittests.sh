@@ -27,56 +27,6 @@ setup_file() {
 # combine
 ####################
 
-@test "policy/combine/deployment-has-matching-poddisruptionbudget" {
-  tmp=$(split_files "policy/combine/deployment-has-matching-poddisruptionbudget/test_data/unit")
-
-  cmd="conftest test ${tmp} --output tap --combine --namespace combine.deployment_has_matching_poddisruptionbudget"
-  run ${cmd}
-
-  print_info "${status}" "${output}" "${cmd}" "${tmp}"
-  [ "$status" -eq 1 ]
-  [ "${lines[1]}" = "not ok 1 - Combined - Deployment/hasmissingpdb does not have a policy/v1beta1:PodDisruptionBudget or its selector labels dont match. See: https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget" ]
-  [ "${lines[2]}" = "not ok 2 - Combined - Deployment/pdbhasincorrectlabels does not have a policy/v1beta1:PodDisruptionBudget or its selector labels dont match. See: https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget" ]
-  [ "${lines[4]}" = "" ]
-}
-
-@test "policy/combine/deployment-has-matching-pvc" {
-  tmp=$(split_files "policy/combine/deployment-has-matching-pvc/test_data/unit")
-
-  cmd="conftest test ${tmp} --output tap --combine --namespace combine.deployment_has_matching_pvc"
-  run ${cmd}
-
-  print_info "${status}" "${output}" "${cmd}" "${tmp}"
-  [ "$status" -eq 1 ]
-  [ "${lines[1]}" = "not ok 1 - Combined - Deployment/hasmissingpvc has persistentVolumeClaim in its spec.template.spec.volumes but could not find corrasponding v1:PersistentVolumeClaim." ]
-  [ "${lines[2]}" = "" ]
-}
-
-@test "policy/combine/deployment-has-matching-service" {
-  tmp=$(split_files "policy/combine/deployment-has-matching-service/test_data/unit")
-
-  cmd="conftest test ${tmp} --output tap --combine --namespace combine.deployment_has_matching_service"
-  run ${cmd}
-
-  print_info "${status}" "${output}" "${cmd}" "${tmp}"
-  [ "$status" -eq 1 ]
-  [ "${lines[1]}" = "not ok 1 - Combined - Deployment/hasmissingsvc does not have a v1:Service or its selector labels dont match. See: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#service-and-replicationcontroller" ]
-  [ "${lines[2]}" = "not ok 2 - Combined - Deployment/hassvcwithincorrectlabels does not have a v1:Service or its selector labels dont match. See: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#service-and-replicationcontroller" ]
-  [ "${lines[3]}" = "" ]
-}
-
-@test "policy/combine/deployment-has-matching-serviceaccount" {
-  tmp=$(split_files "policy/combine/deployment-has-matching-serviceaccount/test_data/unit")
-
-  cmd="conftest test ${tmp} --output tap --combine --namespace combine.deployment_has_matching_serviceaccount"
-  run ${cmd}
-
-  print_info "${status}" "${output}" "${cmd}" "${tmp}"
-  [ "$status" -eq 1 ]
-  [ "${lines[1]}" = "not ok 1 - Combined - Deployment/hasmissingsvcaccount has spec.serviceAccountName 'missing' but could not find corrasponding v1:ServiceAccount." ]
-  [ "${lines[2]}" = "" ]
-}
-
 @test "policy/combine/namespace-has-networkpolicy" {
   tmp=$(split_files "policy/combine/namespace-has-networkpolicy/test_data/unit")
 
@@ -87,19 +37,6 @@ setup_file() {
   [ "$status" -eq 1 ]
   [ "${lines[1]}" = "not ok 1 - Combined - Namespace/foo does not have a networking.k8s.io/v1:NetworkPolicy. See: https://docs.openshift.com/container-platform/4.4/networking/configuring-networkpolicy.html" ]
   [ "${lines[2]}" = "" ]
-}
-
-@test "policy/combine/service-has-matching-servicenonitor" {
-  tmp=$(split_files "policy/combine/service-has-matching-servicenonitor/test_data/unit")
-
-  cmd="conftest test ${tmp} --output tap --combine --namespace combine.service_has_matching_servicenonitor"
-  run ${cmd}
-
-  print_info "${status}" "${output}" "${cmd}" "${tmp}"
-  [ "$status" -eq 1 ]
-  [ "${lines[1]}" = "not ok 1 - Combined - Service/hasmissingsvcmon does not have a monitoring.coreos.com/v1:ServiceMonitor or its selector labels dont match. See: https://docs.openshift.com/container-platform/4.4/monitoring/monitoring-your-own-services.html" ]
-  [ "${lines[2]}" = "not ok 2 - Combined - Service/hassvcmonwithincorrectlabels does not have a monitoring.coreos.com/v1:ServiceMonitor or its selector labels dont match. See: https://docs.openshift.com/container-platform/4.4/monitoring/monitoring-your-own-services.html" ]
-  [ "${lines[3]}" = "" ]
 }
 
 ####################

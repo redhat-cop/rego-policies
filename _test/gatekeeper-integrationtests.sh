@@ -23,15 +23,16 @@ teardown() {
 
 ####################
 # all-namespaces
+# NOTE: This test should always be first, as it contains YAML to stop the 'data.inventory' policies firing when they shouldnt
 ####################
 
 @test "_test/all-namespaces/ocp/bestpractices" {
-  tmp=$(split_files "_test/all-namespaces/ocp/bestpractices")
+  alltmp=$(split_files "_test/all-namespaces/ocp/bestpractices")
 
-  cmd="oc create -f ${tmp} -n ${project_name}"
+  cmd="oc create -f ${alltmp} -n ${project_name}"
   run ${cmd}
 
-  print_info "${status}" "${output}" "${cmd}" "${tmp}"
+  print_info "${status}" "${output}" "${cmd}" "${alltmp}"
   [ "$status" -eq 0 ]
 }
 
@@ -305,4 +306,68 @@ teardown() {
   [[ "${lines[0]}" == "Error from server ([denied by podreplicasnotodd] Deployment/replicaiseven"* ]]
   [[ "${lines[1]}" == "Error from server ([denied by podreplicasnotodd] DeploymentConfig/replicaiseven"* ]]
   [[ "${lines[2]}" = "" ]]
+}
+
+####################
+# ocp/requiresinventory
+####################
+
+@test "policy/ocp/requiresinventory/deployment-has-matching-poddisruptionbudget" {
+  tmp=$(split_files "policy/ocp/requiresinventory/deployment-has-matching-poddisruptionbudget/test_data/integration")
+
+  cmd="oc create -f ${tmp} -n ${project_name}"
+  run ${cmd}
+
+  print_info "${status}" "${output}" "${cmd}" "${tmp}"
+  [ "$status" -eq 1 ]
+  [[ "${lines[2]}" == "Error from server ([denied by deploymenthasmatchingpoddisruptionbudget] Deployment/hasmissingpdb"* ]]
+  [[ "${lines[3]}" = "" ]]
+}
+
+@test "policy/ocp/requiresinventory/deployment-has-matching-pvc" {
+  tmp=$(split_files "policy/ocp/requiresinventory/deployment-has-matching-pvc/test_data/integration")
+
+  cmd="oc create -f ${tmp} -n ${project_name}"
+  run ${cmd}
+
+  print_info "${status}" "${output}" "${cmd}" "${tmp}"
+  [ "$status" -eq 1 ]
+  [[ "${lines[0]}" == "Error from server ([denied by deploymenthasmatchingpvc] Deployment/hasmissingpvc"* ]]
+  [[ "${lines[1]}" = "" ]]
+}
+
+@test "policy/ocp/requiresinventory/deployment-has-matching-service" {
+  tmp=$(split_files "policy/ocp/requiresinventory/deployment-has-matching-service/test_data/integration")
+
+  cmd="oc create -f ${tmp} -n ${project_name}"
+  run ${cmd}
+
+  print_info "${status}" "${output}" "${cmd}" "${tmp}"
+  [ "$status" -eq 1 ]
+  [[ "${lines[1]}" == "Error from server ([denied by deploymenthasmatchingservice] Deployment/hasmissingsvc"* ]]
+  [[ "${lines[2]}" = "" ]]
+}
+
+@test "policy/ocp/requiresinventory/deployment-has-matching-serviceaccount" {
+  tmp=$(split_files "policy/ocp/requiresinventory/deployment-has-matching-serviceaccount/test_data/integration")
+
+  cmd="oc create -f ${tmp} -n ${project_name}"
+  run ${cmd}
+
+  print_info "${status}" "${output}" "${cmd}" "${tmp}"
+  [ "$status" -eq 1 ]
+  [[ "${lines[0]}" == "Error from server ([denied by deploymenthasmatchingserviceaccount] Deployment/hasmissingsvcaccount"* ]]
+  [[ "${lines[1]}" = "" ]]
+}
+
+@test "policy/ocp/requiresinventory/service-has-matching-servicemonitor" {
+  tmp=$(split_files "policy/ocp/requiresinventory/service-has-matching-servicemonitor/test_data/integration")
+
+  cmd="oc create -f ${tmp} -n ${project_name}"
+  run ${cmd}
+
+  print_info "${status}" "${output}" "${cmd}" "${tmp}"
+  [ "$status" -eq 1 ]
+  [[ "${lines[0]}" == "Error from server ([denied by servicehasmatchingservicemonitor] Service/hasmissingsvcmon"* ]]
+  [[ "${lines[1]}" = "" ]]
 }

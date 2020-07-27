@@ -39,7 +39,7 @@ local.properties
 *.iml
 
 # BATS
-test/test_helper/
+_test/test_helper/
 
 ## Gatekeeper
 **/template.yaml
