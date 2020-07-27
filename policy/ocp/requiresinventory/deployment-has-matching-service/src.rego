@@ -3,7 +3,7 @@ package ocp.requiresinventory.deployment_has_matching_service
 import data.lib.konstraint
 
 # violation: Check if a Deployment has a matching v1:Service, via 'spec.template.metadata.labels'
-# @Kinds apps/Deployment
+# @kinds apps/Deployment
 violation[msg] {
   konstraint.is_deployment
 

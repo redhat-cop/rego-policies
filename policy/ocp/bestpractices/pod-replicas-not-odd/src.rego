@@ -4,7 +4,7 @@ import data.lib.konstraint
 import data.lib.openshift
 
 # violation: Check workload kinds has replicas not odd
-# @Kinds apps.openshift.io/DeploymentConfig apps/Deployment
+# @kinds apps.openshift.io/DeploymentConfig apps/Deployment
 violation[msg] {
   openshift.is_workload_kind
 

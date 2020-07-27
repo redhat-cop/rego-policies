@@ -3,7 +3,7 @@ package ocp.deprecated.ocp3_11.template_v1
 import data.lib.konstraint
 
 # violation: Check for deprecated v1 apiVersion. OCP4.x expects template.openshift.io/v1
-# @Kinds v1/Template
+# @kinds v1/Template
 violation[msg] {
   obj := konstraint.object
   lower(obj.apiVersion) == "v1"

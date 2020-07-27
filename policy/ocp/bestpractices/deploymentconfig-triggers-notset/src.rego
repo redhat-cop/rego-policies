@@ -4,7 +4,7 @@ import data.lib.konstraint
 import data.lib.openshift
 
 # violation: Check if a DeploymentConfig has 'spec.triggers' set
-# @Kinds apps.openshift.io/DeploymentConfig
+# @kinds apps.openshift.io/DeploymentConfig
 violation[msg] {
   openshift.is_deploymentconfig
 

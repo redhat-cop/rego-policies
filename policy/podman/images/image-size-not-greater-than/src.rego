@@ -3,7 +3,7 @@ package podman.images.image_size_not_greater_than
 import data.lib.memory
 
 # violation: Check the image size is not greater than a specific value
-# @Kinds redhat-cop.github.com/PodmanImages
+# @kinds redhat-cop.github.com/PodmanImages
 violation[msg] {
   lower(input.apiVersion) == "redhat-cop.github.com/v1"
   lower(input.kind) == "podmanimages"

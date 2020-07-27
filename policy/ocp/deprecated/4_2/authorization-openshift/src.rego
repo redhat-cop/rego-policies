@@ -3,7 +3,7 @@ package ocp.deprecated.ocp4_2.authorization_openshift
 import data.lib.konstraint
 
 # violation: Check for deprecated authorization.openshift.io apiVersion. >= OCP4.2 expects rbac.authorization.k8s.io/v1. See: https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html#ocp-4-2-deprecated-features
-# @Kinds authorization.openshift.io/ClusterRole authorization.openshift.io/ClusterRoleBinding authorization.openshift.io/Role authorization.openshift.io/RoleBinding
+# @kinds authorization.openshift.io/ClusterRole authorization.openshift.io/ClusterRoleBinding authorization.openshift.io/Role authorization.openshift.io/RoleBinding
 violation[msg] {
   obj := konstraint.object
   contains(lower(obj.apiVersion), "authorization.openshift.io")

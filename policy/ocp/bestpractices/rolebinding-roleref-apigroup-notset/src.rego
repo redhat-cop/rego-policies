@@ -4,7 +4,7 @@ import data.lib.konstraint
 import data.lib.kubernetes
 
 # violation: Check if a RoleBinding has 'roleRef.apiGroup' set
-# @Kinds rbac.authorization.k8s.io/RoleBinding
+# @kinds rbac.authorization.k8s.io/RoleBinding
 violation[msg] {
   kubernetes.is_rolebinding
 

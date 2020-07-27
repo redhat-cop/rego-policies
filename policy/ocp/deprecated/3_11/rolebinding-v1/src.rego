@@ -3,7 +3,7 @@ package ocp.deprecated.ocp3_11.rolebinding_v1
 import data.lib.konstraint
 
 # violation: Check for deprecated v1 apiVersion. OCP4.x expects rbac.authorization.k8s.io/v1
-# @Kinds v1/RoleBinding
+# @kinds v1/RoleBinding
 violation[msg] {
   obj := konstraint.object
   lower(obj.apiVersion) == "v1"
