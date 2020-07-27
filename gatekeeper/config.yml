@@ -4,6 +4,8 @@ kind: Config
 metadata:
   name: config
 spec:
+  readiness:
+    statsEnabled: true
   sync:
     syncOnly:
       - version: "v1"
