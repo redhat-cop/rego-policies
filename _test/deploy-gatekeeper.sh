@@ -3,15 +3,14 @@
 command -v oc &> /dev/null || { echo >&2 'ERROR: oc not installed - Aborting'; exit 1; }
 command -v konstraint &> /dev/null || { echo >&2 'ERROR: konstraint not installed - Aborting'; exit 1; }
 
-gatekeeper_version="v3.1.0-beta.10"
+gatekeeper_version="v3.1.0-beta.11"
 
 cleanup_gatekeeper_constraints() {
   echo ""
   echo "Deleting all ConstraintTemplates..."
   oc delete constrainttemplate.templates.gatekeeper.sh --all --ignore-not-found=true
 
-  find policy/* -name "template.yaml" -type f -exec rm -f {} \;
-  find policy/* -name "constraint.yaml" -type f -exec rm -f {} \;
+  find policy/* \( -name "template.yaml" -o -name "constraint.yaml" \) -type f -exec rm -f {} \;
 }
 
 cleanup_gatekeeper() {
@@ -108,9 +107,9 @@ deploy_constraints() {
     name=$(oc create -f "${file}" -n gatekeeper-system -o name || exit $?)
     echo "${name}"
 
-    until oc get ${name} -o json | jq ".status.byPod | length" | grep -q "2";
+    until oc get ${name} -o json | jq ".status.byPod | length" | grep -q "4";
     do
-      echo "Waiting for: .status.byPod | length == 2"
+      echo "Waiting for: .status.byPod | length == 4"
       sleep 5s
     done
 
