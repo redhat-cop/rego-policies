@@ -9,6 +9,7 @@ items:
     labels:
       app.kubernetes.io/name: Foo-hasmissingsvcmon
       app.kubernetes.io/instance: Bar-hasmissingsvcmon
+      app.kubernetes.io/version: v1
       app.kubernetes.io/component: FooBar-hasmissingsvcmon
       app.kubernetes.io/part-of: Foo-hasmissingsvcmon
       app.kubernetes.io/managed-by: Bar-hasmissingsvcmon
@@ -19,6 +20,7 @@ items:
     selector:
       app.kubernetes.io/name: Foo-hasmissingsvcmon
       app.kubernetes.io/instance: Bar-hasmissingsvcmon
+      app.kubernetes.io/version: v1
       app.kubernetes.io/component: FooBar-hasmissingsvcmon
       app.kubernetes.io/part-of: Foo-hasmissingsvcmon
       app.kubernetes.io/managed-by: Bar-hasmissingsvcmon

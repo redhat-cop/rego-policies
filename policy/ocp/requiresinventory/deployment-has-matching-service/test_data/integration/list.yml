@@ -12,6 +12,7 @@ items:
       matchLabels:
         app.kubernetes.io/name: Foo-hasmissingsvc
         app.kubernetes.io/instance: Bar-hasmissingsvc
+        app.kubernetes.io/version: v1
         app.kubernetes.io/component: FooBar-hasmissingsvc
         app.kubernetes.io/part-of: Foo-hasmissingsvc
         app.kubernetes.io/managed-by: Bar-hasmissingsvc
@@ -21,6 +22,7 @@ items:
     labels:
       app.kubernetes.io/name: Foo-hasmissingsvc
       app.kubernetes.io/instance: Bar-hasmissingsvc
+      app.kubernetes.io/version: v1
       app.kubernetes.io/component: FooBar-hasmissingsvc
       app.kubernetes.io/part-of: Foo-hasmissingsvc
       app.kubernetes.io/managed-by: Bar-hasmissingsvc
@@ -31,6 +33,7 @@ items:
       matchLabels:
         app.kubernetes.io/name: Foo-hasmissingsvc
         app.kubernetes.io/instance: Bar-hasmissingsvc
+        app.kubernetes.io/version: v1
         app.kubernetes.io/component: FooBar-hasmissingsvc
         app.kubernetes.io/part-of: Foo-hasmissingsvc
         app.kubernetes.io/managed-by: Bar-hasmissingsvc
@@ -39,6 +42,7 @@ items:
         labels:
           app.kubernetes.io/name: Foo-hasmissingsvc
           app.kubernetes.io/instance: Bar-hasmissingsvc
+          app.kubernetes.io/version: v1
           app.kubernetes.io/component: FooBar-hasmissingsvc
           app.kubernetes.io/part-of: Foo-hasmissingsvc
           app.kubernetes.io/managed-by: Bar-hasmissingsvc
