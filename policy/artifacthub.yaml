@@ -42,4 +42,4 @@ maintainers:
   - name: Gareth Healy
     email: garethahealy@redhat.com
 provider:
-  - name: Red Hat
+  name: Red Hat
