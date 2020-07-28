@@ -2,7 +2,10 @@ package podman.images.image_size_not_greater_than
 
 import data.lib.memory
 
-# violation: Check the image size is not greater than a specific value
+# @title Image size is not greater than an expected value
+#
+# Typically, the "smaller the better" rule applies to images so lets enforce that.
+#
 # @kinds redhat-cop.github.com/PodmanImages
 violation[msg] {
   lower(input.apiVersion) == "redhat-cop.github.com/v1"

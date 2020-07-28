@@ -2,7 +2,11 @@ package ocp.deprecated.ocp4_1.buildconfig_custom_strategy
 
 import data.lib.konstraint
 
-# violation: Check if 'exposeDockerSocket' is set on a BuildConfig. See: https://docs.openshift.com/container-platform/4.1/release_notes/ocp-4-1-release-notes.html#ocp-41-deprecated-features
+# @title BuildConfig exposeDockerSocket deprecated
+#
+# 'spec.strategy.customStrategy.exposeDockerSocket' is no longer supported by BuildConfig.
+# See: https://docs.openshift.com/container-platform/4.1/release_notes/ocp-4-1-release-notes.html#ocp-41-deprecated-features
+#
 # @kinds build.openshift.io/BuildConfig
 violation[msg] {
   obj := konstraint.object

@@ -2,7 +2,10 @@ package ocp.deprecated.ocp3_11.projectrequest_v1
 
 import data.lib.konstraint
 
-# violation: Check for deprecated v1 apiVersion. OCP4.x expects project.openshift.io/v1
+# @title ProjectRequest no longer served by v1
+#
+# OCP4.x expects project.openshift.io/v1.
+#
 # @kinds v1/ProjectRequest
 violation[msg] {
   obj := konstraint.object

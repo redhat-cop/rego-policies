@@ -2,7 +2,11 @@ package ocp.requiresinventory.service_has_matching_servicenonitor
 
 import data.lib.konstraint
 
-# violation: Check if a Service has a matching monitoring.coreos.com/v1:ServiceMonitor, via 'spec.selector'
+# @title Service has matching ServiceMonitor
+#
+# All Service should have a matching ServiceMonitor, via 'spec.selector'.
+# Service without a ServiceMonitor are not being monitored and should be questioned as to why.
+#
 # @kinds core/Service
 violation[msg] {
   konstraint.is_service

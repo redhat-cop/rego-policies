@@ -3,7 +3,12 @@ package ocp.bestpractices.container_resources_limits_memory_notset
 import data.lib.konstraint
 import data.lib.openshift
 
-# violation: Check workload kinds has set their limits for memory
+# @title Container resource limits memory not set
+#
+# A container without a memory limit has memory utilisation of zero — according to the scheduler.
+# An unlimited number of Pods if schedulable on any nodes leading to resource overcommitment and potential node (and kubelet) crashes.
+# See: Resources utilisation -> https://learnk8s.io/production-best-practices#application-development
+#
 # @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
 violation[msg] {
   openshift.is_workload_kind

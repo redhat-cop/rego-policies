@@ -3,7 +3,10 @@ package ocp.bestpractices.rolebinding_roleref_apigroup_notset
 import data.lib.konstraint
 import data.lib.kubernetes
 
-# violation: Check if a RoleBinding has 'roleRef.apiGroup' set
+# @title RoleBinding has apiGroup set
+#
+# Migrating from 3.11 to 4.x requires the 'roleRef.apiGroup' to be set.
+#
 # @kinds rbac.authorization.k8s.io/RoleBinding
 violation[msg] {
   kubernetes.is_rolebinding

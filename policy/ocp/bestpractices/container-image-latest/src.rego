@@ -3,7 +3,10 @@ package ocp.bestpractices.container_image_latest
 import data.lib.konstraint
 import data.lib.openshift
 
-# violation: Check workload kinds are not using the latest tag for their image
+# @title Container image is not set as latest
+#
+# Images should use immutable tags. Today's latest is not tomorrows latest.
+#
 # @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
 violation[msg] {
   openshift.is_workload_kind

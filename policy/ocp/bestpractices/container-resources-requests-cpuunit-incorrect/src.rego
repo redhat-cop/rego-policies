@@ -3,7 +3,11 @@ package ocp.bestpractices.container_resources_requests_cpuunit_incorrect
 import data.lib.konstraint
 import data.lib.openshift
 
-# violation: Check workload kinds cpu requests unit is valid
+# @title Container resources requests cpu has incorrect unit
+#
+# Beginners can easily confuse the allowed cpu unit, this policy enforces what is valid.
+# See: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes
+#
 # @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
 violation[msg] {
   openshift.is_workload_kind

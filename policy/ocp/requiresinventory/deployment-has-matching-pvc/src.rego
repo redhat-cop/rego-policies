@@ -2,7 +2,11 @@ package ocp.requiresinventory.deployment_has_matching_pvc
 
 import data.lib.konstraint
 
-# violation: Check if a Deployment has 'spec.template.spec.volumes.persistentVolumeClaim' set, there is a matching v1:PersistentVolumeClaim
+# @title Deployment has matching PersistentVolumeClaim
+#
+# If Deployment has 'spec.template.spec.volumes.persistentVolumeClaim' set, there should be matching PersistentVolumeClaim.
+# If not, this would suggest a mistake.
+#
 # @kinds apps/Deployment
 violation[msg] {
   konstraint.is_deployment
