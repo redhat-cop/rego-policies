@@ -7,7 +7,6 @@ items:
   metadata:
     name: imageuseslatesttag
   spec:
-    replicas: 3
     template:
       spec:
         containers:
@@ -18,7 +17,6 @@ items:
   metadata:
     name: imageuseslatesttag
   spec:
-    replicas: 3
     template:
       spec:
         containers:

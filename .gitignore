@@ -40,6 +40,7 @@ local.properties
 
 # BATS
 _test/test_helper/
+opa-profile.log
 
 ## Gatekeeper
 **/template.yaml

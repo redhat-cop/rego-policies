@@ -1,4 +1,4 @@
-name: Run conftest
+name: Run conftest-unittests.sh
 
 on: [push, pull_request]
 

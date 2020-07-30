@@ -1,4 +1,4 @@
-![Run conftest](https://github.com/redhat-cop/rego-policies/workflows/Run%20conftest/badge.svg)
+![Run conftest-unittests.sh](https://github.com/garethahealy/rego-policies/workflows/Run%20conftest-unittests.sh/badge.svg)
 
 # rego-policies
 [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/) policies collection.

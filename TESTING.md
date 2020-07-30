@@ -12,9 +12,16 @@ Each policy must have a BATS test executed by its usecase:
 - unit test files will be executed by [_test/conftest-unittests.sh](_test/conftest-unittests.sh).
 - integration test files will be executed by [_test/gatekeeper-integrationtests.sh](_test/gatekeeper-integrationtests.sh). 
 
+Each policy, if applicable, must have an `opa eval --profile` test executed by [_test/opa-profile.sh](_test/opa-profile.sh).
+
 ## Execute unit tests
 ```bash
 bats _test/conftest-unittests.sh
+```
+
+## Execute profile tests
+```bash
+bats _test/opa-profile.sh
 ```
 
 ## Execute integration units
@@ -38,5 +45,6 @@ The following tools must be installed locally:
 
 - [conftest](https://www.conftest.dev/install)
 - [konstraint](https://github.com/plexsystems/konstraint#installation)
+- [bats-core](https://github.com/bats-core/bats-core)
 - [jq](https://stedolan.github.io/jq/download)
 - [yq](https://pypi.org/project/yq)
