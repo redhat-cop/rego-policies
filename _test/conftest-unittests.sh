@@ -39,6 +39,18 @@ setup_file() {
   [ "${lines[2]}" = "" ]
 }
 
+@test "policy/combine/namespace-has-resourcequota" {
+  tmp=$(split_files "policy/combine/namespace-has-resourcequota/test_data/unit")
+
+  cmd="conftest test ${tmp} --output tap --combine --namespace combine.namespace_has_resourcequota"
+  run ${cmd}
+
+  print_info "${status}" "${output}" "${cmd}" "${tmp}"
+  [ "$status" -eq 1 ]
+  [ "${lines[1]}" = "not ok 1 - Combined - Namespace/foo does not have a core/v1:ResourceQuota. See: https://docs.openshift.com/container-platform/4.5/applications/quotas/quotas-setting-per-project.html" ]
+  [ "${lines[2]}" = "" ]
+}
+
 ####################
 # ocp/bestpractices
 ####################
