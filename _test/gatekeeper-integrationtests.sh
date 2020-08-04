@@ -175,7 +175,6 @@ teardown() {
 }
 
 @test "policy/ocp/bestpractices/container-resources-limits-memory-greater-than" {
-  skip
   tmp=$(split_files "policy/ocp/bestpractices/container-resources-limits-memory-greater-than/test_data/integration")
 
   cmd="oc create -f ${tmp} -n ${project_name}"
@@ -230,7 +229,6 @@ teardown() {
 }
 
 @test "policy/ocp/bestpractices/container-resources-requests-memory-greater-than" {
-  skip
   tmp=$(split_files "policy/ocp/bestpractices/container-resources-requests-memory-greater-than/test_data/integration")
 
   cmd="oc create -f ${tmp} -n ${project_name}"
@@ -239,8 +237,8 @@ teardown() {
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
   [[ "${lines[0]}" == "Error from server ([denied by containerresourcesrequestsmemorygreaterthan] Deployment/memoryrequesttoolarge"* ]]
-  [[ "${lines[1]}" == "Error from server ([denied by containerresourcesrequestsmemorygreaterthan] DeploymentConfig/memoryrequesttoolarge"* ]]
-  [[ "${lines[2]}" = "" ]]
+  [[ "${lines[3]}" == "Error from server ([denied by containerresourcesrequestsmemorygreaterthan] DeploymentConfig/memoryrequesttoolarge"* ]]
+  [[ "${lines[4]}" = "" ]]
 }
 
 @test "policy/ocp/bestpractices/container-secret-mounted-envs" {
