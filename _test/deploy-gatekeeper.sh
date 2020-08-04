@@ -85,12 +85,6 @@ generate_constraints() {
     elif [[ "${file}" == *"/ocp/bestpractices/rolebinding-roleref-kind-notset/"* ]]; then
       # OCP API-Server does not accept data matching this criteria but they are good for conftest when people are moving from 3.11 to 4.x
       rm -f "${file}"
-    elif [[ "${file}" == *"/ocp/bestpractices/container-resources-limits-memory-greater-than/"* ]]; then
-      # TODO: https://github.com/redhat-cop/rego-policies/issues/76
-      rm -f "${file}"
-    elif [[ "${file}" == *"/ocp/bestpractices/container-resources-requests-memory-greater-than/"* ]]; then
-      # TODO: https://github.com/redhat-cop/rego-policies/issues/76
-      rm -f "${file}"
     elif [[ "${file}" == *"/podman/"* ]]; then
       # the data is 'off-cluster' so cant be tested against gatekeeper
       rm -f "${file}"
