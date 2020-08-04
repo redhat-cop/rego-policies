@@ -82,6 +82,19 @@ setup_file() {
   [ "${lines[3]}" = "" ]
 }
 
+@test "policy/ocp/bestpractices/container-image-unknownregistries" {
+  tmp=$(split_files "policy/ocp/bestpractices/container-image-unknownregistries/test_data/unit")
+
+  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_image_unknownregistries"
+  run ${cmd}
+
+  print_info "${status}" "${output}" "${cmd}" "${tmp}"
+  [ "$status" -eq 1 ]
+  [ "${lines[1]}" = "not ok 1 - ${tmp}/list.yml - Deployment/imagefromunknownregistry: container 'bar' is using an image from an unknown registry (docker.io/alpine:3.12)" ]
+  [ "${lines[2]}" = "not ok 2 - ${tmp}/list.yml - DeploymentConfig/imagefromunknownregistry: container 'bar' is using an image from an unknown registry (docker.io/alpine:3.12)" ]
+  [ "${lines[3]}" = "" ]
+}
+
 @test "policy/ocp/bestpractices/container-java-xmx-set" {
   tmp=$(split_files "policy/ocp/bestpractices/container-java-xmx-set/test_data/unit")
 

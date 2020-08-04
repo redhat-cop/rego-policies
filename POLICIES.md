@@ -6,6 +6,7 @@
 * [Common k8s labels are set](#common-k8s-labels-are-set)
 * [Container env has CONTAINER_MAX_MEMORY set](#container-env-has-container_max_memory-set)
 * [Container image is not set as latest](#container-image-is-not-set-as-latest)
+* [Container image is not from a known registry](#container-image-is-not-from-a-known-registry)
 * [Container does not set Java Xmx option](#container-does-not-set-java-xmx-option)
 * [Label key is consistent](#label-key-is-consistent)
 * [Container liveness and readiness probes are equal](#container-liveness-and-readiness-probes-are-equal)
@@ -197,6 +198,42 @@ violation[msg] {
 ```
 
 _source: [policy/ocp/bestpractices/container-image-latest](policy/ocp/bestpractices/container-image-latest)_
+
+## Container image is not from a known registry
+
+**Severity:** violation
+
+**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
+
+Only images from trusted and known registries should be used
+
+### Rego
+
+```rego
+package ocp.bestpractices.container_image_latest
+
+import data.lib.konstraint
+import data.lib.openshift
+
+violation[msg] {
+  openshift.is_workload_kind
+
+  container := openshift.containers[_]
+  registry_list := ["image-registry.openshift-image-registry.svc", "registry.redhat.io/", "quay.io/"]
+
+  not knownregistry(container.image, registry_list)
+
+  obj := konstraint.object
+  msg := konstraint.format(sprintf("%s/%s: container '%s' is from (%s), which is an unknown registry.", [obj.kind, obj.metadata.name, container.name, container.image]))
+}
+
+knownregistry(image, knownregistry){
+  registry := knownregistry[_]
+  startswith(image, registry)
+}
+```
+
+_source: [policy/ocp/bestpractices/container-image-unknownregistries](policy/ocp/bestpractices/container-image-unknownregistries)_
 
 ## Container does not set Java Xmx option
 

@@ -79,6 +79,19 @@ teardown() {
   [[ "${lines[4]}" = "" ]]
 }
 
+@test "policy/ocp/bestpractices/container-image-unknownregistries" {
+  tmp=$(split_files "policy/ocp/bestpractices/container-image-unknownregistries/test_data/integration")
+
+  cmd="oc create -f ${tmp} -n ${project_name}"
+  run ${cmd}
+
+  print_info "${status}" "${output}" "${cmd}" "${tmp}"
+  [ "$status" -eq 1 ]
+  [[ "${lines[0]}" == "Error from server ([denied by containerimageunknownregistries] Deployment/imagefromunknownregistry"* ]]
+  [[ "${lines[3]}" == "Error from server ([denied by containerimageunknownregistries] DeploymentConfig/imagefromunknownregistry"* ]]
+  [[ "${lines[4]}" = "" ]]
+}
+
 @test "policy/ocp/bestpractices/container-java-xmx-set" {
   tmp=$(split_files "policy/ocp/bestpractices/container-java-xmx-set/test_data/integration")
 
