@@ -43,6 +43,17 @@ setup_file() {
   [ "$status" -eq 0 ]
 }
 
+
+@test "policy/ocp/bestpractices/container-image-unknownregistries" {
+  tmp=$(split_files "policy/ocp/bestpractices/container-image-unknownregistries/test_data/unit")
+
+  cmd="opa eval --bundle policy/ --input ${tmp}/list.yml --profile --format=pretty data.ocp.bestpractices.container_image_unknownregistries"
+  run ${cmd}
+
+  echo "${cmd} ${output}" >> opa-profile.log
+  [ "$status" -eq 0 ]
+}
+
 @test "policy/ocp/bestpractices/container-java-xmx-set" {
   tmp=$(split_files "policy/ocp/bestpractices/container-java-xmx-set/test_data/unit")
 
