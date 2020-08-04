@@ -3,6 +3,7 @@
 ## Violations
 
 * [Namespace has a NetworkPolicy](#namespace-has-a-networkpolicy)
+* [Namespace has a ResourceQuota](#namespace-has-a-resourcequota)
 * [Common k8s labels are set](#common-k8s-labels-are-set)
 * [Container env has CONTAINER_MAX_MEMORY set](#container-env-has-container_max_memory-set)
 * [Container image is not set as latest](#container-image-is-not-set-as-latest)
@@ -92,6 +93,48 @@ namespace_has_networkpolicy(manifests) {
 ```
 
 _source: [policy/combine/namespace-has-networkpolicy](policy/combine/namespace-has-networkpolicy)_
+
+## Namespace has a ResourceQuota
+
+**Severity:** violation
+
+**Resources:** core/Namespace core/ResourceQuota
+
+With ResourceQuotas, you can limit the total resource consumption of all containers inside a Namespace.
+Defining a resource quota for a namespace limits the total amount of CPU, memory or storage resources
+that can be consumed by all containers belonging to that namespace. You can also set quotas for other
+Kubernetes objects such as the number of Pods in the current namespace.
+See: Namespace limits -> https://learnk8s.io/production-best-practices#governance
+
+### Rego
+
+```rego
+package combine.namespace_has_resourcequota
+
+import data.lib.konstraint
+
+violation[msg] {
+  manifests := input[_]
+  some i
+
+  lower(manifests[i].apiVersion) == "v1"
+  lower(manifests[i].kind) == "namespace"
+  namespace := manifests[i]
+
+  not namespace_has_resourcequota(manifests)
+
+  msg := konstraint.format(sprintf("%s/%s does not have a core/v1:ResourceQuota. See: https://docs.openshift.com/container-platform/4.5/applications/quotas/quotas-setting-per-project.html", [namespace.kind, namespace.metadata.name]))
+}
+
+namespace_has_resourcequota(manifests) {
+  current := manifests[_]
+
+  lower(current.apiVersion) == "v1"
+  lower(current.kind) == "resourcequota"
+}
+```
+
+_source: [policy/combine/namespace-has-resourcequota](policy/combine/namespace-has-resourcequota)_
 
 ## Common k8s labels are set
 
