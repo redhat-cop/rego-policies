@@ -3,7 +3,7 @@
 command -v oc &> /dev/null || { echo >&2 'ERROR: oc not installed - Aborting'; exit 1; }
 command -v konstraint &> /dev/null || { echo >&2 'ERROR: konstraint not installed - Aborting'; exit 1; }
 
-gatekeeper_version="v3.1.0-beta.11"
+gatekeeper_version="v3.1.0-beta.12"
 
 cleanup_gatekeeper_constraints() {
   echo ""
@@ -26,7 +26,7 @@ deploy_gatekeeper() {
   echo "Patching control-plane related namespaces so that OPA ignores them..."
   for namespace in $(oc get namespaces -o jsonpath='{.items[*].metadata.name}' | xargs); do
     if [[ "${namespace}" =~ openshift.* ]] || [[ "${namespace}" =~ kube.* ]] || [[ "${namespace}" =~ default ]]; then
-      oc patch namespace/${namespace} -p='{"metadata":{"labels":{"control-plane":"true"}}}'
+      oc patch namespace/${namespace} -p='{"metadata":{"labels":{"admission.gatekeeper.sh/ignore":"true"}}}'
     else
       # Probably a users project, so leave it alone
       echo "Skipping: ${namespace}"
