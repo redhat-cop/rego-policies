@@ -14,7 +14,7 @@ items:
       app.kubernetes.io/managed-by: Bar
     name: imagefromunknownregistry
   spec:
-    replicas: 3
+    replicas: 1
     selector:
       matchLabels:
         app.kubernetes.io/name: Foo
@@ -80,7 +80,7 @@ items:
       app.kubernetes.io/managed-by: Bar
     name: imagefromunknownregistry
   spec:
-    replicas: 3
+    replicas: 1
     template:
       metadata:
         labels:

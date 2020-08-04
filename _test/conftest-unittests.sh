@@ -90,8 +90,8 @@ setup_file() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [ "${lines[1]}" = "not ok 1 - ${tmp}/list.yml - Deployment/imagefromunknownregistry: container 'bar' is using an image from an unknown registry (docker.io/alpine:3.12)" ]
-  [ "${lines[2]}" = "not ok 2 - ${tmp}/list.yml - DeploymentConfig/imagefromunknownregistry: container 'bar' is using an image from an unknown registry (docker.io/alpine:3.12)" ]
+  [ "${lines[1]}" = "not ok 1 - ${tmp}/list.yml - Deployment/imagefromunknownregistry: container 'bar' is from (docker.io/alpine:3.12), which is an unknown registry." ]
+  [ "${lines[2]}" = "not ok 2 - ${tmp}/list.yml - DeploymentConfig/imagefromunknownregistry: container 'bar' is from (docker.io/alpine:3.12), which is an unknown registry." ]
   [ "${lines[3]}" = "" ]
 }
 
