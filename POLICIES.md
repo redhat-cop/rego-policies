@@ -39,9 +39,9 @@
 * [BuildConfig exposeDockerSocket deprecated](#buildconfig-exposedockersocket-deprecated)
 * [authorization openshift io is deprecated](#authorization-openshift-io-is-deprecated)
 * [automationbroker io v1alpha1 is deprecated](#automationbroker-io-v1alpha1-is-deprecated)
-* [operators coreos com v1 is deprecated](#operators-coreos-com-v1-is-deprecated)
-* [operators coreos com v2 is deprecated](#operators-coreos-com-v2-is-deprecated)
-* [operators coreos com v1 is deprecated](#operators-coreos-com-v1-is-deprecated)
+* [operators coreos com v1 CatalogSourceConfigs is deprecated](#operators-coreos-com-v1-catalogsourceconfigs-is-deprecated)
+* [operators coreos com v2 CatalogSourceConfigs is deprecated](#operators-coreos-com-v2-catalogsourceconfigs-is-deprecated)
+* [operators coreos com v1 OperatorSource is deprecated](#operators-coreos-com-v1-operatorsource-is-deprecated)
 * [osb openshift io v1 is deprecated](#osb-openshift-io-v1-is-deprecated)
 * [servicecatalog k8s io v1beta1 is deprecated](#servicecatalog-k8s-io-v1beta1-is-deprecated)
 * [BuildConfig jenkinsPipelineStrategy is deprecated](#buildconfig-jenkinspipelinestrategy-is-deprecated)
@@ -1264,13 +1264,13 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/4_2/automationbroker-v1alpha1](policy/ocp/deprecated/4_2/automationbroker-v1alpha1)_
 
-## operators coreos com v1 is deprecated
+## operators coreos com v1 CatalogSourceConfigs is deprecated
 
 **Severity:** violation
 
 **Resources:** operators.coreos.com/CatalogSourceConfigs
 
-'operators.coreos.com/v1' is deprecated in OCP 4.2 and removed in 4.5.
+'operators.coreos.com/v1:CatalogSourceConfigs' is deprecated in OCP 4.2 and removed in 4.5.
 See: https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html#ocp-4-2-deprecated-features
 See: https://docs.openshift.com/container-platform/4.5/release_notes/ocp-4-5-release-notes.html#ocp-4-5-deprecated-removed-features
 
@@ -1284,6 +1284,7 @@ import data.lib.konstraint
 violation[msg] {
   obj := konstraint.object
   contains(lower(obj.apiVersion), "operators.coreos.com/v1")
+  lower(obj.kind) == "catalogsourceconfigs"
 
   msg := konstraint.format(sprintf("%s/%s: operators.coreos.com/v1 is deprecated.", [obj.kind, obj.metadata.name]))
 }
@@ -1291,13 +1292,13 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/4_2/catalogsourceconfigs-v1](policy/ocp/deprecated/4_2/catalogsourceconfigs-v1)_
 
-## operators coreos com v2 is deprecated
+## operators coreos com v2 CatalogSourceConfigs is deprecated
 
 **Severity:** violation
 
 **Resources:** operators.coreos.com/CatalogSourceConfigs
 
-'operators.coreos.com/v2' is deprecated in OCP 4.2 and removed in 4.5.
+'operators.coreos.com/v2:CatalogSourceConfigs' is deprecated in OCP 4.2 and removed in 4.5.
 See: https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html#ocp-4-2-deprecated-features
 See: https://docs.openshift.com/container-platform/4.5/release_notes/ocp-4-5-release-notes.html#ocp-4-5-deprecated-removed-features
 
@@ -1311,6 +1312,7 @@ import data.lib.konstraint
 violation[msg] {
   obj := konstraint.object
   contains(lower(obj.apiVersion), "operators.coreos.com/v2")
+  lower(obj.kind) == "catalogsourceconfigs"
 
   msg := konstraint.format(sprintf("%s/%s: operators.coreos.com/v2 is deprecated.", [obj.kind, obj.metadata.name]))
 }
@@ -1318,13 +1320,13 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/4_2/catalogsourceconfigs-v2](policy/ocp/deprecated/4_2/catalogsourceconfigs-v2)_
 
-## operators coreos com v1 is deprecated
+## operators coreos com v1 OperatorSource is deprecated
 
 **Severity:** violation
 
 **Resources:** operators.coreos.com/OperatorSource
 
-'operators.coreos.com/v1' is deprecated in OCP 4.2 and will be removed in a future version.
+'operators.coreos.com/v1:OperatorSource' is deprecated in OCP 4.2 and will be removed in a future version.
 See: https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html#ocp-4-2-deprecated-features
 
 ### Rego
@@ -1337,6 +1339,7 @@ import data.lib.konstraint
 violation[msg] {
   obj := konstraint.object
   contains(lower(obj.apiVersion), "operators.coreos.com/v1")
+  lower(obj.kind) == "operatorsource"
 
   msg := konstraint.format(sprintf("%s/%s: operators.coreos.com/v1 is deprecated.", [obj.kind, obj.metadata.name]))
 }
