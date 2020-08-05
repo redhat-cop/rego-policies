@@ -6,7 +6,7 @@
 ## Policies
 For a full list of policies, see the auto-generated [POLICIES.md](POLICIES.md)
 
-The naming of the policies follows the Gatekeeper format, as described [here.](https://github.com/plexsystems/konstraint#how-template-and-constraint-naming-works)
+The naming of the policies follows the Gatekeeper format, as described [here.](https://github.com/plexsystems/konstraint/blob/main/docs/constraint_creation.md#resource-naming)
 
 ## 3rd Party Policies
 A list of git repos that contain rego polices which can be combined with this repo:
