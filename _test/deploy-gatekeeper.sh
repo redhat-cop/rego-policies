@@ -3,7 +3,7 @@
 command -v oc &> /dev/null || { echo >&2 'ERROR: oc not installed - Aborting'; exit 1; }
 command -v konstraint &> /dev/null || { echo >&2 'ERROR: konstraint not installed - Aborting'; exit 1; }
 
-gatekeeper_version="v3.1.0-beta.12"
+gatekeeper_version="v3.1.0-rc.1"
 
 cleanup_gatekeeper_constraints() {
   echo ""
@@ -41,7 +41,9 @@ deploy_gatekeeper() {
   echo "Patching gatekeeper to work on OCP..."
   oc create clusterrole allow-anyuid-scc --verb=use --resource=securitycontextconstraints.security.openshift.io --resource-name=anyuid
   oc create rolebinding gatekeeper-anyuid-scc --serviceaccount=gatekeeper-system:gatekeeper-admin --clusterrole=allow-anyuid-scc -n gatekeeper-system
-  oc patch Deployment/gatekeeper-controller-manager --type json -p='[{"op": "remove", "path": "/spec/template/metadata/annotations"}]' -n gatekeeper-system
+
+  oc patch Deployment/gatekeeper-audit --type json -p='[{"op": "remove", "path": "/spec/template/metadata/annotations/container.seccomp.security.alpha.kubernetes.io~1manager"}]' -n gatekeeper-system
+  oc patch Deployment/gatekeeper-controller-manager --type json -p='[{"op": "remove", "path": "/spec/template/metadata/annotations/container.seccomp.security.alpha.kubernetes.io~1manager"}]' -n gatekeeper-system
 
   echo ""
   echo "Waiting for gatekeeper to be ready..."
