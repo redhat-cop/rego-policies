@@ -32,7 +32,7 @@ bats _test/gatekeeper-integrationtests.sh
 ```
 
 ### Limit Gatekeeper to integration test project only
-By default, Gatekeeper watches all projects, unless they are labeled `control-plane` or `admission.gatekeeper.sh/ignore`.
+By default, Gatekeeper watches all projects, unless they are labeled `admission.gatekeeper.sh/ignore`.
 If you only want Gatekeeper to watch the project created by [_test/gatekeeper-integrationtests.sh](_test/gatekeeper-integrationtests.sh),
 run the below before `deploy_constraints`:
 
