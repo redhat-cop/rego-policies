@@ -53,9 +53,11 @@
 * [Image contains expected SHA in history.](#image-contains-expected-sha-in-history.)
 * [Image size is not greater than an expected value](#image-size-is-not-greater-than-an-expected-value)
 
+
+
 ## Namespace has a NetworkPolicy
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** core/Namespace networking.k8s.io/NetworkPolicy
 
@@ -96,7 +98,7 @@ _source: [policy/combine/namespace-has-networkpolicy](policy/combine/namespace-h
 
 ## Namespace has a ResourceQuota
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** core/Namespace core/ResourceQuota
 
@@ -138,7 +140,7 @@ _source: [policy/combine/namespace-has-resourcequota](policy/combine/namespace-h
 
 ## Common k8s labels are set
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet core/Service route.openshift.io/Route
 
@@ -176,7 +178,7 @@ _source: [policy/ocp/bestpractices/common-k8s-labels-notset](policy/ocp/bestprac
 
 ## Container env has CONTAINER_MAX_MEMORY set
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
 
@@ -214,7 +216,7 @@ _source: [policy/ocp/bestpractices/container-env-maxmemory-notset](policy/ocp/be
 
 ## Container image is not set as latest
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
 
@@ -244,7 +246,7 @@ _source: [policy/ocp/bestpractices/container-image-latest](policy/ocp/bestpracti
 
 ## Container image is not from a known registry
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
 
@@ -280,7 +282,7 @@ _source: [policy/ocp/bestpractices/container-image-unknownregistries](policy/ocp
 
 ## Container does not set Java Xmx option
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
 
@@ -326,7 +328,7 @@ _source: [policy/ocp/bestpractices/container-java-xmx-set](policy/ocp/bestpracti
 
 ## Label key is consistent
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
 
@@ -365,7 +367,7 @@ _source: [policy/ocp/bestpractices/container-labelkey-inconsistent](policy/ocp/b
 
 ## Container liveness and readiness probes are equal
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
 
@@ -400,7 +402,7 @@ _source: [policy/ocp/bestpractices/container-liveness-readinessprobe-equal](poli
 
 ## Container liveness prob is not set
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
 
@@ -432,7 +434,7 @@ _source: [policy/ocp/bestpractices/container-livenessprobe-notset](policy/ocp/be
 
 ## Container readiness prob is not set
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
 
@@ -464,7 +466,7 @@ _source: [policy/ocp/bestpractices/container-readinessprobe-notset](policy/ocp/b
 
 ## Container resource limits CPU not set
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
 
@@ -496,7 +498,7 @@ _source: [policy/ocp/bestpractices/container-resources-limits-cpu-set](policy/oc
 
 ## Container resource limits memory not greater than
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
 
@@ -534,7 +536,7 @@ _source: [policy/ocp/bestpractices/container-resources-limits-memory-greater-tha
 
 ## Container resource limits memory not set
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
 
@@ -568,7 +570,7 @@ _source: [policy/ocp/bestpractices/container-resources-limits-memory-notset](pol
 
 ## Container resources limit memory has incorrect unit
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
 
@@ -612,7 +614,7 @@ _source: [policy/ocp/bestpractices/container-resources-memoryunit-incorrect](pol
 
 ## Container resources requests cpu has incorrect unit
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
 
@@ -668,7 +670,7 @@ _source: [policy/ocp/bestpractices/container-resources-requests-cpuunit-incorrec
 
 ## Container resource requests memory not greater than
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
 
@@ -706,7 +708,7 @@ _source: [policy/ocp/bestpractices/container-resources-requests-memory-greater-t
 
 ## Container secret not mounted as envs
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
 
@@ -740,7 +742,7 @@ _source: [policy/ocp/bestpractices/container-secret-mounted-envs](policy/ocp/bes
 
 ## Container volume mount path is consistent
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
 
@@ -771,7 +773,7 @@ _source: [policy/ocp/bestpractices/container-volumemount-inconsistent-path](poli
 
 ## Container volume mount not set
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
 
@@ -805,7 +807,7 @@ _source: [policy/ocp/bestpractices/container-volumemount-missing](policy/ocp/bes
 
 ## DeploymentConfig triggers not set
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** apps.openshift.io/DeploymentConfig
 
@@ -833,7 +835,7 @@ _source: [policy/ocp/bestpractices/deploymentconfig-triggers-notset](policy/ocp/
 
 ## Pod hostnetwork not set
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
 
@@ -862,7 +864,7 @@ _source: [policy/ocp/bestpractices/pod-hostnetwork](policy/ocp/bestpractices/pod
 
 ## Pod replica below 1
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** apps.openshift.io/DeploymentConfig apps/Deployment
 
@@ -891,7 +893,7 @@ _source: [policy/ocp/bestpractices/pod-replicas-below-one](policy/ocp/bestpracti
 
 ## Pod replica is not odd
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** apps.openshift.io/DeploymentConfig apps/Deployment
 
@@ -920,7 +922,7 @@ _source: [policy/ocp/bestpractices/pod-replicas-not-odd](policy/ocp/bestpractice
 
 ## RoleBinding has apiGroup set
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** rbac.authorization.k8s.io/RoleBinding
 
@@ -948,7 +950,7 @@ _source: [policy/ocp/bestpractices/rolebinding-roleref-apigroup-notset](policy/o
 
 ## RoleBinding has kind set
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** rbac.authorization.k8s.io/RoleBinding
 
@@ -976,7 +978,7 @@ _source: [policy/ocp/bestpractices/rolebinding-roleref-kind-notset](policy/ocp/b
 
 ## BuildConfig no longer served by v1
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** v1/BuildConfig
 
@@ -1002,7 +1004,7 @@ _source: [policy/ocp/deprecated/3_11/buildconfig-v1](policy/ocp/deprecated/3_11/
 
 ## DeploymentConfig no longer served by v1
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** v1/DeploymentConfig
 
@@ -1028,7 +1030,7 @@ _source: [policy/ocp/deprecated/3_11/deploymentconfig-v1](policy/ocp/deprecated/
 
 ## ImageStream no longer served by v1
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** v1/ImageStream
 
@@ -1054,7 +1056,7 @@ _source: [policy/ocp/deprecated/3_11/imagestream-v1](policy/ocp/deprecated/3_11/
 
 ## ProjectRequest no longer served by v1
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** v1/ProjectRequest
 
@@ -1080,7 +1082,7 @@ _source: [policy/ocp/deprecated/3_11/projectrequest-v1](policy/ocp/deprecated/3_
 
 ## RoleBinding no longer served by v1
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** v1/RoleBinding
 
@@ -1106,7 +1108,7 @@ _source: [policy/ocp/deprecated/3_11/rolebinding-v1](policy/ocp/deprecated/3_11/
 
 ## Route no longer served by v1
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** v1/Route
 
@@ -1132,7 +1134,7 @@ _source: [policy/ocp/deprecated/3_11/route-v1](policy/ocp/deprecated/3_11/route-
 
 ## SecurityContextConstraints no longer served by v1
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** v1/SecurityContextConstraints
 
@@ -1158,7 +1160,7 @@ _source: [policy/ocp/deprecated/3_11/securitycontextconstraints-v1](policy/ocp/d
 
 ## Template no longer served by v1
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** v1/Template
 
@@ -1184,7 +1186,7 @@ _source: [policy/ocp/deprecated/3_11/template-v1](policy/ocp/deprecated/3_11/tem
 
 ## BuildConfig exposeDockerSocket deprecated
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** build.openshift.io/BuildConfig
 
@@ -1213,7 +1215,7 @@ _source: [policy/ocp/deprecated/4_1/buildconfig-custom-strategy](policy/ocp/depr
 
 ## authorization openshift io is deprecated
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** authorization.openshift.io/ClusterRole authorization.openshift.io/ClusterRoleBinding authorization.openshift.io/Role authorization.openshift.io/RoleBinding
 
@@ -1239,7 +1241,7 @@ _source: [policy/ocp/deprecated/4_2/authorization-openshift](policy/ocp/deprecat
 
 ## automationbroker io v1alpha1 is deprecated
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** automationbroker.io/Bundle automationbroker.io/BundleBinding automationbroker.io/BundleInstance
 
@@ -1266,7 +1268,7 @@ _source: [policy/ocp/deprecated/4_2/automationbroker-v1alpha1](policy/ocp/deprec
 
 ## operators coreos com v1 CatalogSourceConfigs is deprecated
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** operators.coreos.com/CatalogSourceConfigs
 
@@ -1294,7 +1296,7 @@ _source: [policy/ocp/deprecated/4_2/catalogsourceconfigs-v1](policy/ocp/deprecat
 
 ## operators coreos com v2 CatalogSourceConfigs is deprecated
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** operators.coreos.com/CatalogSourceConfigs
 
@@ -1322,7 +1324,7 @@ _source: [policy/ocp/deprecated/4_2/catalogsourceconfigs-v2](policy/ocp/deprecat
 
 ## operators coreos com v1 OperatorSource is deprecated
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** operators.coreos.com/OperatorSource
 
@@ -1349,7 +1351,7 @@ _source: [policy/ocp/deprecated/4_2/operatorsources-v1](policy/ocp/deprecated/4_
 
 ## osb openshift io v1 is deprecated
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** osb.openshift.io/TemplateServiceBroker osb.openshift.io/AutomationBroker
 
@@ -1376,7 +1378,7 @@ _source: [policy/ocp/deprecated/4_2/osb-v1](policy/ocp/deprecated/4_2/osb-v1)_
 
 ## servicecatalog k8s io v1beta1 is deprecated
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** servicecatalog.k8s.io/ClusterServiceBroker servicecatalog.k8s.io/ClusterServiceClass servicecatalog.k8s.io/ClusterServicePlan servicecatalog.k8s.io/ServiceInstance servicecatalog.k8s.io/ServiceBinding
 
@@ -1403,7 +1405,7 @@ _source: [policy/ocp/deprecated/4_2/servicecatalog-v1beta1](policy/ocp/deprecate
 
 ## BuildConfig jenkinsPipelineStrategy is deprecated
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** build.openshift.io/BuildConfig
 
@@ -1432,7 +1434,7 @@ _source: [policy/ocp/deprecated/4_3/buildconfig-jenkinspipeline-strategy](policy
 
 ## Deployment has a matching PodDisruptionBudget
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** apps/Deployment
 
@@ -1469,7 +1471,7 @@ _source: [policy/ocp/requiresinventory/deployment-has-matching-poddisruptionbudg
 
 ## Deployment has matching PersistentVolumeClaim
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** apps/Deployment
 
@@ -1506,7 +1508,7 @@ _source: [policy/ocp/requiresinventory/deployment-has-matching-pvc](policy/ocp/r
 
 ## Deployment has a matching Service
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** apps/Deployment
 
@@ -1542,7 +1544,7 @@ _source: [policy/ocp/requiresinventory/deployment-has-matching-service](policy/o
 
 ## Deployment has matching ServiceAccount
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** apps/Deployment
 
@@ -1579,7 +1581,7 @@ _source: [policy/ocp/requiresinventory/deployment-has-matching-serviceaccount](p
 
 ## Service has matching ServiceMonitor
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** core/Service
 
@@ -1615,7 +1617,7 @@ _source: [policy/ocp/requiresinventory/service-has-matching-servicemonitor](poli
 
 ## Image contains expected SHA in history.
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** redhat-cop.github.com/PodmanHistory
 
@@ -1645,7 +1647,7 @@ _source: [policy/podman/history/contains-layer](policy/podman/history/contains-l
 
 ## Image size is not greater than an expected value
 
-**Severity:** violation
+**Severity:** Violation
 
 **Resources:** redhat-cop.github.com/PodmanImages
 
@@ -1674,3 +1676,6 @@ violation[msg] {
 ```
 
 _source: [policy/podman/images/image-size-not-greater-than](policy/podman/images/image-size-not-greater-than)_
+
+
+
