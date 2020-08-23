@@ -319,6 +319,19 @@ teardown() {
   [[ "${lines[2]}" = "" ]]
 }
 
+@test "policy/ocp/bestpractices/route-tls-termination-notset" {
+  tmp=$(split_files "policy/ocp/bestpractices/route-tls-termination-notset/test_data/integration")
+
+  cmd="oc create -f ${tmp} -n ${project_name}"
+  run ${cmd}
+
+  print_info "${status}" "${output}" "${cmd}" "${tmp}"
+  [ "$status" -eq 1 ]
+  [[ "${lines[0]}" == "Error from server ([denied by routetlsterminationnotset] Route/tlsterminationnotset"* ]]
+  [[ "${lines[1]}" = "" ]]
+}
+
+
 ####################
 # ocp/requiresinventory
 ####################

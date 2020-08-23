@@ -1,0 +1,17 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: tlsterminationnotset
+  labels:
+    app.kubernetes.io/name: Foo
+    app.kubernetes.io/instance: Bar
+    app.kubernetes.io/version: v1
+    app.kubernetes.io/component: FooBar
+    app.kubernetes.io/part-of: Foo
+    app.kubernetes.io/managed-by: Bar
+spec:
+  port:
+    targetPort: 8080
+  to:
+    kind: Service
+    name: tlsterminationnotset
