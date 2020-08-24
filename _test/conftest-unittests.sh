@@ -591,6 +591,75 @@ setup_file() {
 }
 
 ####################
+# ocp/requiresinventory
+####################
+
+@test "policy/ocp/requiresinventory/deployment-has-matching-poddisruptionbudget" {
+  tmp=$(split_files "policy/ocp/requiresinventory/deployment-has-matching-poddisruptionbudget/test_data/unit")
+  inventory="policy/ocp/requiresinventory/data_inventory.rego"
+
+  cmd="conftest test ${tmp} --output tap --namespace ocp.requiresinventory.deployment_has_matching_poddisruptionbudget --data ${inventory}"
+  run ${cmd}
+
+  print_info "${status}" "${output}" "${cmd}" "${tmp}"
+  [ "$status" -eq 1 ]
+  [ "${lines[1]}" = "not ok 1 - ${tmp}/list.yml - Deployment/hasmissingpdb does not have a policy/v1beta1:PodDisruptionBudget or its selector labels dont match. See: https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget" ]
+  [ "${lines[2]}" = "" ]
+}
+
+@test "policy/ocp/requiresinventory/deployment-has-matching-pvc" {
+  tmp=$(split_files "policy/ocp/requiresinventory/deployment-has-matching-pvc/test_data/unit")
+  inventory="policy/ocp/requiresinventory/data_inventory.rego"
+
+  cmd="conftest test ${tmp} --output tap --namespace ocp.requiresinventory.deployment_has_matching_pvc --data ${inventory}"
+  run ${cmd}
+
+  print_info "${status}" "${output}" "${cmd}" "${tmp}"
+  [ "$status" -eq 1 ]
+  [ "${lines[1]}" = "not ok 1 - ${tmp}/list.yml - Deployment/hasmissingpvc has persistentVolumeClaim in its spec.template.spec.volumes but could not find corrasponding v1:PersistentVolumeClaim." ]
+  [ "${lines[2]}" = "" ]
+}
+
+@test "policy/ocp/requiresinventory/deployment-has-matching-service" {
+  tmp=$(split_files "policy/ocp/requiresinventory/deployment-has-matching-service/test_data/unit")
+  inventory="policy/ocp/requiresinventory/data_inventory.rego"
+
+  cmd="conftest test ${tmp} --output tap --namespace ocp.requiresinventory.deployment_has_matching_service --data ${inventory}"
+  run ${cmd}
+
+  print_info "${status}" "${output}" "${cmd}" "${tmp}"
+  [ "$status" -eq 1 ]
+  [ "${lines[1]}" = "not ok 1 - ${tmp}/list.yml - Deployment/hasmissingsvc does not have a v1:Service or its selector labels dont match. See: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#service-and-replicationcontroller" ]
+  [ "${lines[2]}" = "" ]
+}
+
+@test "policy/ocp/requiresinventory/deployment-has-matching-serviceaccount" {
+  tmp=$(split_files "policy/ocp/requiresinventory/deployment-has-matching-serviceaccount/test_data/unit")
+  inventory="policy/ocp/requiresinventory/data_inventory.rego"
+
+  cmd="conftest test ${tmp} --output tap --namespace ocp.requiresinventory.deployment_has_matching_serviceaccount --data ${inventory}"
+  run ${cmd}
+
+  print_info "${status}" "${output}" "${cmd}" "${tmp}"
+  [ "$status" -eq 1 ]
+  [ "${lines[1]}" = "not ok 1 - ${tmp}/list.yml - Deployment/hasmissingsvcaccount has spec.serviceAccountName 'foo' but could not find corrasponding v1:ServiceAccount." ]
+  [ "${lines[2]}" = "" ]
+}
+
+@test "policy/ocp/requiresinventory/service-has-matching-servicemonitor" {
+  tmp=$(split_files "policy/ocp/requiresinventory/service-has-matching-servicemonitor/test_data/unit")
+  inventory="policy/ocp/requiresinventory/data_inventory.rego"
+
+  cmd="conftest test ${tmp} --output tap --namespace ocp.requiresinventory.service_has_matching_servicenonitor --data ${inventory}"
+  run ${cmd}
+
+  print_info "${status}" "${output}" "${cmd}" "${tmp}"
+  [ "$status" -eq 1 ]
+  [ "${lines[1]}" = "not ok 1 - ${tmp}/list.yml - Service/hasmissingsvcmon does not have a monitoring.coreos.com/v1:ServiceMonitor or its selector labels dont match. See: https://docs.openshift.com/container-platform/4.4/monitoring/monitoring-your-own-services.html" ]
+  [ "${lines[2]}" = "" ]
+}
+
+####################
 # podman
 ####################
 
