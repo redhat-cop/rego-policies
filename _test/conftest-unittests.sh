@@ -370,6 +370,18 @@ setup_file() {
   [ "${lines[2]}" = "" ]
 }
 
+@test "policy/ocp/bestpractices/route-tls-termination-notset" {
+  tmp=$(split_files "policy/ocp/bestpractices/route-tls-termination-notset/test_data/unit")
+
+  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.route_tls_termination_notset"
+  run ${cmd}
+
+  print_info "${status}" "${output}" "${cmd}" "${tmp}"
+  [ "$status" -eq 1 ]
+  [ "${lines[1]}" = "not ok 1 - ${tmp}/example.yml - Route/tlsterminationnotset: TLS termination type not set. See https://docs.openshift.com/container-platform/4.5/networking/routes/secured-routes.html" ]
+  [ "${lines[2]}" = "" ]
+}
+
 ####################
 # ocp/deprecated
 ####################

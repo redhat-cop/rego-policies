@@ -254,6 +254,16 @@ setup_file() {
   [ "$status" -eq 0 ]
 }
 
+@test "policy/ocp/bestpractices/route-tls-termination-notset" {
+  tmp=$(split_files "policy/ocp/bestpractices/route-tls-termination-notset/test_data/unit")
+
+  cmd="opa eval --bundle policy/ --input ${tmp}/example.yml --profile --format=pretty data.ocp.bestpractices.route_tls_termination_notset"
+  run ${cmd}
+
+  echo "${cmd} ${output}" >> opa-profile.log
+  [ "$status" -eq 0 ]
+}
+
 ####################
 # ocp/deprecated
 ####################

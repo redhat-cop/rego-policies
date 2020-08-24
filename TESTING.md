@@ -48,3 +48,4 @@ The following tools must be installed locally:
 - [bats-core](https://github.com/bats-core/bats-core)
 - [jq](https://stedolan.github.io/jq/download)
 - [yq](https://pypi.org/project/yq)
+- [helm](https://helm.sh/)
