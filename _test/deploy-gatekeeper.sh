@@ -45,6 +45,9 @@ deploy_gatekeeper() {
   oc patch Deployment/gatekeeper-audit --type json -p='[{"op": "remove", "path": "/spec/template/metadata/annotations/container.seccomp.security.alpha.kubernetes.io~1manager"}]' -n gatekeeper-system
   oc patch Deployment/gatekeeper-controller-manager --type json -p='[{"op": "remove", "path": "/spec/template/metadata/annotations/container.seccomp.security.alpha.kubernetes.io~1manager"}]' -n gatekeeper-system
 
+  oc patch Deployment/gatekeeper-audit --type json -p='[{"op": "add", "path": "/spec/template/spec/containers/0/args/3", "value": "--emit-admission-events=true" }]' -n gatekeeper-system
+  oc patch Deployment/gatekeeper-controller-manager --type json -p='[{"op": "add", "path": "/spec/template/spec/containers/0/args/4", "value": "--emit-admission-events=true" }]' -n gatekeeper-system
+
   echo ""
   echo "Waiting for gatekeeper to be ready..."
   oc rollout status Deployment/gatekeeper-audit -n gatekeeper-system --watch=true
