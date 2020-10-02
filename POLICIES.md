@@ -54,8 +54,6 @@
 * [Image contains expected SHA in history.](#image-contains-expected-sha-in-history.)
 * [Image size is not greater than an expected value](#image-size-is-not-greater-than-an-expected-value)
 
-
-
 ## Namespace has a NetworkPolicy
 
 **Severity:** Violation
@@ -1705,6 +1703,3 @@ violation[msg] {
 ```
 
 _source: [policy/podman/images/image-size-not-greater-than](policy/podman/images/image-size-not-greater-than)_
-
-
-
