@@ -2,140 +2,141 @@
 
 ## Violations
 
-* [Namespace has a NetworkPolicy](#namespace-has-a-networkpolicy)
-* [Namespace has a ResourceQuota](#namespace-has-a-resourcequota)
+* [BuildConfig exposeDockerSocket deprecated](#buildconfig-exposedockersocket-deprecated)
+* [BuildConfig jenkinsPipelineStrategy is deprecated](#buildconfig-jenkinspipelinestrategy-is-deprecated)
+* [BuildConfig no longer served by v1](#buildconfig-no-longer-served-by-v1)
 * [Common k8s labels are set](#common-k8s-labels-are-set)
-* [Container env has CONTAINER_MAX_MEMORY set](#container-env-has-container_max_memory-set)
-* [Container image is not set as latest](#container-image-is-not-set-as-latest)
-* [Container image is not from a known registry](#container-image-is-not-from-a-known-registry)
 * [Container does not set Java Xmx option](#container-does-not-set-java-xmx-option)
-* [Label key is consistent](#label-key-is-consistent)
+* [Container env has CONTAINER_MAX_MEMORY set](#container-env-has-container_max_memory-set)
+* [Container image is not from a known registry](#container-image-is-not-from-a-known-registry)
+* [Container image is not set as latest](#container-image-is-not-set-as-latest)
 * [Container liveness and readiness probes are equal](#container-liveness-and-readiness-probes-are-equal)
 * [Container liveness prob is not set](#container-liveness-prob-is-not-set)
 * [Container readiness prob is not set](#container-readiness-prob-is-not-set)
 * [Container resource limits CPU not set](#container-resource-limits-cpu-not-set)
 * [Container resource limits memory not greater than](#container-resource-limits-memory-not-greater-than)
 * [Container resource limits memory not set](#container-resource-limits-memory-not-set)
+* [Container resource requests memory not greater than](#container-resource-requests-memory-not-greater-than)
 * [Container resources limit memory has incorrect unit](#container-resources-limit-memory-has-incorrect-unit)
 * [Container resources requests cpu has incorrect unit](#container-resources-requests-cpu-has-incorrect-unit)
-* [Container resource requests memory not greater than](#container-resource-requests-memory-not-greater-than)
 * [Container secret not mounted as envs](#container-secret-not-mounted-as-envs)
-* [Container volume mount path is consistent](#container-volume-mount-path-is-consistent)
 * [Container volume mount not set](#container-volume-mount-not-set)
+* [Container volume mount path is consistent](#container-volume-mount-path-is-consistent)
+* [Deployment has a matching PodDisruptionBudget](#deployment-has-a-matching-poddisruptionbudget)
+* [Deployment has a matching Service](#deployment-has-a-matching-service)
+* [Deployment has matching PersistentVolumeClaim](#deployment-has-matching-persistentvolumeclaim)
+* [Deployment has matching ServiceAccount](#deployment-has-matching-serviceaccount)
+* [DeploymentConfig no longer served by v1](#deploymentconfig-no-longer-served-by-v1)
 * [DeploymentConfig triggers not set](#deploymentconfig-triggers-not-set)
+* [Image contains expected SHA in history.](#image-contains-expected-sha-in-history.)
+* [Image size is not greater than an expected value](#image-size-is-not-greater-than-an-expected-value)
+* [ImageStream no longer served by v1](#imagestream-no-longer-served-by-v1)
+* [Label key is consistent](#label-key-is-consistent)
+* [Namespace has a NetworkPolicy](#namespace-has-a-networkpolicy)
+* [Namespace has a ResourceQuota](#namespace-has-a-resourcequota)
 * [Pod hostnetwork not set](#pod-hostnetwork-not-set)
 * [Pod replica below 1](#pod-replica-below-1)
 * [Pod replica is not odd](#pod-replica-is-not-odd)
+* [ProjectRequest no longer served by v1](#projectrequest-no-longer-served-by-v1)
 * [RoleBinding has apiGroup set](#rolebinding-has-apigroup-set)
 * [RoleBinding has kind set](#rolebinding-has-kind-set)
-* [Route has TLS Termination Defined](#route-has-tls-termination-defined)
-* [BuildConfig no longer served by v1](#buildconfig-no-longer-served-by-v1)
-* [DeploymentConfig no longer served by v1](#deploymentconfig-no-longer-served-by-v1)
-* [ImageStream no longer served by v1](#imagestream-no-longer-served-by-v1)
-* [ProjectRequest no longer served by v1](#projectrequest-no-longer-served-by-v1)
 * [RoleBinding no longer served by v1](#rolebinding-no-longer-served-by-v1)
+* [Route has TLS Termination Defined](#route-has-tls-termination-defined)
 * [Route no longer served by v1](#route-no-longer-served-by-v1)
 * [SecurityContextConstraints no longer served by v1](#securitycontextconstraints-no-longer-served-by-v1)
+* [Service has matching ServiceMonitor](#service-has-matching-servicemonitor)
 * [Template no longer served by v1](#template-no-longer-served-by-v1)
-* [BuildConfig exposeDockerSocket deprecated](#buildconfig-exposedockersocket-deprecated)
 * [authorization openshift io is deprecated](#authorization-openshift-io-is-deprecated)
 * [automationbroker io v1alpha1 is deprecated](#automationbroker-io-v1alpha1-is-deprecated)
 * [operators coreos com v1 CatalogSourceConfigs is deprecated](#operators-coreos-com-v1-catalogsourceconfigs-is-deprecated)
-* [operators coreos com v2 CatalogSourceConfigs is deprecated](#operators-coreos-com-v2-catalogsourceconfigs-is-deprecated)
 * [operators coreos com v1 OperatorSource is deprecated](#operators-coreos-com-v1-operatorsource-is-deprecated)
+* [operators coreos com v2 CatalogSourceConfigs is deprecated](#operators-coreos-com-v2-catalogsourceconfigs-is-deprecated)
 * [osb openshift io v1 is deprecated](#osb-openshift-io-v1-is-deprecated)
 * [servicecatalog k8s io v1beta1 is deprecated](#servicecatalog-k8s-io-v1beta1-is-deprecated)
-* [BuildConfig jenkinsPipelineStrategy is deprecated](#buildconfig-jenkinspipelinestrategy-is-deprecated)
-* [Deployment has a matching PodDisruptionBudget](#deployment-has-a-matching-poddisruptionbudget)
-* [Deployment has matching PersistentVolumeClaim](#deployment-has-matching-persistentvolumeclaim)
-* [Deployment has a matching Service](#deployment-has-a-matching-service)
-* [Deployment has matching ServiceAccount](#deployment-has-matching-serviceaccount)
-* [Service has matching ServiceMonitor](#service-has-matching-servicemonitor)
-* [Image contains expected SHA in history.](#image-contains-expected-sha-in-history.)
-* [Image size is not greater than an expected value](#image-size-is-not-greater-than-an-expected-value)
 
-## Namespace has a NetworkPolicy
+## BuildConfig exposeDockerSocket deprecated
 
 **Severity:** Violation
 
-**Resources:** core/Namespace networking.k8s.io/NetworkPolicy
+**Resources:** build.openshift.io/BuildConfig
 
-Kubernetes network policies specify the access permissions for groups of pods,
-much like security groups in the cloud are used to control access to VM instances.
-In other words, it creates firewalls between pods running on a Kubernetes cluster.
-See: Network policies -> https://learnk8s.io/production-best-practices#governance
+'spec.strategy.customStrategy.exposeDockerSocket' is no longer supported by BuildConfig.
+See: https://docs.openshift.com/container-platform/4.1/release_notes/ocp-4-1-release-notes.html#ocp-41-deprecated-features
 
 ### Rego
 
 ```rego
-package combine.namespace_has_networkpolicy
+package ocp.deprecated.ocp4_1.buildconfig_custom_strategy
 
 import data.lib.konstraint
 
 violation[msg] {
-  manifests := input[_]
-  some i
+  obj := konstraint.object
+  lower(obj.apiVersion) == "build.openshift.io/v1"
+  lower(obj.kind) == "buildconfig"
 
-  lower(manifests[i].apiVersion) == "v1"
-  lower(manifests[i].kind) == "namespace"
-  namespace := manifests[i]
+  obj.spec.strategy.customStrategy.exposeDockerSocket
 
-  not namespace_has_networkpolicy(manifests)
-
-  msg := konstraint.format(sprintf("%s/%s does not have a networking.k8s.io/v1:NetworkPolicy. See: https://docs.openshift.com/container-platform/4.4/networking/configuring-networkpolicy.html", [namespace.kind, namespace.metadata.name]))
-}
-
-namespace_has_networkpolicy(manifests) {
-  current := manifests[_]
-
-  lower(current.apiVersion) == "networking.k8s.io/v1"
-  lower(current.kind) == "networkpolicy"
+  msg := konstraint.format(sprintf("%s/%s: 'spec.strategy.customStrategy.exposeDockerSocket' is deprecated. If you want to continue using custom builds, you should replace your Docker invocations with Podman or Buildah.", [obj.kind, obj.metadata.name]))
 }
 ```
 
-_source: [policy/combine/namespace-has-networkpolicy](policy/combine/namespace-has-networkpolicy)_
+_source: [policy/ocp/deprecated/4_1/buildconfig-custom-strategy](policy/ocp/deprecated/4_1/buildconfig-custom-strategy)_
 
-## Namespace has a ResourceQuota
+## BuildConfig jenkinsPipelineStrategy is deprecated
 
 **Severity:** Violation
 
-**Resources:** core/Namespace core/ResourceQuota
+**Resources:** build.openshift.io/BuildConfig
 
-With ResourceQuotas, you can limit the total resource consumption of all containers inside a Namespace.
-Defining a resource quota for a namespace limits the total amount of CPU, memory or storage resources
-that can be consumed by all containers belonging to that namespace. You can also set quotas for other
-Kubernetes objects such as the number of Pods in the current namespace.
-See: Namespace limits -> https://learnk8s.io/production-best-practices#governance
+'spec.strategy.jenkinsPipelineStrategy' is no longer supported by BuildConfig.
+See: https://docs.openshift.com/container-platform/4.3/release_notes/ocp-4-3-release-notes.html#ocp-4-3-deprecated-features
 
 ### Rego
 
 ```rego
-package combine.namespace_has_resourcequota
+package ocp.deprecated.ocp4_3.buildconfig_jenkinspipeline_strategy
 
 import data.lib.konstraint
 
 violation[msg] {
-  manifests := input[_]
-  some i
+  obj := konstraint.object
+  lower(obj.apiVersion) == "build.openshift.io/v1"
+  lower(obj.kind) == "buildconfig"
 
-  lower(manifests[i].apiVersion) == "v1"
-  lower(manifests[i].kind) == "namespace"
-  namespace := manifests[i]
+  obj.spec.strategy.jenkinsPipelineStrategy
 
-  not namespace_has_resourcequota(manifests)
-
-  msg := konstraint.format(sprintf("%s/%s does not have a core/v1:ResourceQuota. See: https://docs.openshift.com/container-platform/4.5/applications/quotas/quotas-setting-per-project.html", [namespace.kind, namespace.metadata.name]))
-}
-
-namespace_has_resourcequota(manifests) {
-  current := manifests[_]
-
-  lower(current.apiVersion) == "v1"
-  lower(current.kind) == "resourcequota"
+  msg := konstraint.format(sprintf("%s/%s: 'spec.strategy.jenkinsPipelineStrategy' is deprecated. Use Jenkinsfiles directly on Jenkins or OpenShift Pipelines instead.", [obj.kind, obj.metadata.name]))
 }
 ```
 
-_source: [policy/combine/namespace-has-resourcequota](policy/combine/namespace-has-resourcequota)_
+_source: [policy/ocp/deprecated/4_3/buildconfig-jenkinspipeline-strategy](policy/ocp/deprecated/4_3/buildconfig-jenkinspipeline-strategy)_
+
+## BuildConfig no longer served by v1
+
+**Severity:** Violation
+
+**Resources:** v1/BuildConfig
+
+OCP4.x expects build.openshift.io/v1.
+
+### Rego
+
+```rego
+package ocp.deprecated.ocp3_11.buildconfig_v1
+
+import data.lib.konstraint
+
+violation[msg] {
+  obj := konstraint.object
+  lower(obj.apiVersion) == "v1"
+  lower(obj.kind) == "buildconfig"
+
+  msg := konstraint.format(sprintf("%s/%s: API v1 for BuildConfig is no longer served by default, use build.openshift.io/v1 instead.", [obj.kind, obj.metadata.name]))
+}
+```
+
+_source: [policy/ocp/deprecated/3_11/buildconfig-v1](policy/ocp/deprecated/3_11/buildconfig-v1)_
 
 ## Common k8s labels are set
 
@@ -174,110 +175,6 @@ is_common_labels_set(metadata) {
 ```
 
 _source: [policy/ocp/bestpractices/common-k8s-labels-notset](policy/ocp/bestpractices/common-k8s-labels-notset)_
-
-## Container env has CONTAINER_MAX_MEMORY set
-
-**Severity:** Violation
-
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
-
-Red Hat OpenJDK image uses CONTAINER_MAX_MEMORY env via the downward API to set Java memory settings.
-Instead of manually setting -Xmx, let the image automatically set it for you.
-See: https://github.com/jboss-openshift/cct_module/blob/master/jboss/container/java/jvm/bash/artifacts/opt/jboss/container/java/jvm/java-default-options
-
-### Rego
-
-```rego
-package ocp.bestpractices.container_env_maxmemory_notset
-
-import data.lib.konstraint
-import data.lib.openshift
-
-violation[msg] {
-  openshift.is_workload_kind
-
-  container := openshift.containers[_]
-
-  not is_env_max_memory_set(container)
-  obj := konstraint.object
-
-  msg := konstraint.format(sprintf("%s/%s: container '%s' does not have an env named 'CONTAINER_MAX_MEMORY' which is used by the Red Hat base images to calculate memory. See: https://docs.openshift.com/container-platform/4.4/nodes/clusters/nodes-cluster-resource-configure.html and https://github.com/jboss-openshift/cct_module/blob/master/jboss/container/java/jvm/bash/artifacts/opt/jboss/container/java/jvm/java-default-options", [obj.kind, obj.metadata.name, container.name]))
-}
-
-is_env_max_memory_set(container) {
-  env := container.env[_]
-  env.name == "CONTAINER_MAX_MEMORY"
-  env.valueFrom.resourceFieldRef.resource == "limits.memory"
-}
-```
-
-_source: [policy/ocp/bestpractices/container-env-maxmemory-notset](policy/ocp/bestpractices/container-env-maxmemory-notset)_
-
-## Container image is not set as latest
-
-**Severity:** Violation
-
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
-
-Images should use immutable tags. Today's latest is not tomorrows latest.
-
-### Rego
-
-```rego
-package ocp.bestpractices.container_image_latest
-
-import data.lib.konstraint
-import data.lib.openshift
-
-violation[msg] {
-  openshift.is_workload_kind
-
-  container := openshift.containers[_]
-
-  endswith(container.image, ":latest")
-  obj := konstraint.object
-
-  msg := konstraint.format(sprintf("%s/%s: container '%s' is using the latest tag for its image (%s), which is an anti-pattern.", [obj.kind, obj.metadata.name, container.name, container.image]))
-}
-```
-
-_source: [policy/ocp/bestpractices/container-image-latest](policy/ocp/bestpractices/container-image-latest)_
-
-## Container image is not from a known registry
-
-**Severity:** Violation
-
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
-
-Only images from trusted and known registries should be used
-
-### Rego
-
-```rego
-package ocp.bestpractices.container_image_unknownregistries
-
-import data.lib.konstraint
-import data.lib.openshift
-
-violation[msg] {
-  openshift.is_workload_kind
-
-  container := openshift.containers[_]
-  registry_list := ["image-registry.openshift-image-registry.svc", "registry.redhat.io/", "quay.io/"]
-
-  not known_registry(container.image, registry_list)
-
-  obj := konstraint.object
-  msg := konstraint.format(sprintf("%s/%s: container '%s' is from (%s), which is an unknown registry.", [obj.kind, obj.metadata.name, container.name, container.image]))
-}
-
-known_registry(image, knownregistry){
-  registry := knownregistry[_]
-  startswith(image, registry)
-}
-```
-
-_source: [policy/ocp/bestpractices/container-image-unknownregistries](policy/ocp/bestpractices/container-image-unknownregistries)_
 
 ## Container does not set Java Xmx option
 
@@ -325,18 +222,20 @@ container_opts_contains_xmx(container) {
 
 _source: [policy/ocp/bestpractices/container-java-xmx-set](policy/ocp/bestpractices/container-java-xmx-set)_
 
-## Label key is consistent
+## Container env has CONTAINER_MAX_MEMORY set
 
 **Severity:** Violation
 
 **Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
 
-Label keys should be qualified by 'app.kubernetes.io' or 'company.com' to allow a consistent understanding.
+Red Hat OpenJDK image uses CONTAINER_MAX_MEMORY env via the downward API to set Java memory settings.
+Instead of manually setting -Xmx, let the image automatically set it for you.
+See: https://github.com/jboss-openshift/cct_module/blob/master/jboss/container/java/jvm/bash/artifacts/opt/jboss/container/java/jvm/java-default-options
 
 ### Rego
 
 ```rego
-package ocp.bestpractices.container_labelkey_inconsistent
+package ocp.bestpractices.container_env_maxmemory_notset
 
 import data.lib.konstraint
 import data.lib.openshift
@@ -344,25 +243,88 @@ import data.lib.openshift
 violation[msg] {
   openshift.is_workload_kind
 
-  some key
+  container := openshift.containers[_]
+
+  not is_env_max_memory_set(container)
   obj := konstraint.object
-  value := obj.metadata.labels[key]
 
-  not label_key_starts_with_expected(key)
-
-  msg := konstraint.format(sprintf("%s/%s: has a label key which did not start with 'app.kubernetes.io/' or 'redhat-cop.github.com/'. Found '%s'", [obj.kind, obj.metadata.name, key]))
+  msg := konstraint.format(sprintf("%s/%s: container '%s' does not have an env named 'CONTAINER_MAX_MEMORY' which is used by the Red Hat base images to calculate memory. See: https://docs.openshift.com/container-platform/4.4/nodes/clusters/nodes-cluster-resource-configure.html and https://github.com/jboss-openshift/cct_module/blob/master/jboss/container/java/jvm/bash/artifacts/opt/jboss/container/java/jvm/java-default-options", [obj.kind, obj.metadata.name, container.name]))
 }
 
-label_key_starts_with_expected(key) {
-  startswith(key, "app.kubernetes.io/")
-}
-
-label_key_starts_with_expected(key) {
-  startswith(key, "redhat-cop.github.com/")
+is_env_max_memory_set(container) {
+  env := container.env[_]
+  env.name == "CONTAINER_MAX_MEMORY"
+  env.valueFrom.resourceFieldRef.resource == "limits.memory"
 }
 ```
 
-_source: [policy/ocp/bestpractices/container-labelkey-inconsistent](policy/ocp/bestpractices/container-labelkey-inconsistent)_
+_source: [policy/ocp/bestpractices/container-env-maxmemory-notset](policy/ocp/bestpractices/container-env-maxmemory-notset)_
+
+## Container image is not from a known registry
+
+**Severity:** Violation
+
+**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
+
+Only images from trusted and known registries should be used
+
+### Rego
+
+```rego
+package ocp.bestpractices.container_image_unknownregistries
+
+import data.lib.konstraint
+import data.lib.openshift
+
+violation[msg] {
+  openshift.is_workload_kind
+
+  container := openshift.containers[_]
+  registry_list := ["image-registry.openshift-image-registry.svc", "registry.redhat.io/", "quay.io/"]
+
+  not known_registry(container.image, registry_list)
+
+  obj := konstraint.object
+  msg := konstraint.format(sprintf("%s/%s: container '%s' is from (%s), which is an unknown registry.", [obj.kind, obj.metadata.name, container.name, container.image]))
+}
+
+known_registry(image, knownregistry){
+  registry := knownregistry[_]
+  startswith(image, registry)
+}
+```
+
+_source: [policy/ocp/bestpractices/container-image-unknownregistries](policy/ocp/bestpractices/container-image-unknownregistries)_
+
+## Container image is not set as latest
+
+**Severity:** Violation
+
+**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
+
+Images should use immutable tags. Today's latest is not tomorrows latest.
+
+### Rego
+
+```rego
+package ocp.bestpractices.container_image_latest
+
+import data.lib.konstraint
+import data.lib.openshift
+
+violation[msg] {
+  openshift.is_workload_kind
+
+  container := openshift.containers[_]
+
+  endswith(container.image, ":latest")
+  obj := konstraint.object
+
+  msg := konstraint.format(sprintf("%s/%s: container '%s' is using the latest tag for its image (%s), which is an anti-pattern.", [obj.kind, obj.metadata.name, container.name, container.image]))
+}
+```
+
+_source: [policy/ocp/bestpractices/container-image-latest](policy/ocp/bestpractices/container-image-latest)_
 
 ## Container liveness and readiness probes are equal
 
@@ -567,6 +529,44 @@ violation[msg] {
 
 _source: [policy/ocp/bestpractices/container-resources-limits-memory-notset](policy/ocp/bestpractices/container-resources-limits-memory-notset)_
 
+## Container resource requests memory not greater than
+
+**Severity:** Violation
+
+**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
+
+Setting a too high memory request can cause under utilisation on a node.
+It is better to run multiple pods which use smaller requests.
+See: Resources utilisation -> https://learnk8s.io/production-best-practices#application-development
+
+### Rego
+
+```rego
+package ocp.bestpractices.container_resources_requests_memory_greater_than
+
+import data.lib.konstraint
+import data.lib.memory
+import data.lib.openshift
+
+violation[msg] {
+  openshift.is_workload_kind
+
+  #NOTE: upperBound is an arbitrary number and it should be changed to what your company believes is the correct policy
+  upperBound := 2 * memory.gb
+
+  container := openshift.containers[_]
+
+  not startswith(container.resources.requests.memory, "$")
+  memoryBytes := units.parse_bytes(container.resources.requests.memory)
+  memoryBytes > upperBound
+  obj := konstraint.object
+
+  msg := konstraint.format(sprintf("%s/%s: container '%s' has a memory request of '%s' which is larger than the upper '%dGi' limit.", [obj.kind, obj.metadata.name, container.name, container.resources.requests.memory, (upperBound / memory.gb)]))
+}
+```
+
+_source: [policy/ocp/bestpractices/container-resources-requests-memory-greater-than](policy/ocp/bestpractices/container-resources-requests-memory-greater-than)_
+
 ## Container resources limit memory has incorrect unit
 
 **Severity:** Violation
@@ -667,44 +667,6 @@ is_resource_requests_cpu_units_valid(container)  {
 
 _source: [policy/ocp/bestpractices/container-resources-requests-cpuunit-incorrect](policy/ocp/bestpractices/container-resources-requests-cpuunit-incorrect)_
 
-## Container resource requests memory not greater than
-
-**Severity:** Violation
-
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
-
-Setting a too high memory request can cause under utilisation on a node.
-It is better to run multiple pods which use smaller requests.
-See: Resources utilisation -> https://learnk8s.io/production-best-practices#application-development
-
-### Rego
-
-```rego
-package ocp.bestpractices.container_resources_requests_memory_greater_than
-
-import data.lib.konstraint
-import data.lib.memory
-import data.lib.openshift
-
-violation[msg] {
-  openshift.is_workload_kind
-
-  #NOTE: upperBound is an arbitrary number and it should be changed to what your company believes is the correct policy
-  upperBound := 2 * memory.gb
-
-  container := openshift.containers[_]
-
-  not startswith(container.resources.requests.memory, "$")
-  memoryBytes := units.parse_bytes(container.resources.requests.memory)
-  memoryBytes > upperBound
-  obj := konstraint.object
-
-  msg := konstraint.format(sprintf("%s/%s: container '%s' has a memory request of '%s' which is larger than the upper '%dGi' limit.", [obj.kind, obj.metadata.name, container.name, container.resources.requests.memory, (upperBound / memory.gb)]))
-}
-```
-
-_source: [policy/ocp/bestpractices/container-resources-requests-memory-greater-than](policy/ocp/bestpractices/container-resources-requests-memory-greater-than)_
-
 ## Container secret not mounted as envs
 
 **Severity:** Violation
@@ -738,37 +700,6 @@ violation[msg] {
 ```
 
 _source: [policy/ocp/bestpractices/container-secret-mounted-envs](policy/ocp/bestpractices/container-secret-mounted-envs)_
-
-## Container volume mount path is consistent
-
-**Severity:** Violation
-
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
-
-Mount paths should be mounted at '/var/run/company.com' to allow a consistent understanding.
-
-### Rego
-
-```rego
-package ocp.bestpractices.container_volumemount_inconsistent_path
-
-import data.lib.konstraint
-import data.lib.openshift
-
-violation[msg] {
-  openshift.is_workload_kind
-
-  container := openshift.containers[_]
-
-  volumeMount := container.volumeMounts[_]
-  not startswith(volumeMount.mountPath, "/var/run")
-  obj := konstraint.object
-
-  msg := konstraint.format(sprintf("%s/%s: container '%s' has a volumeMount '%s' mountPath at '%s'. A good practice is to use consistent mount paths, such as: /var/run/{organization}/{mount} - i.e.: /var/run/io.redhat-cop/my-secret", [obj.kind, obj.metadata.name, container.name, volumeMount.name, volumeMount.mountPath]))
-}
-```
-
-_source: [policy/ocp/bestpractices/container-volumemount-inconsistent-path](policy/ocp/bestpractices/container-volumemount-inconsistent-path)_
 
 ## Container volume mount not set
 
@@ -804,6 +735,210 @@ containers_volumemounts_contains_volume(containers, volume) {
 
 _source: [policy/ocp/bestpractices/container-volumemount-missing](policy/ocp/bestpractices/container-volumemount-missing)_
 
+## Container volume mount path is consistent
+
+**Severity:** Violation
+
+**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
+
+Mount paths should be mounted at '/var/run/company.com' to allow a consistent understanding.
+
+### Rego
+
+```rego
+package ocp.bestpractices.container_volumemount_inconsistent_path
+
+import data.lib.konstraint
+import data.lib.openshift
+
+violation[msg] {
+  openshift.is_workload_kind
+
+  container := openshift.containers[_]
+
+  volumeMount := container.volumeMounts[_]
+  not startswith(volumeMount.mountPath, "/var/run")
+  obj := konstraint.object
+
+  msg := konstraint.format(sprintf("%s/%s: container '%s' has a volumeMount '%s' mountPath at '%s'. A good practice is to use consistent mount paths, such as: /var/run/{organization}/{mount} - i.e.: /var/run/io.redhat-cop/my-secret", [obj.kind, obj.metadata.name, container.name, volumeMount.name, volumeMount.mountPath]))
+}
+```
+
+_source: [policy/ocp/bestpractices/container-volumemount-inconsistent-path](policy/ocp/bestpractices/container-volumemount-inconsistent-path)_
+
+## Deployment has a matching PodDisruptionBudget
+
+**Severity:** Violation
+
+**Resources:** apps/Deployment
+
+All Deployments should have matching PodDisruptionBudget, via 'spec.template.metadata.labels', to provide HA guarantees.
+See: Fault tolerance -> https://learnk8s.io/production-best-practices#application-development
+See: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
+
+### Rego
+
+```rego
+package ocp.requiresinventory.deployment_has_matching_poddisruptionbudget
+
+import data.lib.konstraint
+
+violation[msg] {
+  konstraint.is_deployment
+
+  deployment := konstraint.object
+
+  not deployment_has_matching_poddisruptionbudget(deployment, data.inventory.namespace[deployment.metadata.namespace])
+
+  msg := konstraint.format(sprintf("%s/%s does not have a policy/v1beta1:PodDisruptionBudget or its selector labels dont match. See: https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget", [deployment.kind, deployment.metadata.name]))
+}
+
+deployment_has_matching_poddisruptionbudget(deployment, manifests) {
+  cached := manifests["policy/v1beta1"]["PodDisruptionBudget"]
+  current := cached[_]
+
+  deployment.spec.template.metadata.labels == current.spec.selector.matchLabels
+}
+```
+
+_source: [policy/ocp/requiresinventory/deployment-has-matching-poddisruptionbudget](policy/ocp/requiresinventory/deployment-has-matching-poddisruptionbudget)_
+
+## Deployment has a matching Service
+
+**Severity:** Violation
+
+**Resources:** apps/Deployment
+
+All Deployments should have matching Service, via 'spec.template.metadata.labels'.
+Deployments without a Service are not accessible and should be questioned as to why.
+
+### Rego
+
+```rego
+package ocp.requiresinventory.deployment_has_matching_service
+
+import data.lib.konstraint
+
+violation[msg] {
+  konstraint.is_deployment
+
+  deployment := konstraint.object
+
+  not deployment_labels_matches_service_selector(deployment, data.inventory.namespace[deployment.metadata.namespace])
+
+  msg := konstraint.format(sprintf("%s/%s does not have a v1:Service or its selector labels dont match. See: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#service-and-replicationcontroller", [deployment.kind, deployment.metadata.name]))
+}
+
+deployment_labels_matches_service_selector(deployment, manifests) {
+  cached := manifests["v1"]["Service"]
+  current := cached[_]
+
+  deployment.spec.template.metadata.labels == current.spec.selector
+}
+```
+
+_source: [policy/ocp/requiresinventory/deployment-has-matching-service](policy/ocp/requiresinventory/deployment-has-matching-service)_
+
+## Deployment has matching PersistentVolumeClaim
+
+**Severity:** Violation
+
+**Resources:** apps/Deployment
+
+If Deployment has 'spec.template.spec.volumes.persistentVolumeClaim' set, there should be matching PersistentVolumeClaim.
+If not, this would suggest a mistake.
+
+### Rego
+
+```rego
+package ocp.requiresinventory.deployment_has_matching_pvc
+
+import data.lib.konstraint
+
+violation[msg] {
+  konstraint.is_deployment
+
+  deployment := konstraint.object
+  deployment.spec.template.spec.volumes[_].persistentVolumeClaim
+
+  not deployment_has_matching_persistentvolumeclaim(deployment, data.inventory.namespace[deployment.metadata.namespace])
+
+  msg := konstraint.format(sprintf("%s/%s has persistentVolumeClaim in its spec.template.spec.volumes but could not find corrasponding v1:PersistentVolumeClaim.", [deployment.kind, deployment.metadata.name]))
+}
+
+deployment_has_matching_persistentvolumeclaim(deployment, manifests) {
+  cached := manifests["v1"]["PersistentVolumeClaim"]
+  current := cached[_]
+
+  deployment.spec.template.spec.volumes[_].persistentVolumeClaim.claimName == current.metadata.name
+}
+```
+
+_source: [policy/ocp/requiresinventory/deployment-has-matching-pvc](policy/ocp/requiresinventory/deployment-has-matching-pvc)_
+
+## Deployment has matching ServiceAccount
+
+**Severity:** Violation
+
+**Resources:** apps/Deployment
+
+If Deployment has 'spec.serviceAccountName' set, there should be matching ServiceAccount.
+If not, this would suggest a mistake.
+
+### Rego
+
+```rego
+package ocp.requiresinventory.deployment_has_matching_serviceaccount
+
+import data.lib.konstraint
+
+violation[msg] {
+  konstraint.is_deployment
+
+  deployment := konstraint.object
+  deployment.spec.template.spec.serviceAccountName
+
+  not deployment_has_matching_serviceaccount(deployment, data.inventory.namespace[deployment.metadata.namespace])
+
+  msg := konstraint.format(sprintf("%s/%s has spec.serviceAccountName '%s' but could not find corrasponding v1:ServiceAccount.", [deployment.kind, deployment.metadata.name, deployment.spec.template.spec.serviceAccountName]))
+}
+
+deployment_has_matching_serviceaccount(deployment, manifests) {
+  cached := manifests["v1"]["ServiceAccount"]
+  current := cached[_]
+
+  deployment.spec.template.spec.serviceAccountName == current.metadata.name
+}
+```
+
+_source: [policy/ocp/requiresinventory/deployment-has-matching-serviceaccount](policy/ocp/requiresinventory/deployment-has-matching-serviceaccount)_
+
+## DeploymentConfig no longer served by v1
+
+**Severity:** Violation
+
+**Resources:** v1/DeploymentConfig
+
+OCP4.x expects apps.openshift.io/v1.
+
+### Rego
+
+```rego
+package ocp.deprecated.ocp3_11.deploymentconfig_v1
+
+import data.lib.konstraint
+
+violation[msg] {
+  obj := konstraint.object
+  lower(obj.apiVersion) == "v1"
+  lower(obj.kind) == "deploymentconfig"
+
+  msg := konstraint.format(sprintf("%s/%s: API v1 for DeploymentConfig is no longer served by default, use apps.openshift.io/v1 instead.", [obj.kind, obj.metadata.name]))
+}
+```
+
+_source: [policy/ocp/deprecated/3_11/deploymentconfig-v1](policy/ocp/deprecated/3_11/deploymentconfig-v1)_
+
 ## DeploymentConfig triggers not set
 
 **Severity:** Violation
@@ -831,6 +966,216 @@ violation[msg] {
 ```
 
 _source: [policy/ocp/bestpractices/deploymentconfig-triggers-notset](policy/ocp/bestpractices/deploymentconfig-triggers-notset)_
+
+## Image contains expected SHA in history.
+
+**Severity:** Violation
+
+**Resources:** redhat-cop.github.com/PodmanHistory
+
+Most images are built from a subset of authorised base images in a company,
+this policy allows enforcement of that policy by checking for an expected SHA.
+
+### Rego
+
+```rego
+package podman.history.contains_layer
+
+violation[msg] {
+  lower(input.apiVersion) == "redhat-cop.github.com/v1"
+  lower(input.kind) == "podmanhistory"
+
+  not image_history_contains_layer(input.items)
+
+  msg := sprintf("%s: did not find expected SHA.", [input.image])
+}
+
+image_history_contains_layer(layers) {
+  layers[_].id == "cd343f0d83042932fa992e095cd4a93a89a3520873f99b0e15fde69eb46e7e10"
+}
+```
+
+_source: [policy/podman/history/contains-layer](policy/podman/history/contains-layer)_
+
+## Image size is not greater than an expected value
+
+**Severity:** Violation
+
+**Resources:** redhat-cop.github.com/PodmanImages
+
+Typically, the "smaller the better" rule applies to images so lets enforce that.
+
+### Rego
+
+```rego
+package podman.images.image_size_not_greater_than
+
+import data.lib.memory
+
+violation[msg] {
+  lower(input.apiVersion) == "redhat-cop.github.com/v1"
+  lower(input.kind) == "podmanimages"
+
+  #NOTE: upperBound is an arbitrary number and it should be changed to what your company believes is the correct policy
+  upperBound := 512
+
+  image := input.items[_]
+  sizeInMb := image.size / memory.mb
+  sizeInMb > upperBound
+
+  msg := sprintf("%s: has a size of '%fMi', which is greater than '%dMi' limit.", [input.image, sizeInMb, upperBound])
+}
+```
+
+_source: [policy/podman/images/image-size-not-greater-than](policy/podman/images/image-size-not-greater-than)_
+
+## ImageStream no longer served by v1
+
+**Severity:** Violation
+
+**Resources:** v1/ImageStream
+
+OCP4.x expects image.openshift.io/v1.
+
+### Rego
+
+```rego
+package ocp.deprecated.ocp3_11.imagestream_v1
+
+import data.lib.konstraint
+
+violation[msg] {
+  obj := konstraint.object
+  lower(obj.apiVersion) == "v1"
+  lower(obj.kind) == "imagestream"
+
+  msg := konstraint.format(sprintf("%s/%s: API v1 for ImageStream is no longer served by default, use image.openshift.io/v1 instead.", [obj.kind, obj.metadata.name]))
+}
+```
+
+_source: [policy/ocp/deprecated/3_11/imagestream-v1](policy/ocp/deprecated/3_11/imagestream-v1)_
+
+## Label key is consistent
+
+**Severity:** Violation
+
+**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
+
+Label keys should be qualified by 'app.kubernetes.io' or 'company.com' to allow a consistent understanding.
+
+### Rego
+
+```rego
+package ocp.bestpractices.container_labelkey_inconsistent
+
+import data.lib.konstraint
+import data.lib.openshift
+
+violation[msg] {
+  openshift.is_workload_kind
+
+  some key
+  obj := konstraint.object
+  value := obj.metadata.labels[key]
+
+  not label_key_starts_with_expected(key)
+
+  msg := konstraint.format(sprintf("%s/%s: has a label key which did not start with 'app.kubernetes.io/' or 'redhat-cop.github.com/'. Found '%s'", [obj.kind, obj.metadata.name, key]))
+}
+
+label_key_starts_with_expected(key) {
+  startswith(key, "app.kubernetes.io/")
+}
+
+label_key_starts_with_expected(key) {
+  startswith(key, "redhat-cop.github.com/")
+}
+```
+
+_source: [policy/ocp/bestpractices/container-labelkey-inconsistent](policy/ocp/bestpractices/container-labelkey-inconsistent)_
+
+## Namespace has a NetworkPolicy
+
+**Severity:** Violation
+
+**Resources:** core/Namespace networking.k8s.io/NetworkPolicy
+
+Kubernetes network policies specify the access permissions for groups of pods,
+much like security groups in the cloud are used to control access to VM instances.
+In other words, it creates firewalls between pods running on a Kubernetes cluster.
+See: Network policies -> https://learnk8s.io/production-best-practices#governance
+
+### Rego
+
+```rego
+package combine.namespace_has_networkpolicy
+
+import data.lib.konstraint
+
+violation[msg] {
+  manifests := input[_]
+  some i
+
+  lower(manifests[i].apiVersion) == "v1"
+  lower(manifests[i].kind) == "namespace"
+  namespace := manifests[i]
+
+  not namespace_has_networkpolicy(manifests)
+
+  msg := konstraint.format(sprintf("%s/%s does not have a networking.k8s.io/v1:NetworkPolicy. See: https://docs.openshift.com/container-platform/4.4/networking/configuring-networkpolicy.html", [namespace.kind, namespace.metadata.name]))
+}
+
+namespace_has_networkpolicy(manifests) {
+  current := manifests[_]
+
+  lower(current.apiVersion) == "networking.k8s.io/v1"
+  lower(current.kind) == "networkpolicy"
+}
+```
+
+_source: [policy/combine/namespace-has-networkpolicy](policy/combine/namespace-has-networkpolicy)_
+
+## Namespace has a ResourceQuota
+
+**Severity:** Violation
+
+**Resources:** core/Namespace core/ResourceQuota
+
+With ResourceQuotas, you can limit the total resource consumption of all containers inside a Namespace.
+Defining a resource quota for a namespace limits the total amount of CPU, memory or storage resources
+that can be consumed by all containers belonging to that namespace. You can also set quotas for other
+Kubernetes objects such as the number of Pods in the current namespace.
+See: Namespace limits -> https://learnk8s.io/production-best-practices#governance
+
+### Rego
+
+```rego
+package combine.namespace_has_resourcequota
+
+import data.lib.konstraint
+
+violation[msg] {
+  manifests := input[_]
+  some i
+
+  lower(manifests[i].apiVersion) == "v1"
+  lower(manifests[i].kind) == "namespace"
+  namespace := manifests[i]
+
+  not namespace_has_resourcequota(manifests)
+
+  msg := konstraint.format(sprintf("%s/%s does not have a core/v1:ResourceQuota. See: https://docs.openshift.com/container-platform/4.5/applications/quotas/quotas-setting-per-project.html", [namespace.kind, namespace.metadata.name]))
+}
+
+namespace_has_resourcequota(manifests) {
+  current := manifests[_]
+
+  lower(current.apiVersion) == "v1"
+  lower(current.kind) == "resourcequota"
+}
+```
+
+_source: [policy/combine/namespace-has-resourcequota](policy/combine/namespace-has-resourcequota)_
 
 ## Pod hostnetwork not set
 
@@ -919,6 +1264,32 @@ violation[msg] {
 
 _source: [policy/ocp/bestpractices/pod-replicas-not-odd](policy/ocp/bestpractices/pod-replicas-not-odd)_
 
+## ProjectRequest no longer served by v1
+
+**Severity:** Violation
+
+**Resources:** v1/ProjectRequest
+
+OCP4.x expects project.openshift.io/v1.
+
+### Rego
+
+```rego
+package ocp.deprecated.ocp3_11.projectrequest_v1
+
+import data.lib.konstraint
+
+violation[msg] {
+  obj := konstraint.object
+  lower(obj.apiVersion) == "v1"
+  lower(obj.kind) == "projectrequest"
+
+  msg := konstraint.format(sprintf("%s/%s: API v1 for ProjectRequest is no longer served by default, use project.openshift.io/v1 instead.", [obj.kind, obj.metadata.name]))
+}
+```
+
+_source: [policy/ocp/deprecated/3_11/projectrequest-v1](policy/ocp/deprecated/3_11/projectrequest-v1)_
+
 ## RoleBinding has apiGroup set
 
 **Severity:** Violation
@@ -975,6 +1346,32 @@ violation[msg] {
 
 _source: [policy/ocp/bestpractices/rolebinding-roleref-kind-notset](policy/ocp/bestpractices/rolebinding-roleref-kind-notset)_
 
+## RoleBinding no longer served by v1
+
+**Severity:** Violation
+
+**Resources:** v1/RoleBinding
+
+OCP4.x expects rbac.authorization.k8s.io/v1
+
+### Rego
+
+```rego
+package ocp.deprecated.ocp3_11.rolebinding_v1
+
+import data.lib.konstraint
+
+violation[msg] {
+  obj := konstraint.object
+  lower(obj.apiVersion) == "v1"
+  lower(obj.kind) == "rolebinding"
+
+  msg := konstraint.format(sprintf("%s/%s: API v1 for RoleBinding is no longer served by default, use rbac.authorization.k8s.io/v1 instead.", [obj.kind, obj.metadata.name]))
+}
+```
+
+_source: [policy/ocp/deprecated/3_11/rolebinding-v1](policy/ocp/deprecated/3_11/rolebinding-v1)_
+
 ## Route has TLS Termination Defined
 
 **Severity:** Violation
@@ -1002,136 +1399,6 @@ violation[msg] {
 ```
 
 _source: [policy/ocp/bestpractices/route-tls-termination-notset](policy/ocp/bestpractices/route-tls-termination-notset)_
-
-## BuildConfig no longer served by v1
-
-**Severity:** Violation
-
-**Resources:** v1/BuildConfig
-
-OCP4.x expects build.openshift.io/v1.
-
-### Rego
-
-```rego
-package ocp.deprecated.ocp3_11.buildconfig_v1
-
-import data.lib.konstraint
-
-violation[msg] {
-  obj := konstraint.object
-  lower(obj.apiVersion) == "v1"
-  lower(obj.kind) == "buildconfig"
-
-  msg := konstraint.format(sprintf("%s/%s: API v1 for BuildConfig is no longer served by default, use build.openshift.io/v1 instead.", [obj.kind, obj.metadata.name]))
-}
-```
-
-_source: [policy/ocp/deprecated/3_11/buildconfig-v1](policy/ocp/deprecated/3_11/buildconfig-v1)_
-
-## DeploymentConfig no longer served by v1
-
-**Severity:** Violation
-
-**Resources:** v1/DeploymentConfig
-
-OCP4.x expects apps.openshift.io/v1.
-
-### Rego
-
-```rego
-package ocp.deprecated.ocp3_11.deploymentconfig_v1
-
-import data.lib.konstraint
-
-violation[msg] {
-  obj := konstraint.object
-  lower(obj.apiVersion) == "v1"
-  lower(obj.kind) == "deploymentconfig"
-
-  msg := konstraint.format(sprintf("%s/%s: API v1 for DeploymentConfig is no longer served by default, use apps.openshift.io/v1 instead.", [obj.kind, obj.metadata.name]))
-}
-```
-
-_source: [policy/ocp/deprecated/3_11/deploymentconfig-v1](policy/ocp/deprecated/3_11/deploymentconfig-v1)_
-
-## ImageStream no longer served by v1
-
-**Severity:** Violation
-
-**Resources:** v1/ImageStream
-
-OCP4.x expects image.openshift.io/v1.
-
-### Rego
-
-```rego
-package ocp.deprecated.ocp3_11.imagestream_v1
-
-import data.lib.konstraint
-
-violation[msg] {
-  obj := konstraint.object
-  lower(obj.apiVersion) == "v1"
-  lower(obj.kind) == "imagestream"
-
-  msg := konstraint.format(sprintf("%s/%s: API v1 for ImageStream is no longer served by default, use image.openshift.io/v1 instead.", [obj.kind, obj.metadata.name]))
-}
-```
-
-_source: [policy/ocp/deprecated/3_11/imagestream-v1](policy/ocp/deprecated/3_11/imagestream-v1)_
-
-## ProjectRequest no longer served by v1
-
-**Severity:** Violation
-
-**Resources:** v1/ProjectRequest
-
-OCP4.x expects project.openshift.io/v1.
-
-### Rego
-
-```rego
-package ocp.deprecated.ocp3_11.projectrequest_v1
-
-import data.lib.konstraint
-
-violation[msg] {
-  obj := konstraint.object
-  lower(obj.apiVersion) == "v1"
-  lower(obj.kind) == "projectrequest"
-
-  msg := konstraint.format(sprintf("%s/%s: API v1 for ProjectRequest is no longer served by default, use project.openshift.io/v1 instead.", [obj.kind, obj.metadata.name]))
-}
-```
-
-_source: [policy/ocp/deprecated/3_11/projectrequest-v1](policy/ocp/deprecated/3_11/projectrequest-v1)_
-
-## RoleBinding no longer served by v1
-
-**Severity:** Violation
-
-**Resources:** v1/RoleBinding
-
-OCP4.x expects rbac.authorization.k8s.io/v1
-
-### Rego
-
-```rego
-package ocp.deprecated.ocp3_11.rolebinding_v1
-
-import data.lib.konstraint
-
-violation[msg] {
-  obj := konstraint.object
-  lower(obj.apiVersion) == "v1"
-  lower(obj.kind) == "rolebinding"
-
-  msg := konstraint.format(sprintf("%s/%s: API v1 for RoleBinding is no longer served by default, use rbac.authorization.k8s.io/v1 instead.", [obj.kind, obj.metadata.name]))
-}
-```
-
-_source: [policy/ocp/deprecated/3_11/rolebinding-v1](policy/ocp/deprecated/3_11/rolebinding-v1)_
 
 ## Route no longer served by v1
 
@@ -1185,6 +1452,42 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/3_11/securitycontextconstraints-v1](policy/ocp/deprecated/3_11/securitycontextconstraints-v1)_
 
+## Service has matching ServiceMonitor
+
+**Severity:** Violation
+
+**Resources:** core/Service
+
+All Service should have a matching ServiceMonitor, via 'spec.selector'.
+Service without a ServiceMonitor are not being monitored and should be questioned as to why.
+
+### Rego
+
+```rego
+package ocp.requiresinventory.service_has_matching_servicenonitor
+
+import data.lib.konstraint
+
+violation[msg] {
+  konstraint.is_service
+
+  service := konstraint.object
+
+  not service_has_matching_servicemonitor(service, data.inventory.namespace[service.metadata.namespace])
+
+  msg := konstraint.format(sprintf("%s/%s does not have a monitoring.coreos.com/v1:ServiceMonitor or its selector labels dont match. See: https://docs.openshift.com/container-platform/4.4/monitoring/monitoring-your-own-services.html", [service.kind, service.metadata.name]))
+}
+
+service_has_matching_servicemonitor(service, manifests) {
+  cached := manifests["monitoring.coreos.com/v1"]["ServiceMonitor"]
+  current := cached[_]
+
+  service.spec.selector == current.spec.selector.matchLabels
+}
+```
+
+_source: [policy/ocp/requiresinventory/service-has-matching-servicemonitor](policy/ocp/requiresinventory/service-has-matching-servicemonitor)_
+
 ## Template no longer served by v1
 
 **Severity:** Violation
@@ -1210,35 +1513,6 @@ violation[msg] {
 ```
 
 _source: [policy/ocp/deprecated/3_11/template-v1](policy/ocp/deprecated/3_11/template-v1)_
-
-## BuildConfig exposeDockerSocket deprecated
-
-**Severity:** Violation
-
-**Resources:** build.openshift.io/BuildConfig
-
-'spec.strategy.customStrategy.exposeDockerSocket' is no longer supported by BuildConfig.
-See: https://docs.openshift.com/container-platform/4.1/release_notes/ocp-4-1-release-notes.html#ocp-41-deprecated-features
-
-### Rego
-
-```rego
-package ocp.deprecated.ocp4_1.buildconfig_custom_strategy
-
-import data.lib.konstraint
-
-violation[msg] {
-  obj := konstraint.object
-  lower(obj.apiVersion) == "build.openshift.io/v1"
-  lower(obj.kind) == "buildconfig"
-
-  obj.spec.strategy.customStrategy.exposeDockerSocket
-
-  msg := konstraint.format(sprintf("%s/%s: 'spec.strategy.customStrategy.exposeDockerSocket' is deprecated. If you want to continue using custom builds, you should replace your Docker invocations with Podman or Buildah.", [obj.kind, obj.metadata.name]))
-}
-```
-
-_source: [policy/ocp/deprecated/4_1/buildconfig-custom-strategy](policy/ocp/deprecated/4_1/buildconfig-custom-strategy)_
 
 ## authorization openshift io is deprecated
 
@@ -1321,6 +1595,33 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/4_2/catalogsourceconfigs-v1](policy/ocp/deprecated/4_2/catalogsourceconfigs-v1)_
 
+## operators coreos com v1 OperatorSource is deprecated
+
+**Severity:** Violation
+
+**Resources:** operators.coreos.com/OperatorSource
+
+'operators.coreos.com/v1:OperatorSource' is deprecated in OCP 4.2 and will be removed in a future version.
+See: https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html#ocp-4-2-deprecated-features
+
+### Rego
+
+```rego
+package ocp.deprecated.ocp4_2.operatorsources_v1
+
+import data.lib.konstraint
+
+violation[msg] {
+  obj := konstraint.object
+  contains(lower(obj.apiVersion), "operators.coreos.com/v1")
+  lower(obj.kind) == "operatorsource"
+
+  msg := konstraint.format(sprintf("%s/%s: operators.coreos.com/v1 is deprecated.", [obj.kind, obj.metadata.name]))
+}
+```
+
+_source: [policy/ocp/deprecated/4_2/operatorsources-v1](policy/ocp/deprecated/4_2/operatorsources-v1)_
+
 ## operators coreos com v2 CatalogSourceConfigs is deprecated
 
 **Severity:** Violation
@@ -1348,33 +1649,6 @@ violation[msg] {
 ```
 
 _source: [policy/ocp/deprecated/4_2/catalogsourceconfigs-v2](policy/ocp/deprecated/4_2/catalogsourceconfigs-v2)_
-
-## operators coreos com v1 OperatorSource is deprecated
-
-**Severity:** Violation
-
-**Resources:** operators.coreos.com/OperatorSource
-
-'operators.coreos.com/v1:OperatorSource' is deprecated in OCP 4.2 and will be removed in a future version.
-See: https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html#ocp-4-2-deprecated-features
-
-### Rego
-
-```rego
-package ocp.deprecated.ocp4_2.operatorsources_v1
-
-import data.lib.konstraint
-
-violation[msg] {
-  obj := konstraint.object
-  contains(lower(obj.apiVersion), "operators.coreos.com/v1")
-  lower(obj.kind) == "operatorsource"
-
-  msg := konstraint.format(sprintf("%s/%s: operators.coreos.com/v1 is deprecated.", [obj.kind, obj.metadata.name]))
-}
-```
-
-_source: [policy/ocp/deprecated/4_2/operatorsources-v1](policy/ocp/deprecated/4_2/operatorsources-v1)_
 
 ## osb openshift io v1 is deprecated
 
@@ -1429,277 +1703,3 @@ violation[msg] {
 ```
 
 _source: [policy/ocp/deprecated/4_2/servicecatalog-v1beta1](policy/ocp/deprecated/4_2/servicecatalog-v1beta1)_
-
-## BuildConfig jenkinsPipelineStrategy is deprecated
-
-**Severity:** Violation
-
-**Resources:** build.openshift.io/BuildConfig
-
-'spec.strategy.jenkinsPipelineStrategy' is no longer supported by BuildConfig.
-See: https://docs.openshift.com/container-platform/4.3/release_notes/ocp-4-3-release-notes.html#ocp-4-3-deprecated-features
-
-### Rego
-
-```rego
-package ocp.deprecated.ocp4_3.buildconfig_jenkinspipeline_strategy
-
-import data.lib.konstraint
-
-violation[msg] {
-  obj := konstraint.object
-  lower(obj.apiVersion) == "build.openshift.io/v1"
-  lower(obj.kind) == "buildconfig"
-
-  obj.spec.strategy.jenkinsPipelineStrategy
-
-  msg := konstraint.format(sprintf("%s/%s: 'spec.strategy.jenkinsPipelineStrategy' is deprecated. Use Jenkinsfiles directly on Jenkins or OpenShift Pipelines instead.", [obj.kind, obj.metadata.name]))
-}
-```
-
-_source: [policy/ocp/deprecated/4_3/buildconfig-jenkinspipeline-strategy](policy/ocp/deprecated/4_3/buildconfig-jenkinspipeline-strategy)_
-
-## Deployment has a matching PodDisruptionBudget
-
-**Severity:** Violation
-
-**Resources:** apps/Deployment
-
-All Deployments should have matching PodDisruptionBudget, via 'spec.template.metadata.labels', to provide HA guarantees.
-See: Fault tolerance -> https://learnk8s.io/production-best-practices#application-development
-See: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
-
-### Rego
-
-```rego
-package ocp.requiresinventory.deployment_has_matching_poddisruptionbudget
-
-import data.lib.konstraint
-
-violation[msg] {
-  konstraint.is_deployment
-
-  deployment := konstraint.object
-
-  not deployment_has_matching_poddisruptionbudget(deployment, data.inventory.namespace[deployment.metadata.namespace])
-
-  msg := konstraint.format(sprintf("%s/%s does not have a policy/v1beta1:PodDisruptionBudget or its selector labels dont match. See: https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget", [deployment.kind, deployment.metadata.name]))
-}
-
-deployment_has_matching_poddisruptionbudget(deployment, manifests) {
-  cached := manifests["policy/v1beta1"]["PodDisruptionBudget"]
-  current := cached[_]
-
-  deployment.spec.template.metadata.labels == current.spec.selector.matchLabels
-}
-```
-
-_source: [policy/ocp/requiresinventory/deployment-has-matching-poddisruptionbudget](policy/ocp/requiresinventory/deployment-has-matching-poddisruptionbudget)_
-
-## Deployment has matching PersistentVolumeClaim
-
-**Severity:** Violation
-
-**Resources:** apps/Deployment
-
-If Deployment has 'spec.template.spec.volumes.persistentVolumeClaim' set, there should be matching PersistentVolumeClaim.
-If not, this would suggest a mistake.
-
-### Rego
-
-```rego
-package ocp.requiresinventory.deployment_has_matching_pvc
-
-import data.lib.konstraint
-
-violation[msg] {
-  konstraint.is_deployment
-
-  deployment := konstraint.object
-  deployment.spec.template.spec.volumes[_].persistentVolumeClaim
-
-  not deployment_has_matching_persistentvolumeclaim(deployment, data.inventory.namespace[deployment.metadata.namespace])
-
-  msg := konstraint.format(sprintf("%s/%s has persistentVolumeClaim in its spec.template.spec.volumes but could not find corrasponding v1:PersistentVolumeClaim.", [deployment.kind, deployment.metadata.name]))
-}
-
-deployment_has_matching_persistentvolumeclaim(deployment, manifests) {
-  cached := manifests["v1"]["PersistentVolumeClaim"]
-  current := cached[_]
-
-  deployment.spec.template.spec.volumes[_].persistentVolumeClaim.claimName == current.metadata.name
-}
-```
-
-_source: [policy/ocp/requiresinventory/deployment-has-matching-pvc](policy/ocp/requiresinventory/deployment-has-matching-pvc)_
-
-## Deployment has a matching Service
-
-**Severity:** Violation
-
-**Resources:** apps/Deployment
-
-All Deployments should have matching Service, via 'spec.template.metadata.labels'.
-Deployments without a Service are not accessible and should be questioned as to why.
-
-### Rego
-
-```rego
-package ocp.requiresinventory.deployment_has_matching_service
-
-import data.lib.konstraint
-
-violation[msg] {
-  konstraint.is_deployment
-
-  deployment := konstraint.object
-
-  not deployment_labels_matches_service_selector(deployment, data.inventory.namespace[deployment.metadata.namespace])
-
-  msg := konstraint.format(sprintf("%s/%s does not have a v1:Service or its selector labels dont match. See: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#service-and-replicationcontroller", [deployment.kind, deployment.metadata.name]))
-}
-
-deployment_labels_matches_service_selector(deployment, manifests) {
-  cached := manifests["v1"]["Service"]
-  current := cached[_]
-
-  deployment.spec.template.metadata.labels == current.spec.selector
-}
-```
-
-_source: [policy/ocp/requiresinventory/deployment-has-matching-service](policy/ocp/requiresinventory/deployment-has-matching-service)_
-
-## Deployment has matching ServiceAccount
-
-**Severity:** Violation
-
-**Resources:** apps/Deployment
-
-If Deployment has 'spec.serviceAccountName' set, there should be matching ServiceAccount.
-If not, this would suggest a mistake.
-
-### Rego
-
-```rego
-package ocp.requiresinventory.deployment_has_matching_serviceaccount
-
-import data.lib.konstraint
-
-violation[msg] {
-  konstraint.is_deployment
-
-  deployment := konstraint.object
-  deployment.spec.template.spec.serviceAccountName
-
-  not deployment_has_matching_serviceaccount(deployment, data.inventory.namespace[deployment.metadata.namespace])
-
-  msg := konstraint.format(sprintf("%s/%s has spec.serviceAccountName '%s' but could not find corrasponding v1:ServiceAccount.", [deployment.kind, deployment.metadata.name, deployment.spec.template.spec.serviceAccountName]))
-}
-
-deployment_has_matching_serviceaccount(deployment, manifests) {
-  cached := manifests["v1"]["ServiceAccount"]
-  current := cached[_]
-
-  deployment.spec.template.spec.serviceAccountName == current.metadata.name
-}
-```
-
-_source: [policy/ocp/requiresinventory/deployment-has-matching-serviceaccount](policy/ocp/requiresinventory/deployment-has-matching-serviceaccount)_
-
-## Service has matching ServiceMonitor
-
-**Severity:** Violation
-
-**Resources:** core/Service
-
-All Service should have a matching ServiceMonitor, via 'spec.selector'.
-Service without a ServiceMonitor are not being monitored and should be questioned as to why.
-
-### Rego
-
-```rego
-package ocp.requiresinventory.service_has_matching_servicenonitor
-
-import data.lib.konstraint
-
-violation[msg] {
-  konstraint.is_service
-
-  service := konstraint.object
-
-  not service_has_matching_servicemonitor(service, data.inventory.namespace[service.metadata.namespace])
-
-  msg := konstraint.format(sprintf("%s/%s does not have a monitoring.coreos.com/v1:ServiceMonitor or its selector labels dont match. See: https://docs.openshift.com/container-platform/4.4/monitoring/monitoring-your-own-services.html", [service.kind, service.metadata.name]))
-}
-
-service_has_matching_servicemonitor(service, manifests) {
-  cached := manifests["monitoring.coreos.com/v1"]["ServiceMonitor"]
-  current := cached[_]
-
-  service.spec.selector == current.spec.selector.matchLabels
-}
-```
-
-_source: [policy/ocp/requiresinventory/service-has-matching-servicemonitor](policy/ocp/requiresinventory/service-has-matching-servicemonitor)_
-
-## Image contains expected SHA in history.
-
-**Severity:** Violation
-
-**Resources:** redhat-cop.github.com/PodmanHistory
-
-Most images are built from a subset of authorised base images in a company,
-this policy allows enforcement of that policy by checking for an expected SHA.
-
-### Rego
-
-```rego
-package podman.history.contains_layer
-
-violation[msg] {
-  lower(input.apiVersion) == "redhat-cop.github.com/v1"
-  lower(input.kind) == "podmanhistory"
-
-  not image_history_contains_layer(input.items)
-
-  msg := sprintf("%s: did not find expected SHA.", [input.image])
-}
-
-image_history_contains_layer(layers) {
-  layers[_].id == "cd343f0d83042932fa992e095cd4a93a89a3520873f99b0e15fde69eb46e7e10"
-}
-```
-
-_source: [policy/podman/history/contains-layer](policy/podman/history/contains-layer)_
-
-## Image size is not greater than an expected value
-
-**Severity:** Violation
-
-**Resources:** redhat-cop.github.com/PodmanImages
-
-Typically, the "smaller the better" rule applies to images so lets enforce that.
-
-### Rego
-
-```rego
-package podman.images.image_size_not_greater_than
-
-import data.lib.memory
-
-violation[msg] {
-  lower(input.apiVersion) == "redhat-cop.github.com/v1"
-  lower(input.kind) == "podmanimages"
-
-  #NOTE: upperBound is an arbitrary number and it should be changed to what your company believes is the correct policy
-  upperBound := 512
-
-  image := input.items[_]
-  sizeInMb := image.size / memory.mb
-  sizeInMb > upperBound
-
-  msg := sprintf("%s: has a size of '%fMi', which is greater than '%dMi' limit.", [input.image, sizeInMb, upperBound])
-}
-```
-
-_source: [policy/podman/images/image-size-not-greater-than](policy/podman/images/image-size-not-greater-than)_
