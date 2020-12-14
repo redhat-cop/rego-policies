@@ -1,6 +1,7 @@
 package ocp.requiresinventory.deployment_has_matching_poddisruptionbudget
 
 import data.lib.konstraint.core as konstraint_core
+import data.lib.kubernetes
 
 # @title Deployment has a matching PodDisruptionBudget
 #
@@ -10,9 +11,9 @@ import data.lib.konstraint.core as konstraint_core
 #
 # @kinds apps/Deployment
 violation[msg] {
-  konstraint.is_deployment
+  kubernetes.is_deployment
 
-  deployment := konstraint.object
+  deployment := konstraint_core.resource
 
   not deployment_has_matching_poddisruptionbudget(deployment, data.inventory.namespace[deployment.metadata.namespace])
 

@@ -1,6 +1,7 @@
 package ocp.requiresinventory.deployment_has_matching_serviceaccount
 
 import data.lib.konstraint.core as konstraint_core
+import data.lib.kubernetes
 
 # @title Deployment has matching ServiceAccount
 #
@@ -9,9 +10,9 @@ import data.lib.konstraint.core as konstraint_core
 #
 # @kinds apps/Deployment
 violation[msg] {
-  konstraint.is_deployment
+  kubernetes.is_deployment
 
-  deployment := konstraint.object
+  deployment := konstraint_core.resource
   deployment.spec.template.spec.serviceAccountName
 
   not deployment_has_matching_serviceaccount(deployment, data.inventory.namespace[deployment.metadata.namespace])

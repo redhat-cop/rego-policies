@@ -1,6 +1,7 @@
 package ocp.requiresinventory.deployment_has_matching_service
 
 import data.lib.konstraint.core as konstraint_core
+import data.lib.kubernetes
 
 # @title Deployment has a matching Service
 #
@@ -9,9 +10,9 @@ import data.lib.konstraint.core as konstraint_core
 #
 # @kinds apps/Deployment
 violation[msg] {
-  konstraint.is_deployment
+  kubernetes.is_deployment
 
-  deployment := konstraint.object
+  deployment := konstraint_core.resource
 
   not deployment_labels_matches_service_selector(deployment, data.inventory.namespace[deployment.metadata.namespace])
 

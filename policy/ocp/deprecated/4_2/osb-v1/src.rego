@@ -10,8 +10,7 @@ import data.lib.konstraint.core as konstraint_core
 #
 # @kinds osb.openshift.io/TemplateServiceBroker osb.openshift.io/AutomationBroker
 violation[msg] {
-  obj := konstraint.object
-  contains(lower(obj.apiVersion), "osb.openshift.io/v1")
+  contains(lower(konstraint_core.apiVersion), "osb.openshift.io/v1")
 
   msg := konstraint_core.format(sprintf("%s/%s: osb.openshift.io/v1 is deprecated.", [konstraint_core.kind, konstraint_core.name]))
 }

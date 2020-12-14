@@ -7,13 +7,12 @@ import data.lib.openshift
 #
 # Label keys should be qualified by 'app.kubernetes.io' or 'company.com' to allow a consistent understanding.
 #
-# @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
+# @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
 violation[msg] {
-  openshift.is_workload_kind
+  openshift.pod
 
   some key
-  obj := konstraint.object
-  value := obj.metadata.labels[key]
+  value := konstraint_core.labels[key]
 
   not label_key_starts_with_expected(key)
 

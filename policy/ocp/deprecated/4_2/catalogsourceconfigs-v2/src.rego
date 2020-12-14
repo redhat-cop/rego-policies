@@ -10,9 +10,8 @@ import data.lib.konstraint.core as konstraint_core
 #
 # @kinds operators.coreos.com/CatalogSourceConfigs
 violation[msg] {
-  obj := konstraint.object
-  contains(lower(obj.apiVersion), "operators.coreos.com/v2")
-  lower(obj.kind) == "catalogsourceconfigs"
+  contains(lower(konstraint_core.apiVersion), "operators.coreos.com/v2")
+  lower(konstraint_core.kind) == "catalogsourceconfigs"
 
   msg := konstraint_core.format(sprintf("%s/%s: operators.coreos.com/v2 is deprecated.", [konstraint_core.kind, konstraint_core.name]))
 }

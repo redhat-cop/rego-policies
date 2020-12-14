@@ -1,6 +1,7 @@
 package ocp.requiresinventory.service_has_matching_servicenonitor
 
 import data.lib.konstraint.core as konstraint_core
+import data.lib.kubernetes
 
 # @title Service has matching ServiceMonitor
 #
@@ -9,9 +10,9 @@ import data.lib.konstraint.core as konstraint_core
 #
 # @kinds core/Service
 violation[msg] {
-  konstraint.is_service
+  kubernetes.is_service
 
-  service := konstraint.object
+  service := konstraint_core.resource
 
   not service_has_matching_servicemonitor(service, data.inventory.namespace[service.metadata.namespace])
 

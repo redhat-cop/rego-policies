@@ -10,10 +10,10 @@ import data.lib.openshift
 #
 # @kinds apps.openshift.io/DeploymentConfig apps/Deployment
 violation[msg] {
-  openshift.is_workload_kind
+  openshift.pod
 
-  obj := konstraint.object
-  obj.spec.replicas % 2 == 0
+  replicas := konstraint_core.resource.spec.replicas
+  replicas % 2 == 0
 
   msg := konstraint_core.format(sprintf("%s/%s: replicas is %d - expected an odd number for HA guarantees.", [konstraint_core.kind, konstraint_core.name, replicas]))
 }

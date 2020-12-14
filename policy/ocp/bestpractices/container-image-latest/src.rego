@@ -7,14 +7,11 @@ import data.lib.openshift
 #
 # Images should use immutable tags. Today's latest is not tomorrows latest.
 #
-# @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
+# @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
 violation[msg] {
-  openshift.is_workload_kind
-
   container := openshift.containers[_]
 
   endswith(container.image, ":latest")
-  obj := konstraint.object
 
   msg := konstraint_core.format(sprintf("%s/%s: container '%s' is using the latest tag for its image (%s), which is an anti-pattern.", [konstraint_core.kind, konstraint_core.name, container.name, container.image]))
 }

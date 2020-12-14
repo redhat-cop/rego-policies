@@ -11,8 +11,7 @@ import data.lib.kubernetes
 violation[msg] {
   kubernetes.is_rolebinding
 
-  obj := konstraint.object
-  konstraint.missing_field(obj.roleRef, "apiGroup")
+  konstraint_core.missing_field(konstraint_core.resource.roleRef, "apiGroup")
 
   msg := konstraint_core.format(sprintf("%s/%s: RoleBinding roleRef.apiGroup key is null, use rbac.authorization.k8s.io instead.", [konstraint_core.kind, konstraint_core.name]))
 }

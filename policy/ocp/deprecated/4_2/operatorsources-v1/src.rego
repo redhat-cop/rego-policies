@@ -9,9 +9,8 @@ import data.lib.konstraint.core as konstraint_core
 #
 # @kinds operators.coreos.com/OperatorSource
 violation[msg] {
-  obj := konstraint.object
-  contains(lower(obj.apiVersion), "operators.coreos.com/v1")
-  lower(obj.kind) == "operatorsource"
+  contains(lower(konstraint_core.apiVersion), "operators.coreos.com/v1")
+  lower(konstraint_core.kind) == "operatorsource"
 
   msg := konstraint_core.format(sprintf("%s/%s: operators.coreos.com/v1 is deprecated.", [konstraint_core.kind, konstraint_core.name]))
 }

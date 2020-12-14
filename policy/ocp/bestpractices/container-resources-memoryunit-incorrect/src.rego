@@ -10,16 +10,13 @@ import data.lib.openshift
 # See: https://github.com/kubernetes/kubernetes/issues/28741
 # See: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes
 #
-# @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
+# @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
 violation[msg] {
-  openshift.is_workload_kind
-
   container := openshift.containers[_]
 
   not startswith(container.resources.requests.memory, "$")
   not startswith(container.resources.limits.memory, "$")
   not is_resource_memory_units_valid(container)
-  obj := konstraint.object
 
   msg := konstraint_core.format(sprintf("%s/%s: container '%s' memory resources for limits or requests (%s / %s) has an incorrect unit. See: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes", [konstraint_core.kind, konstraint_core.name, container.name, container.resources.limits.memory, container.resources.requests.memory]))
 }
