@@ -68,16 +68,15 @@ See: https://docs.openshift.com/container-platform/4.1/release_notes/ocp-4-1-rel
 ```rego
 package ocp.deprecated.ocp4_1.buildconfig_custom_strategy
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  obj := konstraint.object
-  lower(obj.apiVersion) == "build.openshift.io/v1"
-  lower(obj.kind) == "buildconfig"
+  lower(konstraint_core.apiVersion) == "build.openshift.io/v1"
+  lower(konstraint_core.kind) == "buildconfig"
 
-  obj.spec.strategy.customStrategy.exposeDockerSocket
+  konstraint_core.resource.spec.strategy.customStrategy.exposeDockerSocket
 
-  msg := konstraint.format(sprintf("%s/%s: 'spec.strategy.customStrategy.exposeDockerSocket' is deprecated. If you want to continue using custom builds, you should replace your Docker invocations with Podman or Buildah.", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: 'spec.strategy.customStrategy.exposeDockerSocket' is deprecated. If you want to continue using custom builds, you should replace your Docker invocations with Podman or Buildah.", [konstraint_core.kind, konstraint_core.name]))
 }
 ```
 
@@ -97,16 +96,15 @@ See: https://docs.openshift.com/container-platform/4.3/release_notes/ocp-4-3-rel
 ```rego
 package ocp.deprecated.ocp4_3.buildconfig_jenkinspipeline_strategy
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  obj := konstraint.object
-  lower(obj.apiVersion) == "build.openshift.io/v1"
-  lower(obj.kind) == "buildconfig"
+  lower(konstraint_core.apiVersion) == "build.openshift.io/v1"
+  lower(konstraint_core.kind) == "buildconfig"
 
-  obj.spec.strategy.jenkinsPipelineStrategy
+  konstraint_core.resource.spec.strategy.jenkinsPipelineStrategy
 
-  msg := konstraint.format(sprintf("%s/%s: 'spec.strategy.jenkinsPipelineStrategy' is deprecated. Use Jenkinsfiles directly on Jenkins or OpenShift Pipelines instead.", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: 'spec.strategy.jenkinsPipelineStrategy' is deprecated. Use Jenkinsfiles directly on Jenkins or OpenShift Pipelines instead.", [konstraint_core.kind, konstraint_core.name]))
 }
 ```
 
@@ -125,14 +123,13 @@ OCP4.x expects build.openshift.io/v1.
 ```rego
 package ocp.deprecated.ocp3_11.buildconfig_v1
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  obj := konstraint.object
-  lower(obj.apiVersion) == "v1"
-  lower(obj.kind) == "buildconfig"
+  lower(konstraint_core.apiVersion) == "v1"
+  lower(konstraint_core.kind) == "buildconfig"
 
-  msg := konstraint.format(sprintf("%s/%s: API v1 for BuildConfig is no longer served by default, use build.openshift.io/v1 instead.", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: API v1 for BuildConfig is no longer served by default, use build.openshift.io/v1 instead.", [konstraint_core.kind, konstraint_core.name]))
 }
 ```
 
@@ -142,7 +139,7 @@ _source: [policy/ocp/deprecated/3_11/buildconfig-v1](policy/ocp/deprecated/3_11/
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet core/Service route.openshift.io/Route
+**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob core/Service route.openshift.io/Route
 
 Check if all workload related kinds contain labels as suggested by k8s.
 See: https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels
@@ -152,16 +149,15 @@ See: https://kubernetes.io/docs/concepts/overview/working-with-objects/common-la
 ```rego
 package ocp.bestpractices.common_k8s_labels_notset
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
-  openshift.is_all_kind
+  openshift.is_pod_or_networking
 
-  obj := konstraint.object
-  not is_common_labels_set(obj.metadata)
+  not is_common_labels_set(konstraint_core.resource.metadata)
 
-  msg := konstraint.format(sprintf("%s/%s: does not contain all the expected k8s labels in 'metadata.labels'. See: https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: does not contain all the expected k8s labels in 'metadata.labels'. See: https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels", [konstraint_core.kind, konstraint_core.name]))
 }
 
 is_common_labels_set(metadata) {
@@ -180,7 +176,7 @@ _source: [policy/ocp/bestpractices/common-k8s-labels-notset](policy/ocp/bestprac
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
+**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
 
 Red Hat OpenJDK image uses CONTAINER_MAX_MEMORY env via the downward API to set Java memory settings.
 Instead of manually setting -Xmx, let the image automatically set it for you.
@@ -190,18 +186,15 @@ Instead of manually setting -Xmx, let the image automatically set it for you.
 ```rego
 package ocp.bestpractices.container_java_xmx_set
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
-  openshift.is_workload_kind
-
   container := openshift.containers[_]
 
   container_opts_contains_xmx(container)
-  obj := konstraint.object
 
-  msg := konstraint.format(sprintf("%s/%s: container '%s' contains -Xmx in either, command, args or env. Instead, it is suggested you use the downward API to set the env 'CONTAINER_MAX_MEMORY'", [obj.kind, obj.metadata.name, container.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: container '%s' contains -Xmx in either, command, args or env. Instead, it is suggested you use the downward API to set the env 'CONTAINER_MAX_MEMORY'", [konstraint_core.kind, konstraint_core.name, container.name]))
 }
 
 container_opts_contains_xmx(container) {
@@ -226,7 +219,7 @@ _source: [policy/ocp/bestpractices/container-java-xmx-set](policy/ocp/bestpracti
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
+**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
 
 Red Hat OpenJDK image uses CONTAINER_MAX_MEMORY env via the downward API to set Java memory settings.
 Instead of manually setting -Xmx, let the image automatically set it for you.
@@ -237,18 +230,15 @@ See: https://github.com/jboss-openshift/cct_module/blob/master/jboss/container/j
 ```rego
 package ocp.bestpractices.container_env_maxmemory_notset
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
-  openshift.is_workload_kind
-
   container := openshift.containers[_]
 
   not is_env_max_memory_set(container)
-  obj := konstraint.object
 
-  msg := konstraint.format(sprintf("%s/%s: container '%s' does not have an env named 'CONTAINER_MAX_MEMORY' which is used by the Red Hat base images to calculate memory. See: https://docs.openshift.com/container-platform/4.4/nodes/clusters/nodes-cluster-resource-configure.html and https://github.com/jboss-openshift/cct_module/blob/master/jboss/container/java/jvm/bash/artifacts/opt/jboss/container/java/jvm/java-default-options", [obj.kind, obj.metadata.name, container.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: container '%s' does not have an env named 'CONTAINER_MAX_MEMORY' which is used by the Red Hat base images to calculate memory. See: https://docs.openshift.com/container-platform/4.6/nodes/clusters/nodes-cluster-resource-configure.html and https://github.com/jboss-openshift/cct_module/blob/master/jboss/container/java/jvm/bash/artifacts/opt/jboss/container/java/jvm/java-default-options", [konstraint_core.kind, konstraint_core.name, container.name]))
 }
 
 is_env_max_memory_set(container) {
@@ -264,7 +254,7 @@ _source: [policy/ocp/bestpractices/container-env-maxmemory-notset](policy/ocp/be
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
+**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
 
 Only images from trusted and known registries should be used
 
@@ -273,19 +263,16 @@ Only images from trusted and known registries should be used
 ```rego
 package ocp.bestpractices.container_image_unknownregistries
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
-  openshift.is_workload_kind
-
   container := openshift.containers[_]
   registry_list := ["image-registry.openshift-image-registry.svc", "registry.redhat.io/", "quay.io/"]
 
   not known_registry(container.image, registry_list)
 
-  obj := konstraint.object
-  msg := konstraint.format(sprintf("%s/%s: container '%s' is from (%s), which is an unknown registry.", [obj.kind, obj.metadata.name, container.name, container.image]))
+  msg := konstraint_core.format(sprintf("%s/%s: container '%s' is from (%s), which is an unknown registry.", [konstraint_core.kind, konstraint_core.name, container.name, container.image]))
 }
 
 known_registry(image, knownregistry){
@@ -300,7 +287,7 @@ _source: [policy/ocp/bestpractices/container-image-unknownregistries](policy/ocp
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
+**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
 
 Images should use immutable tags. Today's latest is not tomorrows latest.
 
@@ -309,18 +296,15 @@ Images should use immutable tags. Today's latest is not tomorrows latest.
 ```rego
 package ocp.bestpractices.container_image_latest
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
-  openshift.is_workload_kind
-
   container := openshift.containers[_]
 
   endswith(container.image, ":latest")
-  obj := konstraint.object
 
-  msg := konstraint.format(sprintf("%s/%s: container '%s' is using the latest tag for its image (%s), which is an anti-pattern.", [obj.kind, obj.metadata.name, container.name, container.image]))
+  msg := konstraint_core.format(sprintf("%s/%s: container '%s' is using the latest tag for its image (%s), which is an anti-pattern.", [konstraint_core.kind, konstraint_core.name, container.name, container.image]))
 }
 ```
 
@@ -330,7 +314,7 @@ _source: [policy/ocp/bestpractices/container-image-latest](policy/ocp/bestpracti
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
+**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
 
 When Liveness and Readiness probes are pointing to the same endpoint, the effects of the probes are combined.
 When the app signals that it's not ready or live, the kubelet detaches the container from the Service and delete it at the same time.
@@ -342,20 +326,17 @@ See: Health checks -> https://learnk8s.io/production-best-practices#application-
 ```rego
 package ocp.bestpractices.container_liveness_readinessprobe_equal
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
-  openshift.is_workload_kind
-
   container := openshift.containers[_]
 
   container.livenessProbe
   container.readinessProbe
   container.livenessProbe == container.readinessProbe
-  obj := konstraint.object
 
-  msg := konstraint.format(sprintf("%s/%s: container '%s' livenessProbe and readinessProbe are equal, which is an anti-pattern.", [obj.kind, obj.metadata.name, container.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: container '%s' livenessProbe and readinessProbe are equal, which is an anti-pattern.", [konstraint_core.kind, konstraint_core.name, container.name]))
 }
 ```
 
@@ -365,29 +346,26 @@ _source: [policy/ocp/bestpractices/container-liveness-readinessprobe-equal](poli
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
+**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
 
 A Liveness checks determines if the container in which it is scheduled is still running.
 If the liveness probe fails due to a condition such as a deadlock, the kubelet kills the container.
-See: https://docs.openshift.com/container-platform/4.4/applications/application-health.html
+See: https://docs.openshift.com/container-platform/4.6/applications/application-health.html
 
 ### Rego
 
 ```rego
 package ocp.bestpractices.container_livenessprobe_notset
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
-  openshift.is_workload_kind
-
   container := openshift.containers[_]
 
-  konstraint.missing_field(container, "livenessProbe")
-  obj := konstraint.object
+  konstraint_core.missing_field(container, "livenessProbe")
 
-  msg := konstraint.format(sprintf("%s/%s: container '%s' has no livenessProbe. See: https://docs.openshift.com/container-platform/4.4/applications/application-health.html", [obj.kind, obj.metadata.name, container.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: container '%s' has no livenessProbe. See: https://docs.openshift.com/container-platform/4.6/applications/application-health.html", [konstraint_core.kind, konstraint_core.name, container.name]))
 }
 ```
 
@@ -397,29 +375,26 @@ _source: [policy/ocp/bestpractices/container-livenessprobe-notset](policy/ocp/be
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
+**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
 
 A Readiness check determines if the container in which it is scheduled is ready to service requests.
 If the readiness probe fails a container, the endpoints controller ensures the container has its IP address removed from the endpoints of all services.
-See: https://docs.openshift.com/container-platform/4.4/applications/application-health.html
+See: https://docs.openshift.com/container-platform/4.6/applications/application-health.html
 
 ### Rego
 
 ```rego
 package ocp.bestpractices.container_readinessprobe_notset
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
-  openshift.is_workload_kind
-
   container := openshift.containers[_]
 
-  konstraint.missing_field(container, "readinessProbe")
-  obj := konstraint.object
+  konstraint_core.missing_field(container, "readinessProbe")
 
-  msg := konstraint.format(sprintf("%s/%s: container '%s' has no readinessProbe. See: https://docs.openshift.com/container-platform/4.4/applications/application-health.html", [obj.kind, obj.metadata.name, container.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: container '%s' has no readinessProbe. See: https://docs.openshift.com/container-platform/4.6/applications/application-health.html", [konstraint_core.kind, konstraint_core.name, container.name]))
 }
 ```
 
@@ -429,7 +404,7 @@ _source: [policy/ocp/bestpractices/container-readinessprobe-notset](policy/ocp/b
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
+**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
 
 If you're not sure about what's the best settings for your app, it's better not to set the CPU limits.
 See: Resources utilisation -> https://learnk8s.io/production-best-practices#application-development
@@ -440,18 +415,15 @@ See: https://www.reddit.com/r/kubernetes/comments/all1vg/on_kubernetes_cpu_limit
 ```rego
 package ocp.bestpractices.container_resources_limits_cpu_set
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
-  openshift.is_workload_kind
-
   container := openshift.containers[_]
 
   container.resources.limits.cpu
-  obj := konstraint.object
 
-  msg := konstraint.format(sprintf("%s/%s: container '%s' has cpu limits (%d). It is not recommended to limit cpu. See: https://www.reddit.com/r/kubernetes/comments/all1vg/on_kubernetes_cpu_limits", [obj.kind, obj.metadata.name, container.name, container.resources.limits.cpu]))
+  msg := konstraint_core.format(sprintf("%s/%s: container '%s' has cpu limits (%d). It is not recommended to limit cpu. See: https://www.reddit.com/r/kubernetes/comments/all1vg/on_kubernetes_cpu_limits", [konstraint_core.kind, konstraint_core.name, container.name, container.resources.limits.cpu]))
 }
 ```
 
@@ -461,7 +433,7 @@ _source: [policy/ocp/bestpractices/container-resources-limits-cpu-set](policy/oc
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
+**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
 
 Setting a too high memory limit can cause under utilisation on a node.
 It is better to run multiple pods which use smaller limits.
@@ -472,13 +444,11 @@ See: Resources utilisation -> https://learnk8s.io/production-best-practices#appl
 ```rego
 package ocp.bestpractices.container_resources_limits_memory_greater_than
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.memory
 import data.lib.openshift
 
 violation[msg] {
-  openshift.is_workload_kind
-
   #NOTE: upperBound is an arbitrary number and it should be changed to what your company believes is the correct policy
   upperBound := 6 * memory.gb
 
@@ -487,9 +457,8 @@ violation[msg] {
   not startswith(container.resources.limits.memory, "$")
   memoryBytes := units.parse_bytes(container.resources.limits.memory)
   memoryBytes > upperBound
-  obj := konstraint.object
 
-  msg := konstraint.format(sprintf("%s/%s: container '%s' has a memory limit of '%s' which is larger than the upper '%dGi' limit.", [obj.kind, obj.metadata.name, container.name, container.resources.limits.memory, (upperBound / memory.gb)]))
+  msg := konstraint_core.format(sprintf("%s/%s: container '%s' has a memory limit of '%s' which is larger than the upper '%dGi' limit.", [konstraint_core.kind, konstraint_core.name, container.name, container.resources.limits.memory, (upperBound / memory.gb)]))
 }
 ```
 
@@ -499,7 +468,7 @@ _source: [policy/ocp/bestpractices/container-resources-limits-memory-greater-tha
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
+**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
 
 A container without a memory limit has memory utilisation of zero — according to the scheduler.
 An unlimited number of Pods if schedulable on any nodes leading to resource overcommitment and potential node (and kubelet) crashes.
@@ -510,20 +479,17 @@ See: Resources utilisation -> https://learnk8s.io/production-best-practices#appl
 ```rego
 package ocp.bestpractices.container_resources_limits_memory_notset
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
-  openshift.is_workload_kind
-
   container := openshift.containers[_]
 
   # TODO: Maybe should use below factored out?
   #konstraint.missing_field(container.resources.limits, "memory")
   not container.resources.limits.memory
-  obj := konstraint.object
 
-  msg := konstraint.format(sprintf("%s/%s: container '%s' has no memory limits. It is recommended to limit memory, as memory always has a maximum. See: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers", [obj.kind, obj.metadata.name, container.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: container '%s' has no memory limits. It is recommended to limit memory, as memory always has a maximum. See: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers", [konstraint_core.kind, konstraint_core.name, container.name]))
 }
 ```
 
@@ -533,7 +499,7 @@ _source: [policy/ocp/bestpractices/container-resources-limits-memory-notset](pol
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
+**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
 
 Setting a too high memory request can cause under utilisation on a node.
 It is better to run multiple pods which use smaller requests.
@@ -544,13 +510,11 @@ See: Resources utilisation -> https://learnk8s.io/production-best-practices#appl
 ```rego
 package ocp.bestpractices.container_resources_requests_memory_greater_than
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.memory
 import data.lib.openshift
 
 violation[msg] {
-  openshift.is_workload_kind
-
   #NOTE: upperBound is an arbitrary number and it should be changed to what your company believes is the correct policy
   upperBound := 2 * memory.gb
 
@@ -559,9 +523,8 @@ violation[msg] {
   not startswith(container.resources.requests.memory, "$")
   memoryBytes := units.parse_bytes(container.resources.requests.memory)
   memoryBytes > upperBound
-  obj := konstraint.object
 
-  msg := konstraint.format(sprintf("%s/%s: container '%s' has a memory request of '%s' which is larger than the upper '%dGi' limit.", [obj.kind, obj.metadata.name, container.name, container.resources.requests.memory, (upperBound / memory.gb)]))
+  msg := konstraint_core.format(sprintf("%s/%s: container '%s' has a memory request of '%s' which is larger than the upper '%dGi' limit.", [konstraint_core.kind, konstraint_core.name, container.name, container.resources.requests.memory, (upperBound / memory.gb)]))
 }
 ```
 
@@ -571,7 +534,7 @@ _source: [policy/ocp/bestpractices/container-resources-requests-memory-greater-t
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
+**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
 
 Begininers can easily confuse the allowed memory unit, this policy enforces what is valid.
 k8s also allows for millibyte as a unit for memory, which causes unintended consequences for the scheduler.
@@ -583,20 +546,17 @@ See: https://kubernetes.io/docs/concepts/configuration/manage-resources-containe
 ```rego
 package ocp.bestpractices.container_resources_memoryunit_incorrect
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
-  openshift.is_workload_kind
-
   container := openshift.containers[_]
 
   not startswith(container.resources.requests.memory, "$")
   not startswith(container.resources.limits.memory, "$")
   not is_resource_memory_units_valid(container)
-  obj := konstraint.object
 
-  msg := konstraint.format(sprintf("%s/%s: container '%s' memory resources for limits or requests (%s / %s) has an incorrect unit. See: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes", [obj.kind, obj.metadata.name, container.name, container.resources.limits.memory, container.resources.requests.memory]))
+  msg := konstraint_core.format(sprintf("%s/%s: container '%s' memory resources for limits or requests (%s / %s) has an incorrect unit. See: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes", [konstraint_core.kind, konstraint_core.name, container.name, container.resources.limits.memory, container.resources.requests.memory]))
 }
 
 is_resource_memory_units_valid(container) {
@@ -615,7 +575,7 @@ _source: [policy/ocp/bestpractices/container-resources-memoryunit-incorrect](pol
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
+**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
 
 Beginners can easily confuse the allowed cpu unit, this policy enforces what is valid.
 See: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes
@@ -625,19 +585,16 @@ See: https://kubernetes.io/docs/concepts/configuration/manage-resources-containe
 ```rego
 package ocp.bestpractices.container_resources_requests_cpuunit_incorrect
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
-  openshift.is_workload_kind
-
   container := openshift.containers[_]
 
   not is_resource_requests_cpu_contains_dollar(container)
   not is_resource_requests_cpu_units_valid(container)
-  obj := konstraint.object
 
-  msg := konstraint.format(sprintf("%s/%s container '%s' cpu resources for requests (%s) has an incorrect unit. See: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes", [obj.kind, obj.metadata.name, container.name, container.resources.requests.cpu]))
+  msg := konstraint_core.format(sprintf("%s/%s container '%s' cpu resources for requests (%s) has an incorrect unit. See: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes", [konstraint_core.kind, konstraint_core.name, container.name, container.resources.requests.cpu]))
 }
 
 is_resource_requests_cpu_contains_dollar(container) {
@@ -671,7 +628,7 @@ _source: [policy/ocp/bestpractices/container-resources-requests-cpuunit-incorrec
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
+**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
 
 The content of Secret resources should be mounted into containers as volumes rather than passed in as environment variables.
 This is to prevent that the secret values appear in the command that was used to start the container, which may be inspected
@@ -683,19 +640,16 @@ See: Configuration and secrets -> https://learnk8s.io/production-best-practices#
 ```rego
 package ocp.bestpractices.container_secret_mounted_envs
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
-  openshift.is_workload_kind
-
   container := openshift.containers[_]
 
   env := container.env[_]
   env.valueFrom.secretKeyRef
-  obj := konstraint.object
 
-  msg := konstraint.format(sprintf("%s/%s: container '%s' has a secret '%s' mounted as an environment variable. As secrets are not secret, its not good practice to mount as env vars.", [obj.kind, obj.metadata.name, container.name, env.valueFrom.secretKeyRef.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: container '%s' has a secret '%s' mounted as an environment variable. As secrets are not secret, its not good practice to mount as env vars.", [konstraint_core.kind, konstraint_core.name, container.name, env.valueFrom.secretKeyRef.name]))
 }
 ```
 
@@ -705,7 +659,7 @@ _source: [policy/ocp/bestpractices/container-secret-mounted-envs](policy/ocp/bes
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
+**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
 
 A volume does not have a corresponding volume mount. There is probably a mistake in your definition.
 
@@ -714,18 +668,15 @@ A volume does not have a corresponding volume mount. There is probably a mistake
 ```rego
 package ocp.bestpractices.container_volumemount_missing
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
-  openshift.is_workload_kind
-
-  volume := openshift.pods[_].spec.volumes[_]
+  volume := openshift.pod.spec.volumes[_]
 
   not containers_volumemounts_contains_volume(openshift.containers, volume)
-  obj := konstraint.object
 
-  msg := konstraint.format(sprintf("%s/%s: volume '%s' does not have a volumeMount in any of the containers.", [obj.kind, obj.metadata.name, volume.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: volume '%s' does not have a volumeMount in any of the containers.", [konstraint_core.kind, konstraint_core.name, volume.name]))
 }
 
 containers_volumemounts_contains_volume(containers, volume) {
@@ -739,7 +690,7 @@ _source: [policy/ocp/bestpractices/container-volumemount-missing](policy/ocp/bes
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
+**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
 
 Mount paths should be mounted at '/var/run/company.com' to allow a consistent understanding.
 
@@ -748,19 +699,16 @@ Mount paths should be mounted at '/var/run/company.com' to allow a consistent un
 ```rego
 package ocp.bestpractices.container_volumemount_inconsistent_path
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
-  openshift.is_workload_kind
-
   container := openshift.containers[_]
 
   volumeMount := container.volumeMounts[_]
   not startswith(volumeMount.mountPath, "/var/run")
-  obj := konstraint.object
 
-  msg := konstraint.format(sprintf("%s/%s: container '%s' has a volumeMount '%s' mountPath at '%s'. A good practice is to use consistent mount paths, such as: /var/run/{organization}/{mount} - i.e.: /var/run/io.redhat-cop/my-secret", [obj.kind, obj.metadata.name, container.name, volumeMount.name, volumeMount.mountPath]))
+  msg := konstraint_core.format(sprintf("%s/%s: container '%s' has a volumeMount '%s' mountPath at '%s'. A good practice is to use consistent mount paths, such as: /var/run/{organization}/{mount} - i.e.: /var/run/io.redhat-cop/my-secret", [konstraint_core.kind, konstraint_core.name, container.name, volumeMount.name, volumeMount.mountPath]))
 }
 ```
 
@@ -781,16 +729,17 @@ See: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
 ```rego
 package ocp.requiresinventory.deployment_has_matching_poddisruptionbudget
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
+import data.lib.kubernetes
 
 violation[msg] {
-  konstraint.is_deployment
+  kubernetes.is_deployment
 
-  deployment := konstraint.object
+  deployment := konstraint_core.resource
 
   not deployment_has_matching_poddisruptionbudget(deployment, data.inventory.namespace[deployment.metadata.namespace])
 
-  msg := konstraint.format(sprintf("%s/%s does not have a policy/v1beta1:PodDisruptionBudget or its selector labels dont match. See: https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget", [deployment.kind, deployment.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s does not have a policy/v1beta1:PodDisruptionBudget or its selector labels dont match. See: https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget", [deployment.kind, deployment.metadata.name]))
 }
 
 deployment_has_matching_poddisruptionbudget(deployment, manifests) {
@@ -817,16 +766,17 @@ Deployments without a Service are not accessible and should be questioned as to 
 ```rego
 package ocp.requiresinventory.deployment_has_matching_service
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
+import data.lib.kubernetes
 
 violation[msg] {
-  konstraint.is_deployment
+  kubernetes.is_deployment
 
-  deployment := konstraint.object
+  deployment := konstraint_core.resource
 
   not deployment_labels_matches_service_selector(deployment, data.inventory.namespace[deployment.metadata.namespace])
 
-  msg := konstraint.format(sprintf("%s/%s does not have a v1:Service or its selector labels dont match. See: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#service-and-replicationcontroller", [deployment.kind, deployment.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s does not have a v1:Service or its selector labels dont match. See: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#service-and-replicationcontroller", [deployment.kind, deployment.metadata.name]))
 }
 
 deployment_labels_matches_service_selector(deployment, manifests) {
@@ -853,17 +803,18 @@ If not, this would suggest a mistake.
 ```rego
 package ocp.requiresinventory.deployment_has_matching_pvc
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
+import data.lib.kubernetes
 
 violation[msg] {
-  konstraint.is_deployment
+  kubernetes.is_deployment
 
-  deployment := konstraint.object
+  deployment := konstraint_core.resource
   deployment.spec.template.spec.volumes[_].persistentVolumeClaim
 
   not deployment_has_matching_persistentvolumeclaim(deployment, data.inventory.namespace[deployment.metadata.namespace])
 
-  msg := konstraint.format(sprintf("%s/%s has persistentVolumeClaim in its spec.template.spec.volumes but could not find corrasponding v1:PersistentVolumeClaim.", [deployment.kind, deployment.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s has persistentVolumeClaim in its spec.template.spec.volumes but could not find corrasponding v1:PersistentVolumeClaim.", [deployment.kind, deployment.metadata.name]))
 }
 
 deployment_has_matching_persistentvolumeclaim(deployment, manifests) {
@@ -890,17 +841,18 @@ If not, this would suggest a mistake.
 ```rego
 package ocp.requiresinventory.deployment_has_matching_serviceaccount
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
+import data.lib.kubernetes
 
 violation[msg] {
-  konstraint.is_deployment
+  kubernetes.is_deployment
 
-  deployment := konstraint.object
+  deployment := konstraint_core.resource
   deployment.spec.template.spec.serviceAccountName
 
   not deployment_has_matching_serviceaccount(deployment, data.inventory.namespace[deployment.metadata.namespace])
 
-  msg := konstraint.format(sprintf("%s/%s has spec.serviceAccountName '%s' but could not find corrasponding v1:ServiceAccount.", [deployment.kind, deployment.metadata.name, deployment.spec.template.spec.serviceAccountName]))
+  msg := konstraint_core.format(sprintf("%s/%s has spec.serviceAccountName '%s' but could not find corrasponding v1:ServiceAccount.", [deployment.kind, deployment.metadata.name, deployment.spec.template.spec.serviceAccountName]))
 }
 
 deployment_has_matching_serviceaccount(deployment, manifests) {
@@ -926,14 +878,13 @@ OCP4.x expects apps.openshift.io/v1.
 ```rego
 package ocp.deprecated.ocp3_11.deploymentconfig_v1
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  obj := konstraint.object
-  lower(obj.apiVersion) == "v1"
-  lower(obj.kind) == "deploymentconfig"
+  lower(konstraint_core.apiVersion) == "v1"
+  lower(konstraint_core.kind) == "deploymentconfig"
 
-  msg := konstraint.format(sprintf("%s/%s: API v1 for DeploymentConfig is no longer served by default, use apps.openshift.io/v1 instead.", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: API v1 for DeploymentConfig is no longer served by default, use apps.openshift.io/v1 instead.", [konstraint_core.kind, konstraint_core.name]))
 }
 ```
 
@@ -952,16 +903,15 @@ If you are using a DeploymentConfig without 'spec.triggers' set, you could proba
 ```rego
 package ocp.bestpractices.deploymentconfig_triggers_notset
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
   openshift.is_deploymentconfig
 
-  obj := konstraint.object
-  konstraint.missing_field(obj.spec, "triggers")
+  konstraint_core.missing_field(konstraint_core.resource.spec, "triggers")
 
-  msg := konstraint.format(sprintf("%s/%s: has no triggers set. Could you use a k8s native Deployment? See: https://kubernetes.io/docs/concepts/workloads/controllers/deployment", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: has no triggers set. Could you use a k8s native Deployment? See: https://kubernetes.io/docs/concepts/workloads/controllers/deployment", [konstraint_core.kind, konstraint_core.name]))
 }
 ```
 
@@ -981,13 +931,15 @@ this policy allows enforcement of that policy by checking for an expected SHA.
 ```rego
 package podman.history.contains_layer
 
+import data.lib.konstraint.core as konstraint_core
+
 violation[msg] {
   lower(input.apiVersion) == "redhat-cop.github.com/v1"
   lower(input.kind) == "podmanhistory"
 
   not image_history_contains_layer(input.items)
 
-  msg := sprintf("%s: did not find expected SHA.", [input.image])
+  msg := konstraint_core.format(sprintf("%s: did not find expected SHA.", [input.image]))
 }
 
 image_history_contains_layer(layers) {
@@ -1010,6 +962,7 @@ Typically, the "smaller the better" rule applies to images so lets enforce that.
 ```rego
 package podman.images.image_size_not_greater_than
 
+import data.lib.konstraint.core as konstraint_core
 import data.lib.memory
 
 violation[msg] {
@@ -1023,7 +976,7 @@ violation[msg] {
   sizeInMb := image.size / memory.mb
   sizeInMb > upperBound
 
-  msg := sprintf("%s: has a size of '%fMi', which is greater than '%dMi' limit.", [input.image, sizeInMb, upperBound])
+  msg := konstraint_core.format(sprintf("%s: has a size of '%fMi', which is greater than '%dMi' limit.", [input.image, sizeInMb, upperBound]))
 }
 ```
 
@@ -1042,14 +995,13 @@ OCP4.x expects image.openshift.io/v1.
 ```rego
 package ocp.deprecated.ocp3_11.imagestream_v1
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  obj := konstraint.object
-  lower(obj.apiVersion) == "v1"
-  lower(obj.kind) == "imagestream"
+  lower(konstraint_core.apiVersion) == "v1"
+  lower(konstraint_core.kind) == "imagestream"
 
-  msg := konstraint.format(sprintf("%s/%s: API v1 for ImageStream is no longer served by default, use image.openshift.io/v1 instead.", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: API v1 for ImageStream is no longer served by default, use image.openshift.io/v1 instead.", [konstraint_core.kind, konstraint_core.name]))
 }
 ```
 
@@ -1059,7 +1011,7 @@ _source: [policy/ocp/deprecated/3_11/imagestream-v1](policy/ocp/deprecated/3_11/
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
+**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
 
 Label keys should be qualified by 'app.kubernetes.io' or 'company.com' to allow a consistent understanding.
 
@@ -1068,19 +1020,18 @@ Label keys should be qualified by 'app.kubernetes.io' or 'company.com' to allow 
 ```rego
 package ocp.bestpractices.container_labelkey_inconsistent
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
-  openshift.is_workload_kind
+  openshift.pod
 
   some key
-  obj := konstraint.object
-  value := obj.metadata.labels[key]
+  value := konstraint_core.labels[key]
 
   not label_key_starts_with_expected(key)
 
-  msg := konstraint.format(sprintf("%s/%s: has a label key which did not start with 'app.kubernetes.io/' or 'redhat-cop.github.com/'. Found '%s'", [obj.kind, obj.metadata.name, key]))
+  msg := konstraint_core.format(sprintf("%s/%s: has a label key which did not start with 'app.kubernetes.io/' or 'redhat-cop.github.com/'. Found '%s'", [konstraint_core.kind, konstraint_core.name, key]))
 }
 
 label_key_starts_with_expected(key) {
@@ -1110,7 +1061,7 @@ See: Network policies -> https://learnk8s.io/production-best-practices#governanc
 ```rego
 package combine.namespace_has_networkpolicy
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
   manifests := input[_]
@@ -1122,7 +1073,7 @@ violation[msg] {
 
   not namespace_has_networkpolicy(manifests)
 
-  msg := konstraint.format(sprintf("%s/%s does not have a networking.k8s.io/v1:NetworkPolicy. See: https://docs.openshift.com/container-platform/4.4/networking/configuring-networkpolicy.html", [namespace.kind, namespace.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s does not have a networking.k8s.io/v1:NetworkPolicy. See: https://docs.openshift.com/container-platform/4.6/networking/network_policy/about-network-policy.html", [namespace.kind, namespace.metadata.name]))
 }
 
 namespace_has_networkpolicy(manifests) {
@@ -1152,7 +1103,7 @@ See: Namespace limits -> https://learnk8s.io/production-best-practices#governanc
 ```rego
 package combine.namespace_has_resourcequota
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
   manifests := input[_]
@@ -1164,7 +1115,7 @@ violation[msg] {
 
   not namespace_has_resourcequota(manifests)
 
-  msg := konstraint.format(sprintf("%s/%s does not have a core/v1:ResourceQuota. See: https://docs.openshift.com/container-platform/4.5/applications/quotas/quotas-setting-per-project.html", [namespace.kind, namespace.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s does not have a core/v1:ResourceQuota. See: https://docs.openshift.com/container-platform/4.6/applications/quotas/quotas-setting-per-project.html", [namespace.kind, namespace.metadata.name]))
 }
 
 namespace_has_resourcequota(manifests) {
@@ -1181,7 +1132,7 @@ _source: [policy/combine/namespace-has-resourcequota](policy/combine/namespace-h
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
+**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
 
 Pods which require 'spec.hostNetwork' should be limited due to security concerns.
 
@@ -1190,17 +1141,13 @@ Pods which require 'spec.hostNetwork' should be limited due to security concerns
 ```rego
 package ocp.bestpractices.pod_hostnetwork
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
-  openshift.is_workload_kind
+  openshift.pod.spec.hostNetwork
 
-  pod := openshift.pods[_]
-  pod.spec.hostNetwork
-  obj := konstraint.object
-
-  msg := konstraint.format(sprintf("%s/%s: hostNetwork is present which gives the pod access to the loopback device, services listening on localhost, and could be used to snoop on network activity of other pods on the same node.", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: hostNetwork is present which gives the pod access to the loopback device, services listening on localhost, and could be used to snoop on network activity of other pods on the same node.", [konstraint_core.kind, konstraint_core.name]))
 }
 ```
 
@@ -1220,16 +1167,16 @@ See: Fault tolerance -> https://learnk8s.io/production-best-practices#applicatio
 ```rego
 package ocp.bestpractices.pod_replicas_below_one
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
-  openshift.is_workload_kind
+  openshift.pod
 
-  obj := konstraint.object
-  obj.spec.replicas <= 1
+  replicas := konstraint_core.resource.spec.replicas
+  replicas <= 1
 
-  msg := konstraint.format(sprintf("%s/%s: replicas is %d - expected replicas to be greater than 1 for HA guarantees.", [obj.kind, obj.metadata.name, obj.spec.replicas]))
+  msg := konstraint_core.format(sprintf("%s/%s: replicas is %d - expected replicas to be greater than 1 for HA guarantees.", [konstraint_core.kind, konstraint_core.name, replicas]))
 }
 ```
 
@@ -1249,16 +1196,16 @@ See: Fault tolerance -> https://learnk8s.io/production-best-practices#applicatio
 ```rego
 package ocp.bestpractices.pod_replicas_not_odd
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
-  openshift.is_workload_kind
+  openshift.pod
 
-  obj := konstraint.object
-  obj.spec.replicas % 2 == 0
+  replicas := konstraint_core.resource.spec.replicas
+  replicas % 2 == 0
 
-  msg := konstraint.format(sprintf("%s/%s: replicas is %d - expected an odd number for HA guarantees.", [obj.kind, obj.metadata.name, obj.spec.replicas]))
+  msg := konstraint_core.format(sprintf("%s/%s: replicas is %d - expected an odd number for HA guarantees.", [konstraint_core.kind, konstraint_core.name, replicas]))
 }
 ```
 
@@ -1277,14 +1224,13 @@ OCP4.x expects project.openshift.io/v1.
 ```rego
 package ocp.deprecated.ocp3_11.projectrequest_v1
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  obj := konstraint.object
-  lower(obj.apiVersion) == "v1"
-  lower(obj.kind) == "projectrequest"
+  lower(konstraint_core.apiVersion) == "v1"
+  lower(konstraint_core.kind) == "projectrequest"
 
-  msg := konstraint.format(sprintf("%s/%s: API v1 for ProjectRequest is no longer served by default, use project.openshift.io/v1 instead.", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: API v1 for ProjectRequest is no longer served by default, use project.openshift.io/v1 instead.", [konstraint_core.kind, konstraint_core.name]))
 }
 ```
 
@@ -1303,16 +1249,15 @@ Migrating from 3.11 to 4.x requires the 'roleRef.apiGroup' to be set.
 ```rego
 package ocp.bestpractices.rolebinding_roleref_apigroup_notset
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.kubernetes
 
 violation[msg] {
   kubernetes.is_rolebinding
 
-  obj := konstraint.object
-  konstraint.missing_field(obj.roleRef, "apiGroup")
+  konstraint_core.missing_field(konstraint_core.resource.roleRef, "apiGroup")
 
-  msg := konstraint.format(sprintf("%s/%s: RoleBinding roleRef.apiGroup key is null, use rbac.authorization.k8s.io instead.", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: RoleBinding roleRef.apiGroup key is null, use rbac.authorization.k8s.io instead.", [konstraint_core.kind, konstraint_core.name]))
 }
 ```
 
@@ -1331,16 +1276,15 @@ Migrating from 3.11 to 4.x requires the 'roleRef.kind' to be set.
 ```rego
 package ocp.bestpractices.rolebinding_roleref_kind_notset
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.kubernetes
 
 violation[msg] {
   kubernetes.is_rolebinding
 
-  obj := konstraint.object
-  konstraint.missing_field(obj.roleRef, "kind")
+  konstraint_core.missing_field(konstraint_core.resource.roleRef, "kind")
 
-  msg := konstraint.format(sprintf("%s/%s: RoleBinding roleRef.kind key is null, use ClusterRole or Role instead.", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: RoleBinding roleRef.kind key is null, use ClusterRole or Role instead.", [konstraint_core.kind, konstraint_core.name]))
 }
 ```
 
@@ -1359,14 +1303,13 @@ OCP4.x expects rbac.authorization.k8s.io/v1
 ```rego
 package ocp.deprecated.ocp3_11.rolebinding_v1
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  obj := konstraint.object
-  lower(obj.apiVersion) == "v1"
-  lower(obj.kind) == "rolebinding"
+  lower(konstraint_core.apiVersion) == "v1"
+  lower(konstraint_core.kind) == "rolebinding"
 
-  msg := konstraint.format(sprintf("%s/%s: API v1 for RoleBinding is no longer served by default, use rbac.authorization.k8s.io/v1 instead.", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: API v1 for RoleBinding is no longer served by default, use rbac.authorization.k8s.io/v1 instead.", [konstraint_core.kind, konstraint_core.name]))
 }
 ```
 
@@ -1385,16 +1328,15 @@ Routes should specify a TLS termination type to allow only secure ingress.
 ```rego
 package ocp.bestpractices.route_tls_termination_notset
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
   openshift.is_route
 
-  obj := konstraint.object
-  not obj.spec.tls.termination
+  not konstraint_core.resource.spec.tls.termination
 
-  msg := konstraint.format(sprintf("%s/%s: TLS termination type not set. See https://docs.openshift.com/container-platform/4.5/networking/routes/secured-routes.html", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: TLS termination type not set. See https://docs.openshift.com/container-platform/4.6/networking/routes/secured-routes.html", [konstraint_core.kind, konstraint_core.name]))
 }
 ```
 
@@ -1413,14 +1355,13 @@ OCP4.x expects route.openshift.io/v1.
 ```rego
 package ocp.deprecated.ocp3_11.route_v1
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  obj := konstraint.object
-  lower(obj.apiVersion) == "v1"
-  lower(obj.kind) == "route"
+  lower(konstraint_core.apiVersion) == "v1"
+  lower(konstraint_core.kind) == "route"
 
-  msg := konstraint.format(sprintf("%s/%s: API v1 for Route is no longer served by default, use route.openshift.io/v1 instead.", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: API v1 for Route is no longer served by default, use route.openshift.io/v1 instead.", [konstraint_core.kind, konstraint_core.name]))
 }
 ```
 
@@ -1439,14 +1380,13 @@ OCP4.x expects security.openshift.io/v1.
 ```rego
 package ocp.deprecated.ocp3_11.securitycontextconstraints_v1
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  obj := konstraint.object
-  lower(obj.apiVersion) == "v1"
-  lower(obj.kind) == "securitycontextconstraints"
+  lower(konstraint_core.apiVersion) == "v1"
+  lower(konstraint_core.kind) == "securitycontextconstraints"
 
-  msg := konstraint.format(sprintf("%s/%s: API v1 for SecurityContextConstraints is no longer served by default, use security.openshift.io/v1 instead.", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: API v1 for SecurityContextConstraints is no longer served by default, use security.openshift.io/v1 instead.", [konstraint_core.kind, konstraint_core.name]))
 }
 ```
 
@@ -1466,16 +1406,17 @@ Service without a ServiceMonitor are not being monitored and should be questione
 ```rego
 package ocp.requiresinventory.service_has_matching_servicenonitor
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
+import data.lib.kubernetes
 
 violation[msg] {
-  konstraint.is_service
+  kubernetes.is_service
 
-  service := konstraint.object
+  service := konstraint_core.resource
 
   not service_has_matching_servicemonitor(service, data.inventory.namespace[service.metadata.namespace])
 
-  msg := konstraint.format(sprintf("%s/%s does not have a monitoring.coreos.com/v1:ServiceMonitor or its selector labels dont match. See: https://docs.openshift.com/container-platform/4.4/monitoring/monitoring-your-own-services.html", [service.kind, service.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s does not have a monitoring.coreos.com/v1:ServiceMonitor or its selector labels dont match. See: https://docs.openshift.com/container-platform/4.6/monitoring/enabling-monitoring-for-user-defined-projects.html", [service.kind, service.metadata.name]))
 }
 
 service_has_matching_servicemonitor(service, manifests) {
@@ -1501,14 +1442,13 @@ OCP4.x expects template.openshift.io/v1.
 ```rego
 package ocp.deprecated.ocp3_11.template_v1
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  obj := konstraint.object
-  lower(obj.apiVersion) == "v1"
-  lower(obj.kind) == "template"
+  lower(konstraint_core.apiVersion) == "v1"
+  lower(konstraint_core.kind) == "template"
 
-  msg := konstraint.format(sprintf("%s/%s: API v1 for Template is no longer served by default, use template.openshift.io/v1 instead.", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: API v1 for Template is no longer served by default, use template.openshift.io/v1 instead.", [konstraint_core.kind, konstraint_core.name]))
 }
 ```
 
@@ -1528,13 +1468,12 @@ See: https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-rel
 ```rego
 package ocp.deprecated.ocp4_2.authorization_openshift
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  obj := konstraint.object
-  contains(lower(obj.apiVersion), "authorization.openshift.io")
+  contains(lower(konstraint_core.apiVersion), "authorization.openshift.io")
 
-  msg := konstraint.format(sprintf("%s/%s: API authorization.openshift.io for ClusterRole, ClusterRoleBinding, Role and RoleBinding is deprecated, use rbac.authorization.k8s.io/v1 instead.", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: API authorization.openshift.io for ClusterRole, ClusterRoleBinding, Role and RoleBinding is deprecated, use rbac.authorization.k8s.io/v1 instead.", [konstraint_core.kind, konstraint_core.name]))
 }
 ```
 
@@ -1555,13 +1494,12 @@ See: https://docs.openshift.com/container-platform/4.4/release_notes/ocp-4-4-rel
 ```rego
 package ocp.deprecated.ocp4_2.automationbroker_v1alpha1
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  obj := konstraint.object
-  contains(lower(obj.apiVersion), "automationbroker.io/v1alpha1")
+  contains(lower(konstraint_core.apiVersion), "automationbroker.io/v1alpha1")
 
-  msg := konstraint.format(sprintf("%s/%s: automationbroker.io/v1alpha1 is deprecated.", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: automationbroker.io/v1alpha1 is deprecated.", [konstraint_core.kind, konstraint_core.name]))
 }
 ```
 
@@ -1582,14 +1520,13 @@ See: https://docs.openshift.com/container-platform/4.5/release_notes/ocp-4-5-rel
 ```rego
 package ocp.deprecated.ocp4_2.catalogsourceconfigs_v1
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  obj := konstraint.object
-  contains(lower(obj.apiVersion), "operators.coreos.com/v1")
-  lower(obj.kind) == "catalogsourceconfigs"
+  contains(lower(konstraint_core.apiVersion), "operators.coreos.com/v1")
+  lower(konstraint_core.kind) == "catalogsourceconfigs"
 
-  msg := konstraint.format(sprintf("%s/%s: operators.coreos.com/v1 is deprecated.", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: operators.coreos.com/v1 is deprecated.", [konstraint_core.kind, konstraint_core.name]))
 }
 ```
 
@@ -1609,14 +1546,13 @@ See: https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-rel
 ```rego
 package ocp.deprecated.ocp4_2.operatorsources_v1
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  obj := konstraint.object
-  contains(lower(obj.apiVersion), "operators.coreos.com/v1")
-  lower(obj.kind) == "operatorsource"
+  contains(lower(konstraint_core.apiVersion), "operators.coreos.com/v1")
+  lower(konstraint_core.kind) == "operatorsource"
 
-  msg := konstraint.format(sprintf("%s/%s: operators.coreos.com/v1 is deprecated.", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: operators.coreos.com/v1 is deprecated.", [konstraint_core.kind, konstraint_core.name]))
 }
 ```
 
@@ -1637,14 +1573,13 @@ See: https://docs.openshift.com/container-platform/4.5/release_notes/ocp-4-5-rel
 ```rego
 package ocp.deprecated.ocp4_2.catalogsourceconfigs_v2
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  obj := konstraint.object
-  contains(lower(obj.apiVersion), "operators.coreos.com/v2")
-  lower(obj.kind) == "catalogsourceconfigs"
+  contains(lower(konstraint_core.apiVersion), "operators.coreos.com/v2")
+  lower(konstraint_core.kind) == "catalogsourceconfigs"
 
-  msg := konstraint.format(sprintf("%s/%s: operators.coreos.com/v2 is deprecated.", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: operators.coreos.com/v2 is deprecated.", [konstraint_core.kind, konstraint_core.name]))
 }
 ```
 
@@ -1665,13 +1600,12 @@ See: https://docs.openshift.com/container-platform/4.5/release_notes/ocp-4-5-rel
 ```rego
 package ocp.deprecated.ocp4_2.osb_v1
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  obj := konstraint.object
-  contains(lower(obj.apiVersion), "osb.openshift.io/v1")
+  contains(lower(konstraint_core.apiVersion), "osb.openshift.io/v1")
 
-  msg := konstraint.format(sprintf("%s/%s: osb.openshift.io/v1 is deprecated.", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: osb.openshift.io/v1 is deprecated.", [konstraint_core.kind, konstraint_core.name]))
 }
 ```
 
@@ -1692,13 +1626,12 @@ See: https://docs.openshift.com/container-platform/4.5/release_notes/ocp-4-5-rel
 ```rego
 package ocp.deprecated.ocp4_2.servicecatalog_v1beta1
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  obj := konstraint.object
-  contains(lower(obj.apiVersion), "servicecatalog.k8s.io/v1beta1")
+  contains(lower(konstraint_core.apiVersion), "servicecatalog.k8s.io/v1beta1")
 
-  msg := konstraint.format(sprintf("%s/%s: servicecatalog.k8s.io/v1beta1 is deprecated.", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: servicecatalog.k8s.io/v1beta1 is deprecated.", [konstraint_core.kind, konstraint_core.name]))
 }
 ```
 
