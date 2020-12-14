@@ -1,6 +1,6 @@
 package ocp.bestpractices.container_volumemount_missing
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 # @title Container volume mount not set
@@ -16,7 +16,7 @@ violation[msg] {
   not containers_volumemounts_contains_volume(openshift.containers, volume)
   obj := konstraint.object
 
-  msg := konstraint.format(sprintf("%s/%s: volume '%s' does not have a volumeMount in any of the containers.", [obj.kind, obj.metadata.name, volume.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: volume '%s' does not have a volumeMount in any of the containers.", [konstraint_core.kind, konstraint_core.name, volume.name]))
 }
 
 containers_volumemounts_contains_volume(containers, volume) {

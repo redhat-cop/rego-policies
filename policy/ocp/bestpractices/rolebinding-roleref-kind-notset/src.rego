@@ -1,6 +1,6 @@
 package ocp.bestpractices.rolebinding_roleref_kind_notset
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.kubernetes
 
 # @title RoleBinding has kind set

@@ -1,6 +1,6 @@
 package ocp.bestpractices.container_resources_requests_memory_greater_than
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.memory
 import data.lib.openshift
 
@@ -24,5 +24,5 @@ violation[msg] {
   memoryBytes > upperBound
   obj := konstraint.object
 
-  msg := konstraint.format(sprintf("%s/%s: container '%s' has a memory request of '%s' which is larger than the upper '%dGi' limit.", [obj.kind, obj.metadata.name, container.name, container.resources.requests.memory, (upperBound / memory.gb)]))
+  msg := konstraint_core.format(sprintf("%s/%s: container '%s' has a memory request of '%s' which is larger than the upper '%dGi' limit.", [konstraint_core.kind, konstraint_core.name, container.name, container.resources.requests.memory, (upperBound / memory.gb)]))
 }

@@ -1,6 +1,6 @@
 package ocp.requiresinventory.deployment_has_matching_poddisruptionbudget
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 # @title Deployment has a matching PodDisruptionBudget
 #
@@ -16,7 +16,7 @@ violation[msg] {
 
   not deployment_has_matching_poddisruptionbudget(deployment, data.inventory.namespace[deployment.metadata.namespace])
 
-  msg := konstraint.format(sprintf("%s/%s does not have a policy/v1beta1:PodDisruptionBudget or its selector labels dont match. See: https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget", [deployment.kind, deployment.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s does not have a policy/v1beta1:PodDisruptionBudget or its selector labels dont match. See: https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget", [deployment.kind, deployment.metadata.name]))
 }
 
 deployment_has_matching_poddisruptionbudget(deployment, manifests) {

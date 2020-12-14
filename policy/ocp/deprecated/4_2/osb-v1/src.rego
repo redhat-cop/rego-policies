@@ -1,6 +1,6 @@
 package ocp.deprecated.ocp4_2.osb_v1
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 # @title osb openshift io v1 is deprecated
 #
@@ -13,5 +13,5 @@ violation[msg] {
   obj := konstraint.object
   contains(lower(obj.apiVersion), "osb.openshift.io/v1")
 
-  msg := konstraint.format(sprintf("%s/%s: osb.openshift.io/v1 is deprecated.", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: osb.openshift.io/v1 is deprecated.", [konstraint_core.kind, konstraint_core.name]))
 }

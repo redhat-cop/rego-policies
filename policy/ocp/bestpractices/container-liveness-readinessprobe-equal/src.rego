@@ -1,6 +1,6 @@
 package ocp.bestpractices.container_liveness_readinessprobe_equal
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 # @title Container liveness and readiness probes are equal
@@ -21,5 +21,5 @@ violation[msg] {
   container.livenessProbe == container.readinessProbe
   obj := konstraint.object
 
-  msg := konstraint.format(sprintf("%s/%s: container '%s' livenessProbe and readinessProbe are equal, which is an anti-pattern.", [obj.kind, obj.metadata.name, container.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: container '%s' livenessProbe and readinessProbe are equal, which is an anti-pattern.", [konstraint_core.kind, konstraint_core.name, container.name]))
 }

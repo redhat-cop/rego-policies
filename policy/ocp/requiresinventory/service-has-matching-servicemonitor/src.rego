@@ -1,6 +1,6 @@
 package ocp.requiresinventory.service_has_matching_servicenonitor
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 # @title Service has matching ServiceMonitor
 #
@@ -15,7 +15,7 @@ violation[msg] {
 
   not service_has_matching_servicemonitor(service, data.inventory.namespace[service.metadata.namespace])
 
-  msg := konstraint.format(sprintf("%s/%s does not have a monitoring.coreos.com/v1:ServiceMonitor or its selector labels dont match. See: https://docs.openshift.com/container-platform/4.4/monitoring/monitoring-your-own-services.html", [service.kind, service.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s does not have a monitoring.coreos.com/v1:ServiceMonitor or its selector labels dont match. See: https://docs.openshift.com/container-platform/4.6/monitoring/enabling-monitoring-for-user-defined-projects.html", [service.kind, service.metadata.name]))
 }
 
 service_has_matching_servicemonitor(service, manifests) {

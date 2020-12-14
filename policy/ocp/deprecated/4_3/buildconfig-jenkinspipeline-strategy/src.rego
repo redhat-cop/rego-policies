@@ -1,6 +1,6 @@
 package ocp.deprecated.ocp4_3.buildconfig_jenkinspipeline_strategy
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 # @title BuildConfig jenkinsPipelineStrategy is deprecated
 #
@@ -15,5 +15,5 @@ violation[msg] {
 
   obj.spec.strategy.jenkinsPipelineStrategy
 
-  msg := konstraint.format(sprintf("%s/%s: 'spec.strategy.jenkinsPipelineStrategy' is deprecated. Use Jenkinsfiles directly on Jenkins or OpenShift Pipelines instead.", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: 'spec.strategy.jenkinsPipelineStrategy' is deprecated. Use Jenkinsfiles directly on Jenkins or OpenShift Pipelines instead.", [konstraint_core.kind, konstraint_core.name]))
 }

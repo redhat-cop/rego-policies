@@ -1,6 +1,6 @@
 package ocp.bestpractices.pod_hostnetwork
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 # @title Pod hostnetwork not set
@@ -15,5 +15,5 @@ violation[msg] {
   pod.spec.hostNetwork
   obj := konstraint.object
 
-  msg := konstraint.format(sprintf("%s/%s: hostNetwork is present which gives the pod access to the loopback device, services listening on localhost, and could be used to snoop on network activity of other pods on the same node.", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: hostNetwork is present which gives the pod access to the loopback device, services listening on localhost, and could be used to snoop on network activity of other pods on the same node.", [konstraint_core.kind, konstraint_core.name]))
 }

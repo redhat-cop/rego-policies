@@ -1,6 +1,6 @@
 package ocp.bestpractices.container_readinessprobe_notset
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 # @title Container readiness prob is not set
@@ -18,5 +18,5 @@ violation[msg] {
   konstraint.missing_field(container, "readinessProbe")
   obj := konstraint.object
 
-  msg := konstraint.format(sprintf("%s/%s: container '%s' has no readinessProbe. See: https://docs.openshift.com/container-platform/4.4/applications/application-health.html", [obj.kind, obj.metadata.name, container.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: container '%s' has no readinessProbe. See: https://docs.openshift.com/container-platform/4.6/applications/application-health.html", [konstraint_core.kind, konstraint_core.name, container.name]))
 }

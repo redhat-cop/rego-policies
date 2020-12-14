@@ -1,6 +1,6 @@
 package ocp.deprecated.ocp4_1.buildconfig_custom_strategy
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 # @title BuildConfig exposeDockerSocket deprecated
 #
@@ -15,5 +15,5 @@ violation[msg] {
 
   obj.spec.strategy.customStrategy.exposeDockerSocket
 
-  msg := konstraint.format(sprintf("%s/%s: 'spec.strategy.customStrategy.exposeDockerSocket' is deprecated. If you want to continue using custom builds, you should replace your Docker invocations with Podman or Buildah.", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: 'spec.strategy.customStrategy.exposeDockerSocket' is deprecated. If you want to continue using custom builds, you should replace your Docker invocations with Podman or Buildah.", [konstraint_core.kind, konstraint_core.name]))
 }

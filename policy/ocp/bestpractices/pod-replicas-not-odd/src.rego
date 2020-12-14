@@ -1,6 +1,6 @@
 package ocp.bestpractices.pod_replicas_not_odd
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 # @title Pod replica is not odd
@@ -15,5 +15,5 @@ violation[msg] {
   obj := konstraint.object
   obj.spec.replicas % 2 == 0
 
-  msg := konstraint.format(sprintf("%s/%s: replicas is %d - expected an odd number for HA guarantees.", [obj.kind, obj.metadata.name, obj.spec.replicas]))
+  msg := konstraint_core.format(sprintf("%s/%s: replicas is %d - expected an odd number for HA guarantees.", [konstraint_core.kind, konstraint_core.name, replicas]))
 }

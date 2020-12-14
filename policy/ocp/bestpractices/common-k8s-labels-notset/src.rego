@@ -1,6 +1,6 @@
 package ocp.bestpractices.common_k8s_labels_notset
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 # @title Common k8s labels are set
@@ -15,7 +15,7 @@ violation[msg] {
   obj := konstraint.object
   not is_common_labels_set(obj.metadata)
 
-  msg := konstraint.format(sprintf("%s/%s: does not contain all the expected k8s labels in 'metadata.labels'. See: https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: does not contain all the expected k8s labels in 'metadata.labels'. See: https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels", [konstraint_core.kind, konstraint_core.name]))
 }
 
 is_common_labels_set(metadata) {

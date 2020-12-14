@@ -1,6 +1,6 @@
 package ocp.requiresinventory.deployment_has_matching_serviceaccount
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 # @title Deployment has matching ServiceAccount
 #
@@ -16,7 +16,7 @@ violation[msg] {
 
   not deployment_has_matching_serviceaccount(deployment, data.inventory.namespace[deployment.metadata.namespace])
 
-  msg := konstraint.format(sprintf("%s/%s has spec.serviceAccountName '%s' but could not find corrasponding v1:ServiceAccount.", [deployment.kind, deployment.metadata.name, deployment.spec.template.spec.serviceAccountName]))
+  msg := konstraint_core.format(sprintf("%s/%s has spec.serviceAccountName '%s' but could not find corrasponding v1:ServiceAccount.", [deployment.kind, deployment.metadata.name, deployment.spec.template.spec.serviceAccountName]))
 }
 
 deployment_has_matching_serviceaccount(deployment, manifests) {

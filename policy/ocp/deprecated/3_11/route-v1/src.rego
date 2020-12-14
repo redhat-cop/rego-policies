@@ -1,6 +1,6 @@
 package ocp.deprecated.ocp3_11.route_v1
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 # @title Route no longer served by v1
 #
@@ -12,5 +12,5 @@ violation[msg] {
   lower(obj.apiVersion) == "v1"
   lower(obj.kind) == "route"
 
-  msg := konstraint.format(sprintf("%s/%s: API v1 for Route is no longer served by default, use route.openshift.io/v1 instead.", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: API v1 for Route is no longer served by default, use route.openshift.io/v1 instead.", [konstraint_core.kind, konstraint_core.name]))
 }

@@ -1,6 +1,6 @@
 package ocp.deprecated.ocp4_2.servicecatalog_v1beta1
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 # @title servicecatalog k8s io v1beta1 is deprecated
 #
@@ -13,5 +13,5 @@ violation[msg] {
   obj := konstraint.object
   contains(lower(obj.apiVersion), "servicecatalog.k8s.io/v1beta1")
 
-  msg := konstraint.format(sprintf("%s/%s: servicecatalog.k8s.io/v1beta1 is deprecated.", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: servicecatalog.k8s.io/v1beta1 is deprecated.", [konstraint_core.kind, konstraint_core.name]))
 }

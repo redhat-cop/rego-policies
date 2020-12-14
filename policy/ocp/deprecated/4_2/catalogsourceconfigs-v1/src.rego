@@ -1,6 +1,6 @@
 package ocp.deprecated.ocp4_2.catalogsourceconfigs_v1
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 # @title operators coreos com v1 CatalogSourceConfigs is deprecated
 #
@@ -14,5 +14,5 @@ violation[msg] {
   contains(lower(obj.apiVersion), "operators.coreos.com/v1")
   lower(obj.kind) == "catalogsourceconfigs"
 
-  msg := konstraint.format(sprintf("%s/%s: operators.coreos.com/v1 is deprecated.", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: operators.coreos.com/v1 is deprecated.", [konstraint_core.kind, konstraint_core.name]))
 }

@@ -1,6 +1,6 @@
 package ocp.bestpractices.container_labelkey_inconsistent
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 # @title Label key is consistent
@@ -17,7 +17,7 @@ violation[msg] {
 
   not label_key_starts_with_expected(key)
 
-  msg := konstraint.format(sprintf("%s/%s: has a label key which did not start with 'app.kubernetes.io/' or 'redhat-cop.github.com/'. Found '%s'", [obj.kind, obj.metadata.name, key]))
+  msg := konstraint_core.format(sprintf("%s/%s: has a label key which did not start with 'app.kubernetes.io/' or 'redhat-cop.github.com/'. Found '%s'", [konstraint_core.kind, konstraint_core.name, key]))
 }
 
 label_key_starts_with_expected(key) {

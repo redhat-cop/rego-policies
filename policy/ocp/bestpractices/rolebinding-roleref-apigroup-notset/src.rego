@@ -1,6 +1,6 @@
 package ocp.bestpractices.rolebinding_roleref_apigroup_notset
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.kubernetes
 
 # @title RoleBinding has apiGroup set
@@ -14,5 +14,5 @@ violation[msg] {
   obj := konstraint.object
   konstraint.missing_field(obj.roleRef, "apiGroup")
 
-  msg := konstraint.format(sprintf("%s/%s: RoleBinding roleRef.apiGroup key is null, use rbac.authorization.k8s.io instead.", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: RoleBinding roleRef.apiGroup key is null, use rbac.authorization.k8s.io instead.", [konstraint_core.kind, konstraint_core.name]))
 }
