@@ -35,7 +35,7 @@ setup_file() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [ "${lines[1]}" = "not ok 1 - Combined - combine.namespace_has_networkpolicy - Namespace/foo does not have a networking.k8s.io/v1:NetworkPolicy. See: https://docs.openshift.com/container-platform/4.4/networking/configuring-networkpolicy.html" ]
+  [ "${lines[1]}" = "not ok 1 - Combined - combine.namespace_has_networkpolicy - Namespace/foo does not have a networking.k8s.io/v1:NetworkPolicy. See: https://docs.openshift.com/container-platform/4.6/networking/network_policy/about-network-policy.html" ]
   [ "${lines[2]}" = "" ]
 }
 
@@ -47,7 +47,7 @@ setup_file() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [ "${lines[1]}" = "not ok 1 - Combined - combine.namespace_has_resourcequota - Namespace/foo does not have a core/v1:ResourceQuota. See: https://docs.openshift.com/container-platform/4.5/applications/quotas/quotas-setting-per-project.html" ]
+  [ "${lines[1]}" = "not ok 1 - Combined - combine.namespace_has_resourcequota - Namespace/foo does not have a core/v1:ResourceQuota. See: https://docs.openshift.com/container-platform/4.6/applications/quotas/quotas-setting-per-project.html" ]
   [ "${lines[2]}" = "" ]
 }
 
@@ -76,8 +76,8 @@ setup_file() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [ "${lines[1]}" = "not ok 1 - ${tmp}/list.yml - ocp.bestpractices.container_env_maxmemory_notset - Deployment/nodownwardmemoryenv: container 'bar' does not have an env named 'CONTAINER_MAX_MEMORY' which is used by the Red Hat base images to calculate memory. See: https://docs.openshift.com/container-platform/4.4/nodes/clusters/nodes-cluster-resource-configure.html and https://github.com/jboss-openshift/cct_module/blob/master/jboss/container/java/jvm/bash/artifacts/opt/jboss/container/java/jvm/java-default-options" ]
-  [ "${lines[2]}" = "not ok 2 - ${tmp}/list.yml - ocp.bestpractices.container_env_maxmemory_notset - DeploymentConfig/nodownwardmemoryenv: container 'bar' does not have an env named 'CONTAINER_MAX_MEMORY' which is used by the Red Hat base images to calculate memory. See: https://docs.openshift.com/container-platform/4.4/nodes/clusters/nodes-cluster-resource-configure.html and https://github.com/jboss-openshift/cct_module/blob/master/jboss/container/java/jvm/bash/artifacts/opt/jboss/container/java/jvm/java-default-options" ]
+  [ "${lines[1]}" = "not ok 1 - ${tmp}/list.yml - ocp.bestpractices.container_env_maxmemory_notset - Deployment/nodownwardmemoryenv: container 'bar' does not have an env named 'CONTAINER_MAX_MEMORY' which is used by the Red Hat base images to calculate memory. See: https://docs.openshift.com/container-platform/4.6/nodes/clusters/nodes-cluster-resource-configure.html and https://github.com/jboss-openshift/cct_module/blob/master/jboss/container/java/jvm/bash/artifacts/opt/jboss/container/java/jvm/java-default-options" ]
+  [ "${lines[2]}" = "not ok 2 - ${tmp}/list.yml - ocp.bestpractices.container_env_maxmemory_notset - DeploymentConfig/nodownwardmemoryenv: container 'bar' does not have an env named 'CONTAINER_MAX_MEMORY' which is used by the Red Hat base images to calculate memory. See: https://docs.openshift.com/container-platform/4.6/nodes/clusters/nodes-cluster-resource-configure.html and https://github.com/jboss-openshift/cct_module/blob/master/jboss/container/java/jvm/bash/artifacts/opt/jboss/container/java/jvm/java-default-options" ]
   [ "${lines[3]}" = "" ]
 }
 
@@ -158,8 +158,8 @@ setup_file() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [ "${lines[1]}" = "not ok 1 - ${tmp}/list.yml - ocp.bestpractices.container_livenessprobe_notset - Deployment/noproblivenessset: container 'bar' has no livenessProbe. See: https://docs.openshift.com/container-platform/4.4/applications/application-health.html" ]
-  [ "${lines[2]}" = "not ok 2 - ${tmp}/list.yml - ocp.bestpractices.container_livenessprobe_notset - DeploymentConfig/noproblivenessset: container 'bar' has no livenessProbe. See: https://docs.openshift.com/container-platform/4.4/applications/application-health.html" ]
+  [ "${lines[1]}" = "not ok 1 - ${tmp}/list.yml - ocp.bestpractices.container_livenessprobe_notset - Deployment/noproblivenessset: container 'bar' has no livenessProbe. See: https://docs.openshift.com/container-platform/4.6/applications/application-health.html" ]
+  [ "${lines[2]}" = "not ok 2 - ${tmp}/list.yml - ocp.bestpractices.container_livenessprobe_notset - DeploymentConfig/noproblivenessset: container 'bar' has no livenessProbe. See: https://docs.openshift.com/container-platform/4.6/applications/application-health.html" ]
   [ "${lines[3]}" = "" ]
 }
 
@@ -171,8 +171,8 @@ setup_file() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [ "${lines[1]}" = "not ok 1 - ${tmp}/list.yml - ocp.bestpractices.container_readinessprobe_notset - Deployment/noreadinessprob: container 'bar' has no readinessProbe. See: https://docs.openshift.com/container-platform/4.4/applications/application-health.html" ]
-  [ "${lines[2]}" = "not ok 2 - ${tmp}/list.yml - ocp.bestpractices.container_readinessprobe_notset - DeploymentConfig/noreadinessprob: container 'bar' has no readinessProbe. See: https://docs.openshift.com/container-platform/4.4/applications/application-health.html" ]
+  [ "${lines[1]}" = "not ok 1 - ${tmp}/list.yml - ocp.bestpractices.container_readinessprobe_notset - Deployment/noreadinessprob: container 'bar' has no readinessProbe. See: https://docs.openshift.com/container-platform/4.6/applications/application-health.html" ]
+  [ "${lines[2]}" = "not ok 2 - ${tmp}/list.yml - ocp.bestpractices.container_readinessprobe_notset - DeploymentConfig/noreadinessprob: container 'bar' has no readinessProbe. See: https://docs.openshift.com/container-platform/4.6/applications/application-health.html" ]
   [ "${lines[3]}" = "" ]
 }
 
@@ -378,7 +378,7 @@ setup_file() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [ "${lines[1]}" = "not ok 1 - ${tmp}/example.yml - ocp.bestpractices.route_tls_termination_notset - Route/tlsterminationnotset: TLS termination type not set. See https://docs.openshift.com/container-platform/4.5/networking/routes/secured-routes.html" ]
+  [ "${lines[1]}" = "not ok 1 - ${tmp}/example.yml - ocp.bestpractices.route_tls_termination_notset - Route/tlsterminationnotset: TLS termination type not set. See https://docs.openshift.com/container-platform/4.6/networking/routes/secured-routes.html" ]
   [ "${lines[2]}" = "" ]
 }
 
@@ -655,7 +655,7 @@ setup_file() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [ "${lines[1]}" = "not ok 1 - ${tmp}/list.yml - ocp.requiresinventory.service_has_matching_servicenonitor - Service/hasmissingsvcmon does not have a monitoring.coreos.com/v1:ServiceMonitor or its selector labels dont match. See: https://docs.openshift.com/container-platform/4.4/monitoring/monitoring-your-own-services.html" ]
+  [ "${lines[1]}" = "not ok 1 - ${tmp}/list.yml - ocp.requiresinventory.service_has_matching_servicenonitor - Service/hasmissingsvcmon does not have a monitoring.coreos.com/v1:ServiceMonitor or its selector labels dont match. See: https://docs.openshift.com/container-platform/4.6/monitoring/enabling-monitoring-for-user-defined-projects.html" ]
   [ "${lines[2]}" = "" ]
 }
 
