@@ -3,7 +3,7 @@ package ocp.bestpractices.container_liveness_readinessprobe_equal
 import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
-# @title Container liveness and readiness probes are equal
+# @title RHCOP-OCP_BESTPRACT-00007: Container liveness and readiness probes are equal
 #
 # When Liveness and Readiness probes are pointing to the same endpoint, the effects of the probes are combined.
 # When the app signals that it's not ready or live, the kubelet detaches the container from the Service and delete it at the same time.
@@ -18,5 +18,5 @@ violation[msg] {
   container.readinessProbe
   container.livenessProbe == container.readinessProbe
 
-  msg := konstraint_core.format(sprintf("%s/%s: container '%s' livenessProbe and readinessProbe are equal, which is an anti-pattern.", [konstraint_core.kind, konstraint_core.name, container.name]))
+  msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' livenessProbe and readinessProbe are equal, which is an anti-pattern.", [konstraint_core.kind, konstraint_core.name, container.name]), "RHCOP-OCP_BESTPRACT-00007")
 }

@@ -3,7 +3,7 @@ package ocp.bestpractices.container_resources_requests_cpuunit_incorrect
 import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
-# @title Container resources requests cpu has incorrect unit
+# @title RHCOP-OCP_BESTPRACT-00014: Container resources requests cpu has incorrect unit
 #
 # Beginners can easily confuse the allowed cpu unit, this policy enforces what is valid.
 # See: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes
@@ -15,7 +15,7 @@ violation[msg] {
   not is_resource_requests_cpu_contains_dollar(container)
   not is_resource_requests_cpu_units_valid(container)
 
-  msg := konstraint_core.format(sprintf("%s/%s container '%s' cpu resources for requests (%s) has an incorrect unit. See: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes", [konstraint_core.kind, konstraint_core.name, container.name, container.resources.requests.cpu]))
+  msg := konstraint_core.format_with_id(sprintf("%s/%s container '%s' cpu resources for requests (%s) has an incorrect unit. See: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes", [konstraint_core.kind, konstraint_core.name, container.name, container.resources.requests.cpu]), "RHCOP-OCP_BESTPRACT-00014")
 }
 
 is_resource_requests_cpu_contains_dollar(container) {

@@ -4,7 +4,7 @@ import data.lib.konstraint.core as konstraint_core
 import data.lib.memory
 import data.lib.openshift
 
-# @title Container resource limits memory not greater than
+# @title RHCOP-OCP_BESTPRACT-00011: Container resource limits memory not greater than
 #
 # Setting a too high memory limit can cause under utilisation on a node.
 # It is better to run multiple pods which use smaller limits.
@@ -21,5 +21,5 @@ violation[msg] {
   memoryBytes := units.parse_bytes(container.resources.limits.memory)
   memoryBytes > upperBound
 
-  msg := konstraint_core.format(sprintf("%s/%s: container '%s' has a memory limit of '%s' which is larger than the upper '%dGi' limit.", [konstraint_core.kind, konstraint_core.name, container.name, container.resources.limits.memory, (upperBound / memory.gb)]))
+  msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' has a memory limit of '%s' which is larger than the upper '%dGi' limit.", [konstraint_core.kind, konstraint_core.name, container.name, container.resources.limits.memory, (upperBound / memory.gb)]), "RHCOP-OCP_BESTPRACT-00011")
 }

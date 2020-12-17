@@ -3,7 +3,7 @@ package ocp.bestpractices.container_image_unknownregistries
 import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
-# @title Container image is not from a known registry
+# @title RHCOP-OCP_BESTPRACT-00004: Container image is not from a known registry
 #
 # Only images from trusted and known registries should be used
 #
@@ -14,7 +14,7 @@ violation[msg] {
 
   not known_registry(container.image, registry_list)
 
-  msg := konstraint_core.format(sprintf("%s/%s: container '%s' is from (%s), which is an unknown registry.", [konstraint_core.kind, konstraint_core.name, container.name, container.image]))
+  msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' is from (%s), which is an unknown registry.", [konstraint_core.kind, konstraint_core.name, container.name, container.image]), "RHCOP-OCP_BESTPRACT-00004")
 }
 
 known_registry(image, knownregistry){

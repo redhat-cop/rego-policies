@@ -2,7 +2,7 @@ package combine.namespace_has_resourcequota
 
 import data.lib.konstraint.core as konstraint_core
 
-# @title Namespace has a ResourceQuota
+# @title RHCOP-COMBINE-00002: Namespace has a ResourceQuota
 #
 # With ResourceQuotas, you can limit the total resource consumption of all containers inside a Namespace.
 # Defining a resource quota for a namespace limits the total amount of CPU, memory or storage resources
@@ -21,7 +21,7 @@ violation[msg] {
 
   not namespace_has_resourcequota(manifests)
 
-  msg := konstraint_core.format(sprintf("%s/%s does not have a core/v1:ResourceQuota. See: https://docs.openshift.com/container-platform/4.6/applications/quotas/quotas-setting-per-project.html", [namespace.kind, namespace.metadata.name]))
+  msg := konstraint_core.format_with_id(sprintf("%s/%s does not have a core/v1:ResourceQuota. See: https://docs.openshift.com/container-platform/4.6/applications/quotas/quotas-setting-per-project.html", [namespace.kind, namespace.metadata.name]), "RHCOP-COMBINE-00002")
 }
 
 namespace_has_resourcequota(manifests) {

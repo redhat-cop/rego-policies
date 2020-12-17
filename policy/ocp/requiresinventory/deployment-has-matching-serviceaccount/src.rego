@@ -3,7 +3,7 @@ package ocp.requiresinventory.deployment_has_matching_serviceaccount
 import data.lib.konstraint.core as konstraint_core
 import data.lib.kubernetes
 
-# @title Deployment has matching ServiceAccount
+# @title RHCOP-OCP_REQ_INV-00004: Deployment has matching ServiceAccount
 #
 # If Deployment has 'spec.serviceAccountName' set, there should be matching ServiceAccount.
 # If not, this would suggest a mistake.
@@ -17,7 +17,7 @@ violation[msg] {
 
   not deployment_has_matching_serviceaccount(deployment, data.inventory.namespace[deployment.metadata.namespace])
 
-  msg := konstraint_core.format(sprintf("%s/%s has spec.serviceAccountName '%s' but could not find corrasponding v1:ServiceAccount.", [deployment.kind, deployment.metadata.name, deployment.spec.template.spec.serviceAccountName]))
+  msg := konstraint_core.format_with_id(sprintf("%s/%s has spec.serviceAccountName '%s' but could not find corrasponding v1:ServiceAccount.", [deployment.kind, deployment.metadata.name, deployment.spec.template.spec.serviceAccountName]), "RHCOP-OCP_REQ_INV-00004")
 }
 
 deployment_has_matching_serviceaccount(deployment, manifests) {

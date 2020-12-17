@@ -2,7 +2,7 @@ package combine.namespace_has_networkpolicy
 
 import data.lib.konstraint.core as konstraint_core
 
-# @title Namespace has a NetworkPolicy
+# @title RHCOP-COMBINE-00001: Namespace has a NetworkPolicy
 #
 # Kubernetes network policies specify the access permissions for groups of pods,
 # much like security groups in the cloud are used to control access to VM instances.
@@ -20,7 +20,7 @@ violation[msg] {
 
   not namespace_has_networkpolicy(manifests)
 
-  msg := konstraint_core.format(sprintf("%s/%s does not have a networking.k8s.io/v1:NetworkPolicy. See: https://docs.openshift.com/container-platform/4.6/networking/network_policy/about-network-policy.html", [namespace.kind, namespace.metadata.name]))
+  msg := konstraint_core.format_with_id(sprintf("%s/%s does not have a networking.k8s.io/v1:NetworkPolicy. See: https://docs.openshift.com/container-platform/4.6/networking/network_policy/about-network-policy.html", [namespace.kind, namespace.metadata.name]), "RHCOP-COMBINE-00001")
 }
 
 namespace_has_networkpolicy(manifests) {
