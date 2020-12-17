@@ -12,6 +12,7 @@ items:
       app.kubernetes.io/component: FooBar
       app.kubernetes.io/part-of: Foo
       app.kubernetes.io/managed-by: Bar
+      redhat-cop.github.com/technology: java
     name: nodownwardmemoryenv
   spec:
     replicas: 3
@@ -73,6 +74,7 @@ items:
       app.kubernetes.io/component: FooBar
       app.kubernetes.io/part-of: Foo
       app.kubernetes.io/managed-by: Bar
+      redhat-cop.github.com/technology: java
     name: nodownwardmemoryenv
   spec:
     replicas: 3
