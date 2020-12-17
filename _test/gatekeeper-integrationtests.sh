@@ -50,7 +50,7 @@ teardown() {
   [ "$status" -eq 1 ]
   [[ "${lines[0]}" == "Error from server ([denied by commonk8slabelsnotset] Deployment/nolabels"* ]]
   [[ "${lines[1]}" == "Error from server ([denied by commonk8slabelsnotset] DeploymentConfig/nolabels"* ]]
-  [[ "${lines[2]}" = "" ]]
+  [[ "${#lines[@]}" -eq 2 ]]
 }
 
 @test "policy/ocp/bestpractices/container-env-maxmemory-notset" {
@@ -62,8 +62,8 @@ teardown() {
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
   [[ "${lines[0]}" == "Error from server ([denied by containerenvmaxmemorynotset] Deployment/nodownwardmemoryenv"* ]]
-  [[ "${lines[3]}" == "Error from server ([denied by containerenvmaxmemorynotset] DeploymentConfig/nodownwardmemoryenv"* ]]
-  [[ "${lines[4]}" = "" ]]
+  [[ "${lines[1]}" == "Error from server ([denied by containerenvmaxmemorynotset] DeploymentConfig/nodownwardmemoryenv"* ]]
+  [[ "${#lines[@]}" -eq 2 ]]
 }
 
 @test "policy/ocp/bestpractices/container-image-latest" {
@@ -75,8 +75,8 @@ teardown() {
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
   [[ "${lines[0]}" == "Error from server ([denied by containerimagelatest] Deployment/imageuseslatesttag"* ]]
-  [[ "${lines[3]}" == "Error from server ([denied by containerimagelatest] DeploymentConfig/imageuseslatesttag"* ]]
-  [[ "${lines[4]}" = "" ]]
+  [[ "${lines[1]}" == "Error from server ([denied by containerimagelatest] DeploymentConfig/imageuseslatesttag"* ]]
+  [[ "${#lines[@]}" -eq 2 ]]
 }
 
 @test "policy/ocp/bestpractices/container-image-unknownregistries" {
@@ -88,8 +88,8 @@ teardown() {
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
   [[ "${lines[0]}" == "Error from server ([denied by containerimageunknownregistries] Deployment/imagefromunknownregistry"* ]]
-  [[ "${lines[3]}" == "Error from server ([denied by containerimageunknownregistries] DeploymentConfig/imagefromunknownregistry"* ]]
-  [[ "${lines[4]}" = "" ]]
+  [[ "${lines[1]}" == "Error from server ([denied by containerimageunknownregistries] DeploymentConfig/imagefromunknownregistry"* ]]
+  [[ "${#lines[@]}" -eq 2 ]]
 }
 
 @test "policy/ocp/bestpractices/container-java-xmx-set" {
@@ -101,12 +101,12 @@ teardown() {
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
   [[ "${lines[0]}" == "Error from server ([denied by containerjavaxmxset] Deployment/xmxviacommand"* ]]
-  [[ "${lines[3]}" == "Error from server ([denied by containerjavaxmxset] Deployment/xmxviaargs"* ]]
-  [[ "${lines[6]}" == "Error from server ([denied by containerjavaxmxset] Deployment/xmxviaenv"* ]]
-  [[ "${lines[9]}" == "Error from server ([denied by containerjavaxmxset] DeploymentConfig/xmxviacommand"* ]]
-  [[ "${lines[10]}" == "Error from server ([denied by containerjavaxmxset] DeploymentConfig/xmxviaargs"* ]]
-  [[ "${lines[11]}" == "Error from server ([denied by containerjavaxmxset] DeploymentConfig/xmxviaenv"* ]]
-  [[ "${lines[12]}" = "" ]]
+  [[ "${lines[1]}" == "Error from server ([denied by containerjavaxmxset] Deployment/xmxviaargs"* ]]
+  [[ "${lines[2]}" == "Error from server ([denied by containerjavaxmxset] Deployment/xmxviaenv"* ]]
+  [[ "${lines[3]}" == "Error from server ([denied by containerjavaxmxset] DeploymentConfig/xmxviacommand"* ]]
+  [[ "${lines[4]}" == "Error from server ([denied by containerjavaxmxset] DeploymentConfig/xmxviaargs"* ]]
+  [[ "${lines[5]}" == "Error from server ([denied by containerjavaxmxset] DeploymentConfig/xmxviaenv"* ]]
+  [[ "${#lines[@]}" -eq 6 ]]
 }
 
 @test "policy/ocp/bestpractices/container-labelkey-inconsistent" {
@@ -119,7 +119,7 @@ teardown() {
   [ "$status" -eq 1 ]
   [[ "${lines[0]}" == "Error from server ([denied by containerlabelkeyinconsistent] Deployment/nonestandardlabel"* ]]
   [[ "${lines[1]}" == "Error from server ([denied by containerlabelkeyinconsistent] DeploymentConfig/nonestandardlabel"* ]]
-  [[ "${lines[2]}" = "" ]]
+  [[ "${#lines[@]}" -eq 2 ]]
 }
 
 @test "policy/ocp/bestpractices/container-liveness-readinessprobe-equal" {
@@ -131,8 +131,8 @@ teardown() {
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
   [[ "${lines[0]}" == "Error from server ([denied by containerlivenessreadinessprobeequal] Deployment/probssetaresame"* ]]
-  [[ "${lines[3]}" == "Error from server ([denied by containerlivenessreadinessprobeequal] DeploymentConfig/probssetaresame"* ]]
-  [[ "${lines[4]}" = "" ]]
+  [[ "${lines[1]}" == "Error from server ([denied by containerlivenessreadinessprobeequal] DeploymentConfig/probssetaresame"* ]]
+  [[ "${#lines[@]}" -eq 2 ]]
 }
 
 @test "policy/ocp/bestpractices/container-livenessprobe-notset" {
@@ -144,8 +144,8 @@ teardown() {
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
   [[ "${lines[0]}" == "Error from server ([denied by containerlivenessprobenotset] Deployment/noproblivenessset"* ]]
-  [[ "${lines[3]}" == "Error from server ([denied by containerlivenessprobenotset] DeploymentConfig/noproblivenessset"* ]]
-  [[ "${lines[4]}" = "" ]]
+  [[ "${lines[1]}" == "Error from server ([denied by containerlivenessprobenotset] DeploymentConfig/noproblivenessset"* ]]
+  [[ "${#lines[@]}" -eq 2 ]]
 }
 
 @test "policy/ocp/bestpractices/container-readinessprobe-notset" {
@@ -157,8 +157,8 @@ teardown() {
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
   [[ "${lines[0]}" == "Error from server ([denied by containerreadinessprobenotset] Deployment/noreadinessprob"* ]]
-  [[ "${lines[3]}" == "Error from server ([denied by containerreadinessprobenotset] DeploymentConfig/noreadinessprob"* ]]
-  [[ "${lines[4]}" = "" ]]
+  [[ "${lines[1]}" == "Error from server ([denied by containerreadinessprobenotset] DeploymentConfig/noreadinessprob"* ]]
+  [[ "${#lines[@]}" -eq 2 ]]
 }
 
 @test "policy/ocp/bestpractices/container-resources-limits-cpu-set" {
@@ -170,8 +170,8 @@ teardown() {
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
   [[ "${lines[0]}" == "Error from server ([denied by containerresourceslimitscpuset] Deployment/resourceslimitscpuset"* ]]
-  [[ "${lines[3]}" == "Error from server ([denied by containerresourceslimitscpuset] DeploymentConfig/resourceslimitscpuset"* ]]
-  [[ "${lines[4]}" = "" ]]
+  [[ "${lines[1]}" == "Error from server ([denied by containerresourceslimitscpuset] DeploymentConfig/resourceslimitscpuset"* ]]
+  [[ "${#lines[@]}" -eq 2 ]]
 }
 
 @test "policy/ocp/bestpractices/container-resources-limits-memory-greater-than" {
@@ -183,8 +183,8 @@ teardown() {
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
   [[ "${lines[0]}" == "Error from server ([denied by containerresourceslimitsmemorygreaterthan] Deployment/memorylimittoolarge"* ]]
-  [[ "${lines[3]}" == "Error from server ([denied by containerresourceslimitsmemorygreaterthan] DeploymentConfig/memorylimittoolarge"* ]]
-  [[ "${lines[4]}" = "" ]]
+  [[ "${lines[1]}" == "Error from server ([denied by containerresourceslimitsmemorygreaterthan] DeploymentConfig/memorylimittoolarge"* ]]
+  [[ "${#lines[@]}" -eq 2 ]]
 }
 
 @test "policy/ocp/bestpractices/container-resources-limits-memory-notset" {
@@ -196,8 +196,8 @@ teardown() {
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
   [[ "${lines[0]}" == "Error from server ([denied by containerresourceslimitsmemorynotset] Deployment/resourcelimitsmemorynotset"* ]]
-  [[ "${lines[3]}" == "Error from server ([denied by containerresourceslimitsmemorynotset] DeploymentConfig/resourcelimitsmemorynotset"* ]]
-  [[ "${lines[4]}" = "" ]]
+  [[ "${lines[1]}" == "Error from server ([denied by containerresourceslimitsmemorynotset] DeploymentConfig/resourcelimitsmemorynotset"* ]]
+  [[ "${#lines[@]}" -eq 2 ]]
 }
 
 @test "policy/ocp/bestpractices/container-resources-memoryunit-incorrect" {
@@ -209,10 +209,10 @@ teardown() {
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
   [[ "${lines[0]}" == "Error from server ([denied by containerresourcesmemoryunitincorrect] Deployment/invalidresourcesrequestsmemoryunits"* ]]
-  [[ "${lines[3]}" == "Error from server ([denied by containerresourcesmemoryunitincorrect] Deployment/invalidresourceslimitsmemoryunits"* ]]
-  [[ "${lines[6]}" == "Error from server ([denied by containerresourcesmemoryunitincorrect] DeploymentConfig/invalidresourcesrequestsmemoryunits"* ]]
-  [[ "${lines[7]}" == "Error from server ([denied by containerresourcesmemoryunitincorrect] DeploymentConfig/invalidresourceslimitsmemoryunits"* ]]
-  [[ "${lines[8]}" = "" ]]
+  [[ "${lines[1]}" == "Error from server ([denied by containerresourcesmemoryunitincorrect] Deployment/invalidresourceslimitsmemoryunits"* ]]
+  [[ "${lines[2]}" == "Error from server ([denied by containerresourcesmemoryunitincorrect] DeploymentConfig/invalidresourcesrequestsmemoryunits"* ]]
+  [[ "${lines[3]}" == "Error from server ([denied by containerresourcesmemoryunitincorrect] DeploymentConfig/invalidresourceslimitsmemoryunits"* ]]
+  [[ "${#lines[@]}" -eq 4 ]]
 }
 
 @test "policy/ocp/bestpractices/container-resources-requests-cpuunit-incorrect" {
@@ -224,8 +224,8 @@ teardown() {
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
   [[ "${lines[0]}" == "Error from server ([denied by containerresourcesrequestscpuunitincorrect] Deployment/invalidresourcesrequestcpuunits"* ]]
-  [[ "${lines[3]}" == "Error from server ([denied by containerresourcesrequestscpuunitincorrect] DeploymentConfig/invalidresourcesrequestcpuunits"* ]]
-  [[ "${lines[4]}" = "" ]]
+  [[ "${lines[1]}" == "Error from server ([denied by containerresourcesrequestscpuunitincorrect] DeploymentConfig/invalidresourcesrequestcpuunits"* ]]
+  [[ "${#lines[@]}" -eq 2 ]]
 }
 
 @test "policy/ocp/bestpractices/container-resources-requests-memory-greater-than" {
@@ -237,8 +237,8 @@ teardown() {
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
   [[ "${lines[0]}" == "Error from server ([denied by containerresourcesrequestsmemorygreaterthan] Deployment/memoryrequesttoolarge"* ]]
-  [[ "${lines[3]}" == "Error from server ([denied by containerresourcesrequestsmemorygreaterthan] DeploymentConfig/memoryrequesttoolarge"* ]]
-  [[ "${lines[4]}" = "" ]]
+  [[ "${lines[1]}" == "Error from server ([denied by containerresourcesrequestsmemorygreaterthan] DeploymentConfig/memoryrequesttoolarge"* ]]
+  [[ "${#lines[@]}" -eq 2 ]]
 }
 
 @test "policy/ocp/bestpractices/container-secret-mounted-envs" {
@@ -250,8 +250,8 @@ teardown() {
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
   [[ "${lines[0]}" == "Error from server ([denied by containersecretmountedenvs] Deployment/secretenvvars"* ]]
-  [[ "${lines[3]}" == "Error from server ([denied by containersecretmountedenvs] DeploymentConfig/secretenvvars"* ]]
-  [[ "${lines[4]}" = "" ]]
+  [[ "${lines[1]}" == "Error from server ([denied by containersecretmountedenvs] DeploymentConfig/secretenvvars"* ]]
+  [[ "${#lines[@]}" -eq 2 ]]
 }
 
 @test "policy/ocp/bestpractices/container-volumemount-inconsistent-path" {
@@ -263,8 +263,8 @@ teardown() {
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
   [[ "${lines[0]}" == "Error from server ([denied by containervolumemountinconsistentpath] Deployment/notvarrunvolumemountspath"* ]]
-  [[ "${lines[3]}" == "Error from server ([denied by containervolumemountinconsistentpath] DeploymentConfig/notvarrunvolumemountspath"* ]]
-  [[ "${lines[4]}" = "" ]]
+  [[ "${lines[1]}" == "Error from server ([denied by containervolumemountinconsistentpath] DeploymentConfig/notvarrunvolumemountspath"* ]]
+  [[ "${#lines[@]}" -eq 2 ]]
 }
 
 @test "policy/ocp/bestpractices/container-volumemount-missing" {
@@ -277,7 +277,7 @@ teardown() {
   [ "$status" -eq 1 ]
   [[ "${lines[0]}" == "Error from server ([denied by containervolumemountmissing] Deployment/missingvolumemount"* ]]
   [[ "${lines[1]}" == "Error from server ([denied by containervolumemountmissing] DeploymentConfig/missingvolumemount"* ]]
-  [[ "${lines[2]}" = "" ]]
+  [[ "${#lines[@]}" -eq 2 ]]
 }
 
 @test "policy/ocp/bestpractices/pod-hostnetwork" {
@@ -290,7 +290,7 @@ teardown() {
   [ "$status" -eq 1 ]
   [[ "${lines[0]}" == "Error from server ([denied by podhostnetwork] Deployment/hostnetworkisset"* ]]
   [[ "${lines[1]}" == "Error from server ([denied by podhostnetwork] DeploymentConfig/hostnetworkisset"* ]]
-  [[ "${lines[2]}" = "" ]]
+  [[ "${#lines[@]}" -eq 2 ]]
 }
 
 @test "policy/ocp/bestpractices/pod-replicas-below-one" {
@@ -303,7 +303,7 @@ teardown() {
   [ "$status" -eq 1 ]
   [[ "${lines[0]}" == "Error from server ([denied by podreplicasbelowone] Deployment/replicaisone"* ]]
   [[ "${lines[1]}" == "Error from server ([denied by podreplicasbelowone] DeploymentConfig/replicaisone"* ]]
-  [[ "${lines[2]}" = "" ]]
+  [[ "${#lines[@]}" -eq 2 ]]
 }
 
 @test "policy/ocp/bestpractices/pod-replicas-not-odd" {
@@ -316,7 +316,7 @@ teardown() {
   [ "$status" -eq 1 ]
   [[ "${lines[0]}" == "Error from server ([denied by podreplicasnotodd] Deployment/replicaiseven"* ]]
   [[ "${lines[1]}" == "Error from server ([denied by podreplicasnotodd] DeploymentConfig/replicaiseven"* ]]
-  [[ "${lines[2]}" = "" ]]
+  [[ "${#lines[@]}" -eq 2 ]]
 }
 
 @test "policy/ocp/bestpractices/route-tls-termination-notset" {
@@ -328,7 +328,7 @@ teardown() {
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
   [[ "${lines[0]}" == "Error from server ([denied by routetlsterminationnotset] Route/tlsterminationnotset"* ]]
-  [[ "${lines[1]}" = "" ]]
+  [[ "${#lines[@]}" -eq 1 ]]
 }
 
 
@@ -344,8 +344,11 @@ teardown() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
+
+  [[ "${lines[0]}" == "servicemonitor.monitoring.coreos.com/shouldneverfire-pdb created" ]]
+  [[ "${lines[1]}" == "service/shouldneverfire-pdb created" ]]
   [[ "${lines[2]}" == "Error from server ([denied by deploymenthasmatchingpoddisruptionbudget] Deployment/hasmissingpdb"* ]]
-  [[ "${lines[3]}" = "" ]]
+  [[ "${#lines[@]}" -eq 3 ]]
 }
 
 @test "policy/ocp/requiresinventory/deployment-has-matching-pvc" {
@@ -357,7 +360,7 @@ teardown() {
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
   [[ "${lines[0]}" == "Error from server ([denied by deploymenthasmatchingpvc] Deployment/hasmissingpvc"* ]]
-  [[ "${lines[1]}" = "" ]]
+  [[ "${#lines[@]}" -eq 1 ]]
 }
 
 @test "policy/ocp/requiresinventory/deployment-has-matching-service" {
@@ -368,8 +371,9 @@ teardown() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
+  [[ "${lines[0]}" == "poddisruptionbudget.policy/shouldneverfire-svc created" ]]
   [[ "${lines[1]}" == "Error from server ([denied by deploymenthasmatchingservice] Deployment/hasmissingsvc"* ]]
-  [[ "${lines[2]}" = "" ]]
+  [[ "${#lines[@]}" -eq 2 ]]
 }
 
 @test "policy/ocp/requiresinventory/deployment-has-matching-serviceaccount" {
@@ -381,7 +385,7 @@ teardown() {
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
   [[ "${lines[0]}" == "Error from server ([denied by deploymenthasmatchingserviceaccount] Deployment/hasmissingsvcaccount"* ]]
-  [[ "${lines[1]}" = "" ]]
+  [[ "${#lines[@]}" -eq 1 ]]
 }
 
 @test "policy/ocp/requiresinventory/service-has-matching-servicemonitor" {
@@ -393,5 +397,5 @@ teardown() {
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
   [[ "${lines[0]}" == "Error from server ([denied by servicehasmatchingservicemonitor] Service/hasmissingsvcmon"* ]]
-  [[ "${lines[1]}" = "" ]]
+  [[ "${#lines[@]}" -eq 1 ]]
 }
