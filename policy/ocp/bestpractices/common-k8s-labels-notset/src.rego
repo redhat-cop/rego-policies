@@ -10,6 +10,7 @@ import data.lib.openshift
 #
 # @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob core/Service route.openshift.io/Route
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00001")
   openshift.is_pod_or_networking
 
   not is_common_labels_set(konstraint_core.resource.metadata)
