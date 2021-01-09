@@ -1,6 +1,6 @@
 package ocp.deprecated.ocp3_11.buildconfig_v1
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 # @title BuildConfig no longer served by v1
 #
@@ -8,9 +8,8 @@ import data.lib.konstraint
 #
 # @kinds v1/BuildConfig
 violation[msg] {
-  obj := konstraint.object
-  lower(obj.apiVersion) == "v1"
-  lower(obj.kind) == "buildconfig"
+  lower(konstraint_core.apiVersion) == "v1"
+  lower(konstraint_core.kind) == "buildconfig"
 
-  msg := konstraint.format(sprintf("%s/%s: API v1 for BuildConfig is no longer served by default, use build.openshift.io/v1 instead.", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: API v1 for BuildConfig is no longer served by default, use build.openshift.io/v1 instead.", [konstraint_core.kind, konstraint_core.name]))
 }

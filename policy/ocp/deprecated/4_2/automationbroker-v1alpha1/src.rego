@@ -1,6 +1,6 @@
 package ocp.deprecated.ocp4_2.automationbroker_v1alpha1
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 # @title automationbroker io v1alpha1 is deprecated
 #
@@ -10,8 +10,7 @@ import data.lib.konstraint
 #
 # @kinds automationbroker.io/Bundle automationbroker.io/BundleBinding automationbroker.io/BundleInstance
 violation[msg] {
-  obj := konstraint.object
-  contains(lower(obj.apiVersion), "automationbroker.io/v1alpha1")
+  contains(lower(konstraint_core.apiVersion), "automationbroker.io/v1alpha1")
 
-  msg := konstraint.format(sprintf("%s/%s: automationbroker.io/v1alpha1 is deprecated.", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: automationbroker.io/v1alpha1 is deprecated.", [konstraint_core.kind, konstraint_core.name]))
 }

@@ -1,5 +1,6 @@
 package podman.images.image_size_not_greater_than
 
+import data.lib.konstraint.core as konstraint_core
 import data.lib.memory
 
 # @title Image size is not greater than an expected value
@@ -18,5 +19,5 @@ violation[msg] {
   sizeInMb := image.size / memory.mb
   sizeInMb > upperBound
 
-  msg := sprintf("%s: has a size of '%fMi', which is greater than '%dMi' limit.", [input.image, sizeInMb, upperBound])
+  msg := konstraint_core.format(sprintf("%s: has a size of '%fMi', which is greater than '%dMi' limit.", [input.image, sizeInMb, upperBound]))
 }

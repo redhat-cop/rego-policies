@@ -1,6 +1,6 @@
 package combine.namespace_has_networkpolicy
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 # @title Namespace has a NetworkPolicy
 #
@@ -20,7 +20,7 @@ violation[msg] {
 
   not namespace_has_networkpolicy(manifests)
 
-  msg := konstraint.format(sprintf("%s/%s does not have a networking.k8s.io/v1:NetworkPolicy. See: https://docs.openshift.com/container-platform/4.4/networking/configuring-networkpolicy.html", [namespace.kind, namespace.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s does not have a networking.k8s.io/v1:NetworkPolicy. See: https://docs.openshift.com/container-platform/4.6/networking/network_policy/about-network-policy.html", [namespace.kind, namespace.metadata.name]))
 }
 
 namespace_has_networkpolicy(manifests) {

@@ -1,6 +1,6 @@
 package combine.namespace_has_resourcequota
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 # @title Namespace has a ResourceQuota
 #
@@ -21,7 +21,7 @@ violation[msg] {
 
   not namespace_has_resourcequota(manifests)
 
-  msg := konstraint.format(sprintf("%s/%s does not have a core/v1:ResourceQuota. See: https://docs.openshift.com/container-platform/4.5/applications/quotas/quotas-setting-per-project.html", [namespace.kind, namespace.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s does not have a core/v1:ResourceQuota. See: https://docs.openshift.com/container-platform/4.6/applications/quotas/quotas-setting-per-project.html", [namespace.kind, namespace.metadata.name]))
 }
 
 namespace_has_resourcequota(manifests) {

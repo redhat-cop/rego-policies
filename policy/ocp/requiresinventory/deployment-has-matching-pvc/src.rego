@@ -1,6 +1,7 @@
 package ocp.requiresinventory.deployment_has_matching_pvc
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
+import data.lib.kubernetes
 
 # @title Deployment has matching PersistentVolumeClaim
 #
@@ -9,14 +10,14 @@ import data.lib.konstraint
 #
 # @kinds apps/Deployment
 violation[msg] {
-  konstraint.is_deployment
+  kubernetes.is_deployment
 
-  deployment := konstraint.object
+  deployment := konstraint_core.resource
   deployment.spec.template.spec.volumes[_].persistentVolumeClaim
 
   not deployment_has_matching_persistentvolumeclaim(deployment, data.inventory.namespace[deployment.metadata.namespace])
 
-  msg := konstraint.format(sprintf("%s/%s has persistentVolumeClaim in its spec.template.spec.volumes but could not find corrasponding v1:PersistentVolumeClaim.", [deployment.kind, deployment.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s has persistentVolumeClaim in its spec.template.spec.volumes but could not find corrasponding v1:PersistentVolumeClaim.", [deployment.kind, deployment.metadata.name]))
 }
 
 deployment_has_matching_persistentvolumeclaim(deployment, manifests) {

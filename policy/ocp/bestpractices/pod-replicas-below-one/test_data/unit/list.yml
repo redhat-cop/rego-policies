@@ -8,9 +8,17 @@ items:
     name: replicaisone
   spec:
     replicas: 1
+    template:
+      spec:
+        containers:
+          - name: bar
 - apiVersion: apps.openshift.io/v1
   kind: DeploymentConfig
   metadata:
     name: replicaisone
   spec:
     replicas: 1
+    template:
+      spec:
+        containers:
+          - name: bar

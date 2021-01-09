@@ -1,6 +1,6 @@
 package ocp.deprecated.ocp4_2.authorization_openshift
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 
 # @title authorization openshift io is deprecated
 #
@@ -9,8 +9,7 @@ import data.lib.konstraint
 #
 # @kinds authorization.openshift.io/ClusterRole authorization.openshift.io/ClusterRoleBinding authorization.openshift.io/Role authorization.openshift.io/RoleBinding
 violation[msg] {
-  obj := konstraint.object
-  contains(lower(obj.apiVersion), "authorization.openshift.io")
+  contains(lower(konstraint_core.apiVersion), "authorization.openshift.io")
 
-  msg := konstraint.format(sprintf("%s/%s: API authorization.openshift.io for ClusterRole, ClusterRoleBinding, Role and RoleBinding is deprecated, use rbac.authorization.k8s.io/v1 instead.", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: API authorization.openshift.io for ClusterRole, ClusterRoleBinding, Role and RoleBinding is deprecated, use rbac.authorization.k8s.io/v1 instead.", [konstraint_core.kind, konstraint_core.name]))
 }

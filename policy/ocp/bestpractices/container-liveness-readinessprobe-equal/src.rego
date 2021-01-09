@@ -1,6 +1,6 @@
 package ocp.bestpractices.container_liveness_readinessprobe_equal
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 # @title Container liveness and readiness probes are equal
@@ -10,16 +10,13 @@ import data.lib.openshift
 # You might notice dropping connections because the container does not have enough time to drain the current connections or process the incoming ones.
 # See: Health checks -> https://learnk8s.io/production-best-practices#application-development
 #
-# @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
+# @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
 violation[msg] {
-  openshift.is_workload_kind
-
   container := openshift.containers[_]
 
   container.livenessProbe
   container.readinessProbe
   container.livenessProbe == container.readinessProbe
-  obj := konstraint.object
 
-  msg := konstraint.format(sprintf("%s/%s: container '%s' livenessProbe and readinessProbe are equal, which is an anti-pattern.", [obj.kind, obj.metadata.name, container.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: container '%s' livenessProbe and readinessProbe are equal, which is an anti-pattern.", [konstraint_core.kind, konstraint_core.name, container.name]))
 }

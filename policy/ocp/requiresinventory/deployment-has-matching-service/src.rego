@@ -1,6 +1,7 @@
 package ocp.requiresinventory.deployment_has_matching_service
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
+import data.lib.kubernetes
 
 # @title Deployment has a matching Service
 #
@@ -9,13 +10,13 @@ import data.lib.konstraint
 #
 # @kinds apps/Deployment
 violation[msg] {
-  konstraint.is_deployment
+  kubernetes.is_deployment
 
-  deployment := konstraint.object
+  deployment := konstraint_core.resource
 
   not deployment_labels_matches_service_selector(deployment, data.inventory.namespace[deployment.metadata.namespace])
 
-  msg := konstraint.format(sprintf("%s/%s does not have a v1:Service or its selector labels dont match. See: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#service-and-replicationcontroller", [deployment.kind, deployment.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s does not have a v1:Service or its selector labels dont match. See: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#service-and-replicationcontroller", [deployment.kind, deployment.metadata.name]))
 }
 
 deployment_labels_matches_service_selector(deployment, manifests) {

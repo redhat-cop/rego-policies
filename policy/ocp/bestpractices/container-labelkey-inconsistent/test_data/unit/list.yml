@@ -14,6 +14,11 @@ items:
       redhat-cop.github.com/team: rego-polices
       app: Foo
     name: nonestandardlabel
+  spec:
+    template:
+      spec:
+        containers:
+          - name: bar
 - apiVersion: apps.openshift.io/v1
   kind: DeploymentConfig
   metadata:
@@ -26,3 +31,8 @@ items:
       redhat-cop.github.com/team: rego-polices
       app: Foo
     name: nonestandardlabel
+  spec:
+    template:
+      spec:
+        containers:
+          - name: bar

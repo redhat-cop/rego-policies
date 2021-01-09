@@ -1,6 +1,6 @@
 package ocp.bestpractices.rolebinding_roleref_kind_notset
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.kubernetes
 
 # @title RoleBinding has kind set
@@ -11,8 +11,7 @@ import data.lib.kubernetes
 violation[msg] {
   kubernetes.is_rolebinding
 
-  obj := konstraint.object
-  konstraint.missing_field(obj.roleRef, "kind")
+  konstraint_core.missing_field(konstraint_core.resource.roleRef, "kind")
 
-  msg := konstraint.format(sprintf("%s/%s: RoleBinding roleRef.kind key is null, use ClusterRole or Role instead.", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: RoleBinding roleRef.kind key is null, use ClusterRole or Role instead.", [konstraint_core.kind, konstraint_core.name]))
 }

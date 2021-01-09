@@ -1,6 +1,6 @@
 package ocp.bestpractices.common_k8s_labels_notset
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 # @title Common k8s labels are set
@@ -8,14 +8,13 @@ import data.lib.openshift
 # Check if all workload related kinds contain labels as suggested by k8s.
 # See: https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels
 #
-# @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet core/Service route.openshift.io/Route
+# @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob core/Service route.openshift.io/Route
 violation[msg] {
-  openshift.is_all_kind
+  openshift.is_pod_or_networking
 
-  obj := konstraint.object
-  not is_common_labels_set(obj.metadata)
+  not is_common_labels_set(konstraint_core.resource.metadata)
 
-  msg := konstraint.format(sprintf("%s/%s: does not contain all the expected k8s labels in 'metadata.labels'. See: https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels", [obj.kind, obj.metadata.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: does not contain all the expected k8s labels in 'metadata.labels'. See: https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels", [konstraint_core.kind, konstraint_core.name]))
 }
 
 is_common_labels_set(metadata) {

@@ -1,6 +1,6 @@
 package ocp.bestpractices.pod_replicas_below_one
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 # @title Pod replica below 1
@@ -10,10 +10,10 @@ import data.lib.openshift
 #
 # @kinds apps.openshift.io/DeploymentConfig apps/Deployment
 violation[msg] {
-  openshift.is_workload_kind
+  openshift.pod
 
-  obj := konstraint.object
-  obj.spec.replicas <= 1
+  replicas := konstraint_core.resource.spec.replicas
+  replicas <= 1
 
-  msg := konstraint.format(sprintf("%s/%s: replicas is %d - expected replicas to be greater than 1 for HA guarantees.", [obj.kind, obj.metadata.name, obj.spec.replicas]))
+  msg := konstraint_core.format(sprintf("%s/%s: replicas is %d - expected replicas to be greater than 1 for HA guarantees.", [konstraint_core.kind, konstraint_core.name, replicas]))
 }

@@ -1,60 +1,41 @@
 package lib.openshift
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
+import data.lib.konstraint.pods as konstraint_pods
+import data.lib.kubernetes
+
+pod = konstraint_pods.pod {
+    konstraint_pods.pod
+}
+
+pod = konstraint_core.resource.spec.template {
+    is_deploymentconfig
+}
+
+containers[container] {
+    keys = {"containers", "initContainers"}
+    all_containers = [c | keys[k]; c = pod.spec[k][_]]
+    container = all_containers[_]
+}
 
 is_deploymentconfig {
-  lower(konstraint.object.apiVersion) == "apps.openshift.io/v1"
-  lower(konstraint.object.kind) == "deploymentconfig"
+    lower(konstraint_core.apiVersion) == "apps.openshift.io/v1"
+    lower(konstraint_core.kind) == "deploymentconfig"
 }
 
 is_route {
-  lower(konstraint.object.apiVersion) == "route.openshift.io/v1"
-  lower(konstraint.object.kind) == "route"
+    lower(konstraint_core.apiVersion) == "route.openshift.io/v1"
+    lower(konstraint_core.kind) == "route"
 }
 
-is_workload_kind {
-  is_deploymentconfig
+is_pod_or_networking {
+    pod
 }
 
-is_workload_kind {
-  konstraint.is_statefulset
+is_pod_or_networking {
+    kubernetes.is_service
 }
 
-is_workload_kind {
-  konstraint.is_daemonset
-}
-
-is_workload_kind {
-  konstraint.is_deployment
-}
-
-is_all_kind {
-  is_workload_kind
-}
-
-is_all_kind {
-  konstraint.is_service
-}
-
-is_all_kind {
-  is_route
-}
-
-pods[pod] {
-  is_deploymentconfig
-  pod = konstraint.object.spec.template
-}
-
-pods[pod] {
-  pod = konstraint.pods[_]
-}
-
-containers[container] {
-  pods[pod]
-  all_containers = konstraint.pod_containers(pod)
-  container = all_containers[_]
-}
-
-containers[container] {
-  container = konstraint.containers[_]
+is_pod_or_networking {
+    is_route
 }

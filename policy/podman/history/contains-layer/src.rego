@@ -1,5 +1,7 @@
 package podman.history.contains_layer
 
+import data.lib.konstraint.core as konstraint_core
+
 # @title Image contains expected SHA in history.
 #
 # Most images are built from a subset of authorised base images in a company,
@@ -12,7 +14,7 @@ violation[msg] {
 
   not image_history_contains_layer(input.items)
 
-  msg := sprintf("%s: did not find expected SHA.", [input.image])
+  msg := konstraint_core.format(sprintf("%s: did not find expected SHA.", [input.image]))
 }
 
 image_history_contains_layer(layers) {

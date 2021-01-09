@@ -6,7 +6,17 @@ items:
   kind: Deployment
   metadata:
     name: nolabels
+  spec:
+    template:
+      spec:
+        containers:
+          - name: bar
 - apiVersion: apps.openshift.io/v1
   kind: DeploymentConfig
   metadata:
     name: nolabels
+  spec:
+    template:
+      spec:
+        containers:
+          - name: bar

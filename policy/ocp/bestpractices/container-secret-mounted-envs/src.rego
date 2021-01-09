@@ -1,6 +1,6 @@
 package ocp.bestpractices.container_secret_mounted_envs
 
-import data.lib.konstraint
+import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 # @title Container secret not mounted as envs
@@ -10,15 +10,12 @@ import data.lib.openshift
 # by individuals that shouldn't have access to the secret values.
 # See: Configuration and secrets -> https://learnk8s.io/production-best-practices#application-development
 #
-# @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/StatefulSet
+# @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
 violation[msg] {
-  openshift.is_workload_kind
-
   container := openshift.containers[_]
 
   env := container.env[_]
   env.valueFrom.secretKeyRef
-  obj := konstraint.object
 
-  msg := konstraint.format(sprintf("%s/%s: container '%s' has a secret '%s' mounted as an environment variable. As secrets are not secret, its not good practice to mount as env vars.", [obj.kind, obj.metadata.name, container.name, env.valueFrom.secretKeyRef.name]))
+  msg := konstraint_core.format(sprintf("%s/%s: container '%s' has a secret '%s' mounted as an environment variable. As secrets are not secret, its not good practice to mount as env vars.", [konstraint_core.kind, konstraint_core.name, container.name, env.valueFrom.secretKeyRef.name]))
 }
