@@ -665,8 +665,9 @@ setup_file() {
 
 @test "policy/podman/history/contains-layer" {
   tmp=$(split_files "policy/podman/history/contains-layer/test_data/unit/jenkins-python-mising.json" "true")
+  parameters="policy/podman/data_parameters.rego"
 
-  cmd="conftest test ${tmp}/jenkins-python-mising.json --output tap --namespace podman.history.contains_layer"
+  cmd="conftest test ${tmp}/jenkins-python-mising.json --output tap --namespace podman.history.contains_layer --data ${parameters}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -677,8 +678,9 @@ setup_file() {
 
 @test "policy/podman/images/image-size-not-greater-than" {
   tmp=$(split_files "policy/podman/images/image-size-not-greater-than/test_data/unit" "true")
+  parameters="policy/podman/data_parameters.rego"
 
-  cmd="conftest test ${tmp} --output tap --namespace podman.images.image_size_not_greater_than"
+  cmd="conftest test ${tmp} --output tap --namespace podman.images.image_size_not_greater_than --data ${parameters}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
