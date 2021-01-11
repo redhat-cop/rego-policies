@@ -3,7 +3,7 @@
 command -v oc &> /dev/null || { echo >&2 'ERROR: oc not installed - Aborting'; exit 1; }
 command -v konstraint &> /dev/null || { echo >&2 'ERROR: konstraint not installed - Aborting'; exit 1; }
 
-gatekeeper_version="v3.1.0-rc.1"
+gatekeeper_version="v3.2.2"
 
 cleanup_gatekeeper_constraints() {
   echo ""
