@@ -2,7 +2,7 @@ package ocp.deprecated.ocp4_1.buildconfig_custom_strategy
 
 import data.lib.konstraint.core as konstraint_core
 
-# @title BuildConfig exposeDockerSocket deprecated
+# @title RHCOP-OCP_DEPRECATED-4.1-00001: BuildConfig exposeDockerSocket deprecated
 #
 # 'spec.strategy.customStrategy.exposeDockerSocket' is no longer supported by BuildConfig.
 # See: https://docs.openshift.com/container-platform/4.1/release_notes/ocp-4-1-release-notes.html#ocp-41-deprecated-features
@@ -14,5 +14,5 @@ violation[msg] {
 
   konstraint_core.resource.spec.strategy.customStrategy.exposeDockerSocket
 
-  msg := konstraint_core.format(sprintf("%s/%s: 'spec.strategy.customStrategy.exposeDockerSocket' is deprecated. If you want to continue using custom builds, you should replace your Docker invocations with Podman or Buildah.", [konstraint_core.kind, konstraint_core.name]))
+  msg := konstraint_core.format_with_id(sprintf("%s/%s: 'spec.strategy.customStrategy.exposeDockerSocket' is deprecated. If you want to continue using custom builds, you should replace your Docker invocations with Podman or Buildah.", [konstraint_core.kind, konstraint_core.name]), "RHCOP-OCP_DEPRECATED-4.1-00001")
 }
