@@ -255,16 +255,24 @@ import data.lib.openshift
 
 violation[msg] {
   container := openshift.containers[_]
-  registry_list := ["image-registry.openshift-image-registry.svc", "registry.redhat.io/", "quay.io/"]
 
-  not known_registry(container.image, registry_list)
+  registry := get_registry(container.image)
+  not known_registry(container.image, registry)
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' is from (%s), which is an unknown registry.", [konstraint_core.kind, konstraint_core.name, container.name, container.image]), "RHCOP-OCP_BESTPRACT-00004")
 }
 
-known_registry(image, knownregistry){
-  registry := knownregistry[_]
-  startswith(image, registry)
+get_registry(image) = registry {
+  contains(image, "/")
+  possible_registry := lower(split(image, "/")[0])
+  contains(possible_registry, ".")
+
+  registry := possible_registry
+}
+
+known_registry(image, registry) {
+  known_registries := ["image-registry.openshift-image-registry.svc", "registry.redhat.io", "registry.connect.redhat.com", "quay.io"]
+  registry == known_registries[_]
 }
 ```
 

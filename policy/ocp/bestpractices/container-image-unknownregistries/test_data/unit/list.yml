@@ -7,20 +7,30 @@ items:
   metadata:
     name: imagefromunknownregistry
   spec:
-    replicas: 1
     template:
       spec:
         containers:
           - name: bar
             image: docker.io/alpine:3.12
+          - name: foo
+            image: myproject/alpine:3.12
+          - name: foobar
+            image: image-registry.openshift-image-registry.svc/myproject/alpine:3.12
+          - name: barfoo
+            image: alpine:3.12
 - apiVersion: apps.openshift.io/v1
   kind: DeploymentConfig
   metadata:
     name: imagefromunknownregistry
   spec:
-    replicas: 1
     template:
       spec:
         containers:
           - name: bar
             image: docker.io/alpine:3.12
+          - name: foo
+            image: myproject/alpine:3.12
+          - name: foobar
+            image: image-registry.openshift-image-registry.svc/myproject/alpine:3.12
+          - name: barfoo
+            image: alpine:3.12
