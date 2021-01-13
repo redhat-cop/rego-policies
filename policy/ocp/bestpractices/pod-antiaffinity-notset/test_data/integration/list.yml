@@ -1,77 +1,7 @@
+---
 apiVersion: v1
-kind: Template
-metadata:
-  name: bar
-objects:
-- apiVersion: v1
-  kind: PersistentVolumeClaim
-  metadata:
-    name: foobar-pvc
-  spec:
-    accessModes:
-      - ReadWriteMany
-    resources:
-      requests:
-        storage: 1Gi
-    storageClassName: gp2
-- apiVersion: monitoring.coreos.com/v1
-  kind: ServiceMonitor
-  metadata:
-    labels:
-      app.kubernetes.io/name: Foo
-      app.kubernetes.io/instance: Bar
-      app.kubernetes.io/version: v1
-      app.kubernetes.io/component: FooBar
-      app.kubernetes.io/part-of: Foo
-      app.kubernetes.io/managed-by: Bar
-    name: shouldneverfire-${NAME}
-  spec:
-    selector:
-      matchLabels:
-        app.kubernetes.io/name: Foo
-        app.kubernetes.io/instance: Bar
-        app.kubernetes.io/version: v1
-        app.kubernetes.io/component: FooBar
-        app.kubernetes.io/part-of: Foo
-        app.kubernetes.io/managed-by: Bar
-    endpoints:
-      - port: 8080-tcp
-- apiVersion: v1
-  kind: Service
-  metadata:
-    labels:
-      app.kubernetes.io/name: Foo
-      app.kubernetes.io/instance: Bar
-      app.kubernetes.io/version: v1
-      app.kubernetes.io/component: FooBar
-      app.kubernetes.io/part-of: Foo
-      app.kubernetes.io/managed-by: Bar
-    name: shouldneverfire-${NAME}
-  spec:
-    ports:
-      - name: 8080-tcp
-        port: 8080
-    selector:
-      app.kubernetes.io/name: Foo
-      app.kubernetes.io/instance: Bar
-      app.kubernetes.io/version: v1
-      app.kubernetes.io/component: FooBar
-      app.kubernetes.io/part-of: Foo
-      app.kubernetes.io/managed-by: Bar
-- apiVersion: policy/v1beta1
-  kind: PodDisruptionBudget
-  metadata:
-    name: shouldneverfire-${NAME}
-  spec:
-    minAvailable: 2
-    selector:
-      matchLabels:
-        app.kubernetes.io/name: Foo
-        app.kubernetes.io/instance: Bar
-        app.kubernetes.io/version: v1
-        app.kubernetes.io/component: FooBar
-        app.kubernetes.io/part-of: Foo
-        app.kubernetes.io/managed-by: Bar
+kind: List
+items:
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
@@ -82,19 +12,9 @@ objects:
       app.kubernetes.io/component: FooBar
       app.kubernetes.io/part-of: Foo
       app.kubernetes.io/managed-by: Bar
-      redhat-cop.github.com/technology: java
-    name: shouldneverfire-${NAME}
+    name: podantiaffinitynotset
   spec:
     affinity:
-      podAntiAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-                - key: app.kubernetes.io/name
-                  operator: In
-                  values:
-                    - Foo
-            topologyKey: topology.kubernetes.io/zone
     replicas: 3
     selector:
       matchLabels:
@@ -117,8 +37,6 @@ objects:
         containers:
           - name: bar
             image: quay.io/redhat-cop/openshift-applier@sha256:8a99a0105f85e350bff43802b204b5ce2a501cad1aa7df5253638ced1d108957
-            command: ["ansible-playbook"]
-            args: ["-i .applier/", "cluster-seed.yml"]
             env:
               - name: CONTAINER_MAX_MEMORY
                 valueFrom:
@@ -151,13 +69,6 @@ objects:
                 cpu: 100m
               limits:
                 memory: 2Gi
-            volumeMounts:
-              - name: my-pvc
-                mountPath: /var/run/io.redhat-cop/my-pvc
-        volumes:
-          - name: my-pvc
-            persistentVolumeClaim:
-              claimName: foobar-pvc
 - apiVersion: apps.openshift.io/v1
   kind: DeploymentConfig
   metadata:
@@ -168,19 +79,9 @@ objects:
       app.kubernetes.io/component: FooBar
       app.kubernetes.io/part-of: Foo
       app.kubernetes.io/managed-by: Bar
-      redhat-cop.github.com/technology: java
-    name: shouldneverfire${NAME}
+    name: podantiaffinitynotset
   spec:
     affinity:
-      podAntiAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-                - key: app.kubernetes.io/name
-                  operator: In
-                  values:
-                    - Foo
-            topologyKey: topology.kubernetes.io/zone
     replicas: 3
     template:
       metadata:
@@ -195,8 +96,6 @@ objects:
         containers:
           - name: bar
             image: quay.io/redhat-cop/openshift-applier@sha256:8a99a0105f85e350bff43802b204b5ce2a501cad1aa7df5253638ced1d108957
-            command: ["ansible-playbook"]
-            args: ["-i .applier/", "cluster-seed.yml"]
             env:
               - name: CONTAINER_MAX_MEMORY
                 valueFrom:
@@ -225,19 +124,9 @@ objects:
               timeoutSeconds: 1
             resources:
               requests:
-                memory: ${REQUESTS_MEMORY}
-                cpu: ${REQUESTS_CPU}
+                memory: 100Mi
+                cpu: 100m
               limits:
-                memory: ${LIMITS_MEMORY}
+                memory: 2Gi
     triggers:
       - type: ConfigChange
-parameters:
-- name: NAME
-  generate: expression
-  from: "[a-z]{6}"
-- name: REQUESTS_MEMORY
-  value: "100Mi"
-- name: REQUESTS_CPU
-  value: "100m"
-- name: LIMITS_MEMORY
-  value: "2Gi"

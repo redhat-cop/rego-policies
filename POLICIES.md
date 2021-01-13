@@ -29,6 +29,7 @@
 * [RHCOP-OCP_BESTPRACT-00023: RoleBinding has apiGroup set](#rhcop-ocp_bestpract-00023-rolebinding-has-apigroup-set)
 * [RHCOP-OCP_BESTPRACT-00024: RoleBinding has kind set](#rhcop-ocp_bestpract-00024-rolebinding-has-kind-set)
 * [RHCOP-OCP_BESTPRACT-00025: Route has TLS Termination Defined](#rhcop-ocp_bestpract-00025-route-has-tls-termination-defined)
+* [RHCOP-OCP_BESTPRACT-00026: Pod anti-affinity not set](#rhcop-ocp_bestpract-00026-pod-anti-affinity-not-set)
 * [RHCOP-OCP_DEPRECATED-3.11-00001: BuildConfig no longer served by v1](#rhcop-ocp_deprecated-3.11-00001-buildconfig-no-longer-served-by-v1)
 * [RHCOP-OCP_DEPRECATED-3.11-00002: DeploymentConfig no longer served by v1](#rhcop-ocp_deprecated-3.11-00002-deploymentconfig-no-longer-served-by-v1)
 * [RHCOP-OCP_DEPRECATED-3.11-00003: ImageStream no longer served by v1](#rhcop-ocp_deprecated-3.11-00003-imagestream-no-longer-served-by-v1)
@@ -954,6 +955,36 @@ violation[msg] {
 ```
 
 _source: [policy/ocp/bestpractices/route-tls-termination-notset](policy/ocp/bestpractices/route-tls-termination-notset)_
+
+## RHCOP-OCP_BESTPRACT-00026: Pod anti-affinity not set
+
+**Severity:** Violation
+
+**Resources:** apps.openshift.io/DeploymentConfig apps/Deployment apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod
+
+Even if you run several copies of your Pods, there are no guarantees that losing a node won't take down your service.
+Anti-Affinity
+
+See: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
+
+### Rego
+
+```rego
+package ocp.bestpractices.pod_antiaffinity_notset
+
+import data.lib.konstraint.core as konstraint_core
+import data.lib.openshift
+
+violation[msg] {
+  openshift.pod
+
+  konstraint_core.missing_field(konstraint_core.resource.spec.affinity, "podAntiAffinity")
+
+  msg := konstraint_core.format_with_id(sprintf("%s/%s: spec.affinity.podAntiAffinity not set. See: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity", [konstraint_core.kind, konstraint_core.name]), "RHCOP-OCP_BESTPRACT-00026")
+}
+```
+
+_source: [policy/ocp/bestpractices/pod-antiaffinity-notset](policy/ocp/bestpractices/pod-antiaffinity-notset)_
 
 ## RHCOP-OCP_DEPRECATED-3.11-00001: BuildConfig no longer served by v1
 

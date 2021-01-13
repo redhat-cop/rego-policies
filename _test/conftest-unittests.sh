@@ -15,12 +15,11 @@ setup_file() {
 @test "_test/all-namespaces/ocp/bestpractices" {
   tmp=$(split_files "_test/all-namespaces/ocp/bestpractices")
 
-  cmd="conftest test ${tmp} --output tap --all-namespaces"
+  cmd="conftest test ${tmp} --all-namespaces"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 0 ]
-  [ "${lines[1]}" = "# successes" ]
 }
 
 ####################
@@ -406,6 +405,20 @@ setup_file() {
   [ "${lines[0]}" = "1..1" ]
   [ "${lines[1]}" = "not ok 1 - ${tmp}/example.yml - ocp.bestpractices.route_tls_termination_notset - RHCOP-OCP_BESTPRACT-00025: Route/tlsterminationnotset: TLS termination type not set. See https://docs.openshift.com/container-platform/4.6/networking/routes/secured-routes.html" ]
   [[ "${#lines[@]}" -eq 2 ]]
+}
+
+@test "policy/ocp/bestpractices/pod-antiaffinity-notset" {
+  tmp=$(split_files "policy/ocp/bestpractices/pod-antiaffinity-notset/test_data/unit")
+
+  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.pod_antiaffinity_notset"
+  run ${cmd}
+
+  print_info "${status}" "${output}" "${cmd}" "${tmp}"
+  [ "$status" -eq 1 ]
+  [ "${lines[0]}" = "1..2" ]
+  [ "${lines[1]}" = "not ok 1 - ${tmp}/list.yml - ocp.bestpractices.pod_antiaffinity_notset - RHCOP-OCP_BESTPRACT-00026: Deployment/podantiaffinitynotset: spec.affinity.podAntiAffinity not set. See: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity" ]
+  [ "${lines[2]}" = "not ok 2 - ${tmp}/list.yml - ocp.bestpractices.pod_antiaffinity_notset - RHCOP-OCP_BESTPRACT-00026: DeploymentConfig/podantiaffinitynotset: spec.affinity.podAntiAffinity not set. See: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity" ]
+  [[ "${#lines[@]}" -eq 3 ]]
 }
 
 ####################
