@@ -5,6 +5,8 @@ items:
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
+    labels:
+      redhat-cop.github.com/technology: java
     name: nodownwardmemoryenv
   spec:
     template:
@@ -14,6 +16,8 @@ items:
 - apiVersion: apps.openshift.io/v1
   kind: DeploymentConfig
   metadata:
+    labels:
+      redhat-cop.github.com/technology: java
     name: nodownwardmemoryenv
   spec:
     template:

@@ -82,6 +82,7 @@ objects:
       app.kubernetes.io/component: FooBar
       app.kubernetes.io/part-of: Foo
       app.kubernetes.io/managed-by: Bar
+      redhat-cop.github.com/technology: java
     name: shouldneverfire-${NAME}
   spec:
     replicas: 3
@@ -157,6 +158,7 @@ objects:
       app.kubernetes.io/component: FooBar
       app.kubernetes.io/part-of: Foo
       app.kubernetes.io/managed-by: Bar
+      redhat-cop.github.com/technology: java
     name: shouldneverfire${NAME}
   spec:
     replicas: 3

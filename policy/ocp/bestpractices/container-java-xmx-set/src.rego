@@ -12,6 +12,7 @@ import data.lib.openshift
 violation[msg] {
   container := openshift.containers[_]
 
+  konstraint_core.labels["redhat-cop.github.com/technology"] == "java"
   container_opts_contains_xmx(container)
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' contains -Xmx in either, command, args or env. Instead, it is suggested you use the downward API to set the env 'CONTAINER_MAX_MEMORY'", [konstraint_core.kind, konstraint_core.name, container.name]), "RHCOP-OCP_BESTPRACT-00005")
