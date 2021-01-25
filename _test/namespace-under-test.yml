@@ -8,8 +8,11 @@ objects:
   kind: Namespace
   metadata:
     labels:
-      redhat-cop.github.com/gatekeeper-active: 'true'
+      redhat-cop.github.com/gatekeeper-active: "true"
+      redhat-cop.github.com/gatekeeper-disabled-policies: "${DISABLED}"
     name: "${PROJECT_NAME}"
 parameters:
 - name: PROJECT_NAME
   required: true
+- name: DISABLED
+  value: none

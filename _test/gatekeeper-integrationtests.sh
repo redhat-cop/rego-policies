@@ -6,13 +6,16 @@ load test_helper/redhatcop-bats-library/load
 
 setup_file() {
   export project_name="regopolicies-undertest-$(date +'%d%m%Y-%H%M%S')"
+  export project_name_disabled="regopolicies-undertest-disabled-$(date +'%d%m%Y-%H%M%S')"
 
   rm -rf /tmp/rhcop
   oc process -f _test/namespace-under-test.yml -p=PROJECT_NAME=${project_name} | oc create -f -
+  oc process -f _test/namespace-under-test.yml -p=PROJECT_NAME=${project_name_disabled} -p=DISABLED="RHCOP-OCP_BESTPRACT-00001" | oc create -f -
 }
 
 teardown_file() {
   oc delete project/${project_name}
+  oc delete project/${project_name_disabled}
 }
 
 teardown() {
@@ -23,7 +26,7 @@ teardown() {
 
 ####################
 # all-namespaces
-# NOTE: This test should always be first, as it contains YAML to stop the 'data.inventory' policies firing when they shouldnt
+# NOTE: This test should always be first, as it contains YAML to stop the 'data.inventory' policies firing when they should not
 ####################
 
 @test "_test/all-namespaces/ocp/bestpractices" {
@@ -331,6 +334,33 @@ teardown() {
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
+####################
+# ocp/bestpractices - with disabled policy label on project
+####################
+
+@test "_test/all-namespaces/ocp/bestpractices - disabled policy label" {
+  alltmp=$(split_files "_test/all-namespaces/ocp/bestpractices")
+
+  cmd="oc create -f ${alltmp} -n ${project_name_disabled}"
+  run ${cmd}
+
+  print_info "${status}" "${output}" "${cmd}" "${alltmp}"
+  [ "$status" -eq 0 ]
+}
+
+@test "policy/ocp/bestpractices/common-k8s-labels-notset - disabled policy label" {
+  tmp=$(split_files "policy/ocp/bestpractices/common-k8s-labels-notset/test_data/integration")
+
+  cmd="oc create -f ${tmp} -n ${project_name_disabled}"
+  run ${cmd}
+
+  print_info "${status}" "${output}" "${cmd}" "${tmp}"
+  [ "$status" -eq 0 ]
+
+  [[ "${lines[0]}" == "deployment.apps/nolabels created" ]]
+  [[ "${lines[1]}" == "deploymentconfig.apps.openshift.io/nolabels created" ]]
+  [[ "${#lines[@]}" -eq 2 ]]
+}
 
 ####################
 # ocp/requiresinventory
