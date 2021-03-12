@@ -1,9 +1,3 @@
-package ocp.bestpractices.container_resources_requests_memory_greater_than
-
-import data.lib.konstraint.core as konstraint_core
-import data.lib.memory
-import data.lib.openshift
-
 # @title RHCOP-OCP_BESTPRACT-00015: Container resource requests memory not greater than
 #
 # Setting a too high memory request can cause under utilisation on a node.
@@ -11,6 +5,12 @@ import data.lib.openshift
 # See: Resources utilisation -> https://learnk8s.io/production-best-practices#application-development
 #
 # @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+package ocp.bestpractices.container_resources_requests_memory_greater_than
+
+import data.lib.konstraint.core as konstraint_core
+import data.lib.memory
+import data.lib.openshift
+
 violation[msg] {
   #NOTE: upperBound is an arbitrary number and it should be changed to what your company believes is the correct policy
   upperBound := 2 * memory.gb

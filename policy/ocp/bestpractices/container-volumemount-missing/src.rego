@@ -1,13 +1,13 @@
-package ocp.bestpractices.container_volumemount_missing
-
-import data.lib.konstraint.core as konstraint_core
-import data.lib.openshift
-
 # @title RHCOP-OCP_BESTPRACT-00018: Container volume mount not set
 #
 # A volume does not have a corresponding volume mount. There is probably a mistake in your definition.
 #
 # @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+package ocp.bestpractices.container_volumemount_missing
+
+import data.lib.konstraint.core as konstraint_core
+import data.lib.openshift
+
 violation[msg] {
   volume := openshift.pod.spec.volumes[_]
 

@@ -1,8 +1,3 @@
-package ocp.bestpractices.container_readinessprobe_notset
-
-import data.lib.konstraint.core as konstraint_core
-import data.lib.openshift
-
 # @title RHCOP-OCP_BESTPRACT-00009: Container readiness prob is not set
 #
 # A Readiness check determines if the container in which it is scheduled is ready to service requests.
@@ -10,6 +5,11 @@ import data.lib.openshift
 # See: https://docs.openshift.com/container-platform/4.6/applications/application-health.html
 #
 # @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+package ocp.bestpractices.container_readinessprobe_notset
+
+import data.lib.konstraint.core as konstraint_core
+import data.lib.openshift
+
 violation[msg] {
   container := openshift.containers[_]
 

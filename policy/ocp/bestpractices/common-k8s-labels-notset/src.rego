@@ -1,14 +1,14 @@
-package ocp.bestpractices.common_k8s_labels_notset
-
-import data.lib.konstraint.core as konstraint_core
-import data.lib.openshift
-
 # @title RHCOP-OCP_BESTPRACT-00001: Common k8s labels are set
 #
 # Check if all workload related kinds contain labels as suggested by k8s.
 # See: https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels
 #
 # @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob core/Service route.openshift.io/Route
+package ocp.bestpractices.common_k8s_labels_notset
+
+import data.lib.konstraint.core as konstraint_core
+import data.lib.openshift
+
 violation[msg] {
   openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00001")
   openshift.is_pod_or_networking

@@ -1,12 +1,12 @@
-package ocp.deprecated.ocp3_11.route_v1
-
-import data.lib.konstraint.core as konstraint_core
-
 # @title RHCOP-OCP_DEPRECATED-3.11-00006: Route no longer served by v1
 #
 # OCP4.x expects route.openshift.io/v1.
 #
 # @kinds v1/Route
+package ocp.deprecated.ocp3_11.route_v1
+
+import data.lib.konstraint.core as konstraint_core
+
 violation[msg] {
   lower(konstraint_core.apiVersion) == "v1"
   lower(konstraint_core.kind) == "route"

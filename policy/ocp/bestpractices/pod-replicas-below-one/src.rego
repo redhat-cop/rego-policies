@@ -1,14 +1,14 @@
-package ocp.bestpractices.pod_replicas_below_one
-
-import data.lib.konstraint.core as konstraint_core
-import data.lib.openshift
-
 # @title RHCOP-OCP_BESTPRACT-00021: Pod replica below 1
 #
 # Never run a single Pod individually.
 # See: Fault tolerance -> https://learnk8s.io/production-best-practices#application-development
 #
 # @kinds apps.openshift.io/DeploymentConfig apps/Deployment
+package ocp.bestpractices.pod_replicas_below_one
+
+import data.lib.konstraint.core as konstraint_core
+import data.lib.openshift
+
 violation[msg] {
   openshift.pod
 

@@ -1,13 +1,13 @@
-package ocp.bestpractices.container_volumemount_inconsistent_path
-
-import data.lib.konstraint.core as konstraint_core
-import data.lib.openshift
-
 # @title RHCOP-OCP_BESTPRACT-00017: Container volume mount path is consistent
 #
 # Mount paths should be mounted at '/var/run/company.com' to allow a consistent understanding.
 #
 # @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+package ocp.bestpractices.container_volumemount_inconsistent_path
+
+import data.lib.konstraint.core as konstraint_core
+import data.lib.openshift
+
 violation[msg] {
   container := openshift.containers[_]
 

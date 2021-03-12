@@ -1,8 +1,3 @@
-package ocp.bestpractices.container_resources_memoryunit_incorrect
-
-import data.lib.konstraint.core as konstraint_core
-import data.lib.openshift
-
 # @title RHCOP-OCP_BESTPRACT-00013: Container resources limit memory has incorrect unit
 #
 # Begininers can easily confuse the allowed memory unit, this policy enforces what is valid.
@@ -11,6 +6,11 @@ import data.lib.openshift
 # See: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes
 #
 # @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+package ocp.bestpractices.container_resources_memoryunit_incorrect
+
+import data.lib.konstraint.core as konstraint_core
+import data.lib.openshift
+
 violation[msg] {
   container := openshift.containers[_]
 

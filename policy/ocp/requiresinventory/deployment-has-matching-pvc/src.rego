@@ -1,14 +1,14 @@
-package ocp.requiresinventory.deployment_has_matching_pvc
-
-import data.lib.konstraint.core as konstraint_core
-import data.lib.kubernetes
-
 # @title RHCOP-OCP_REQ_INV-00002: Deployment has matching PersistentVolumeClaim
 #
 # If Deployment has 'spec.template.spec.volumes.persistentVolumeClaim' set, there should be matching PersistentVolumeClaim.
 # If not, this would suggest a mistake.
 #
 # @kinds apps/Deployment
+package ocp.requiresinventory.deployment_has_matching_pvc
+
+import data.lib.konstraint.core as konstraint_core
+import data.lib.kubernetes
+
 violation[msg] {
   kubernetes.is_deployment
 

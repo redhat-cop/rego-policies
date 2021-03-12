@@ -1,7 +1,3 @@
-package podman.history.contains_layer
-
-import data.lib.konstraint.core as konstraint_core
-
 # @title RHCOP-PODMAN-00001: Image contains expected SHA in history.
 #
 # Most images are built from a subset of authorised base images in a company,
@@ -9,6 +5,10 @@ import data.lib.konstraint.core as konstraint_core
 #
 # @kinds redhat-cop.github.com/PodmanHistory
 # parameter expected_layer_ids array string
+package podman.history.contains_layer
+
+import data.lib.konstraint.core as konstraint_core
+
 violation[msg] {
   lower(input.apiVersion) == "redhat-cop.github.com/v1"
   lower(input.kind) == "podmanhistory"

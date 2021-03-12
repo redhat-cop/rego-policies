@@ -1623,6 +1623,8 @@ _source: [policy/ocp/requiresinventory/service-has-matching-servicemonitor](poli
 Most images are built from a subset of authorised base images in a company,
 this policy allows enforcement of that policy by checking for an expected SHA.
 
+parameter expected_layer_ids array string
+
 ### Rego
 
 ```rego
@@ -1653,6 +1655,8 @@ _source: [policy/podman/history/contains-layer](policy/podman/history/contains-l
 **Resources:** redhat-cop.github.com/PodmanImages
 
 Typically, the "smaller the better" rule applies to images so lets enforce that.
+
+parameter image_size_upperbound integer
 
 ### Rego
 
