@@ -264,6 +264,16 @@ setup_file() {
   [ "$status" -eq 0 ]
 }
 
+@test "policy/ocp/bestpractices/pod-antiaffinity-notset" {
+  tmp=$(split_files "policy/ocp/bestpractices/pod-antiaffinity-notset/test_data/unit")
+
+  cmd="opa eval --bundle policy/ --input ${tmp}/list.yml --profile --format=pretty data.ocp.bestpractices.pod_antiaffinity_notset"
+  run ${cmd}
+
+  echo "${cmd} ${output}" >> opa-profile.log
+  [ "$status" -eq 0 ]
+}
+
 ####################
 # ocp/deprecated
 ####################
