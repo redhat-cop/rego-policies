@@ -283,6 +283,18 @@ teardown() {
   [[ "${#lines[@]}" -eq 2 ]]
 }
 
+@test "policy/ocp/bestpractices/deploymentconfig-triggers-containername" {
+  tmp=$(split_files "policy/ocp/bestpractices/deploymentconfig-triggers-containername/test_data/integration")
+
+  cmd="oc create -f ${tmp} -n ${project_name}"
+  run ${cmd}
+
+  print_info "${status}" "${output}" "${cmd}" "${tmp}"
+  [ "$status" -eq 1 ]
+  [[ "${lines[0]}" == "Error from server ([denied by deploymentconfigtriggerscontainername] RHCOP-OCP_BESTPRACT-00027: DeploymentConfig/deploymentconfigtriggerscontainername"* ]]
+  [[ "${#lines[@]}" -eq 1 ]]
+}
+
 @test "policy/ocp/bestpractices/pod-hostnetwork" {
   tmp=$(split_files "policy/ocp/bestpractices/pod-hostnetwork/test_data/integration")
 
