@@ -2,20 +2,6 @@
 apiVersion: v1
 kind: List
 items:
-- apiVersion: policy/v1beta1
-  kind: PodDisruptionBudget
-  metadata:
-    name: shouldneverfire-svc
-  spec:
-    minAvailable: 2
-    selector:
-      matchLabels:
-        app.kubernetes.io/name: Foo-hasmissingsvc
-        app.kubernetes.io/instance: Bar-hasmissingsvc
-        app.kubernetes.io/version: v1
-        app.kubernetes.io/component: FooBar-hasmissingsvc
-        app.kubernetes.io/part-of: Foo-hasmissingsvc
-        app.kubernetes.io/managed-by: Bar-hasmissingsvc
 - apiVersion: apps/v1
   kind: Deployment
   metadata:

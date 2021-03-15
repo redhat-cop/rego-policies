@@ -12,8 +12,8 @@ setup_file() {
 # all-namespaces
 ####################
 
-@test "_test/all-namespaces/ocp/bestpractices" {
-  tmp=$(split_files "_test/all-namespaces/ocp/bestpractices")
+@test "policy/ocp/bestpractices/_all-namespaces" {
+  tmp=$(split_files "policy/ocp/bestpractices/_all-namespaces/test_data/integration")
 
   cmd="conftest test ${tmp} --all-namespaces"
   run ${cmd}
