@@ -2,6 +2,7 @@
 #
 # OCP4.x expects image.openshift.io/v1.
 #
+# @skip-constraint
 # @kinds v1/ImageStream
 package ocp.deprecated.ocp3_11.imagestream_v1
 

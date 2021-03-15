@@ -2,6 +2,7 @@
 #
 # OCP4.x expects rbac.authorization.k8s.io/v1
 #
+# @skip-constraint
 # @kinds v1/RoleBinding
 package ocp.deprecated.ocp3_11.rolebinding_v1
 

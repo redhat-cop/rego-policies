@@ -2,6 +2,7 @@
 #
 # OCP4.x expects apps.openshift.io/v1.
 #
+# @skip-constraint
 # @kinds v1/DeploymentConfig
 package ocp.deprecated.ocp3_11.deploymentconfig_v1
 

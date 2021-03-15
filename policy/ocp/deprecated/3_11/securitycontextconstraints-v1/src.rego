@@ -2,6 +2,7 @@
 #
 # OCP4.x expects security.openshift.io/v1.
 #
+# @skip-constraint
 # @kinds v1/SecurityContextConstraints
 package ocp.deprecated.ocp3_11.securitycontextconstraints_v1
 

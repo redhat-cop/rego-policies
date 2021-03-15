@@ -2,6 +2,7 @@
 #
 # OCP4.x expects template.openshift.io/v1.
 #
+# @skip-constraint
 # @kinds v1/Template
 package ocp.deprecated.ocp3_11.template_v1
 

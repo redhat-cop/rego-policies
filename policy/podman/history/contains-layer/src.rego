@@ -3,6 +3,7 @@
 # Most images are built from a subset of authorised base images in a company,
 # this policy allows enforcement of that policy by checking for an expected SHA.
 #
+# @skip-constraint
 # @kinds redhat-cop.github.com/PodmanHistory
 # parameter expected_layer_ids array string
 package podman.history.contains_layer

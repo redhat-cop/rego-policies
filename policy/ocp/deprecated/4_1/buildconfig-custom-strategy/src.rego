@@ -3,6 +3,7 @@
 # 'spec.strategy.customStrategy.exposeDockerSocket' is no longer supported by BuildConfig.
 # See: https://docs.openshift.com/container-platform/4.1/release_notes/ocp-4-1-release-notes.html#ocp-41-deprecated-features
 #
+# @skip-constraint
 # @kinds build.openshift.io/BuildConfig
 package ocp.deprecated.ocp4_1.buildconfig_custom_strategy
 

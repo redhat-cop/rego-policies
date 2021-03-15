@@ -6,6 +6,7 @@
 # Kubernetes objects such as the number of Pods in the current namespace.
 # See: Namespace limits -> https://learnk8s.io/production-best-practices#governance
 #
+# @skip-constraint
 # @kinds core/Namespace core/ResourceQuota
 package combine.namespace_has_resourcequota
 

@@ -5,6 +5,7 @@
 # In other words, it creates firewalls between pods running on a Kubernetes cluster.
 # See: Network policies -> https://learnk8s.io/production-best-practices#governance
 #
+# @skip-constraint
 # @kinds core/Namespace networking.k8s.io/NetworkPolicy
 package combine.namespace_has_networkpolicy
 
