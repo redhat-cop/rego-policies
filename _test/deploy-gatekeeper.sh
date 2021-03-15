@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+set -euo pipefail
+shopt -s inherit_errexit
 
 command -v oc &> /dev/null || { echo >&2 'ERROR: oc not installed - Aborting'; exit 1; }
 command -v konstraint &> /dev/null || { echo >&2 'ERROR: konstraint not installed - Aborting'; exit 1; }
@@ -19,6 +21,9 @@ cleanup_gatekeeper() {
   oc delete config.config.gatekeeper.sh -n gatekeeper-system --all --ignore-not-found=true
   oc delete -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/${gatekeeper_version}/deploy/gatekeeper.yaml --ignore-not-found=true
   oc delete -f gatekeeper/gatekeeper-template-manager.yml --ignore-not-found=true
+
+  oc delete clusterrole/gatekeeper-allow-anyuid-scc --ignore-not-found=true
+  oc delete rolebinding/gatekeeper-anyuid-scc --ignore-not-found=true
 }
 
 deploy_gatekeeper() {
@@ -45,8 +50,8 @@ deploy_gatekeeper() {
 
   echo ""
   echo "Patching gatekeeper to work on OCP..."
-  oc create clusterrole allow-anyuid-scc --verb=use --resource=securitycontextconstraints.security.openshift.io --resource-name=anyuid
-  oc create rolebinding gatekeeper-anyuid-scc --serviceaccount=gatekeeper-system:gatekeeper-admin --clusterrole=allow-anyuid-scc -n gatekeeper-system
+  oc create clusterrole gatekeeper-allow-anyuid-scc --verb=use --resource=securitycontextconstraints.security.openshift.io --resource-name=anyuid
+  oc create rolebinding gatekeeper-anyuid-scc --serviceaccount=gatekeeper-system:gatekeeper-admin --clusterrole=gatekeeper-allow-anyuid-scc -n gatekeeper-system
 
   oc patch Deployment/gatekeeper-audit --type json -p='[{"op": "remove", "path": "/spec/template/metadata/annotations/container.seccomp.security.alpha.kubernetes.io~1manager"}]' -n gatekeeper-system
   oc patch Deployment/gatekeeper-controller-manager --type json -p='[{"op": "remove", "path": "/spec/template/metadata/annotations/container.seccomp.security.alpha.kubernetes.io~1manager"}]' -n gatekeeper-system
@@ -77,6 +82,14 @@ patch_namespaceselector_for_webhook() {
   echo "Patching ValidatingWebhookConfiguration/gatekeeper-validating-webhook-configuration to only watch namespaces with: 'redhat-cop.github.com/gatekeeper-active == true'..."
   oc patch ValidatingWebhookConfiguration/gatekeeper-validating-webhook-configuration -p='{"webhooks":[{"name":"validation.gatekeeper.sh","namespaceSelector":{"matchExpressions":[{"key":"redhat-cop.github.com/gatekeeper-active","operator":"In","values":["true"]}]}}]}'
 
+  echo ""
+  echo "Restarting Gatekeeper and waiting for it to be ready..."
+  oc delete pods --all -n gatekeeper-system
+  oc rollout status Deployment/gatekeeper-audit -n gatekeeper-system --watch=true
+  oc rollout status Deployment/gatekeeper-controller-manager -n gatekeeper-system --watch=true
+}
+
+restart_gatekeeper() {
   echo ""
   echo "Restarting Gatekeeper and waiting for it to be ready..."
   oc delete pods --all -n gatekeeper-system
@@ -150,6 +163,7 @@ case $1 in
     ;;
   deploy_constraints)
     cleanup_gatekeeper_constraints
+    restart_gatekeeper
     generate_constraints
     deploy_constraints
     ;;
