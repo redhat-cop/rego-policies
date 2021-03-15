@@ -1,8 +1,3 @@
-package ocp.bestpractices.container_resources_limits_memory_notset
-
-import data.lib.konstraint.core as konstraint_core
-import data.lib.openshift
-
 # @title RHCOP-OCP_BESTPRACT-00012: Container resource limits memory not set
 #
 # A container without a memory limit has memory utilisation of zero — according to the scheduler.
@@ -10,6 +5,11 @@ import data.lib.openshift
 # See: Resources utilisation -> https://learnk8s.io/production-best-practices#application-development
 #
 # @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+package ocp.bestpractices.container_resources_limits_memory_notset
+
+import data.lib.konstraint.core as konstraint_core
+import data.lib.openshift
+
 violation[msg] {
   container := openshift.containers[_]
 

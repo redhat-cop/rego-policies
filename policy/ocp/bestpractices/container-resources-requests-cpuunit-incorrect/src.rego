@@ -1,14 +1,14 @@
-package ocp.bestpractices.container_resources_requests_cpuunit_incorrect
-
-import data.lib.konstraint.core as konstraint_core
-import data.lib.openshift
-
 # @title RHCOP-OCP_BESTPRACT-00014: Container resources requests cpu has incorrect unit
 #
 # Beginners can easily confuse the allowed cpu unit, this policy enforces what is valid.
 # See: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes
 #
 # @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+package ocp.bestpractices.container_resources_requests_cpuunit_incorrect
+
+import data.lib.konstraint.core as konstraint_core
+import data.lib.openshift
+
 violation[msg] {
   container := openshift.containers[_]
 

@@ -1,7 +1,3 @@
-package ocp.deprecated.ocp4_2.catalogsourceconfigs_v1
-
-import data.lib.konstraint.core as konstraint_core
-
 # @title RHCOP-OCP_DEPRECATED-4.2-00003: operators coreos com v1 CatalogSourceConfigs is deprecated
 #
 # 'operators.coreos.com/v1:CatalogSourceConfigs' is deprecated in OCP 4.2 and removed in 4.5.
@@ -9,6 +5,10 @@ import data.lib.konstraint.core as konstraint_core
 # See: https://docs.openshift.com/container-platform/4.5/release_notes/ocp-4-5-release-notes.html#ocp-4-5-deprecated-removed-features
 #
 # @kinds operators.coreos.com/CatalogSourceConfigs
+package ocp.deprecated.ocp4_2.catalogsourceconfigs_v1
+
+import data.lib.konstraint.core as konstraint_core
+
 violation[msg] {
   contains(lower(konstraint_core.apiVersion), "operators.coreos.com/v1")
   lower(konstraint_core.kind) == "catalogsourceconfigs"

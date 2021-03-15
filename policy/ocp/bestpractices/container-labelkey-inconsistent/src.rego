@@ -1,13 +1,13 @@
-package ocp.bestpractices.container_labelkey_inconsistent
-
-import data.lib.konstraint.core as konstraint_core
-import data.lib.openshift
-
 # @title RHCOP-OCP_BESTPRACT-00006: Label key is consistent
 #
 # Label keys should be qualified by 'app.kubernetes.io' or 'company.com' to allow a consistent understanding.
 #
 # @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+package ocp.bestpractices.container_labelkey_inconsistent
+
+import data.lib.konstraint.core as konstraint_core
+import data.lib.openshift
+
 violation[msg] {
   openshift.pod
 

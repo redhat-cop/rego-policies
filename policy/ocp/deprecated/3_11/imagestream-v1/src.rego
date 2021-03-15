@@ -1,12 +1,12 @@
-package ocp.deprecated.ocp3_11.imagestream_v1
-
-import data.lib.konstraint.core as konstraint_core
-
 # @title RHCOP-OCP_DEPRECATED-3.11-00003: ImageStream no longer served by v1
 #
 # OCP4.x expects image.openshift.io/v1.
 #
 # @kinds v1/ImageStream
+package ocp.deprecated.ocp3_11.imagestream_v1
+
+import data.lib.konstraint.core as konstraint_core
+
 violation[msg] {
   lower(konstraint_core.apiVersion) == "v1"
   lower(konstraint_core.kind) == "imagestream"

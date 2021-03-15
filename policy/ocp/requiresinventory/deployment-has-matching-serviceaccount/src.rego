@@ -1,14 +1,14 @@
-package ocp.requiresinventory.deployment_has_matching_serviceaccount
-
-import data.lib.konstraint.core as konstraint_core
-import data.lib.kubernetes
-
 # @title RHCOP-OCP_REQ_INV-00004: Deployment has matching ServiceAccount
 #
 # If Deployment has 'spec.serviceAccountName' set, there should be matching ServiceAccount.
 # If not, this would suggest a mistake.
 #
 # @kinds apps/Deployment
+package ocp.requiresinventory.deployment_has_matching_serviceaccount
+
+import data.lib.konstraint.core as konstraint_core
+import data.lib.kubernetes
+
 violation[msg] {
   kubernetes.is_deployment
 

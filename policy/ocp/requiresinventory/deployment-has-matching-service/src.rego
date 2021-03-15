@@ -1,14 +1,14 @@
-package ocp.requiresinventory.deployment_has_matching_service
-
-import data.lib.konstraint.core as konstraint_core
-import data.lib.kubernetes
-
 # @title RHCOP-OCP_REQ_INV-00003: Deployment has a matching Service
 #
 # All Deployments should have matching Service, via 'spec.template.metadata.labels'.
 # Deployments without a Service are not accessible and should be questioned as to why.
 #
 # @kinds apps/Deployment
+package ocp.requiresinventory.deployment_has_matching_service
+
+import data.lib.konstraint.core as konstraint_core
+import data.lib.kubernetes
+
 violation[msg] {
   kubernetes.is_deployment
 

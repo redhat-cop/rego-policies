@@ -1,14 +1,14 @@
-package ocp.bestpractices.container_java_xmx_set
-
-import data.lib.konstraint.core as konstraint_core
-import data.lib.openshift
-
 # @title RHCOP-OCP_BESTPRACT-00005: Container does not set Java Xmx option
 #
 # Red Hat OpenJDK image uses CONTAINER_MAX_MEMORY env via the downward API to set Java memory settings.
 # Instead of manually setting -Xmx, let the image automatically set it for you.
 #
 # @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+package ocp.bestpractices.container_java_xmx_set
+
+import data.lib.konstraint.core as konstraint_core
+import data.lib.openshift
+
 violation[msg] {
   container := openshift.containers[_]
 

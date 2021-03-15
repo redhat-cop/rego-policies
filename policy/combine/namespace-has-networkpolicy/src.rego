@@ -1,7 +1,3 @@
-package combine.namespace_has_networkpolicy
-
-import data.lib.konstraint.core as konstraint_core
-
 # @title RHCOP-COMBINE-00001: Namespace has a NetworkPolicy
 #
 # Kubernetes network policies specify the access permissions for groups of pods,
@@ -10,6 +6,10 @@ import data.lib.konstraint.core as konstraint_core
 # See: Network policies -> https://learnk8s.io/production-best-practices#governance
 #
 # @kinds core/Namespace networking.k8s.io/NetworkPolicy
+package combine.namespace_has_networkpolicy
+
+import data.lib.konstraint.core as konstraint_core
+
 violation[msg] {
   manifests := input[_]
   some i

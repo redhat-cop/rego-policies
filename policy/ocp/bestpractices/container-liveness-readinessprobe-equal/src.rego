@@ -1,8 +1,3 @@
-package ocp.bestpractices.container_liveness_readinessprobe_equal
-
-import data.lib.konstraint.core as konstraint_core
-import data.lib.openshift
-
 # @title RHCOP-OCP_BESTPRACT-00007: Container liveness and readiness probes are equal
 #
 # When Liveness and Readiness probes are pointing to the same endpoint, the effects of the probes are combined.
@@ -11,6 +6,11 @@ import data.lib.openshift
 # See: Health checks -> https://learnk8s.io/production-best-practices#application-development
 #
 # @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+package ocp.bestpractices.container_liveness_readinessprobe_equal
+
+import data.lib.konstraint.core as konstraint_core
+import data.lib.openshift
+
 violation[msg] {
   container := openshift.containers[_]
 

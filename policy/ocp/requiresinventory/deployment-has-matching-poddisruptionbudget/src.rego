@@ -1,8 +1,3 @@
-package ocp.requiresinventory.deployment_has_matching_poddisruptionbudget
-
-import data.lib.konstraint.core as konstraint_core
-import data.lib.kubernetes
-
 # @title RHCOP-OCP_REQ_INV-00001: Deployment has a matching PodDisruptionBudget
 #
 # All Deployments should have matching PodDisruptionBudget, via 'spec.template.metadata.labels', to provide HA guarantees.
@@ -10,6 +5,11 @@ import data.lib.kubernetes
 # See: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
 #
 # @kinds apps/Deployment
+package ocp.requiresinventory.deployment_has_matching_poddisruptionbudget
+
+import data.lib.konstraint.core as konstraint_core
+import data.lib.kubernetes
+
 violation[msg] {
   kubernetes.is_deployment
 

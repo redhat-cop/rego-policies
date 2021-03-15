@@ -1,13 +1,13 @@
-package ocp.bestpractices.rolebinding_roleref_apigroup_notset
-
-import data.lib.konstraint.core as konstraint_core
-import data.lib.kubernetes
-
 # @title RHCOP-OCP_BESTPRACT-00023: RoleBinding has apiGroup set
 #
 # Migrating from 3.11 to 4.x requires the 'roleRef.apiGroup' to be set.
 #
 # @kinds rbac.authorization.k8s.io/RoleBinding
+package ocp.bestpractices.rolebinding_roleref_apigroup_notset
+
+import data.lib.konstraint.core as konstraint_core
+import data.lib.kubernetes
+
 violation[msg] {
   kubernetes.is_rolebinding
 
