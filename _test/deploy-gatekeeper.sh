@@ -24,14 +24,20 @@ cleanup_gatekeeper() {
 deploy_gatekeeper() {
   echo ""
   echo "Patching control-plane related namespaces so that OPA ignores them..."
+
+  excludedNamespaces=()
   for namespace in $(oc get namespaces -o jsonpath='{.items[*].metadata.name}' | xargs); do
     if [[ "${namespace}" =~ openshift.* ]] || [[ "${namespace}" =~ kube.* ]] || [[ "${namespace}" =~ default ]]; then
       oc patch namespace/${namespace} -p='{"metadata":{"labels":{"admission.gatekeeper.sh/ignore":"true"}}}'
+      excludedNamespaces+=("\"--exempt-namespace=${namespace}\"")
     else
       # Probably a users project, so leave it alone
       echo "Skipping: ${namespace}"
     fi
   done
+
+  local excludedNamespacesComma
+  excludedNamespacesComma=$(echo "${excludedNamespaces[@]}" | tr ' ' ',')
 
   echo ""
   echo "Deploying gatekeeper..."
@@ -45,8 +51,17 @@ deploy_gatekeeper() {
   oc patch Deployment/gatekeeper-audit --type json -p='[{"op": "remove", "path": "/spec/template/metadata/annotations/container.seccomp.security.alpha.kubernetes.io~1manager"}]' -n gatekeeper-system
   oc patch Deployment/gatekeeper-controller-manager --type json -p='[{"op": "remove", "path": "/spec/template/metadata/annotations/container.seccomp.security.alpha.kubernetes.io~1manager"}]' -n gatekeeper-system
 
-  oc patch Deployment/gatekeeper-audit --type json -p='[{"op": "add", "path": "/spec/template/spec/containers/0/args/3", "value": "--emit-admission-events=true" }]' -n gatekeeper-system
-  oc patch Deployment/gatekeeper-controller-manager --type json -p='[{"op": "add", "path": "/spec/template/spec/containers/0/args/4", "value": "--emit-admission-events=true" }]' -n gatekeeper-system
+  echo ""
+  echo "Patching gatekeeper to enable emit-admission-events..."
+
+  oc patch Deployment/gatekeeper-audit --type json -p='[{"op": "add", "path": "/spec/template/spec/containers/0/args/-", "value": "--emit-admission-events=true" }]' -n gatekeeper-system
+  oc patch Deployment/gatekeeper-controller-manager --type json -p='[{"op": "add", "path": "/spec/template/spec/containers/0/args/-", "value": "--emit-admission-events=true" }]' -n gatekeeper-system
+
+  echo ""
+  echo "Patching gatekeeper to include core namespaces in exempt-namespace..."
+  #HACK: to make sure the above patch is finished
+  sleep 1s
+  oc get deployment/gatekeeper-controller-manager -n gatekeeper-system -o json | jq ".spec.template.spec.containers[0].args |= . + [${excludedNamespacesComma}]" | oc apply -f -
 
   echo ""
   echo "Waiting for gatekeeper to be ready..."
