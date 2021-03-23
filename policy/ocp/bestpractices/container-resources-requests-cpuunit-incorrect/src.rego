@@ -24,6 +24,7 @@ is_resource_requests_cpu_contains_dollar(container) {
   startswith(container.resources.requests.cpu, "$")
 }
 
+#TODO: is input correct?
 is_resource_requests_cpu_a_core(container)  {
   is_number(input.resources.requests.cpu)
   to_number(input.resources.requests.cpu)

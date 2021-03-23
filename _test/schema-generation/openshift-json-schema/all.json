@@ -1,0 +1,43 @@
+{
+  "oneOf": [
+    {
+      "$ref": "_definitions.json#/definitions/com.github.openshift.api.apps.v1.DeploymentConfig"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/com.github.openshift.api.build.v1.BuildConfig"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/com.github.openshift.api.image.v1.ImageStream"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/com.github.openshift.api.route.v1.Route"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/io.k8s.api.apps.v1.Deployment"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/io.k8s.api.core.v1.Container"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/io.k8s.api.core.v1.Namespace"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/io.k8s.api.core.v1.Pod"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/io.k8s.api.core.v1.ResourceQuota"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/io.k8s.api.core.v1.Service"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/io.k8s.api.networking.v1.NetworkPolicy"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/io.k8s.api.rbac.v1.RoleBinding"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/io.openshift.security.v1.SecurityContextConstraints"
+    }
+  ]
+}

@@ -45,3 +45,5 @@ opa-profile.log
 ## Gatekeeper
 **/template.yaml
 **/constraint.yaml
+
+_test/schema-generation/openapi2jsonschema
