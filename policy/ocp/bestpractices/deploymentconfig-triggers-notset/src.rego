@@ -2,6 +2,7 @@
 #
 # If you are using a DeploymentConfig without 'spec.triggers' set, you could probably just use the k8s Deployment.
 #
+# @skip-constraint
 # @kinds apps.openshift.io/DeploymentConfig
 package ocp.bestpractices.deploymentconfig_triggers_notset
 

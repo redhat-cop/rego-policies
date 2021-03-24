@@ -2,6 +2,7 @@
 #
 # OCP4.x expects route.openshift.io/v1.
 #
+# @skip-constraint
 # @kinds v1/Route
 package ocp.deprecated.ocp3_11.route_v1
 

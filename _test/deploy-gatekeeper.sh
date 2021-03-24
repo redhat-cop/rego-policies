@@ -103,7 +103,7 @@ generate_constraints() {
   konstraint create
 
   # shellcheck disable=SC2038
-  for file in $(find policy/* \( -name "template.yaml" -o -name "constraint.yaml" \) -type f | xargs); do
+  for file in $(find policy/* \( -name "template.yaml" \) -type f | xargs); do
     if [[ "${file}" == *"/combine/"* ]]; then
       # the data is 'off-cluster' so cant be tested against gatekeeper
       rm -f "${file}"

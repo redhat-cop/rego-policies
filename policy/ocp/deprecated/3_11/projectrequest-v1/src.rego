@@ -2,6 +2,7 @@
 #
 # OCP4.x expects project.openshift.io/v1.
 #
+# @skip-constraint
 # @kinds v1/ProjectRequest
 package ocp.deprecated.ocp3_11.projectrequest_v1
 

@@ -2,6 +2,7 @@
 #
 # Typically, the "smaller the better" rule applies to images so lets enforce that.
 #
+# @skip-constraint
 # @kinds redhat-cop.github.com/PodmanImages
 # parameter image_size_upperbound integer
 package podman.images.image_size_not_greater_than

@@ -4,6 +4,7 @@
 # See: https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html#ocp-4-2-deprecated-features
 # See: https://docs.openshift.com/container-platform/4.4/release_notes/ocp-4-4-release-notes.html#ocp-4-4-deprecated-removed-features
 #
+# @skip-constraint
 # @kinds automationbroker.io/Bundle automationbroker.io/BundleBinding automationbroker.io/BundleInstance
 package ocp.deprecated.ocp4_2.automationbroker_v1alpha1
 

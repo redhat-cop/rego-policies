@@ -2,6 +2,7 @@
 #
 # OCP4.x expects build.openshift.io/v1.
 #
+# @skip-constraint
 # @kinds v1/BuildConfig
 package ocp.deprecated.ocp3_11.buildconfig_v1
 

@@ -2,6 +2,7 @@
 #
 # Migrating from 3.11 to 4.x requires the 'roleRef.apiGroup' to be set.
 #
+# @skip-constraint
 # @kinds rbac.authorization.k8s.io/RoleBinding
 package ocp.bestpractices.rolebinding_roleref_apigroup_notset
 

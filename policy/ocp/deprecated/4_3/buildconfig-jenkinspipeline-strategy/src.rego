@@ -3,6 +3,7 @@
 # 'spec.strategy.jenkinsPipelineStrategy' is no longer supported by BuildConfig.
 # See: https://docs.openshift.com/container-platform/4.3/release_notes/ocp-4-3-release-notes.html#ocp-4-3-deprecated-features
 #
+# @skip-constraint
 # @kinds build.openshift.io/BuildConfig
 package ocp.deprecated.ocp4_3.buildconfig_jenkinspipeline_strategy
 
