@@ -195,6 +195,7 @@ import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00002")
   container := openshift.containers[_]
 
   konstraint_core.labels["redhat-cop.github.com/technology"] == "java"
@@ -229,6 +230,7 @@ import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00003")
   container := openshift.containers[_]
 
   endswith(container.image, ":latest")
@@ -256,6 +258,7 @@ import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00004")
   container := openshift.containers[_]
 
   registry := get_registry(container.image)
@@ -298,6 +301,7 @@ import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00005")
   container := openshift.containers[_]
 
   konstraint_core.labels["redhat-cop.github.com/technology"] == "java"
@@ -341,6 +345,7 @@ import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00006")
   openshift.pod
 
   some key
@@ -382,6 +387,7 @@ import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00007")
   container := openshift.containers[_]
 
   container.livenessProbe
@@ -413,6 +419,7 @@ import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00008")
   container := openshift.containers[_]
 
   konstraint_core.missing_field(container, "livenessProbe")
@@ -442,6 +449,7 @@ import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00009")
   container := openshift.containers[_]
 
   konstraint_core.missing_field(container, "readinessProbe")
@@ -471,6 +479,7 @@ import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00010")
   container := openshift.containers[_]
 
   container.resources.limits.cpu
@@ -501,6 +510,7 @@ import data.lib.memory
 import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00011")
   #NOTE: upperBound is an arbitrary number and it should be changed to what your company believes is the correct policy
   upperBound := 6 * memory.gb
 
@@ -535,6 +545,7 @@ import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00012")
   container := openshift.containers[_]
 
   # TODO: Maybe should use below factored out?
@@ -567,6 +578,7 @@ import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00013")
   container := openshift.containers[_]
 
   not startswith(container.resources.requests.memory, "$")
@@ -606,6 +618,7 @@ import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00014")
   container := openshift.containers[_]
 
   not is_resource_requests_cpu_contains_dollar(container)
@@ -661,6 +674,7 @@ import data.lib.memory
 import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00015")
   #NOTE: upperBound is an arbitrary number and it should be changed to what your company believes is the correct policy
   upperBound := 2 * memory.gb
 
@@ -696,6 +710,7 @@ import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00016")
   container := openshift.containers[_]
 
   env := container.env[_]
@@ -724,6 +739,7 @@ import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00017")
   container := openshift.containers[_]
 
   volumeMount := container.volumeMounts[_]
@@ -752,6 +768,7 @@ import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00018")
   volume := openshift.pod.spec.volumes[_]
 
   not containers_volumemounts_contains_volume(openshift.containers, volume)
@@ -810,6 +827,7 @@ import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00020")
   openshift.pod.spec.hostNetwork
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s: hostNetwork is present which gives the pod access to the loopback device, services listening on localhost, and could be used to snoop on network activity of other pods on the same node.", [konstraint_core.kind, konstraint_core.name]), "RHCOP-OCP_BESTPRACT-00020")
@@ -836,6 +854,7 @@ import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00021")
   openshift.pod
 
   replicas := konstraint_core.resource.spec.replicas
@@ -865,6 +884,7 @@ import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00022")
   openshift.pod
 
   replicas := konstraint_core.resource.spec.replicas
@@ -947,6 +967,7 @@ import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00025")
   openshift.is_route
 
   not konstraint_core.resource.spec.tls.termination
@@ -977,6 +998,7 @@ import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00026")
   openshift.pod
 
   konstraint_core.missing_field(konstraint_core.resource.spec.affinity, "podAntiAffinity")
@@ -1443,8 +1465,10 @@ package ocp.requiresinventory.deployment_has_matching_poddisruptionbudget
 
 import data.lib.konstraint.core as konstraint_core
 import data.lib.kubernetes
+import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_REQ_INV-00001")
   kubernetes.is_deployment
 
   deployment := konstraint_core.resource
@@ -1480,8 +1504,10 @@ package ocp.requiresinventory.deployment_has_matching_pvc
 
 import data.lib.konstraint.core as konstraint_core
 import data.lib.kubernetes
+import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_REQ_INV-00002")
   kubernetes.is_deployment
 
   deployment := konstraint_core.resource
@@ -1518,8 +1544,10 @@ package ocp.requiresinventory.deployment_has_matching_service
 
 import data.lib.konstraint.core as konstraint_core
 import data.lib.kubernetes
+import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_REQ_INV-00003")
   kubernetes.is_deployment
 
   deployment := konstraint_core.resource
@@ -1555,8 +1583,10 @@ package ocp.requiresinventory.deployment_has_matching_serviceaccount
 
 import data.lib.konstraint.core as konstraint_core
 import data.lib.kubernetes
+import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_REQ_INV-00004")
   kubernetes.is_deployment
 
   deployment := konstraint_core.resource
@@ -1593,8 +1623,10 @@ package ocp.requiresinventory.service_has_matching_servicenonitor
 
 import data.lib.konstraint.core as konstraint_core
 import data.lib.kubernetes
+import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_REQ_INV-00005")
   kubernetes.is_service
 
   service := konstraint_core.resource

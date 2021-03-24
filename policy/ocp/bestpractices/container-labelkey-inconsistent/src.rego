@@ -9,6 +9,7 @@ import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00006")
   openshift.pod
 
   some key
