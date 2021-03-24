@@ -8,8 +8,10 @@ package ocp.requiresinventory.deployment_has_matching_serviceaccount
 
 import data.lib.konstraint.core as konstraint_core
 import data.lib.kubernetes
+import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_REQ_INV-00004")
   kubernetes.is_deployment
 
   deployment := konstraint_core.resource

@@ -12,6 +12,7 @@ import data.lib.memory
 import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00011")
   #NOTE: upperBound is an arbitrary number and it should be changed to what your company believes is the correct policy
   upperBound := 6 * memory.gb
 

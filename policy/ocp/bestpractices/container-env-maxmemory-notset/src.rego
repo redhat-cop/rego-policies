@@ -11,6 +11,7 @@ import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00002")
   container := openshift.containers[_]
 
   konstraint_core.labels["redhat-cop.github.com/technology"] == "java"

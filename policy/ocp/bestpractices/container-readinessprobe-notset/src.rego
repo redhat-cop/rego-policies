@@ -11,6 +11,7 @@ import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00009")
   container := openshift.containers[_]
 
   konstraint_core.missing_field(container, "readinessProbe")

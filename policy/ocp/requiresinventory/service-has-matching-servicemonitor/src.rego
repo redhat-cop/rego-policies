@@ -8,8 +8,10 @@ package ocp.requiresinventory.service_has_matching_servicenonitor
 
 import data.lib.konstraint.core as konstraint_core
 import data.lib.kubernetes
+import data.lib.openshift
 
 violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_REQ_INV-00005")
   kubernetes.is_service
 
   service := konstraint_core.resource
