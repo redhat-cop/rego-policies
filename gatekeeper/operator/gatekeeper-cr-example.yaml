@@ -1,0 +1,21 @@
+apiVersion: operator.gatekeeper.sh/v1alpha1
+kind: Gatekeeper
+metadata:
+  name: gatekeeper
+spec:
+  image:
+    image: docker.io/openpolicyagent/gatekeeper:v3.3.0
+    imagePullPolicy: Always
+  audit:
+    replicas: 1
+  validatingWebhook: Enabled
+  webhook:
+    replicas: 3
+    logLevel: ERROR
+    emitAdmissionEvents: Enabled
+    failurePolicy: Ignore
+    namespaceSelector:
+      matchExpressions:
+      - key: redhat-cop.github.com/gatekeeper-active
+        operator: In
+        values: ["true"]
