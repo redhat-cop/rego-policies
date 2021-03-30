@@ -313,6 +313,19 @@ setup_file() {
   [[ "${#lines[@]}" -eq 3 ]]
 }
 
+@test "policy/ocp/bestpractices/deploymentconfig-triggers-containername" {
+  tmp=$(split_files "policy/ocp/bestpractices/deploymentconfig-triggers-containername/test_data/unit")
+
+  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.deploymentconfig_triggers_containername"
+  run ${cmd}
+
+  print_info "${status}" "${output}" "${cmd}" "${tmp}"
+  [ "$status" -eq 1 ]
+  [ "${lines[0]}" = "1..1" ]
+  [ "${lines[1]}" = "not ok 1 - ${tmp}/example.yml - ocp.bestpractices.deploymentconfig_triggers_containername - RHCOP-OCP_BESTPRACT-00027: DeploymentConfig/triggercontainernamemissmatch: has a imageChangeParams trigger with a miss-matching container name for 'foobar'" ]
+  [[ "${#lines[@]}" -eq 2 ]]
+}
+
 @test "policy/ocp/bestpractices/deploymentconfig-triggers-notset" {
   tmp=$(split_files "policy/ocp/bestpractices/deploymentconfig-triggers-notset/test_data/unit")
 

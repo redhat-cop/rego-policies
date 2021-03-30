@@ -357,6 +357,24 @@ check_violations() {
   [ "${policy_id}" = "RHCOP-OCP_BESTPRACT-00018" ]
 }
 
+@test "policy/ocp/bestpractices/deploymentconfig-triggers-containername" {
+  tmp=$(split_files "policy/ocp/bestpractices/deploymentconfig-triggers-containername/test_data/unit")
+
+  policy_dir="policy/ocp/bestpractices/deploymentconfig-triggers-containername"
+  policy_package="data.ocp.bestpractices.deploymentconfig_triggers_containername"
+
+  cmd="opa eval --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty ${policy_package}"
+  run ${cmd}
+
+  print_info "${status}" "${output}" "${cmd}" "${tmp}"
+  [ "$status" -eq 0 ]
+
+  echo "${cmd} ${output}" >> opa-profile.log
+
+  policy_id=$(check_violations "${tmp}/example.yml" "${policy_dir}" "${policy_package}")
+  [ "${policy_id}" = "RHCOP-OCP_BESTPRACT-00027" ]
+}
+
 @test "policy/ocp/bestpractices/deploymentconfig-triggers-notset" {
   tmp=$(split_files "policy/ocp/bestpractices/deploymentconfig-triggers-notset/test_data/unit")
 

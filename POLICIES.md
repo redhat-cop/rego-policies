@@ -30,6 +30,7 @@
 * [RHCOP-OCP_BESTPRACT-00024: RoleBinding has kind set](#rhcop-ocp_bestpract-00024-rolebinding-has-kind-set)
 * [RHCOP-OCP_BESTPRACT-00025: Route has TLS Termination Defined](#rhcop-ocp_bestpract-00025-route-has-tls-termination-defined)
 * [RHCOP-OCP_BESTPRACT-00026: Pod anti-affinity not set](#rhcop-ocp_bestpract-00026-pod-anti-affinity-not-set)
+* [RHCOP-OCP_BESTPRACT-00027: DeploymentConfig triggers container name miss match](#rhcop-ocp_bestpract-00027-deploymentconfig-triggers-container-name-miss-match)
 * [RHCOP-OCP_DEPRECATED-3.11-00001: BuildConfig no longer served by v1](#rhcop-ocp_deprecated-3.11-00001-buildconfig-no-longer-served-by-v1)
 * [RHCOP-OCP_DEPRECATED-3.11-00002: DeploymentConfig no longer served by v1](#rhcop-ocp_deprecated-3.11-00002-deploymentconfig-no-longer-served-by-v1)
 * [RHCOP-OCP_DEPRECATED-3.11-00003: ImageStream no longer served by v1](#rhcop-ocp_deprecated-3.11-00003-imagestream-no-longer-served-by-v1)
@@ -1008,6 +1009,42 @@ violation[msg] {
 ```
 
 _source: [policy/ocp/bestpractices/pod-antiaffinity-notset](policy/ocp/bestpractices/pod-antiaffinity-notset)_
+
+## RHCOP-OCP_BESTPRACT-00027: DeploymentConfig triggers container name miss match
+
+**Severity:** Violation
+
+**Resources:** apps.openshift.io/DeploymentConfig
+
+If you are using a DeploymentConfig with 'spec.triggers' set, but the container name does not match the trigger will never fire.
+There is probably a mistake in your definition.
+
+### Rego
+
+```rego
+package ocp.bestpractices.deploymentconfig_triggers_containername
+
+import data.lib.konstraint.core as konstraint_core
+import data.lib.openshift
+
+violation[msg] {
+  openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00027")
+  openshift.is_deploymentconfig
+
+  triggerImageChangeParams := konstraint_core.resource.spec.triggers[_].imageChangeParams
+  triggerContainerName := triggerImageChangeParams.containerNames[_]
+
+  not containers_contains_trigger(openshift.containers, triggerContainerName)
+
+  msg := konstraint_core.format_with_id(sprintf("%s/%s: has a imageChangeParams trigger with a miss-matching container name for '%s'", [konstraint_core.kind, konstraint_core.name, triggerContainerName]), "RHCOP-OCP_BESTPRACT-00027")
+}
+
+containers_contains_trigger(containers, triggerContainerName) {
+  containers[_].name == triggerContainerName
+}
+```
+
+_source: [policy/ocp/bestpractices/deploymentconfig-triggers-containername](policy/ocp/bestpractices/deploymentconfig-triggers-containername)_
 
 ## RHCOP-OCP_DEPRECATED-3.11-00001: BuildConfig no longer served by v1
 
