@@ -10,7 +10,7 @@ gatekeeper_version="v3.3.0"
 cleanup_gatekeeper_constraints() {
   echo ""
   echo "Deleting all ConstraintTemplates..."
-  oc delete constrainttemplate.templates.gatekeeper.sh --all --ignore-not-found=true
+  oc delete constrainttemplate.templates.gatekeeper.sh --all --ignore-not-found=true || true
 
   find policy/* \( -name "template.yaml" -o -name "constraint.yaml" \) -type f -exec rm -f {} \;
 }
@@ -18,7 +18,7 @@ cleanup_gatekeeper_constraints() {
 cleanup_gatekeeper() {
   echo ""
   echo "Cleaning up previous gatekeeper installation..."
-  oc delete config.config.gatekeeper.sh -n gatekeeper-system --all --ignore-not-found=true
+  oc delete config.config.gatekeeper.sh -n gatekeeper-system --all --ignore-not-found=true || true
   oc delete -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/${gatekeeper_version}/deploy/gatekeeper.yaml --ignore-not-found=true
   oc delete -f gatekeeper/gatekeeper-template-manager.yml --ignore-not-found=true
 
@@ -166,6 +166,10 @@ case $1 in
     restart_gatekeeper
     generate_constraints
     deploy_constraints
+    ;;
+  cleanup_gatekeeper)
+    cleanup_gatekeeper_constraints
+    cleanup_gatekeeper
     ;;
   *)
     echo "Not an option"
