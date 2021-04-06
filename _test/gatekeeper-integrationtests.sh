@@ -9,8 +9,17 @@ setup_file() {
   export project_name_disabled="regopolicies-undertest-disabled-$(date +'%d%m%Y-%H%M%S')"
 
   rm -rf /tmp/rhcop
-  oc process -f _test/namespace-under-test.yml -p=PROJECT_NAME=${project_name} | oc create -f -
-  oc process -f _test/namespace-under-test.yml -p=PROJECT_NAME=${project_name_disabled} -p=DISABLED="RHCOP-OCP_BESTPRACT-00001" | oc create -f -
+  oc process -f _test/resources/namespace-under-test.yml -p=PROJECT_NAME=${project_name} | oc create -f -
+  oc process -f _test/resources/namespace-under-test.yml -p=PROJECT_NAME=${project_name_disabled} -p=DISABLED="RHCOP-OCP_BESTPRACT-00001" | oc create -f -
+
+  oc process -f _test/resources/prerequisite-bestpractices.yml | oc create -n ${project_name} -f -
+  oc process -f _test/resources/prerequisite-requiresinventory.yml | oc create -n ${project_name} -f -
+
+  oc process -f _test/resources/prerequisite-bestpractices.yml | oc create -n ${project_name_disabled} -f -
+  oc process -f _test/resources/prerequisite-requiresinventory.yml | oc create -n ${project_name_disabled} -f -
+
+  oc patch namespace/${project_name} --type='json' -p='[{"op": "add", "path": "/metadata/labels/redhat-cop.github.com~1gatekeeper-active", "value":"true"}]'
+  oc patch namespace/${project_name_disabled} --type='json' -p='[{"op": "add", "path": "/metadata/labels/redhat-cop.github.com~1gatekeeper-active", "value":"true"}]'
 }
 
 teardown_file() {
@@ -26,11 +35,10 @@ teardown() {
 
 ####################
 # all-namespaces
-# NOTE: This test should always be first, as it contains YAML to stop the 'data.inventory' policies firing when they should not
 ####################
 
-@test "_test/all-namespaces/ocp/bestpractices" {
-  alltmp=$(split_files "_test/all-namespaces/ocp/bestpractices")
+@test "policy/ocp/bestpractices/_all-namespaces" {
+  alltmp=$(split_files "policy/ocp/bestpractices/_all-namespaces/test_data/integration")
 
   cmd="oc create -f ${alltmp} -n ${project_name}"
   run ${cmd}
@@ -350,8 +358,8 @@ teardown() {
 # ocp/bestpractices - with disabled policy label on project
 ####################
 
-@test "_test/all-namespaces/ocp/bestpractices - disabled policy label" {
-  alltmp=$(split_files "_test/all-namespaces/ocp/bestpractices")
+@test "policy/ocp/bestpractices/_all-namespaces - disabled policy label" {
+  alltmp=$(split_files "policy/ocp/bestpractices/_all-namespaces/test_data/integration")
 
   cmd="oc create -f ${alltmp} -n ${project_name_disabled}"
   run ${cmd}
@@ -387,10 +395,8 @@ teardown() {
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
 
-  [[ "${lines[0]}" == "servicemonitor.monitoring.coreos.com/shouldneverfire-pdb created" ]]
-  [[ "${lines[1]}" == "service/shouldneverfire-pdb created" ]]
-  [[ "${lines[2]}" == "Error from server ([denied by deploymenthasmatchingpoddisruptionbudget] RHCOP-OCP_REQ_INV-00001: Deployment/hasmissingpdb"* ]]
-  [[ "${#lines[@]}" -eq 3 ]]
+  [[ "${lines[0]}" == "Error from server ([denied by deploymenthasmatchingpoddisruptionbudget] RHCOP-OCP_REQ_INV-00001: Deployment/hasmissingpdb"* ]]
+  [[ "${#lines[@]}" -eq 1 ]]
 }
 
 @test "policy/ocp/requiresinventory/deployment-has-matching-pvc" {
@@ -413,9 +419,8 @@ teardown() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == "poddisruptionbudget.policy/shouldneverfire-svc created" ]]
-  [[ "${lines[1]}" == "Error from server ([denied by deploymenthasmatchingservice] RHCOP-OCP_REQ_INV-00003: Deployment/hasmissingsvc"* ]]
-  [[ "${#lines[@]}" -eq 2 ]]
+  [[ "${lines[0]}" == "Error from server ([denied by deploymenthasmatchingservice] RHCOP-OCP_REQ_INV-00003: Deployment/hasmissingsvc"* ]]
+  [[ "${#lines[@]}" -eq 1 ]]
 }
 
 @test "policy/ocp/requiresinventory/deployment-has-matching-serviceaccount" {

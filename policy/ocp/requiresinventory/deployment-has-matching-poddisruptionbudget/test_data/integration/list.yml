@@ -2,50 +2,6 @@
 apiVersion: v1
 kind: List
 items:
-- apiVersion: monitoring.coreos.com/v1
-  kind: ServiceMonitor
-  metadata:
-    labels:
-      app.kubernetes.io/name: Foo-hasmissingpdb
-      app.kubernetes.io/instance: Bar-hasmissingpdb
-      app.kubernetes.io/version: v1
-      app.kubernetes.io/component: FooBar-hasmissingpdb
-      app.kubernetes.io/part-of: Foo-hasmissingpdb
-      app.kubernetes.io/managed-by: Bar-hasmissingpdb
-    name: shouldneverfire-pdb
-  spec:
-    selector:
-      matchLabels:
-        app.kubernetes.io/name: Foo-hasmissingpdb
-        app.kubernetes.io/instance: Bar-hasmissingpdb
-        app.kubernetes.io/version: v1
-        app.kubernetes.io/component: FooBar-hasmissingpdb
-        app.kubernetes.io/part-of: Foo-hasmissingpdb
-        app.kubernetes.io/managed-by: Bar-hasmissingpdb
-    endpoints:
-      - port: 8080-tcp
-- apiVersion: v1
-  kind: Service
-  metadata:
-    labels:
-      app.kubernetes.io/name: Foo-hasmissingpdb
-      app.kubernetes.io/instance: Bar-hasmissingpdb
-      app.kubernetes.io/version: v1
-      app.kubernetes.io/component: FooBar-hasmissingpdb
-      app.kubernetes.io/part-of: Foo-hasmissingpdb
-      app.kubernetes.io/managed-by: Bar-hasmissingpdb
-    name: shouldneverfire-pdb
-  spec:
-    ports:
-      - name: 8080-tcp
-        port: 8080
-    selector:
-      app.kubernetes.io/name: Foo-hasmissingpdb
-      app.kubernetes.io/instance: Bar-hasmissingpdb
-      app.kubernetes.io/version: v1
-      app.kubernetes.io/component: FooBar-hasmissingpdb
-      app.kubernetes.io/part-of: Foo-hasmissingpdb
-      app.kubernetes.io/managed-by: Bar-hasmissingpdb
 - apiVersion: apps/v1
   kind: Deployment
   metadata:

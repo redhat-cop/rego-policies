@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: Template
+metadata:
+  name: bar
+objects:
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    name: foobar-pvc
+  spec:
+    accessModes:
+      - ReadWriteMany
+    resources:
+      requests:
+        storage: 1Gi
+    storageClassName: gp2
+- apiVersion: monitoring.coreos.com/v1
+  kind: ServiceMonitor
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/version: v1
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: shouldneverfire-${NAME}
+  spec:
+    selector:
+      matchLabels:
+        app.kubernetes.io/name: Foo
+        app.kubernetes.io/instance: Bar
+        app.kubernetes.io/version: v1
+        app.kubernetes.io/component: FooBar
+        app.kubernetes.io/part-of: Foo
+        app.kubernetes.io/managed-by: Bar
+    endpoints:
+      - port: 8080-tcp
+- apiVersion: v1
+  kind: Service
+  metadata:
+    labels:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/version: v1
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+    name: shouldneverfire-${NAME}
+  spec:
+    ports:
+      - name: 8080-tcp
+        port: 8080
+    selector:
+      app.kubernetes.io/name: Foo
+      app.kubernetes.io/instance: Bar
+      app.kubernetes.io/version: v1
+      app.kubernetes.io/component: FooBar
+      app.kubernetes.io/part-of: Foo
+      app.kubernetes.io/managed-by: Bar
+- apiVersion: policy/v1beta1
+  kind: PodDisruptionBudget
+  metadata:
+    name: shouldneverfire-${NAME}
+  spec:
+    minAvailable: 2
+    selector:
+      matchLabels:
+        app.kubernetes.io/name: Foo
+        app.kubernetes.io/instance: Bar
+        app.kubernetes.io/version: v1
+        app.kubernetes.io/component: FooBar
+        app.kubernetes.io/part-of: Foo
+        app.kubernetes.io/managed-by: Bar
+parameters:
+- name: NAME
+  generate: expression
+  from: "[a-z]{6}"
