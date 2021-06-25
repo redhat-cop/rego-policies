@@ -19,3 +19,11 @@ jobs:
         with:
           tests: _test/conftest-unittests.sh
           policies: '[{"name": "deprek8ion", "url":"github.com/swade1987/deprek8ion.git//policies"}]'
+
+      - name: Create k8s Kind Cluster
+        uses: helm/kind-action@v1.1.0
+
+      - name: Test against KinD
+        run: |
+          confbatstest=$(docker images | head -n 2 | tail -1 | xargs | cut -d" " -f-2 | sed -e 's/ /:/g')
+          docker run --rm --network host --workdir /conftest -v "/home/runner/.kube/":"/root/.kube/" -v "/home/runner/work/rego-policies/rego-policies":"/conftest" ${confbatstest} "" "" "kubectl cluster-info && _test/prow.sh deploy"
