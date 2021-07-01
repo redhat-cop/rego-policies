@@ -9,6 +9,10 @@ package ocp.bestpractices.common_k8s_labels_notset
 import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
+# METADATA
+# scope: document
+# schemas:
+# - data.lib.konstraint.core.resource: schema["pod-v1"]
 violation[msg] {
   openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00001")
   openshift.is_pod_or_networking
