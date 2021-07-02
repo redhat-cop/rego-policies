@@ -26,4 +26,12 @@ jobs:
       - name: Test against KinD
         run: |
           confbatstest=$(docker images | head -n 2 | tail -1 | xargs | cut -d" " -f-2 | sed -e 's/ /:/g')
-          docker run --rm --network host --workdir /conftest -v "/home/runner/.kube/":"/root/.kube/" -v "/home/runner/work/rego-policies/rego-policies":"/conftest" ${confbatstest} "" "" "kubectl cluster-info && _test/prow.sh deploy"
+          docker run --rm --network host --workdir /conftest -v "/home/runner/.kube/":"/root/.kube/" -v "/home/runner/work/rego-policies/rego-policies":"/conftest" ${confbatstest} "" "" "kubectl cluster-info && _test/prow.sh deploy && _test/prow.sh test_k8s"
+
+      - name: Get pods and events if tests failed
+        if: ${{ failure() }}
+        run: |
+          kubectl get nodes
+          kubectl get namespaces
+          kubectl get pods --all-namespaces
+          kubectl get events --all-namespaces

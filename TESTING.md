@@ -10,7 +10,8 @@ Every policy must have a test_data directory; within that directory, there shoul
 
 Each policy must have a BATS test executed by its usecase:
 - unit test files will be executed by [_test/conftest-unittests.sh](_test/conftest-unittests.sh).
-- integration test files will be executed by [_test/gatekeeper-integrationtests.sh](_test/gatekeeper-integrationtests.sh). 
+- integration test files targeting OCP will be executed by [_test/gatekeeper-integrationtests.sh](_test/gatekeeper-integrationtests.sh). 
+- integration test files targeting k8s will be executed by [_test/gatekeeper-integrationtests.sh](_test/gatekeeper-k8s-integrationtests.sh).
 
 Each policy, if applicable, must have an `opa eval --profile` test executed by [_test/opa-profile.sh](_test/opa-profile.sh).
 
