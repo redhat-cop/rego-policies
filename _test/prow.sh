@@ -8,9 +8,13 @@ case $1 in
     _test/deploy-gatekeeper.sh deploy_gatekeeper
     exec _test/deploy-gatekeeper.sh patch_namespaceselector
     ;;
-  test)
+  test_ocp)
     _test/deploy-gatekeeper.sh deploy_constraints
     exec bats _test/gatekeeper-integrationtests.sh
+    ;;
+  test_k8s)
+    _test/deploy-gatekeeper.sh deploy_constraints
+    exec bats _test/gatekeeper-k8s-integrationtests.sh
     ;;
   *)
     echo "Not an option"
