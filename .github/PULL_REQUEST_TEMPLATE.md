@@ -5,6 +5,7 @@ Describe the contents of the PR
 - [ ] Have you created a test case in `_test/conftest-unittests.sh`
 - [ ] Have you created a test case in `_test/opa-profile.sh`
 - [ ] Have you created a test case in `_test/gatekeeper-integrationtests.sh`
+- [ ] Have you created a test case in `_test/gatekeeper-k8s-integrationtests.sh`
 - [ ] Have you followed the TESTING.md doc? If not, please provide commands/steps to test this PR.
 - [ ] Have you re-generated `POLICIES.md`
 
