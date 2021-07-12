@@ -280,8 +280,8 @@ setup_file() {
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
   [ "${lines[0]}" = "1..2" ]
-  [ "${lines[1]}" = "not ok 1 - ${tmp}/list.yml - ocp.bestpractices.container_secret_mounted_envs - RHCOP-OCP_BESTPRACT-00016: Deployment/secretenvvars: container 'bar' has a secret 'my-secret' mounted as an environment variable. As secrets are not secret, its not good practice to mount as env vars." ]
-  [ "${lines[2]}" = "not ok 2 - ${tmp}/list.yml - ocp.bestpractices.container_secret_mounted_envs - RHCOP-OCP_BESTPRACT-00016: DeploymentConfig/secretenvvars: container 'bar' has a secret 'my-secret' mounted as an environment variable. As secrets are not secret, its not good practice to mount as env vars." ]
+  [ "${lines[1]}" = "not ok 1 - ${tmp}/list.yml - ocp.bestpractices.container_secret_mounted_envs - RHCOP-OCP_BESTPRACT-00016: Deployment/secretenvvars: container 'bar' has a secret 'my-secret' mounted as an environment variable. Secrets are meant to be secret, it is not a good practice to mount them as env vars." ]
+  [ "${lines[2]}" = "not ok 2 - ${tmp}/list.yml - ocp.bestpractices.container_secret_mounted_envs - RHCOP-OCP_BESTPRACT-00016: DeploymentConfig/secretenvvars: container 'bar' has a secret 'my-secret' mounted as an environment variable. Secrets are meant to be secret, it is not a good practice to mount them as env vars." ]
   [[ "${#lines[@]}" -eq 3 ]]
 }
 
