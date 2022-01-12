@@ -13,7 +13,7 @@ jobs:
         uses: redhat-cop/github-actions/confbatstest@master
         with:
           tests: _test/opa-profile.sh
-          policies: '[{"name": "deprek8ion", "url":"github.com/swade1987/deprek8ion.git//policies"}]'
+          policies: '[]' # An empty array is provided as the policies are already cloned via source.
 
       - name: Upload opa-profile.log
         uses: actions/upload-artifact@v2
