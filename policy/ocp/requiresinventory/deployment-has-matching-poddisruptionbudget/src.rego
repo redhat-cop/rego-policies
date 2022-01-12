@@ -19,11 +19,11 @@ violation[msg] {
 
   not deployment_has_matching_poddisruptionbudget(deployment, data.inventory.namespace[deployment.metadata.namespace])
 
-  msg := konstraint_core.format_with_id(sprintf("%s/%s does not have a policy/v1beta1:PodDisruptionBudget or its selector labels dont match. See: https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget", [deployment.kind, deployment.metadata.name]), "RHCOP-OCP_REQ_INV-00001")
+  msg := konstraint_core.format_with_id(sprintf("%s/%s does not have a policy/v1:PodDisruptionBudget or its selector labels dont match. See: https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget", [deployment.kind, deployment.metadata.name]), "RHCOP-OCP_REQ_INV-00001")
 }
 
 deployment_has_matching_poddisruptionbudget(deployment, manifests) {
-  cached := manifests["policy/v1beta1"]["PodDisruptionBudget"]
+  cached := manifests["policy/v1"]["PodDisruptionBudget"]
   current := cached[_]
 
   deployment.spec.template.metadata.labels == current.spec.selector.matchLabels

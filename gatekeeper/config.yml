@@ -29,6 +29,6 @@ spec:
       - version: "v1"
         group: "apps"
         kind: "Deployment"
-      - version: "v1beta1"
+      - version: "v1"
         group: "policy"
         kind: "PodDisruptionBudget"

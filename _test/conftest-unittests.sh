@@ -673,7 +673,7 @@ setup_file() {
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
   [ "${lines[0]}" = "1..1" ]
-  [ "${lines[1]}" = "not ok 1 - ${tmp}/list.yml - ocp.requiresinventory.deployment_has_matching_poddisruptionbudget - RHCOP-OCP_REQ_INV-00001: Deployment/hasmissingpdb does not have a policy/v1beta1:PodDisruptionBudget or its selector labels dont match. See: https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget" ]
+  [ "${lines[1]}" = "not ok 1 - ${tmp}/list.yml - ocp.requiresinventory.deployment_has_matching_poddisruptionbudget - RHCOP-OCP_REQ_INV-00001: Deployment/hasmissingpdb does not have a policy/v1:PodDisruptionBudget or its selector labels dont match. See: https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget" ]
   [[ "${#lines[@]}" -eq 2 ]]
 }
 
