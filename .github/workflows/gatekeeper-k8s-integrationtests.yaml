@@ -1,9 +1,9 @@
-name: Run conftest-unittests.sh
+name: Run gatekeeper-k8s-integrationtests.sh
 
 on: [push, pull_request]
 
 jobs:
-  conftest:
+  kind:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -14,19 +14,13 @@ jobs:
         with:
           raw: find policy/* -regex '.*test_data\/integration\/.*$' -exec kubeval --openshift --strict --skip-kinds ServiceMonitor {} \;
 
-      - name: Conftest
-        uses: redhat-cop/github-actions/confbatstest@master
-        with:
-          tests: _test/conftest-unittests.sh
-          policies: '[{"name": "deprek8ion", "url":"github.com/swade1987/deprek8ion.git//policies"}]'
-
       - name: Create k8s Kind Cluster
         uses: helm/kind-action@v1.2.0
 
       - name: Test against KinD
         run: |
-          confbatstest=$(docker images | head -n 2 | tail -1 | xargs | cut -d" " -f-2 | sed -e 's/ /:/g')
-          docker run --rm --network host --workdir /conftest -v "/home/runner/.kube/":"/root/.kube/" -v "/home/runner/work/rego-policies/rego-policies":"/conftest" ${confbatstest} "" "" "kubectl cluster-info && _test/prow.sh deploy && _test/prow.sh test_k8s"
+          confbatstest=$(docker images --filter=label=com.github.actions.name=confbatstest --format "{{.Repository}}:{{.Tag}}")
+          docker run --rm --network host --workdir /conftest --volume "/home/runner/.kube/":"/root/.kube/" --volume "/home/runner/work/rego-policies/rego-policies":"/conftest" --entrypoint .github/workflows/tests-entrypoint.sh ${confbatstest}
 
       - name: Get pods and events if tests failed
         if: ${{ failure() }}
