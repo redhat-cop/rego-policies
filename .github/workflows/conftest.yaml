@@ -32,6 +32,15 @@ jobs:
         if: ${{ failure() }}
         run: |
           kubectl get nodes
+
+          echo ""
           kubectl get namespaces
+
+          echo ""
           kubectl get pods --all-namespaces
+
+          echo ""
           kubectl get events --all-namespaces
+
+          echo ""
+          kubectl api-versions

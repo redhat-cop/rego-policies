@@ -5,7 +5,7 @@ shopt -s inherit_errexit
 command -v oc &> /dev/null || { echo >&2 'ERROR: oc not installed - Aborting'; exit 1; }
 command -v konstraint &> /dev/null || { echo >&2 'ERROR: konstraint not installed - Aborting'; exit 1; }
 
-gatekeeper_version="v3.3.0"
+gatekeeper_version="v3.7.0"
 
 cleanup_gatekeeper_constraints() {
   echo ""
@@ -45,7 +45,7 @@ deploy_gatekeeper() {
   excludedNamespacesComma=$(echo "${excludedNamespaces[@]}" | tr ' ' ',')
 
   echo ""
-  echo "Deploying gatekeeper..."
+  echo "Deploying gatekeeper ${gatekeeper_version}..."
   oc create -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/${gatekeeper_version}/deploy/gatekeeper.yaml
 
   echo ""
@@ -100,7 +100,7 @@ restart_gatekeeper() {
 generate_constraints() {
   echo "Creating ConstraintTemplates via konstraint..."
   konstraint doc -o POLICIES.md
-  konstraint create
+  konstraint create --constraint-template-version v1
 
   # shellcheck disable=SC2038
   for file in $(find policy/* \( -name "template.yaml" \) -type f | xargs); do
@@ -130,24 +130,27 @@ deploy_constraints() {
   echo ""
   echo "Deploying Constraints..."
 
-  # shellcheck disable=SC2038
-  for file in $(find policy/* \( -name "template.yaml" -o -name "constraint.yaml" \) -type f | xargs); do
-    name=$(oc create -f "${file}" -n gatekeeper-system -o name || exit $?)
-    echo "${name}"
-
-    until oc get ${name} -o json | jq ".status.byPod | length" | grep -q "4";
-    do
-      echo "Waiting for: .status.byPod | length == 4"
-      sleep 5s
-    done
-
-    until [[ -z $(oc get ${name} -o json | jq "select(.status.byPod[].errors != null)") ]];
-    do
-      echo "Waiting for: .status.byPod[].errors == ''"
-      sleep 5s
-    done
-
+  for file in $(find policy/* -name "template.yaml"  -type f -exec dirname {} \; | sort | xargs); do
     echo ""
+    echo "Policy: ${file}"
+
+    files=("template.yaml" "constraint.yaml")
+    for yamlname in "${files[@]}"; do
+      name=$(oc create -f "${file}/${yamlname}" -n gatekeeper-system -o name || exit $?)
+      echo "${name}"
+
+      until oc get ${name} -o json | jq ".status.byPod | length" | grep -q "4";
+      do
+        echo "-> Waiting for: .status.byPod | length == 4"
+        sleep 5s
+      done
+
+      until [[ -z $(oc get ${name} -o json | jq "select(.status.byPod[].errors != null)") ]];
+      do
+        echo "-> Waiting for: .status.byPod[].errors == ''"
+        sleep 5s
+      done
+    done
   done
 }
 

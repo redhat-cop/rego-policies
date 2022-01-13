@@ -72,7 +72,7 @@ remove_ocp_resources() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == "Error from server ([denied by commonk8slabelsnotset] RHCOP-OCP_BESTPRACT-00001: Deployment/nolabels"* ]]
+  [[ "${lines[0]}" == "Error from server ([commonk8slabelsnotset] RHCOP-OCP_BESTPRACT-00001: Deployment/nolabels"* ]]
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
@@ -85,7 +85,7 @@ remove_ocp_resources() {
   
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == "Error from server ([denied by containerenvmaxmemorynotset] RHCOP-OCP_BESTPRACT-00002: Deployment/nodownwardmemoryenv"* ]]
+  [[ "${lines[0]}" == "Error from server ([containerenvmaxmemorynotset] RHCOP-OCP_BESTPRACT-00002: Deployment/nodownwardmemoryenv"* ]]
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
@@ -98,7 +98,7 @@ remove_ocp_resources() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == "Error from server ([denied by containerimagelatest] RHCOP-OCP_BESTPRACT-00003: Deployment/imageuseslatesttag"* ]]
+  [[ "${lines[0]}" == "Error from server ([containerimagelatest] RHCOP-OCP_BESTPRACT-00003: Deployment/imageuseslatesttag"* ]]
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
@@ -111,7 +111,7 @@ remove_ocp_resources() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == "Error from server ([denied by containerimageunknownregistries] RHCOP-OCP_BESTPRACT-00004: Deployment/imagefromunknownregistry"* ]]
+  [[ "${lines[0]}" == "Error from server ([containerimageunknownregistries] RHCOP-OCP_BESTPRACT-00004: Deployment/imagefromunknownregistry"* ]]
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
@@ -124,9 +124,9 @@ remove_ocp_resources() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == "Error from server ([denied by containerjavaxmxset] RHCOP-OCP_BESTPRACT-00005: Deployment/xmxviacommand"* ]]
-  [[ "${lines[1]}" == "Error from server ([denied by containerjavaxmxset] RHCOP-OCP_BESTPRACT-00005: Deployment/xmxviaargs"* ]]
-  [[ "${lines[2]}" == "Error from server ([denied by containerjavaxmxset] RHCOP-OCP_BESTPRACT-00005: Deployment/xmxviaenv"* ]]
+  [[ "${lines[0]}" == "Error from server ([containerjavaxmxset] RHCOP-OCP_BESTPRACT-00005: Deployment/xmxviacommand"* ]]
+  [[ "${lines[1]}" == "Error from server ([containerjavaxmxset] RHCOP-OCP_BESTPRACT-00005: Deployment/xmxviaargs"* ]]
+  [[ "${lines[2]}" == "Error from server ([containerjavaxmxset] RHCOP-OCP_BESTPRACT-00005: Deployment/xmxviaenv"* ]]
   [[ "${#lines[@]}" -eq 3 ]]
 }
 
@@ -139,7 +139,7 @@ remove_ocp_resources() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == "Error from server ([denied by containerlabelkeyinconsistent] RHCOP-OCP_BESTPRACT-00006: Deployment/nonestandardlabel"* ]]
+  [[ "${lines[0]}" == "Error from server ([containerlabelkeyinconsistent] RHCOP-OCP_BESTPRACT-00006: Deployment/nonestandardlabel"* ]]
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
@@ -152,7 +152,7 @@ remove_ocp_resources() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == "Error from server ([denied by containerlivenessreadinessprobeequal] RHCOP-OCP_BESTPRACT-00007: Deployment/probssetaresame"* ]]
+  [[ "${lines[0]}" == "Error from server ([containerlivenessreadinessprobeequal] RHCOP-OCP_BESTPRACT-00007: Deployment/probssetaresame"* ]]
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
@@ -165,7 +165,7 @@ remove_ocp_resources() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == "Error from server ([denied by containerlivenessprobenotset] RHCOP-OCP_BESTPRACT-00008: Deployment/noproblivenessset"* ]]
+  [[ "${lines[0]}" == "Error from server ([containerlivenessprobenotset] RHCOP-OCP_BESTPRACT-00008: Deployment/noproblivenessset"* ]]
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
@@ -178,7 +178,7 @@ remove_ocp_resources() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == "Error from server ([denied by containerreadinessprobenotset] RHCOP-OCP_BESTPRACT-00009: Deployment/noreadinessprob"* ]]
+  [[ "${lines[0]}" == "Error from server ([containerreadinessprobenotset] RHCOP-OCP_BESTPRACT-00009: Deployment/noreadinessprob"* ]]
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
@@ -191,7 +191,7 @@ remove_ocp_resources() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == "Error from server ([denied by containerresourceslimitscpuset] RHCOP-OCP_BESTPRACT-00010: Deployment/resourceslimitscpuset"* ]]
+  [[ "${lines[0]}" == "Error from server ([containerresourceslimitscpuset] RHCOP-OCP_BESTPRACT-00010: Deployment/resourceslimitscpuset"* ]]
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
@@ -204,7 +204,7 @@ remove_ocp_resources() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == "Error from server ([denied by containerresourceslimitsmemorygreaterthan] RHCOP-OCP_BESTPRACT-00011: Deployment/memorylimittoolarge"* ]]
+  [[ "${lines[0]}" == "Error from server ([containerresourceslimitsmemorygreaterthan] RHCOP-OCP_BESTPRACT-00011: Deployment/memorylimittoolarge"* ]]
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
@@ -217,7 +217,7 @@ remove_ocp_resources() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == "Error from server ([denied by containerresourceslimitsmemorynotset] RHCOP-OCP_BESTPRACT-00012: Deployment/resourcelimitsmemorynotset"* ]]
+  [[ "${lines[0]}" == "Error from server ([containerresourceslimitsmemorynotset] RHCOP-OCP_BESTPRACT-00012: Deployment/resourcelimitsmemorynotset"* ]]
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
@@ -230,8 +230,8 @@ remove_ocp_resources() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == "Error from server ([denied by containerresourcesmemoryunitincorrect] RHCOP-OCP_BESTPRACT-00013: Deployment/invalidresourcesrequestsmemoryunits"* ]]
-  [[ "${lines[1]}" == "Error from server ([denied by containerresourcesmemoryunitincorrect] RHCOP-OCP_BESTPRACT-00013: Deployment/invalidresourceslimitsmemoryunits"* ]]
+  [[ "${lines[0]}" == "Error from server ([containerresourcesmemoryunitincorrect] RHCOP-OCP_BESTPRACT-00013: Deployment/invalidresourcesrequestsmemoryunits"* ]]
+  [[ "${lines[1]}" == "Error from server ([containerresourcesmemoryunitincorrect] RHCOP-OCP_BESTPRACT-00013: Deployment/invalidresourceslimitsmemoryunits"* ]]
   [[ "${#lines[@]}" -eq 2 ]]
 }
 
@@ -244,7 +244,7 @@ remove_ocp_resources() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == "Error from server ([denied by containerresourcesrequestscpuunitincorrect] RHCOP-OCP_BESTPRACT-00014: Deployment/invalidresourcesrequestcpuunits"* ]]
+  [[ "${lines[0]}" == "Error from server ([containerresourcesrequestscpuunitincorrect] RHCOP-OCP_BESTPRACT-00014: Deployment/invalidresourcesrequestcpuunits"* ]]
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
@@ -257,7 +257,7 @@ remove_ocp_resources() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == "Error from server ([denied by containerresourcesrequestsmemorygreaterthan] RHCOP-OCP_BESTPRACT-00015: Deployment/memoryrequesttoolarge"* ]]
+  [[ "${lines[0]}" == "Error from server ([containerresourcesrequestsmemorygreaterthan] RHCOP-OCP_BESTPRACT-00015: Deployment/memoryrequesttoolarge"* ]]
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
@@ -270,7 +270,7 @@ remove_ocp_resources() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == "Error from server ([denied by containersecretmountedenvs] RHCOP-OCP_BESTPRACT-00016: Deployment/secretenvvars"* ]]
+  [[ "${lines[0]}" == "Error from server ([containersecretmountedenvs] RHCOP-OCP_BESTPRACT-00016: Deployment/secretenvvars"* ]]
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
@@ -283,7 +283,7 @@ remove_ocp_resources() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == "Error from server ([denied by containervolumemountinconsistentpath] RHCOP-OCP_BESTPRACT-00017: Deployment/notvarrunvolumemountspath"* ]]
+  [[ "${lines[0]}" == "Error from server ([containervolumemountinconsistentpath] RHCOP-OCP_BESTPRACT-00017: Deployment/notvarrunvolumemountspath"* ]]
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
@@ -296,7 +296,7 @@ remove_ocp_resources() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == "Error from server ([denied by containervolumemountmissing] RHCOP-OCP_BESTPRACT-00018: Deployment/missingvolumemount"* ]]
+  [[ "${lines[0]}" == "Error from server ([containervolumemountmissing] RHCOP-OCP_BESTPRACT-00018: Deployment/missingvolumemount"* ]]
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
@@ -309,7 +309,7 @@ remove_ocp_resources() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == "Error from server ([denied by podhostnetwork] RHCOP-OCP_BESTPRACT-00020: Deployment/hostnetworkisset"* ]]
+  [[ "${lines[0]}" == "Error from server ([podhostnetwork] RHCOP-OCP_BESTPRACT-00020: Deployment/hostnetworkisset"* ]]
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
@@ -322,7 +322,7 @@ remove_ocp_resources() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == "Error from server ([denied by podreplicasbelowone] RHCOP-OCP_BESTPRACT-00021: Deployment/replicaisone"* ]]
+  [[ "${lines[0]}" == "Error from server ([podreplicasbelowone] RHCOP-OCP_BESTPRACT-00021: Deployment/replicaisone"* ]]
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
@@ -335,7 +335,7 @@ remove_ocp_resources() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == "Error from server ([denied by podreplicasnotodd] RHCOP-OCP_BESTPRACT-00022: Deployment/replicaiseven"* ]]
+  [[ "${lines[0]}" == "Error from server ([podreplicasnotodd] RHCOP-OCP_BESTPRACT-00022: Deployment/replicaiseven"* ]]
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
