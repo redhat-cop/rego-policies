@@ -58,7 +58,7 @@ objects:
       app.kubernetes.io/component: FooBar
       app.kubernetes.io/part-of: Foo
       app.kubernetes.io/managed-by: Bar
-- apiVersion: policy/v1beta1
+- apiVersion: policy/v1
   kind: PodDisruptionBudget
   metadata:
     name: shouldneverfire-${NAME}
