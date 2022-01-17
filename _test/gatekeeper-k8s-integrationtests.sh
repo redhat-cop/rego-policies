@@ -1,47 +1,25 @@
 #!/usr/bin/env bats
 
 load bats-support-clone
+load bats-support-setup
 load test_helper/bats-support/load
 load test_helper/redhatcop-bats-library/load
-
 setup_file() {
+  kubectl api-versions --request-timeout=5s || return $?
+  kubectl cluster-info || return $?
+
   export project_name="regopolicies-undertest-$(date +'%d%m%Y-%H%M%S')"
   export project_name_disabled="regopolicies-undertest-disabled-$(date +'%d%m%Y-%H%M%S')"
 
-  rm -rf /tmp/rhcop
-  oc process --local=true -f _test/resources/namespace-under-test.yml -p=PROJECT_NAME=${project_name} | oc create -f -
-  oc process --local=true -f _test/resources/namespace-under-test.yml -p=PROJECT_NAME=${project_name_disabled} -p=DISABLED="RHCOP-OCP_BESTPRACT-00001" | oc create -f -
-
-  bestpractices=$(split_files "_test/resources/prerequisite-bestpractices.yml")
-  requiresinventory=$(split_files "_test/resources/prerequisite-requiresinventory.yml")
-
-  remove_ocp_resources "${bestpractices}/prerequisite-bestpractices.yml"
-  remove_ocp_resources "${requiresinventory}/prerequisite-requiresinventory.yml"
-
-  oc create -n ${project_name} -f "${bestpractices}/prerequisite-bestpractices.yml"
-  oc create -n ${project_name} -f "${requiresinventory}/prerequisite-requiresinventory.yml"
-
-  oc create -n ${project_name_disabled} -f "${bestpractices}/prerequisite-bestpractices.yml"
-  oc create -n ${project_name_disabled} -f "${requiresinventory}/prerequisite-requiresinventory.yml"
-
-  oc patch namespace/${project_name} --type='json' -p='[{"op": "add", "path": "/metadata/labels/redhat-cop.github.com~1gatekeeper-active", "value":"true"}]'
-  oc patch namespace/${project_name_disabled} --type='json' -p='[{"op": "add", "path": "/metadata/labels/redhat-cop.github.com~1gatekeeper-active", "value":"true"}]'
+  _setup_file "${project_name}" "${project_name_disabled}" "true"
 }
 
 teardown_file() {
-  oc delete namespace/${project_name}
-  oc delete namespace/${project_name_disabled}
+  _teardown_file "${project_name}" "${project_name_disabled}"
 }
 
 teardown() {
-  if [[ -n "${tmp}" ]]; then
-    oc delete -f "${tmp}" --ignore-not-found=true --wait=true > /dev/null 2>&1
-  fi
-}
-
-remove_ocp_resources() {
-  yq --yml-output --in-place 'select(.apiVersion | contains("openshift.io") | not)' "${1}"
-  yq --yml-output --in-place 'select(.apiVersion | contains("coreos.com") | not)' "${1}"
+  _teardown "${tmp}"
 }
 
 ####################
@@ -52,7 +30,7 @@ remove_ocp_resources() {
   alltmp=$(split_files "policy/ocp/bestpractices/_all-namespaces/test_data/integration")
   remove_ocp_resources "${alltmp}/all.yml"
 
-  cmd="oc create -f ${alltmp} -n ${project_name}"
+  cmd="kubectl create -f ${alltmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${alltmp}"
@@ -67,7 +45,7 @@ remove_ocp_resources() {
   tmp=$(split_files "policy/ocp/bestpractices/common-k8s-labels-notset/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
-  cmd="oc create -f ${tmp} -n ${project_name}"
+  cmd="kubectl create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -80,7 +58,7 @@ remove_ocp_resources() {
   tmp=$(split_files "policy/ocp/bestpractices/container-env-maxmemory-notset/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
-  cmd="oc create -f ${tmp} -n ${project_name}"
+  cmd="kubectl create -f ${tmp} -n ${project_name}"
   run ${cmd}
   
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -93,7 +71,7 @@ remove_ocp_resources() {
   tmp=$(split_files "policy/ocp/bestpractices/container-image-latest/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
-  cmd="oc create -f ${tmp} -n ${project_name}"
+  cmd="kubectl create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -106,7 +84,7 @@ remove_ocp_resources() {
   tmp=$(split_files "policy/ocp/bestpractices/container-image-unknownregistries/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
-  cmd="oc create -f ${tmp} -n ${project_name}"
+  cmd="kubectl create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -119,7 +97,7 @@ remove_ocp_resources() {
   tmp=$(split_files "policy/ocp/bestpractices/container-java-xmx-set/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
-  cmd="oc create -f ${tmp} -n ${project_name}"
+  cmd="kubectl create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -134,7 +112,7 @@ remove_ocp_resources() {
   tmp=$(split_files "policy/ocp/bestpractices/container-labelkey-inconsistent/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
-  cmd="oc create -f ${tmp} -n ${project_name}"
+  cmd="kubectl create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -147,7 +125,7 @@ remove_ocp_resources() {
   tmp=$(split_files "policy/ocp/bestpractices/container-liveness-readinessprobe-equal/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
-  cmd="oc create -f ${tmp} -n ${project_name}"
+  cmd="kubectl create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -160,7 +138,7 @@ remove_ocp_resources() {
   tmp=$(split_files "policy/ocp/bestpractices/container-livenessprobe-notset/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
-  cmd="oc create -f ${tmp} -n ${project_name}"
+  cmd="kubectl create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -173,7 +151,7 @@ remove_ocp_resources() {
   tmp=$(split_files "policy/ocp/bestpractices/container-readinessprobe-notset/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
-  cmd="oc create -f ${tmp} -n ${project_name}"
+  cmd="kubectl create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -186,7 +164,7 @@ remove_ocp_resources() {
   tmp=$(split_files "policy/ocp/bestpractices/container-resources-limits-cpu-set/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
-  cmd="oc create -f ${tmp} -n ${project_name}"
+  cmd="kubectl create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -199,7 +177,7 @@ remove_ocp_resources() {
   tmp=$(split_files "policy/ocp/bestpractices/container-resources-limits-memory-greater-than/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
-  cmd="oc create -f ${tmp} -n ${project_name}"
+  cmd="kubectl create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -212,7 +190,7 @@ remove_ocp_resources() {
   tmp=$(split_files "policy/ocp/bestpractices/container-resources-limits-memory-notset/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
-  cmd="oc create -f ${tmp} -n ${project_name}"
+  cmd="kubectl create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -225,7 +203,7 @@ remove_ocp_resources() {
   tmp=$(split_files "policy/ocp/bestpractices/container-resources-memoryunit-incorrect/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
-  cmd="oc create -f ${tmp} -n ${project_name}"
+  cmd="kubectl create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -239,7 +217,7 @@ remove_ocp_resources() {
   tmp=$(split_files "policy/ocp/bestpractices/container-resources-requests-cpuunit-incorrect/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
-  cmd="oc create -f ${tmp} -n ${project_name}"
+  cmd="kubectl create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -252,7 +230,7 @@ remove_ocp_resources() {
   tmp=$(split_files "policy/ocp/bestpractices/container-resources-requests-memory-greater-than/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
-  cmd="oc create -f ${tmp} -n ${project_name}"
+  cmd="kubectl create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -265,7 +243,7 @@ remove_ocp_resources() {
   tmp=$(split_files "policy/ocp/bestpractices/container-secret-mounted-envs/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
-  cmd="oc create -f ${tmp} -n ${project_name}"
+  cmd="kubectl create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -278,7 +256,7 @@ remove_ocp_resources() {
   tmp=$(split_files "policy/ocp/bestpractices/container-volumemount-inconsistent-path/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
-  cmd="oc create -f ${tmp} -n ${project_name}"
+  cmd="kubectl create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -291,7 +269,7 @@ remove_ocp_resources() {
   tmp=$(split_files "policy/ocp/bestpractices/container-volumemount-missing/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
-  cmd="oc create -f ${tmp} -n ${project_name}"
+  cmd="kubectl create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -304,7 +282,7 @@ remove_ocp_resources() {
   tmp=$(split_files "policy/ocp/bestpractices/pod-hostnetwork/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
-  cmd="oc create -f ${tmp} -n ${project_name}"
+  cmd="kubectl create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -317,7 +295,7 @@ remove_ocp_resources() {
   tmp=$(split_files "policy/ocp/bestpractices/pod-replicas-below-one/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
-  cmd="oc create -f ${tmp} -n ${project_name}"
+  cmd="kubectl create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -330,7 +308,7 @@ remove_ocp_resources() {
   tmp=$(split_files "policy/ocp/bestpractices/pod-replicas-not-odd/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
-  cmd="oc create -f ${tmp} -n ${project_name}"
+  cmd="kubectl create -f ${tmp} -n ${project_name}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -347,7 +325,7 @@ remove_ocp_resources() {
   alltmp=$(split_files "policy/ocp/bestpractices/_all-namespaces/test_data/integration")
   remove_ocp_resources "${alltmp}/all.yml"
 
-  cmd="oc create -f ${alltmp} -n ${project_name_disabled}"
+  cmd="kubectl create -f ${alltmp} -n ${project_name_disabled}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${alltmp}"
@@ -358,7 +336,7 @@ remove_ocp_resources() {
   tmp=$(split_files "policy/ocp/bestpractices/common-k8s-labels-notset/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
-  cmd="oc create -f ${tmp} -n ${project_name_disabled}"
+  cmd="kubectl create -f ${tmp} -n ${project_name_disabled}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"

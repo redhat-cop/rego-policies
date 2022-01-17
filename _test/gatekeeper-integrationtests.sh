@@ -1,36 +1,26 @@
 #!/usr/bin/env bats
 
 load bats-support-clone
+load bats-support-setup
 load test_helper/bats-support/load
 load test_helper/redhatcop-bats-library/load
 
 setup_file() {
+  oc api-versions --request-timeout=5s || return $?
+  oc cluster-info || return $?
+
   export project_name="regopolicies-undertest-$(date +'%d%m%Y-%H%M%S')"
   export project_name_disabled="regopolicies-undertest-disabled-$(date +'%d%m%Y-%H%M%S')"
 
-  rm -rf /tmp/rhcop
-  oc process -f _test/resources/namespace-under-test.yml -p=PROJECT_NAME=${project_name} | oc create -f -
-  oc process -f _test/resources/namespace-under-test.yml -p=PROJECT_NAME=${project_name_disabled} -p=DISABLED="RHCOP-OCP_BESTPRACT-00001" | oc create -f -
-
-  oc process -f _test/resources/prerequisite-bestpractices.yml | oc create -n ${project_name} -f -
-  oc process -f _test/resources/prerequisite-requiresinventory.yml | oc create -n ${project_name} -f -
-
-  oc process -f _test/resources/prerequisite-bestpractices.yml | oc create -n ${project_name_disabled} -f -
-  oc process -f _test/resources/prerequisite-requiresinventory.yml | oc create -n ${project_name_disabled} -f -
-
-  oc patch namespace/${project_name} --type='json' -p='[{"op": "add", "path": "/metadata/labels/redhat-cop.github.com~1gatekeeper-active", "value":"true"}]'
-  oc patch namespace/${project_name_disabled} --type='json' -p='[{"op": "add", "path": "/metadata/labels/redhat-cop.github.com~1gatekeeper-active", "value":"true"}]'
+  _setup_file "${project_name}" "${project_name_disabled}"
 }
 
 teardown_file() {
-  oc delete project/${project_name}
-  oc delete project/${project_name_disabled}
+  _teardown_file "${project_name}" "${project_name_disabled}"
 }
 
 teardown() {
-  if [[ -n "${tmp}" ]]; then
-    oc delete -f "${tmp}" --ignore-not-found=true --wait=true > /dev/null 2>&1
-  fi
+  _teardown "${tmp}"
 }
 
 ####################
