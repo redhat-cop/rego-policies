@@ -7,16 +7,20 @@ items:
   metadata:
     name: podantiaffinitynotset
   spec:
-    affinity:
-      bob: lbha
     template:
       spec:
+        affinity:
+        containers:
+          - name: bar
+            image: quay.io/redhat-cop/openshift-applier@sha256:8a99a0105f85e350bff43802b204b5ce2a501cad1aa7df5253638ced1d108957
 - apiVersion: apps.openshift.io/v1
   kind: DeploymentConfig
   metadata:
     name: podantiaffinitynotset
   spec:
-    affinity:
-      bob: lbha
     template:
       spec:
+        affinity:
+        containers:
+          - name: bar
+            image: quay.io/redhat-cop/openshift-applier@sha256:8a99a0105f85e350bff43802b204b5ce2a501cad1aa7df5253638ced1d108957
