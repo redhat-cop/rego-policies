@@ -14,7 +14,6 @@ items:
       app.kubernetes.io/managed-by: Bar
     name: podantiaffinitynotset
   spec:
-    affinity:
     replicas: 3
     selector:
       matchLabels:
@@ -34,6 +33,7 @@ items:
           app.kubernetes.io/part-of: Foo
           app.kubernetes.io/managed-by: Bar
       spec:
+        affinity:
         containers:
           - name: bar
             image: quay.io/redhat-cop/openshift-applier@sha256:8a99a0105f85e350bff43802b204b5ce2a501cad1aa7df5253638ced1d108957
@@ -81,7 +81,6 @@ items:
       app.kubernetes.io/managed-by: Bar
     name: podantiaffinitynotset
   spec:
-    affinity:
     replicas: 3
     template:
       metadata:
@@ -93,6 +92,7 @@ items:
           app.kubernetes.io/part-of: Foo
           app.kubernetes.io/managed-by: Bar
       spec:
+        affinity:
         containers:
           - name: bar
             image: quay.io/redhat-cop/openshift-applier@sha256:8a99a0105f85e350bff43802b204b5ce2a501cad1aa7df5253638ced1d108957

@@ -16,16 +16,6 @@ objects:
       redhat-cop.github.com/technology: java
     name: shouldneverfire-${NAME}
   spec:
-    affinity:
-      podAntiAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-                - key: app.kubernetes.io/name
-                  operator: In
-                  values:
-                    - Foo
-            topologyKey: topology.kubernetes.io/zone
     replicas: 3
     selector:
       matchLabels:
@@ -45,6 +35,16 @@ objects:
           app.kubernetes.io/part-of: Foo
           app.kubernetes.io/managed-by: Bar
       spec:
+        affinity:
+          podAntiAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              - labelSelector:
+                  matchExpressions:
+                    - key: app.kubernetes.io/name
+                      operator: In
+                      values:
+                        - Foo
+                topologyKey: topology.kubernetes.io/zone
         containers:
           - name: bar
             image: quay.io/redhat-cop/openshift-applier@sha256:8a99a0105f85e350bff43802b204b5ce2a501cad1aa7df5253638ced1d108957
@@ -102,16 +102,6 @@ objects:
       redhat-cop.github.com/technology: java
     name: shouldneverfire${NAME}
   spec:
-    affinity:
-      podAntiAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-                - key: app.kubernetes.io/name
-                  operator: In
-                  values:
-                    - Foo
-            topologyKey: topology.kubernetes.io/zone
     replicas: 3
     template:
       metadata:
@@ -123,6 +113,16 @@ objects:
           app.kubernetes.io/part-of: Foo
           app.kubernetes.io/managed-by: Bar
       spec:
+        affinity:
+          podAntiAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              - labelSelector:
+                  matchExpressions:
+                    - key: app.kubernetes.io/name
+                      operator: In
+                      values:
+                        - Foo
+                topologyKey: topology.kubernetes.io/zone
         containers:
           - name: bar
             image: quay.io/redhat-cop/openshift-applier@sha256:8a99a0105f85e350bff43802b204b5ce2a501cad1aa7df5253638ced1d108957
