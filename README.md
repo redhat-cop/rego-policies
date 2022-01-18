@@ -8,10 +8,6 @@ For a full list of policies, see the auto-generated [POLICIES.md](POLICIES.md)
 
 The naming of the policies follows the Gatekeeper format, as described [here.](https://github.com/plexsystems/konstraint/blob/main/docs/constraint_creation.md#resource-naming)
 
-## 3rd Party Policies
-A list of git repos that contain rego polices which can be combined with this repo:
-- [deprek8ion: Rego policies to monitor Kubernetes APIs deprecations](https://github.com/swade1987/deprek8ion)
-
 ## Tools
 ### Conftest
 conftest is a CLI to execute rego policies. It can be used to test locally before pushing to [OPA](https://www.openpolicyagent.org/).
