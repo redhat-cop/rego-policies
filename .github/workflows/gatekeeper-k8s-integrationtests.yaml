@@ -20,7 +20,7 @@ jobs:
       - name: Test against KinD
         run: |
           confbatstest=$(docker images --filter=label=com.github.actions.name=confbatstest --format "{{.Repository}}:{{.Tag}}")
-          docker run --rm --network host --workdir /conftest --volume "/home/runner/.kube/":"/root/.kube/" --volume "/home/runner/work/rego-policies/rego-policies":"/conftest" --entrypoint .github/workflows/tests-entrypoint.sh ${confbatstest}
+          docker run --rm --network host --workdir /conftest --volume "/home/runner/.kube/":"/opt/app-root/src/.kube/" --volume "/home/runner/work/rego-policies/rego-policies":"/conftest" --entrypoint .github/workflows/tests-entrypoint.sh ${confbatstest}
 
       - name: Get pods and events if tests failed
         if: ${{ failure() }}

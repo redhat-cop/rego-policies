@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 kubectl cluster-info
 _test/prow.sh deploy
 
