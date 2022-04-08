@@ -16,7 +16,7 @@ jobs:
           policies: '[]' # An empty array is provided as the policies are already cloned via source.
 
       - name: Upload opa-profile.log
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: profile-results
           path: opa-profile.log
