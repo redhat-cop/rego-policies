@@ -15,7 +15,7 @@ jobs:
           raw: find policy/* -regex '.*test_data\/integration\/.*$' -exec kubeval --openshift --strict --skip-kinds ServiceMonitor {} \;
 
       - name: Create k8s Kind Cluster
-        uses: helm/kind-action@v1.2.0
+        uses: helm/kind-action@v1.3.0
 
       - name: Test against KinD
         run: |
