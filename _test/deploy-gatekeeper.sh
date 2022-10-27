@@ -5,7 +5,7 @@ shopt -s inherit_errexit
 command -v oc &> /dev/null || { echo >&2 'ERROR: oc not installed - Aborting'; exit 1; }
 command -v konstraint &> /dev/null || { echo >&2 'ERROR: konstraint not installed - Aborting'; exit 1; }
 
-gatekeeper_version="v3.7.0"
+gatekeeper_version="v3.10.0"
 
 cleanup_gatekeeper_constraints() {
   echo ""
