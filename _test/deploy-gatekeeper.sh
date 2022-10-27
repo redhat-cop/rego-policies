@@ -5,7 +5,7 @@ shopt -s inherit_errexit
 command -v oc &> /dev/null || { echo >&2 'ERROR: oc not installed - Aborting'; exit 1; }
 command -v konstraint &> /dev/null || { echo >&2 'ERROR: konstraint not installed - Aborting'; exit 1; }
 
-gatekeeper_version="v3.10.0"
+gatekeeper_version="v3.11.0"
 
 cleanup_gatekeeper_constraints() {
   echo ""
@@ -46,7 +46,7 @@ deploy_gatekeeper() {
 
   echo ""
   echo "Deploying gatekeeper ${gatekeeper_version}..."
-  oc create -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/${gatekeeper_version}/deploy/gatekeeper.yaml
+  oc create --save-config -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/${gatekeeper_version}/deploy/gatekeeper.yaml
 
   echo ""
   echo "Patching gatekeeper to work on OCP..."
