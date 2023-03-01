@@ -53,8 +53,8 @@ deploy_gatekeeper() {
   oc create clusterrole gatekeeper-allow-anyuid-scc --verb=use --resource=securitycontextconstraints.security.openshift.io --resource-name=anyuid
   oc create rolebinding gatekeeper-anyuid-scc --serviceaccount=gatekeeper-system:gatekeeper-admin --clusterrole=gatekeeper-allow-anyuid-scc -n gatekeeper-system
 
-  oc patch Deployment/gatekeeper-audit --type json -p='[{"op": "remove", "path": "/spec/template/spec/containers/0/securityContext/runAsUser"}]' -n gatekeeper-system
-  oc patch Deployment/gatekeeper-controller-manager --type json -p='[{"op": "remove", "path": "/spec/template/spec/containers/0/securityContext/runAsUser"}]' -n gatekeeper-system
+  oc patch deployment/gatekeeper-audit --type json -p='[{"op": "remove", "path": "/spec/template/spec/containers/0/securityContext/runAsUser"}]' -n gatekeeper-system
+  oc patch deployment/gatekeeper-controller-manager --type json -p='[{"op": "remove", "path": "/spec/template/spec/containers/0/securityContext/runAsUser"}]' -n gatekeeper-system
 
   echo ""
   echo "Patching gatekeeper to enable emit-admission-events..."
