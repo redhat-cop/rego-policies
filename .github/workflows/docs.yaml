@@ -27,4 +27,4 @@ jobs:
           exit 1
 
       - name: Link checker
-        uses: gaurav-nelson/github-action-markdown-link-check@1.0.13
+        uses: gaurav-nelson/github-action-markdown-link-check@1.0.15
