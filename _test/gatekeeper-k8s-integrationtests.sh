@@ -208,9 +208,12 @@ teardown() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == *"denied the request: [containerresourcesmemoryunitincorrect] RHCOP-OCP_BESTPRACT-00013: Deployment/invalidresourcesrequestsmemoryunits"* ]]
-  [[ "${lines[1]}" == *"denied the request: [containerresourcesmemoryunitincorrect] RHCOP-OCP_BESTPRACT-00013: Deployment/invalidresourceslimitsmemoryunits"* ]]
-  [[ "${#lines[@]}" -eq 2 ]]
+
+  [[ "${lines[0]}" == *"spec.template.spec.containers[0].resources.requests[memory]: fractional byte value"* ]]
+  [[ "${lines[1]}" == *"spec.template.spec.containers[0].resources.limits[memory]: fractional byte value"* ]]
+  [[ "${lines[2]}" == *"denied the request: [containerresourcesmemoryunitincorrect] RHCOP-OCP_BESTPRACT-00013: Deployment/invalidresourcesrequestsmemoryunits"* ]]
+  [[ "${lines[3]}" == *"denied the request: [containerresourcesmemoryunitincorrect] RHCOP-OCP_BESTPRACT-00013: Deployment/invalidresourceslimitsmemoryunits"* ]]
+  [[ "${#lines[@]}" -eq 4 ]]
 }
 
 @test "policy/ocp/bestpractices/container-resources-requests-cpuunit-incorrect" {
