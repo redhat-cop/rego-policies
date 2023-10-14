@@ -1,21 +1,23 @@
 package lib.openshift
 
+import future.keywords.in
+
 import data.lib.konstraint.core as konstraint_core
 import data.lib.konstraint.pods as konstraint_pods
 import data.lib.kubernetes
 
-pod = konstraint_pods.pod {
+pod := konstraint_pods.pod {
     konstraint_pods.pod
 }
 
-pod = konstraint_core.resource.spec.template {
+pod := konstraint_core.resource.spec.template {
     is_deploymentconfig
 }
 
 containers[container] {
-    keys = {"containers", "initContainers"}
-    all_containers = [c | keys[k]; c = pod.spec[k][_]]
-    container = all_containers[_]
+    keys := {"containers", "initContainers"}
+    all_containers := [c | some k; keys[k]; c := pod.spec[k][_]]
+    container := all_containers[_]
 }
 
 is_deploymentconfig {
@@ -52,16 +54,16 @@ is_policy_active(policyId) {
 }
 
 label_contains(disabledpolicies, policyId) {
-    policyId == disabledpolicies[_]
+    policyId in disabledpolicies
 }
 
-namespace_disabled_policies_label = disabledpolicies {
+namespace_disabled_policies_label := disabledpolicies {
     namepace := data.inventory.cluster["v1"].Namespace[konstraint_core.resource.metadata.namespace]
     label := namepace.metadata.labels["redhat-cop.github.com/gatekeeper-disabled-policies"]
     disabledpolicies := split(label, ",")
 }
 
-namespace_disabled_policies_label = [""] {
+namespace_disabled_policies_label := [""] {
     namepace := data.inventory.cluster["v1"].Namespace[konstraint_core.resource.metadata.namespace]
     not namepace.metadata.labels["redhat-cop.github.com/gatekeeper-disabled-policies"]
 }

@@ -6,6 +6,8 @@
 # @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
 package ocp.bestpractices.container_resources_requests_cpuunit_incorrect
 
+import future.keywords.in
+
 import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
@@ -24,9 +26,11 @@ is_resource_requests_cpu_contains_dollar(container) {
   startswith(container.resources.requests.cpu, "$")
 }
 
-#TODO: is input correct?
+# TODO: is input correct?
 is_resource_requests_cpu_a_core(container)  {
   is_number(input.resources.requests.cpu)
+  # This should never fail given that is_number succeeds
+  # regal ignore:unused-return-value
   to_number(input.resources.requests.cpu)
 }
 
@@ -38,8 +42,7 @@ is_resource_requests_cpu_units_valid(container)  {
   not is_resource_requests_cpu_a_core(container)
 
   # 'cpu' can be a quoted number, which is why we concat an empty string[] to match whole cpu cores
-  cpuRequestsUnit := array.concat(regex.find_n("[A-Za-z]+", container.resources.requests.cpu, 1), [""])[0]
+  cpuRequestsUnit := array.concat(regex.find_n(`[A-Za-z]+`, container.resources.requests.cpu, 1), [""])[0]
 
-  units := ["m", ""]
-  cpuRequestsUnit == units[_]
+  cpuRequestsUnit in {"m", ""}
 }

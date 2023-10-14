@@ -1,0 +1,22 @@
+rules:
+  idiomatic:
+    no-defined-entrypoint:
+      level: ignore
+  style:
+    avoid-get-and-list-prefix:
+      level: ignore
+    external-reference:
+      level: ignore
+    line-length:
+      level: ignore
+    no-whitespace-comment:
+      level: ignore
+    opa-fmt:
+      level: ignore
+    prefer-some-in-iteration:
+      level: ignore
+    prefer-snake-case:
+      # 13 violations in the repo seems easy to fix
+      level: ignore
+    todo-comment:
+      level: ignore
