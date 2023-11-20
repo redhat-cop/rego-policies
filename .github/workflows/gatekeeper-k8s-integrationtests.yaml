@@ -7,15 +7,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
 
       - name: Validate integration test data via kubeval
-        uses: redhat-cop/github-actions/confbatstest@v4
+        uses: redhat-cop/github-actions/confbatstest@11f2ce27643eb7c76ac3623cb99d9b08be30d762 # v4
         with:
           raw: find policy/* -regex '.*test_data\/integration\/.*$' -exec kubeval --openshift --strict --skip-kinds ServiceMonitor {} \;
 
       - name: Create k8s Kind Cluster
-        uses: helm/kind-action@v1.8.0
+        uses: helm/kind-action@dda0770415bac9fc20092cacbc54aa298604d140 # v1.8.0
 
       - name: Test against KinD
         run: |

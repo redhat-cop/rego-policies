@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@v4
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
 
       - name: Setup Regal
-        uses: StyraInc/setup-regal@v0.2.0
+        uses: StyraInc/setup-regal@94ad2891f53efdb7ebe7c6836bc25ecc9504aec1 # v0.2.0
         with:
           version: v0.10.1
 

@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
 
       - name: Conftest
-        uses: redhat-cop/github-actions/confbatstest@v4
+        uses: redhat-cop/github-actions/confbatstest@11f2ce27643eb7c76ac3623cb99d9b08be30d762 # v4
         with:
           tests: _test/conftest-unittests.sh
           policies: '[]' # An empty array is provided as the policies are already cloned via source.

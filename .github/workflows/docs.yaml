@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
 
       - name: Generate konstraint docs
-        uses: redhat-cop/github-actions/confbatstest@v4
+        uses: redhat-cop/github-actions/confbatstest@11f2ce27643eb7c76ac3623cb99d9b08be30d762 # v4
         with:
           raw: konstraint doc -o POLICIES.md
 
@@ -28,4 +28,4 @@ jobs:
           exit 1
 
       - name: Link checker
-        uses: gaurav-nelson/github-action-markdown-link-check@1.0.13
+        uses: gaurav-nelson/github-action-markdown-link-check@9710f0fec812ce0a3b98bef4c9d842fc1f39d976 # 1.0.13
