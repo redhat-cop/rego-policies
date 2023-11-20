@@ -1,4 +1,4 @@
-# @title RHCOP-OCP_DEPRECATED-3.11-00005: RoleBinding no longer served by v1
+# @title RHCOP-OCP_DEPRECATED-3_11-00005: RoleBinding no longer served by v1
 #
 # OCP4.x expects rbac.authorization.k8s.io/v1
 #

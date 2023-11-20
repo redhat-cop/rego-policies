@@ -1,4 +1,4 @@
-# @title RHCOP-OCP_DEPRECATED-4.2-00007: servicecatalog k8s io v1beta1 is deprecated
+# @title RHCOP-OCP_DEPRECATED-4_2-00007: servicecatalog k8s io v1beta1 is deprecated
 #
 # 'servicecatalog.k8s.io/v1beta1' is deprecated in OCP 4.2 and removed in 4.5.
 # See: https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html#ocp-4-2-deprecated-features

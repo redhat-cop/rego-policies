@@ -31,29 +31,29 @@
 * [RHCOP-OCP_BESTPRACT-00025: Route has TLS Termination Defined](#rhcop-ocp_bestpract-00025-route-has-tls-termination-defined)
 * [RHCOP-OCP_BESTPRACT-00026: Pod anti-affinity not set](#rhcop-ocp_bestpract-00026-pod-anti-affinity-not-set)
 * [RHCOP-OCP_BESTPRACT-00027: DeploymentConfig triggers container name miss match](#rhcop-ocp_bestpract-00027-deploymentconfig-triggers-container-name-miss-match)
-* [RHCOP-OCP_DEPRECATED-3.11-00001: BuildConfig no longer served by v1](#rhcop-ocp_deprecated-3.11-00001-buildconfig-no-longer-served-by-v1)
-* [RHCOP-OCP_DEPRECATED-3.11-00002: DeploymentConfig no longer served by v1](#rhcop-ocp_deprecated-3.11-00002-deploymentconfig-no-longer-served-by-v1)
-* [RHCOP-OCP_DEPRECATED-3.11-00003: ImageStream no longer served by v1](#rhcop-ocp_deprecated-3.11-00003-imagestream-no-longer-served-by-v1)
-* [RHCOP-OCP_DEPRECATED-3.11-00004: ProjectRequest no longer served by v1](#rhcop-ocp_deprecated-3.11-00004-projectrequest-no-longer-served-by-v1)
-* [RHCOP-OCP_DEPRECATED-3.11-00005: RoleBinding no longer served by v1](#rhcop-ocp_deprecated-3.11-00005-rolebinding-no-longer-served-by-v1)
-* [RHCOP-OCP_DEPRECATED-3.11-00006: Route no longer served by v1](#rhcop-ocp_deprecated-3.11-00006-route-no-longer-served-by-v1)
-* [RHCOP-OCP_DEPRECATED-3.11-00007: SecurityContextConstraints no longer served by v1](#rhcop-ocp_deprecated-3.11-00007-securitycontextconstraints-no-longer-served-by-v1)
-* [RHCOP-OCP_DEPRECATED-3.11-00008: Template no longer served by v1](#rhcop-ocp_deprecated-3.11-00008-template-no-longer-served-by-v1)
-* [RHCOP-OCP_DEPRECATED-4.1-00001: BuildConfig exposeDockerSocket deprecated](#rhcop-ocp_deprecated-4.1-00001-buildconfig-exposedockersocket-deprecated)
-* [RHCOP-OCP_DEPRECATED-4.2-00001: authorization openshift io is deprecated](#rhcop-ocp_deprecated-4.2-00001-authorization-openshift-io-is-deprecated)
-* [RHCOP-OCP_DEPRECATED-4.2-00002: automationbroker io v1alpha1 is deprecated](#rhcop-ocp_deprecated-4.2-00002-automationbroker-io-v1alpha1-is-deprecated)
-* [RHCOP-OCP_DEPRECATED-4.2-00003: operators coreos com v1 CatalogSourceConfigs is deprecated](#rhcop-ocp_deprecated-4.2-00003-operators-coreos-com-v1-catalogsourceconfigs-is-deprecated)
-* [RHCOP-OCP_DEPRECATED-4.2-00004: operators coreos com v2 CatalogSourceConfigs is deprecated](#rhcop-ocp_deprecated-4.2-00004-operators-coreos-com-v2-catalogsourceconfigs-is-deprecated)
-* [RHCOP-OCP_DEPRECATED-4.2-00005: operators coreos com v1 OperatorSource is deprecated](#rhcop-ocp_deprecated-4.2-00005-operators-coreos-com-v1-operatorsource-is-deprecated)
-* [RHCOP-OCP_DEPRECATED-4.2-00006: osb openshift io v1 is deprecated](#rhcop-ocp_deprecated-4.2-00006-osb-openshift-io-v1-is-deprecated)
-* [RHCOP-OCP_DEPRECATED-4.2-00007: servicecatalog k8s io v1beta1 is deprecated](#rhcop-ocp_deprecated-4.2-00007-servicecatalog-k8s-io-v1beta1-is-deprecated)
-* [RHCOP-OCP_DEPRECATED-4.3-00001: BuildConfig jenkinsPipelineStrategy is deprecated](#rhcop-ocp_deprecated-4.3-00001-buildconfig-jenkinspipelinestrategy-is-deprecated)
+* [RHCOP-OCP_DEPRECATED-3_11-00001: BuildConfig no longer served by v1](#rhcop-ocp_deprecated-3_11-00001-buildconfig-no-longer-served-by-v1)
+* [RHCOP-OCP_DEPRECATED-3_11-00002: DeploymentConfig no longer served by v1](#rhcop-ocp_deprecated-3_11-00002-deploymentconfig-no-longer-served-by-v1)
+* [RHCOP-OCP_DEPRECATED-3_11-00003: ImageStream no longer served by v1](#rhcop-ocp_deprecated-3_11-00003-imagestream-no-longer-served-by-v1)
+* [RHCOP-OCP_DEPRECATED-3_11-00004: ProjectRequest no longer served by v1](#rhcop-ocp_deprecated-3_11-00004-projectrequest-no-longer-served-by-v1)
+* [RHCOP-OCP_DEPRECATED-3_11-00005: RoleBinding no longer served by v1](#rhcop-ocp_deprecated-3_11-00005-rolebinding-no-longer-served-by-v1)
+* [RHCOP-OCP_DEPRECATED-3_11-00006: Route no longer served by v1](#rhcop-ocp_deprecated-3_11-00006-route-no-longer-served-by-v1)
+* [RHCOP-OCP_DEPRECATED-3_11-00007: SecurityContextConstraints no longer served by v1](#rhcop-ocp_deprecated-3_11-00007-securitycontextconstraints-no-longer-served-by-v1)
+* [RHCOP-OCP_DEPRECATED-3_11-00008: Template no longer served by v1](#rhcop-ocp_deprecated-3_11-00008-template-no-longer-served-by-v1)
+* [RHCOP-OCP_DEPRECATED-4_1-00001: BuildConfig exposeDockerSocket deprecated](#rhcop-ocp_deprecated-4_1-00001-buildconfig-exposedockersocket-deprecated)
+* [RHCOP-OCP_DEPRECATED-4_2-00001: authorization openshift io is deprecated](#rhcop-ocp_deprecated-4_2-00001-authorization-openshift-io-is-deprecated)
+* [RHCOP-OCP_DEPRECATED-4_2-00002: automationbroker io v1alpha1 is deprecated](#rhcop-ocp_deprecated-4_2-00002-automationbroker-io-v1alpha1-is-deprecated)
+* [RHCOP-OCP_DEPRECATED-4_2-00003: operators coreos com v1 CatalogSourceConfigs is deprecated](#rhcop-ocp_deprecated-4_2-00003-operators-coreos-com-v1-catalogsourceconfigs-is-deprecated)
+* [RHCOP-OCP_DEPRECATED-4_2-00004: operators coreos com v2 CatalogSourceConfigs is deprecated](#rhcop-ocp_deprecated-4_2-00004-operators-coreos-com-v2-catalogsourceconfigs-is-deprecated)
+* [RHCOP-OCP_DEPRECATED-4_2-00005: operators coreos com v1 OperatorSource is deprecated](#rhcop-ocp_deprecated-4_2-00005-operators-coreos-com-v1-operatorsource-is-deprecated)
+* [RHCOP-OCP_DEPRECATED-4_2-00006: osb openshift io v1 is deprecated](#rhcop-ocp_deprecated-4_2-00006-osb-openshift-io-v1-is-deprecated)
+* [RHCOP-OCP_DEPRECATED-4_2-00007: servicecatalog k8s io v1beta1 is deprecated](#rhcop-ocp_deprecated-4_2-00007-servicecatalog-k8s-io-v1beta1-is-deprecated)
+* [RHCOP-OCP_DEPRECATED-4_3-00001: BuildConfig jenkinsPipelineStrategy is deprecated](#rhcop-ocp_deprecated-4_3-00001-buildconfig-jenkinspipelinestrategy-is-deprecated)
 * [RHCOP-OCP_REQ_INV-00001: Deployment has a matching PodDisruptionBudget](#rhcop-ocp_req_inv-00001-deployment-has-a-matching-poddisruptionbudget)
 * [RHCOP-OCP_REQ_INV-00002: Deployment has matching PersistentVolumeClaim](#rhcop-ocp_req_inv-00002-deployment-has-matching-persistentvolumeclaim)
 * [RHCOP-OCP_REQ_INV-00003: Deployment has a matching Service](#rhcop-ocp_req_inv-00003-deployment-has-a-matching-service)
 * [RHCOP-OCP_REQ_INV-00004: Deployment has matching ServiceAccount](#rhcop-ocp_req_inv-00004-deployment-has-matching-serviceaccount)
 * [RHCOP-OCP_REQ_INV-00005: Service has matching ServiceMonitor](#rhcop-ocp_req_inv-00005-service-has-matching-servicemonitor)
-* [RHCOP-PODMAN-00001: Image contains expected SHA in history.](#rhcop-podman-00001-image-contains-expected-sha-in-history.)
+* [RHCOP-PODMAN-00001: Image contains expected SHA in history](#rhcop-podman-00001-image-contains-expected-sha-in-history)
 * [RHCOP-PODMAN-00002: Image size is not greater than an expected value](#rhcop-podman-00002-image-size-is-not-greater-than-an-expected-value)
 
 ## RHCOP-COMBINE-00001: Namespace has a NetworkPolicy
@@ -1054,7 +1054,7 @@ containers_contains_trigger(containers, triggerContainerName) {
 
 _source: [policy/ocp/bestpractices/deploymentconfig-triggers-containername](policy/ocp/bestpractices/deploymentconfig-triggers-containername)_
 
-## RHCOP-OCP_DEPRECATED-3.11-00001: BuildConfig no longer served by v1
+## RHCOP-OCP_DEPRECATED-3_11-00001: BuildConfig no longer served by v1
 
 **Severity:** Violation
 
@@ -1079,7 +1079,7 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/3_11/buildconfig-v1](policy/ocp/deprecated/3_11/buildconfig-v1)_
 
-## RHCOP-OCP_DEPRECATED-3.11-00002: DeploymentConfig no longer served by v1
+## RHCOP-OCP_DEPRECATED-3_11-00002: DeploymentConfig no longer served by v1
 
 **Severity:** Violation
 
@@ -1104,7 +1104,7 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/3_11/deploymentconfig-v1](policy/ocp/deprecated/3_11/deploymentconfig-v1)_
 
-## RHCOP-OCP_DEPRECATED-3.11-00003: ImageStream no longer served by v1
+## RHCOP-OCP_DEPRECATED-3_11-00003: ImageStream no longer served by v1
 
 **Severity:** Violation
 
@@ -1129,7 +1129,7 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/3_11/imagestream-v1](policy/ocp/deprecated/3_11/imagestream-v1)_
 
-## RHCOP-OCP_DEPRECATED-3.11-00004: ProjectRequest no longer served by v1
+## RHCOP-OCP_DEPRECATED-3_11-00004: ProjectRequest no longer served by v1
 
 **Severity:** Violation
 
@@ -1154,7 +1154,7 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/3_11/projectrequest-v1](policy/ocp/deprecated/3_11/projectrequest-v1)_
 
-## RHCOP-OCP_DEPRECATED-3.11-00005: RoleBinding no longer served by v1
+## RHCOP-OCP_DEPRECATED-3_11-00005: RoleBinding no longer served by v1
 
 **Severity:** Violation
 
@@ -1179,7 +1179,7 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/3_11/rolebinding-v1](policy/ocp/deprecated/3_11/rolebinding-v1)_
 
-## RHCOP-OCP_DEPRECATED-3.11-00006: Route no longer served by v1
+## RHCOP-OCP_DEPRECATED-3_11-00006: Route no longer served by v1
 
 **Severity:** Violation
 
@@ -1204,7 +1204,7 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/3_11/route-v1](policy/ocp/deprecated/3_11/route-v1)_
 
-## RHCOP-OCP_DEPRECATED-3.11-00007: SecurityContextConstraints no longer served by v1
+## RHCOP-OCP_DEPRECATED-3_11-00007: SecurityContextConstraints no longer served by v1
 
 **Severity:** Violation
 
@@ -1229,7 +1229,7 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/3_11/securitycontextconstraints-v1](policy/ocp/deprecated/3_11/securitycontextconstraints-v1)_
 
-## RHCOP-OCP_DEPRECATED-3.11-00008: Template no longer served by v1
+## RHCOP-OCP_DEPRECATED-3_11-00008: Template no longer served by v1
 
 **Severity:** Violation
 
@@ -1254,7 +1254,7 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/3_11/template-v1](policy/ocp/deprecated/3_11/template-v1)_
 
-## RHCOP-OCP_DEPRECATED-4.1-00001: BuildConfig exposeDockerSocket deprecated
+## RHCOP-OCP_DEPRECATED-4_1-00001: BuildConfig exposeDockerSocket deprecated
 
 **Severity:** Violation
 
@@ -1282,7 +1282,7 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/4_1/buildconfig-custom-strategy](policy/ocp/deprecated/4_1/buildconfig-custom-strategy)_
 
-## RHCOP-OCP_DEPRECATED-4.2-00001: authorization openshift io is deprecated
+## RHCOP-OCP_DEPRECATED-4_2-00001: authorization openshift io is deprecated
 
 **Severity:** Violation
 
@@ -1307,7 +1307,7 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/4_2/authorization-openshift](policy/ocp/deprecated/4_2/authorization-openshift)_
 
-## RHCOP-OCP_DEPRECATED-4.2-00002: automationbroker io v1alpha1 is deprecated
+## RHCOP-OCP_DEPRECATED-4_2-00002: automationbroker io v1alpha1 is deprecated
 
 **Severity:** Violation
 
@@ -1333,7 +1333,7 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/4_2/automationbroker-v1alpha1](policy/ocp/deprecated/4_2/automationbroker-v1alpha1)_
 
-## RHCOP-OCP_DEPRECATED-4.2-00003: operators coreos com v1 CatalogSourceConfigs is deprecated
+## RHCOP-OCP_DEPRECATED-4_2-00003: operators coreos com v1 CatalogSourceConfigs is deprecated
 
 **Severity:** Violation
 
@@ -1360,7 +1360,7 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/4_2/catalogsourceconfigs-v1](policy/ocp/deprecated/4_2/catalogsourceconfigs-v1)_
 
-## RHCOP-OCP_DEPRECATED-4.2-00004: operators coreos com v2 CatalogSourceConfigs is deprecated
+## RHCOP-OCP_DEPRECATED-4_2-00004: operators coreos com v2 CatalogSourceConfigs is deprecated
 
 **Severity:** Violation
 
@@ -1387,7 +1387,7 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/4_2/catalogsourceconfigs-v2](policy/ocp/deprecated/4_2/catalogsourceconfigs-v2)_
 
-## RHCOP-OCP_DEPRECATED-4.2-00005: operators coreos com v1 OperatorSource is deprecated
+## RHCOP-OCP_DEPRECATED-4_2-00005: operators coreos com v1 OperatorSource is deprecated
 
 **Severity:** Violation
 
@@ -1413,7 +1413,7 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/4_2/operatorsources-v1](policy/ocp/deprecated/4_2/operatorsources-v1)_
 
-## RHCOP-OCP_DEPRECATED-4.2-00006: osb openshift io v1 is deprecated
+## RHCOP-OCP_DEPRECATED-4_2-00006: osb openshift io v1 is deprecated
 
 **Severity:** Violation
 
@@ -1439,7 +1439,7 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/4_2/osb-v1](policy/ocp/deprecated/4_2/osb-v1)_
 
-## RHCOP-OCP_DEPRECATED-4.2-00007: servicecatalog k8s io v1beta1 is deprecated
+## RHCOP-OCP_DEPRECATED-4_2-00007: servicecatalog k8s io v1beta1 is deprecated
 
 **Severity:** Violation
 
@@ -1465,7 +1465,7 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/4_2/servicecatalog-v1beta1](policy/ocp/deprecated/4_2/servicecatalog-v1beta1)_
 
-## RHCOP-OCP_DEPRECATED-4.3-00001: BuildConfig jenkinsPipelineStrategy is deprecated
+## RHCOP-OCP_DEPRECATED-4_3-00001: BuildConfig jenkinsPipelineStrategy is deprecated
 
 **Severity:** Violation
 
@@ -1691,7 +1691,7 @@ service_has_matching_servicemonitor(service, manifests) {
 
 _source: [policy/ocp/requiresinventory/service-has-matching-servicemonitor](policy/ocp/requiresinventory/service-has-matching-servicemonitor)_
 
-## RHCOP-PODMAN-00001: Image contains expected SHA in history.
+## RHCOP-PODMAN-00001: Image contains expected SHA in history
 
 **Severity:** Violation
 

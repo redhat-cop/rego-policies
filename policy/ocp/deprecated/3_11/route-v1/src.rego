@@ -1,4 +1,4 @@
-# @title RHCOP-OCP_DEPRECATED-3.11-00006: Route no longer served by v1
+# @title RHCOP-OCP_DEPRECATED-3_11-00006: Route no longer served by v1
 #
 # OCP4.x expects route.openshift.io/v1.
 #

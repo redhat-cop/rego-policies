@@ -1,4 +1,4 @@
-# @title RHCOP-OCP_DEPRECATED-3.11-00008: Template no longer served by v1
+# @title RHCOP-OCP_DEPRECATED-3_11-00008: Template no longer served by v1
 #
 # OCP4.x expects template.openshift.io/v1.
 #

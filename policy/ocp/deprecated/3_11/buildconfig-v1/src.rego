@@ -1,4 +1,4 @@
-# @title RHCOP-OCP_DEPRECATED-3.11-00001: BuildConfig no longer served by v1
+# @title RHCOP-OCP_DEPRECATED-3_11-00001: BuildConfig no longer served by v1
 #
 # OCP4.x expects build.openshift.io/v1.
 #
