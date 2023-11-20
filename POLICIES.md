@@ -143,7 +143,7 @@ _source: [policy/combine/namespace-has-resourcequota](policy/combine/namespace-h
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob core/Service route.openshift.io/Route
+**Resources:** core/Pod core/ReplicationController core/Service apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob route.openshift.io/Route
 
 Check if all workload related kinds contain labels as suggested by k8s.
 See: https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels
@@ -181,7 +181,7 @@ _source: [policy/ocp/bestpractices/common-k8s-labels-notset](policy/ocp/bestprac
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
 
 Red Hat OpenJDK image uses CONTAINER_MAX_MEMORY env via the downward API to set Java memory settings.
 Instead of manually setting -Xmx, let the image automatically set it for you.
@@ -218,7 +218,7 @@ _source: [policy/ocp/bestpractices/container-env-maxmemory-notset](policy/ocp/be
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
 
 Images should use immutable tags. Today's latest is not tomorrows latest.
 
@@ -246,7 +246,7 @@ _source: [policy/ocp/bestpractices/container-image-latest](policy/ocp/bestpracti
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
 
 Only images from trusted and known registries should be used
 
@@ -254,6 +254,8 @@ Only images from trusted and known registries should be used
 
 ```rego
 package ocp.bestpractices.container_image_unknownregistries
+
+import future.keywords.in
 
 import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
@@ -268,7 +270,7 @@ violation[msg] {
   msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' is from (%s), which is an unknown registry.", [konstraint_core.kind, konstraint_core.name, container.name, container.image]), "RHCOP-OCP_BESTPRACT-00004")
 }
 
-get_registry(image) = registry {
+get_registry(image) := registry {
   contains(image, "/")
   possible_registry := lower(split(image, "/")[0])
   contains(possible_registry, ".")
@@ -278,7 +280,7 @@ get_registry(image) = registry {
 
 known_registry(image, registry) {
   known_registries := ["image-registry.openshift-image-registry.svc", "registry.redhat.io", "registry.connect.redhat.com", "quay.io"]
-  registry == known_registries[_]
+  registry in known_registries
 }
 ```
 
@@ -288,7 +290,7 @@ _source: [policy/ocp/bestpractices/container-image-unknownregistries](policy/ocp
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
 
 Red Hat OpenJDK image uses CONTAINER_MAX_MEMORY env via the downward API to set Java memory settings.
 Instead of manually setting -Xmx, let the image automatically set it for you.
@@ -333,7 +335,7 @@ _source: [policy/ocp/bestpractices/container-java-xmx-set](policy/ocp/bestpracti
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
 
 Label keys should be qualified by 'app.kubernetes.io' or 'company.com' to allow a consistent understanding.
 
@@ -372,7 +374,7 @@ _source: [policy/ocp/bestpractices/container-labelkey-inconsistent](policy/ocp/b
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
 
 When Liveness and Readiness probes are pointing to the same endpoint, the effects of the probes are combined.
 When the app signals that it's not ready or live, the kubelet detaches the container from the Service and delete it at the same time.
@@ -405,7 +407,7 @@ _source: [policy/ocp/bestpractices/container-liveness-readinessprobe-equal](poli
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
 
 A Liveness checks determines if the container in which it is scheduled is still running.
 If the liveness probe fails due to a condition such as a deadlock, the kubelet kills the container.
@@ -435,7 +437,7 @@ _source: [policy/ocp/bestpractices/container-livenessprobe-notset](policy/ocp/be
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
 
 A Readiness check determines if the container in which it is scheduled is ready to service requests.
 If the readiness probe fails a container, the endpoints controller ensures the container has its IP address removed from the endpoints of all services.
@@ -465,7 +467,7 @@ _source: [policy/ocp/bestpractices/container-readinessprobe-notset](policy/ocp/b
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
 
 If you're not sure about what's the best settings for your app, it's better not to set the CPU limits.
 See: Resources utilisation -> https://learnk8s.io/production-best-practices#application-development
@@ -495,7 +497,7 @@ _source: [policy/ocp/bestpractices/container-resources-limits-cpu-set](policy/oc
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
 
 Setting a too high memory limit can cause under utilisation on a node.
 It is better to run multiple pods which use smaller limits.
@@ -531,7 +533,7 @@ _source: [policy/ocp/bestpractices/container-resources-limits-memory-greater-tha
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
 
 A container without a memory limit has memory utilisation of zero — according to the scheduler.
 An unlimited number of Pods if schedulable on any nodes leading to resource overcommitment and potential node (and kubelet) crashes.
@@ -563,7 +565,7 @@ _source: [policy/ocp/bestpractices/container-resources-limits-memory-notset](pol
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
 
 Begininers can easily confuse the allowed memory unit, this policy enforces what is valid.
 k8s also allows for millibyte as a unit for memory, which causes unintended consequences for the scheduler.
@@ -574,6 +576,8 @@ See: https://kubernetes.io/docs/concepts/configuration/manage-resources-containe
 
 ```rego
 package ocp.bestpractices.container_resources_memoryunit_incorrect
+
+import future.keywords.in
 
 import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
@@ -590,12 +594,12 @@ violation[msg] {
 }
 
 is_resource_memory_units_valid(container) {
-  memoryLimitsUnit := regex.find_n("[A-Za-z]+", container.resources.limits.memory, 1)[0]
-  memoryRequestsUnit := regex.find_n("[A-Za-z]+", container.resources.requests.memory, 1)[0]
+  memoryLimitsUnit := regex.find_n(`[A-Za-z]+`, container.resources.limits.memory, 1)[0]
+  memoryRequestsUnit := regex.find_n(`[A-Za-z]+`, container.resources.requests.memory, 1)[0]
 
   units := ["Ei", "Pi", "Ti", "Gi", "Mi", "Ki", "E", "P", "T", "G", "M", "K"]
-  memoryLimitsUnit == units[_]
-  memoryRequestsUnit == units[_]
+  memoryLimitsUnit in units
+  memoryRequestsUnit in units
 }
 ```
 
@@ -605,7 +609,7 @@ _source: [policy/ocp/bestpractices/container-resources-memoryunit-incorrect](pol
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
 
 Beginners can easily confuse the allowed cpu unit, this policy enforces what is valid.
 See: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes
@@ -614,6 +618,8 @@ See: https://kubernetes.io/docs/concepts/configuration/manage-resources-containe
 
 ```rego
 package ocp.bestpractices.container_resources_requests_cpuunit_incorrect
+
+import future.keywords.in
 
 import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
@@ -635,6 +641,8 @@ is_resource_requests_cpu_contains_dollar(container) {
 
 is_resource_requests_cpu_a_core(container)  {
   is_number(input.resources.requests.cpu)
+  # This should never fail given that is_number succeeds
+  # regal ignore:unused-return-value
   to_number(input.resources.requests.cpu)
 }
 
@@ -646,10 +654,9 @@ is_resource_requests_cpu_units_valid(container)  {
   not is_resource_requests_cpu_a_core(container)
 
   # 'cpu' can be a quoted number, which is why we concat an empty string[] to match whole cpu cores
-  cpuRequestsUnit := array.concat(regex.find_n("[A-Za-z]+", container.resources.requests.cpu, 1), [""])[0]
+  cpuRequestsUnit := array.concat(regex.find_n(`[A-Za-z]+`, container.resources.requests.cpu, 1), [""])[0]
 
-  units := ["m", ""]
-  cpuRequestsUnit == units[_]
+  cpuRequestsUnit in {"m", ""}
 }
 ```
 
@@ -659,7 +666,7 @@ _source: [policy/ocp/bestpractices/container-resources-requests-cpuunit-incorrec
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
 
 Setting a too high memory request can cause under utilisation on a node.
 It is better to run multiple pods which use smaller requests.
@@ -695,7 +702,7 @@ _source: [policy/ocp/bestpractices/container-resources-requests-memory-greater-t
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
 
 The content of Secret resources should be mounted into containers as volumes rather than passed in as environment variables.
 This is to prevent that the secret values appear in the command that was used to start the container, which may be inspected
@@ -727,7 +734,7 @@ _source: [policy/ocp/bestpractices/container-secret-mounted-envs](policy/ocp/bes
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
 
 Mount paths should be mounted at '/var/run/company.com' to allow a consistent understanding.
 
@@ -756,7 +763,7 @@ _source: [policy/ocp/bestpractices/container-volumemount-inconsistent-path](poli
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
 
 A volume does not have a corresponding volume mount. There is probably a mistake in your definition.
 
@@ -815,7 +822,7 @@ _source: [policy/ocp/bestpractices/deploymentconfig-triggers-notset](policy/ocp/
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
 
 Pods which require 'spec.hostNetwork' should be limited due to security concerns.
 
@@ -841,7 +848,7 @@ _source: [policy/ocp/bestpractices/pod-hostnetwork](policy/ocp/bestpractices/pod
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/Deployment
+**Resources:** apps/Deployment apps.openshift.io/DeploymentConfig
 
 Never run a single Pod individually.
 See: Fault tolerance -> https://learnk8s.io/production-best-practices#application-development
@@ -871,7 +878,7 @@ _source: [policy/ocp/bestpractices/pod-replicas-below-one](policy/ocp/bestpracti
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/Deployment
+**Resources:** apps/Deployment apps.openshift.io/DeploymentConfig
 
 Pods should be run with a replica which is odd, i.e.: 3, 5, 7, etc, for HA guarantees.
 See: Fault tolerance -> https://learnk8s.io/production-best-practices#application-development
@@ -983,7 +990,7 @@ _source: [policy/ocp/bestpractices/route-tls-termination-notset](policy/ocp/best
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig apps/Deployment apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod
+**Resources:** core/Pod core/ReplicationController apps/Deployment apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig
 
 Even if you run several copies of your Pods, there are no guarantees that losing a node won't take down your service.
 Anti-Affinity
@@ -1410,7 +1417,7 @@ _source: [policy/ocp/deprecated/4_2/operatorsources-v1](policy/ocp/deprecated/4_
 
 **Severity:** Violation
 
-**Resources:** osb.openshift.io/TemplateServiceBroker osb.openshift.io/AutomationBroker
+**Resources:** osb.openshift.io/AutomationBroker osb.openshift.io/TemplateServiceBroker
 
 'osb.openshift.io/v1' is deprecated in OCP 4.2 and removed in 4.5.
 See: https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html#ocp-4-2-deprecated-features
@@ -1436,7 +1443,7 @@ _source: [policy/ocp/deprecated/4_2/osb-v1](policy/ocp/deprecated/4_2/osb-v1)_
 
 **Severity:** Violation
 
-**Resources:** servicecatalog.k8s.io/ClusterServiceBroker servicecatalog.k8s.io/ClusterServiceClass servicecatalog.k8s.io/ClusterServicePlan servicecatalog.k8s.io/ServiceInstance servicecatalog.k8s.io/ServiceBinding
+**Resources:** servicecatalog.k8s.io/ClusterServiceBroker servicecatalog.k8s.io/ClusterServiceClass servicecatalog.k8s.io/ClusterServicePlan servicecatalog.k8s.io/ServiceBinding servicecatalog.k8s.io/ServiceInstance
 
 'servicecatalog.k8s.io/v1beta1' is deprecated in OCP 4.2 and removed in 4.5.
 See: https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html#ocp-4-2-deprecated-features
@@ -1749,3 +1756,4 @@ violation[msg] {
 ```
 
 _source: [policy/podman/images/image-size-not-greater-than](policy/podman/images/image-size-not-greater-than)_
+
