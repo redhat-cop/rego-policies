@@ -1,4 +1,4 @@
-# @title RHCOP-PODMAN-00001: Image contains expected SHA in history.
+# @title RHCOP-PODMAN-00001: Image contains expected SHA in history
 #
 # Most images are built from a subset of authorised base images in a company,
 # this policy allows enforcement of that policy by checking for an expected SHA.

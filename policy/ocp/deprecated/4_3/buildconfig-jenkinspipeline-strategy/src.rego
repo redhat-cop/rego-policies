@@ -1,4 +1,4 @@
-# @title RHCOP-OCP_DEPRECATED-4.3-00001: BuildConfig jenkinsPipelineStrategy is deprecated
+# @title RHCOP-OCP_DEPRECATED-4_3-00001: BuildConfig jenkinsPipelineStrategy is deprecated
 #
 # 'spec.strategy.jenkinsPipelineStrategy' is no longer supported by BuildConfig.
 # See: https://docs.openshift.com/container-platform/4.3/release_notes/ocp-4-3-release-notes.html#ocp-4-3-deprecated-features
