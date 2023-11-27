@@ -1,6 +1,13 @@
 rules:
+  bugs:
+    inconsistent-args:
+      level: ignore
   idiomatic:
     no-defined-entrypoint:
+      level: ignore
+    use-contains:
+      level: ignore
+    use-if:
       level: ignore
   style:
     avoid-get-and-list-prefix:
@@ -19,4 +26,6 @@ rules:
       # 13 violations in the repo seems easy to fix
       level: ignore
     todo-comment:
+      level: ignore
+    unconditional-assignment:
       level: ignore
