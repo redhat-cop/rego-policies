@@ -4,5 +4,19 @@
     "config:best-practices",
     "regexManagers:githubActionsVersions",
     "schedule:earlyMondays"
+  ],
+  "packageRules": [
+    {
+      "matchDepTypes": [
+        "action"
+      ],
+      "matchPackageNames": [
+        "slsa-framework/slsa-github-generator"
+      ],
+      "matchUpdateTypes": [
+        "pinDigest"
+      ],
+      "enabled": false
+    }
   ]
 }
