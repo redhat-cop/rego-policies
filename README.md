@@ -1,4 +1,8 @@
-![Run conftest-unittests.sh](https://github.com/redhat-cop/rego-policies/workflows/Run%20conftest-unittests.sh/badge.svg)
+[![Run conftest-unittests.sh](https://github.com/redhat-cop/rego-policies/actions/workflows/conftest-unittests.yaml/badge.svg)](https://github.com/redhat-cop/rego-policies/actions/workflows/conftest-unittests.yaml)
+[![Check POLICIES.md is up-to-date](https://github.com/redhat-cop/rego-policies/actions/workflows/docs.yaml/badge.svg)](https://github.com/redhat-cop/rego-policies/actions/workflows/docs.yaml)
+[![Lint policies with Regal](https://github.com/redhat-cop/rego-policies/actions/workflows/regal-lint.yaml/badge.svg)](https://github.com/redhat-cop/rego-policies/actions/workflows/regal-lint.yaml)
+[![Run gatekeeper-k8s-integrationtests.sh](https://github.com/redhat-cop/rego-policies/actions/workflows/gatekeeper-k8s-integrationtests.yaml/badge.svg)](https://github.com/redhat-cop/rego-policies/actions/workflows/gatekeeper-k8s-integrationtests.yaml)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/redhat-cop/rego-policies/badge)](https://securityscorecards.dev/viewer/?uri=github.com/redhat-cop/rego-policies)
 
 # rego-policies
 [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/) policies collection.

@@ -2,6 +2,9 @@ name: Lint policies with Regal
 
 on: [push, pull_request]
 
+# Declare default permissions as read only.
+permissions: read-all
+
 jobs:
   lint-policy:
     runs-on: ubuntu-latest
