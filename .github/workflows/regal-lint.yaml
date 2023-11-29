@@ -2,9 +2,15 @@ name: Lint policies with Regal
 
 on: [push, pull_request]
 
+# Declare default permissions as read only.
+permissions: read-all
+
 jobs:
   lint-policy:
     runs-on: ubuntu-latest
+    env:
+      # renovate: datasource=github-releases depName=StyraInc/regal
+      REGAL_VERSION: v0.13.0
     steps:
       - name: Check out code
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
@@ -12,7 +18,7 @@ jobs:
       - name: Setup Regal
         uses: StyraInc/setup-regal@94ad2891f53efdb7ebe7c6836bc25ecc9504aec1 # v0.2.0
         with:
-          version: v0.10.1
+          version: ${{ env.REGAL_VERSION }}
 
       - name: Run Regal lint
         run: regal lint --format github policy
