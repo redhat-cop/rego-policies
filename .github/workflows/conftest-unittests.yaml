@@ -27,7 +27,7 @@ jobs:
           echo "hashes=$(sha256sum policy.tar | base64 -w0)" >> "$GITHUB_OUTPUT"
 
       - name: Upload policy.tar
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # v3
         with:
           name: policy.tar
           path: policy.tar
@@ -57,12 +57,12 @@ jobs:
       contents: write
     steps:
       - name: Download policy.tar
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3
         with:
           name: policy.tar
 
       - name: Upload assets to release
-        uses: softprops/action-gh-release@v0.1.15
+        uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844 # v0.1.15
         with:
           files: |
             policy.tar
