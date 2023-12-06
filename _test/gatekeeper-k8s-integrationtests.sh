@@ -4,6 +4,7 @@ load bats-support-clone
 load bats-support-setup
 load test_helper/bats-support/load
 load test_helper/redhatcop-bats-library/load
+
 setup_file() {
   kubectl api-versions --request-timeout=5s || return $?
   kubectl cluster-info || return $?
