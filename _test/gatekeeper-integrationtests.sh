@@ -49,9 +49,9 @@ teardown() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == *"denied the request: [commonk8slabelsnotset] RHCOP-OCP_BESTPRACT-00001: Deployment/nolabels"* ]]
-  [[ "${lines[1]}" == *"denied the request: [commonk8slabelsnotset] RHCOP-OCP_BESTPRACT-00001: DeploymentConfig/nolabels"* ]]
-  [[ "${#lines[@]}" -eq 2 ]]
+  [[ "${lines[1]}" == *"denied the request: [commonk8slabelsnotset] RHCOP-OCP_BESTPRACT-00001: Deployment/nolabels"* ]]
+  [[ "${lines[2]}" == *"denied the request: [commonk8slabelsnotset] RHCOP-OCP_BESTPRACT-00001: DeploymentConfig/nolabels"* ]]
+  [[ "${#lines[@]}" -eq 3 ]]
 }
 
 @test "policy/ocp/bestpractices/container-env-maxmemory-notset" {
@@ -62,9 +62,9 @@ teardown() {
   
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == *"denied the request: [containerenvmaxmemorynotset] RHCOP-OCP_BESTPRACT-00002: Deployment/nodownwardmemoryenv"* ]]
-  [[ "${lines[1]}" == *"denied the request: [containerenvmaxmemorynotset] RHCOP-OCP_BESTPRACT-00002: DeploymentConfig/nodownwardmemoryenv"* ]]
-  [[ "${#lines[@]}" -eq 2 ]]
+  [[ "${lines[1]}" == *"denied the request: [containerenvmaxmemorynotset] RHCOP-OCP_BESTPRACT-00002: Deployment/nodownwardmemoryenv"* ]]
+  [[ "${lines[2]}" == *"denied the request: [containerenvmaxmemorynotset] RHCOP-OCP_BESTPRACT-00002: DeploymentConfig/nodownwardmemoryenv"* ]]
+  [[ "${#lines[@]}" -eq 3 ]]
 }
 
 @test "policy/ocp/bestpractices/container-image-latest" {
@@ -75,9 +75,9 @@ teardown() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == *"denied the request: [containerimagelatest] RHCOP-OCP_BESTPRACT-00003: Deployment/imageuseslatesttag"* ]]
-  [[ "${lines[1]}" == *"denied the request: [containerimagelatest] RHCOP-OCP_BESTPRACT-00003: DeploymentConfig/imageuseslatesttag"* ]]
-  [[ "${#lines[@]}" -eq 2 ]]
+  [[ "${lines[1]}" == *"denied the request: [containerimagelatest] RHCOP-OCP_BESTPRACT-00003: Deployment/imageuseslatesttag"* ]]
+  [[ "${lines[2]}" == *"denied the request: [containerimagelatest] RHCOP-OCP_BESTPRACT-00003: DeploymentConfig/imageuseslatesttag"* ]]
+  [[ "${#lines[@]}" -eq 3 ]]
 }
 
 @test "policy/ocp/bestpractices/container-image-unknownregistries" {
@@ -88,9 +88,9 @@ teardown() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == *"denied the request: [containerimageunknownregistries] RHCOP-OCP_BESTPRACT-00004: Deployment/imagefromunknownregistry"* ]]
-  [[ "${lines[1]}" == *"denied the request: [containerimageunknownregistries] RHCOP-OCP_BESTPRACT-00004: DeploymentConfig/imagefromunknownregistry"* ]]
-  [[ "${#lines[@]}" -eq 2 ]]
+  [[ "${lines[1]}" == *"denied the request: [containerimageunknownregistries] RHCOP-OCP_BESTPRACT-00004: Deployment/imagefromunknownregistry"* ]]
+  [[ "${lines[2]}" == *"denied the request: [containerimageunknownregistries] RHCOP-OCP_BESTPRACT-00004: DeploymentConfig/imagefromunknownregistry"* ]]
+  [[ "${#lines[@]}" -eq 3 ]]
 }
 
 @test "policy/ocp/bestpractices/container-java-xmx-set" {
@@ -101,13 +101,13 @@ teardown() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == *"denied the request: [containerjavaxmxset] RHCOP-OCP_BESTPRACT-00005: Deployment/xmxviacommand"* ]]
-  [[ "${lines[1]}" == *"denied the request: [containerjavaxmxset] RHCOP-OCP_BESTPRACT-00005: Deployment/xmxviaargs"* ]]
-  [[ "${lines[2]}" == *"denied the request: [containerjavaxmxset] RHCOP-OCP_BESTPRACT-00005: Deployment/xmxviaenv"* ]]
-  [[ "${lines[3]}" == *"denied the request: [containerjavaxmxset] RHCOP-OCP_BESTPRACT-00005: DeploymentConfig/xmxviacommand"* ]]
-  [[ "${lines[4]}" == *"denied the request: [containerjavaxmxset] RHCOP-OCP_BESTPRACT-00005: DeploymentConfig/xmxviaargs"* ]]
-  [[ "${lines[5]}" == *"denied the request: [containerjavaxmxset] RHCOP-OCP_BESTPRACT-00005: DeploymentConfig/xmxviaenv"* ]]
-  [[ "${#lines[@]}" -eq 6 ]]
+  [[ "${lines[1]}" == *"denied the request: [containerjavaxmxset] RHCOP-OCP_BESTPRACT-00005: Deployment/xmxviacommand"* ]]
+  [[ "${lines[2]}" == *"denied the request: [containerjavaxmxset] RHCOP-OCP_BESTPRACT-00005: Deployment/xmxviaargs"* ]]
+  [[ "${lines[3]}" == *"denied the request: [containerjavaxmxset] RHCOP-OCP_BESTPRACT-00005: Deployment/xmxviaenv"* ]]
+  [[ "${lines[4]}" == *"denied the request: [containerjavaxmxset] RHCOP-OCP_BESTPRACT-00005: DeploymentConfig/xmxviacommand"* ]]
+  [[ "${lines[5]}" == *"denied the request: [containerjavaxmxset] RHCOP-OCP_BESTPRACT-00005: DeploymentConfig/xmxviaargs"* ]]
+  [[ "${lines[6]}" == *"denied the request: [containerjavaxmxset] RHCOP-OCP_BESTPRACT-00005: DeploymentConfig/xmxviaenv"* ]]
+  [[ "${#lines[@]}" -eq 7 ]]
 }
 
 @test "policy/ocp/bestpractices/container-labelkey-inconsistent" {
@@ -118,9 +118,9 @@ teardown() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == *"denied the request: [containerlabelkeyinconsistent] RHCOP-OCP_BESTPRACT-00006: Deployment/nonestandardlabel"* ]]
-  [[ "${lines[1]}" == *"denied the request: [containerlabelkeyinconsistent] RHCOP-OCP_BESTPRACT-00006: DeploymentConfig/nonestandardlabel"* ]]
-  [[ "${#lines[@]}" -eq 2 ]]
+  [[ "${lines[1]}" == *"denied the request: [containerlabelkeyinconsistent] RHCOP-OCP_BESTPRACT-00006: Deployment/nonestandardlabel"* ]]
+  [[ "${lines[2]}" == *"denied the request: [containerlabelkeyinconsistent] RHCOP-OCP_BESTPRACT-00006: DeploymentConfig/nonestandardlabel"* ]]
+  [[ "${#lines[@]}" -eq 3 ]]
 }
 
 @test "policy/ocp/bestpractices/container-liveness-readinessprobe-equal" {
@@ -131,9 +131,9 @@ teardown() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == *"denied the request: [containerlivenessreadinessprobeequal] RHCOP-OCP_BESTPRACT-00007: Deployment/probssetaresame"* ]]
-  [[ "${lines[1]}" == *"denied the request: [containerlivenessreadinessprobeequal] RHCOP-OCP_BESTPRACT-00007: DeploymentConfig/probssetaresame"* ]]
-  [[ "${#lines[@]}" -eq 2 ]]
+  [[ "${lines[1]}" == *"denied the request: [containerlivenessreadinessprobeequal] RHCOP-OCP_BESTPRACT-00007: Deployment/probssetaresame"* ]]
+  [[ "${lines[2]}" == *"denied the request: [containerlivenessreadinessprobeequal] RHCOP-OCP_BESTPRACT-00007: DeploymentConfig/probssetaresame"* ]]
+  [[ "${#lines[@]}" -eq 3 ]]
 }
 
 @test "policy/ocp/bestpractices/container-livenessprobe-notset" {
@@ -144,9 +144,9 @@ teardown() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == *"denied the request: [containerlivenessprobenotset] RHCOP-OCP_BESTPRACT-00008: Deployment/noproblivenessset"* ]]
-  [[ "${lines[1]}" == *"denied the request: [containerlivenessprobenotset] RHCOP-OCP_BESTPRACT-00008: DeploymentConfig/noproblivenessset"* ]]
-  [[ "${#lines[@]}" -eq 2 ]]
+  [[ "${lines[1]}" == *"denied the request: [containerlivenessprobenotset] RHCOP-OCP_BESTPRACT-00008: Deployment/noproblivenessset"* ]]
+  [[ "${lines[2]}" == *"denied the request: [containerlivenessprobenotset] RHCOP-OCP_BESTPRACT-00008: DeploymentConfig/noproblivenessset"* ]]
+  [[ "${#lines[@]}" -eq 3 ]]
 }
 
 @test "policy/ocp/bestpractices/container-readinessprobe-notset" {
@@ -157,9 +157,9 @@ teardown() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == *"denied the request: [containerreadinessprobenotset] RHCOP-OCP_BESTPRACT-00009: Deployment/noreadinessprob"* ]]
-  [[ "${lines[1]}" == *"denied the request: [containerreadinessprobenotset] RHCOP-OCP_BESTPRACT-00009: DeploymentConfig/noreadinessprob"* ]]
-  [[ "${#lines[@]}" -eq 2 ]]
+  [[ "${lines[1]}" == *"denied the request: [containerreadinessprobenotset] RHCOP-OCP_BESTPRACT-00009: Deployment/noreadinessprob"* ]]
+  [[ "${lines[2]}" == *"denied the request: [containerreadinessprobenotset] RHCOP-OCP_BESTPRACT-00009: DeploymentConfig/noreadinessprob"* ]]
+  [[ "${#lines[@]}" -eq 3 ]]
 }
 
 @test "policy/ocp/bestpractices/container-resources-limits-cpu-set" {
@@ -170,9 +170,9 @@ teardown() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == *"denied the request: [containerresourceslimitscpuset] RHCOP-OCP_BESTPRACT-00010: Deployment/resourceslimitscpuset"* ]]
-  [[ "${lines[1]}" == *"denied the request: [containerresourceslimitscpuset] RHCOP-OCP_BESTPRACT-00010: DeploymentConfig/resourceslimitscpuset"* ]]
-  [[ "${#lines[@]}" -eq 2 ]]
+  [[ "${lines[1]}" == *"denied the request: [containerresourceslimitscpuset] RHCOP-OCP_BESTPRACT-00010: Deployment/resourceslimitscpuset"* ]]
+  [[ "${lines[2]}" == *"denied the request: [containerresourceslimitscpuset] RHCOP-OCP_BESTPRACT-00010: DeploymentConfig/resourceslimitscpuset"* ]]
+  [[ "${#lines[@]}" -eq 3 ]]
 }
 
 @test "policy/ocp/bestpractices/container-resources-limits-memory-greater-than" {
@@ -183,9 +183,9 @@ teardown() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == *"denied the request: [containerresourceslimitsmemorygreaterthan] RHCOP-OCP_BESTPRACT-00011: Deployment/memorylimittoolarge"* ]]
-  [[ "${lines[1]}" == *"denied the request: [containerresourceslimitsmemorygreaterthan] RHCOP-OCP_BESTPRACT-00011: DeploymentConfig/memorylimittoolarge"* ]]
-  [[ "${#lines[@]}" -eq 2 ]]
+  [[ "${lines[1]}" == *"denied the request: [containerresourceslimitsmemorygreaterthan] RHCOP-OCP_BESTPRACT-00011: Deployment/memorylimittoolarge"* ]]
+  [[ "${lines[2]}" == *"denied the request: [containerresourceslimitsmemorygreaterthan] RHCOP-OCP_BESTPRACT-00011: DeploymentConfig/memorylimittoolarge"* ]]
+  [[ "${#lines[@]}" -eq 3 ]]
 }
 
 @test "policy/ocp/bestpractices/container-resources-limits-memory-notset" {
@@ -196,9 +196,9 @@ teardown() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == *"denied the request: [containerresourceslimitsmemorynotset] RHCOP-OCP_BESTPRACT-00012: Deployment/resourcelimitsmemorynotset"* ]]
-  [[ "${lines[1]}" == *"denied the request: [containerresourceslimitsmemorynotset] RHCOP-OCP_BESTPRACT-00012: DeploymentConfig/resourcelimitsmemorynotset"* ]]
-  [[ "${#lines[@]}" -eq 2 ]]
+  [[ "${lines[1]}" == *"denied the request: [containerresourceslimitsmemorynotset] RHCOP-OCP_BESTPRACT-00012: Deployment/resourcelimitsmemorynotset"* ]]
+  [[ "${lines[2]}" == *"denied the request: [containerresourceslimitsmemorynotset] RHCOP-OCP_BESTPRACT-00012: DeploymentConfig/resourcelimitsmemorynotset"* ]]
+  [[ "${#lines[@]}" -eq 3 ]]
 }
 
 @test "policy/ocp/bestpractices/container-resources-memoryunit-incorrect" {
@@ -209,11 +209,11 @@ teardown() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[2]}" == *"denied the request: [containerresourcesmemoryunitincorrect] RHCOP-OCP_BESTPRACT-00013: Deployment/invalidresourcesrequestsmemoryunits"* ]]
-  [[ "${lines[3]}" == *"denied the request: [containerresourcesmemoryunitincorrect] RHCOP-OCP_BESTPRACT-00013: Deployment/invalidresourceslimitsmemoryunits"* ]]
-  [[ "${lines[4]}" == *"denied the request: [containerresourcesmemoryunitincorrect] RHCOP-OCP_BESTPRACT-00013: DeploymentConfig/invalidresourcesrequestsmemoryunits"* ]]
-  [[ "${lines[5]}" == *"denied the request: [containerresourcesmemoryunitincorrect] RHCOP-OCP_BESTPRACT-00013: DeploymentConfig/invalidresourceslimitsmemoryunits"* ]]
-  [[ "${#lines[@]}" -eq 6 ]]
+  [[ "${lines[3]}" == *"denied the request: [containerresourcesmemoryunitincorrect] RHCOP-OCP_BESTPRACT-00013: Deployment/invalidresourcesrequestsmemoryunits"* ]]
+  [[ "${lines[4]}" == *"denied the request: [containerresourcesmemoryunitincorrect] RHCOP-OCP_BESTPRACT-00013: Deployment/invalidresourceslimitsmemoryunits"* ]]
+  [[ "${lines[5]}" == *"denied the request: [containerresourcesmemoryunitincorrect] RHCOP-OCP_BESTPRACT-00013: DeploymentConfig/invalidresourcesrequestsmemoryunits"* ]]
+  [[ "${lines[6]}" == *"denied the request: [containerresourcesmemoryunitincorrect] RHCOP-OCP_BESTPRACT-00013: DeploymentConfig/invalidresourceslimitsmemoryunits"* ]]
+  [[ "${#lines[@]}" -eq 7 ]]
 }
 
 @test "policy/ocp/bestpractices/container-resources-requests-cpuunit-incorrect" {
@@ -224,9 +224,9 @@ teardown() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == *"denied the request: [containerresourcesrequestscpuunitincorrect] RHCOP-OCP_BESTPRACT-00014: Deployment/invalidresourcesrequestcpuunits"* ]]
-  [[ "${lines[1]}" == *"denied the request: [containerresourcesrequestscpuunitincorrect] RHCOP-OCP_BESTPRACT-00014: DeploymentConfig/invalidresourcesrequestcpuunits"* ]]
-  [[ "${#lines[@]}" -eq 2 ]]
+  [[ "${lines[1]}" == *"denied the request: [containerresourcesrequestscpuunitincorrect] RHCOP-OCP_BESTPRACT-00014: Deployment/invalidresourcesrequestcpuunits"* ]]
+  [[ "${lines[2]}" == *"denied the request: [containerresourcesrequestscpuunitincorrect] RHCOP-OCP_BESTPRACT-00014: DeploymentConfig/invalidresourcesrequestcpuunits"* ]]
+  [[ "${#lines[@]}" -eq 3 ]]
 }
 
 @test "policy/ocp/bestpractices/container-resources-requests-memory-greater-than" {
@@ -237,9 +237,9 @@ teardown() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == *"denied the request: [containerresourcesrequestsmemorygreaterthan] RHCOP-OCP_BESTPRACT-00015: Deployment/memoryrequesttoolarge"* ]]
-  [[ "${lines[1]}" == *"denied the request: [containerresourcesrequestsmemorygreaterthan] RHCOP-OCP_BESTPRACT-00015: DeploymentConfig/memoryrequesttoolarge"* ]]
-  [[ "${#lines[@]}" -eq 2 ]]
+  [[ "${lines[1]}" == *"denied the request: [containerresourcesrequestsmemorygreaterthan] RHCOP-OCP_BESTPRACT-00015: Deployment/memoryrequesttoolarge"* ]]
+  [[ "${lines[2]}" == *"denied the request: [containerresourcesrequestsmemorygreaterthan] RHCOP-OCP_BESTPRACT-00015: DeploymentConfig/memoryrequesttoolarge"* ]]
+  [[ "${#lines[@]}" -eq 3 ]]
 }
 
 @test "policy/ocp/bestpractices/container-secret-mounted-envs" {
@@ -250,9 +250,9 @@ teardown() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == *"denied the request: [containersecretmountedenvs] RHCOP-OCP_BESTPRACT-00016: Deployment/secretenvvars"* ]]
-  [[ "${lines[1]}" == *"denied the request: [containersecretmountedenvs] RHCOP-OCP_BESTPRACT-00016: DeploymentConfig/secretenvvars"* ]]
-  [[ "${#lines[@]}" -eq 2 ]]
+  [[ "${lines[1]}" == *"denied the request: [containersecretmountedenvs] RHCOP-OCP_BESTPRACT-00016: Deployment/secretenvvars"* ]]
+  [[ "${lines[2]}" == *"denied the request: [containersecretmountedenvs] RHCOP-OCP_BESTPRACT-00016: DeploymentConfig/secretenvvars"* ]]
+  [[ "${#lines[@]}" -eq 3 ]]
 }
 
 @test "policy/ocp/bestpractices/container-volumemount-inconsistent-path" {
@@ -263,9 +263,9 @@ teardown() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == *"denied the request: [containervolumemountinconsistentpath] RHCOP-OCP_BESTPRACT-00017: Deployment/notvarrunvolumemountspath"* ]]
-  [[ "${lines[1]}" == *"denied the request: [containervolumemountinconsistentpath] RHCOP-OCP_BESTPRACT-00017: DeploymentConfig/notvarrunvolumemountspath"* ]]
-  [[ "${#lines[@]}" -eq 2 ]]
+  [[ "${lines[1]}" == *"denied the request: [containervolumemountinconsistentpath] RHCOP-OCP_BESTPRACT-00017: Deployment/notvarrunvolumemountspath"* ]]
+  [[ "${lines[2]}" == *"denied the request: [containervolumemountinconsistentpath] RHCOP-OCP_BESTPRACT-00017: DeploymentConfig/notvarrunvolumemountspath"* ]]
+  [[ "${#lines[@]}" -eq 3 ]]
 }
 
 @test "policy/ocp/bestpractices/container-volumemount-missing" {
@@ -276,9 +276,9 @@ teardown() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == *"denied the request: [containervolumemountmissing] RHCOP-OCP_BESTPRACT-00018: Deployment/missingvolumemount"* ]]
-  [[ "${lines[1]}" == *"denied the request: [containervolumemountmissing] RHCOP-OCP_BESTPRACT-00018: DeploymentConfig/missingvolumemount"* ]]
-  [[ "${#lines[@]}" -eq 2 ]]
+  [[ "${lines[1]}" == *"denied the request: [containervolumemountmissing] RHCOP-OCP_BESTPRACT-00018: Deployment/missingvolumemount"* ]]
+  [[ "${lines[2]}" == *"denied the request: [containervolumemountmissing] RHCOP-OCP_BESTPRACT-00018: DeploymentConfig/missingvolumemount"* ]]
+  [[ "${#lines[@]}" -eq 3 ]]
 }
 
 @test "policy/ocp/bestpractices/deploymentconfig-triggers-containername" {
@@ -289,8 +289,8 @@ teardown() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == *"denied the request: [deploymentconfigtriggerscontainername] RHCOP-OCP_BESTPRACT-00027: DeploymentConfig/deploymentconfigtriggerscontainername"* ]]
-  [[ "${#lines[@]}" -eq 1 ]]
+  [[ "${lines[1]}" == *"denied the request: [deploymentconfigtriggerscontainername] RHCOP-OCP_BESTPRACT-00027: DeploymentConfig/deploymentconfigtriggerscontainername"* ]]
+  [[ "${#lines[@]}" -eq 2 ]]
 }
 
 @test "policy/ocp/bestpractices/pod-hostnetwork" {
@@ -301,9 +301,9 @@ teardown() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[1]}" == *"denied the request: [podhostnetwork] RHCOP-OCP_BESTPRACT-00020: Deployment/hostnetworkisset"* ]]
-  [[ "${lines[2]}" == *"denied the request: [podhostnetwork] RHCOP-OCP_BESTPRACT-00020: DeploymentConfig/hostnetworkisset"* ]]
-  [[ "${#lines[@]}" -eq 3 ]]
+  [[ "${lines[2]}" == *"denied the request: [podhostnetwork] RHCOP-OCP_BESTPRACT-00020: Deployment/hostnetworkisset"* ]]
+  [[ "${lines[3]}" == *"denied the request: [podhostnetwork] RHCOP-OCP_BESTPRACT-00020: DeploymentConfig/hostnetworkisset"* ]]
+  [[ "${#lines[@]}" -eq 4 ]]
 }
 
 @test "policy/ocp/bestpractices/pod-replicas-below-one" {
@@ -314,9 +314,9 @@ teardown() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == *"denied the request: [podreplicasbelowone] RHCOP-OCP_BESTPRACT-00021: Deployment/replicaisone"* ]]
-  [[ "${lines[1]}" == *"denied the request: [podreplicasbelowone] RHCOP-OCP_BESTPRACT-00021: DeploymentConfig/replicaisone"* ]]
-  [[ "${#lines[@]}" -eq 2 ]]
+  [[ "${lines[1]}" == *"denied the request: [podreplicasbelowone] RHCOP-OCP_BESTPRACT-00021: Deployment/replicaisone"* ]]
+  [[ "${lines[2]}" == *"denied the request: [podreplicasbelowone] RHCOP-OCP_BESTPRACT-00021: DeploymentConfig/replicaisone"* ]]
+  [[ "${#lines[@]}" -eq 3 ]]
 }
 
 @test "policy/ocp/bestpractices/pod-replicas-not-odd" {
@@ -327,9 +327,9 @@ teardown() {
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
-  [[ "${lines[0]}" == *"denied the request: [podreplicasnotodd] RHCOP-OCP_BESTPRACT-00022: Deployment/replicaiseven"* ]]
-  [[ "${lines[1]}" == *"denied the request: [podreplicasnotodd] RHCOP-OCP_BESTPRACT-00022: DeploymentConfig/replicaiseven"* ]]
-  [[ "${#lines[@]}" -eq 2 ]]
+  [[ "${lines[1]}" == *"denied the request: [podreplicasnotodd] RHCOP-OCP_BESTPRACT-00022: Deployment/replicaiseven"* ]]
+  [[ "${lines[2]}" == *"denied the request: [podreplicasnotodd] RHCOP-OCP_BESTPRACT-00022: DeploymentConfig/replicaiseven"* ]]
+  [[ "${#lines[@]}" -eq 3 ]]
 }
 
 @test "policy/ocp/bestpractices/route-tls-termination-notset" {
@@ -368,8 +368,8 @@ teardown() {
   [ "$status" -eq 0 ]
 
   [[ "${lines[0]}" == "deployment.apps/nolabels created" ]]
-  [[ "${lines[1]}" == "deploymentconfig.apps.openshift.io/nolabels created" ]]
-  [[ "${#lines[@]}" -eq 2 ]]
+  [[ "${lines[2]}" == "deploymentconfig.apps.openshift.io/nolabels created" ]]
+  [[ "${#lines[@]}" -eq 3 ]]
 }
 
 ####################

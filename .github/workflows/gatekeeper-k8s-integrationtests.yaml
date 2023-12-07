@@ -28,16 +28,32 @@ jobs:
       - name: Get pods and events if tests failed
         if: ${{ failure() }}
         run: |
+          echo "## nodes:"
           kubectl get nodes
 
-          echo ""
+          echo "## namespaces:"
           kubectl get namespaces
 
-          echo ""
+          echo "## deployments:"
+          kubectl get deployments --all-namespaces
+
+          echo "## pods:"
           kubectl get pods --all-namespaces
 
-          echo ""
+          echo "## events:"
           kubectl get events --all-namespaces
 
-          echo ""
+          echo "## api-versions:"
           kubectl api-versions
+          
+          echo "## describe deployment/gatekeeper-audit:"
+          kubectl describe deployment/gatekeeper-audit -n gatekeeper-system
+          
+          echo "## logs deployment/gatekeeper-audit:"
+          kubectl logs deployment/gatekeeper-audit -n gatekeeper-system
+          
+          echo "## describe deployment/gatekeeper-controller-manager:"
+          kubectl describe deployment/gatekeeper-controller-manager -n gatekeeper-system
+          
+          echo "## logs deployment/gatekeeper-controller-manager:"
+          kubectl logs deployment/gatekeeper-controller-manager -n gatekeeper-system

@@ -6,7 +6,7 @@ command -v oc &> /dev/null || { echo >&2 'ERROR: oc not installed - Aborting'; e
 command -v konstraint &> /dev/null || { echo >&2 'ERROR: konstraint not installed - Aborting'; exit 1; }
 
 # renovate: datasource=github-releases depName=open-policy-agent/gatekeeper
-gatekeeper_version="v3.11.0"
+gatekeeper_version="v3.14.0"
 
 cleanup_gatekeeper_constraints() {
   echo ""
@@ -22,60 +22,61 @@ cleanup_gatekeeper() {
   oc delete config.config.gatekeeper.sh -n gatekeeper-system --all --ignore-not-found=true || true
   oc delete -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/${gatekeeper_version}/deploy/gatekeeper.yaml --ignore-not-found=true
   oc delete -f gatekeeper/gatekeeper-template-manager.yml --ignore-not-found=true
-
-  oc delete clusterrole/gatekeeper-allow-anyuid-scc --ignore-not-found=true
-  oc delete rolebinding/gatekeeper-anyuid-scc --ignore-not-found=true
 }
 
 deploy_gatekeeper() {
   echo ""
   echo "Patching control-plane related namespaces so that OPA ignores them..."
 
-  excludedNamespaces=()
+  local excludedNamespaces=("\"--exempt-namespace=default\"" "\"--exempt-namespace-prefix=kube\"" "\"--exempt-namespace-prefix=openshift\"" "\"--exempt-namespace=assisted-installer\"")
+  local excludedNamespacesComma
+  excludedNamespacesComma=$(echo "${excludedNamespaces[@]}" | tr ' ' ',')
+
   for namespace in $(oc get namespaces -o jsonpath='{.items[*].metadata.name}' | xargs); do
-    if [[ "${namespace}" =~ openshift.* ]] || [[ "${namespace}" =~ kube.* ]] || [[ "${namespace}" =~ default ]]; then
+    if [[ "${namespace}" =~ openshift.* ]] || [[ "${namespace}" == "assisted-installer" ]] || [[ "${namespace}" =~ kube.* ]] || [[ "${namespace}" =~ default ]]; then
       oc patch namespace/${namespace} -p='{"metadata":{"labels":{"admission.gatekeeper.sh/ignore":"true"}}}'
-      excludedNamespaces+=("\"--exempt-namespace=${namespace}\"")
     else
       # Probably a users project, so leave it alone
       echo "Skipping: ${namespace}"
     fi
   done
 
-  local excludedNamespacesComma
-  excludedNamespacesComma=$(echo "${excludedNamespaces[@]}" | tr ' ' ',')
-
   echo ""
   echo "Deploying gatekeeper ${gatekeeper_version}..."
   oc create --save-config -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/${gatekeeper_version}/deploy/gatekeeper.yaml
+  oc create --save-config -f gatekeeper/config.yml -n gatekeeper-system
+  oc create --save-config -f gatekeeper/gatekeeper-template-manager.yml
 
-  echo ""
-  echo "Patching gatekeeper to work on OCP..."
-  oc create clusterrole gatekeeper-allow-anyuid-scc --verb=use --resource=securitycontextconstraints.security.openshift.io --resource-name=anyuid
-  oc create rolebinding gatekeeper-anyuid-scc --serviceaccount=gatekeeper-system:gatekeeper-admin --clusterrole=gatekeeper-allow-anyuid-scc -n gatekeeper-system
+  if [[ $(kubectl get namespace openshift --no-headers=true | wc -l) -eq 1 ]]; then
+    echo ""
+    echo "Scaling down pods so we can patch offline..."
+    oc scale --replicas=0 deployment/gatekeeper-audit --timeout=30s -n gatekeeper-system
+    oc scale --replicas=0 deployment/gatekeeper-controller-manager --timeout=30s -n gatekeeper-system
 
-  oc patch deployment/gatekeeper-audit --type json -p='[{"op": "remove", "path": "/spec/template/spec/containers/0/securityContext/runAsUser"}]' -n gatekeeper-system
-  oc patch deployment/gatekeeper-controller-manager --type json -p='[{"op": "remove", "path": "/spec/template/spec/containers/0/securityContext/runAsUser"}]' -n gatekeeper-system
+    oc apply -f gatekeeper/config-ocp.yml -n gatekeeper-system
 
-  echo ""
-  echo "Patching gatekeeper to enable emit-admission-events..."
+    echo ""
+    echo "Patching gatekeeper to remove runAsUser to work on OCP..."
+    oc patch deployment/gatekeeper-audit --type json -p='[{"op": "remove", "path": "/spec/template/spec/containers/0/securityContext/runAsUser"}]' -n gatekeeper-system
+    oc patch deployment/gatekeeper-controller-manager --type json -p='[{"op": "remove", "path": "/spec/template/spec/containers/0/securityContext/runAsUser"}]' -n gatekeeper-system
 
-  oc patch Deployment/gatekeeper-audit --type json -p='[{"op": "add", "path": "/spec/template/spec/containers/0/args/-", "value": "--emit-admission-events=true" }]' -n gatekeeper-system
-  oc patch Deployment/gatekeeper-controller-manager --type json -p='[{"op": "add", "path": "/spec/template/spec/containers/0/args/-", "value": "--emit-admission-events=true" }]' -n gatekeeper-system
+    echo ""
+    echo "Patching gatekeeper to enable emit-admission-events..."
+    oc patch deployment/gatekeeper-audit --type json -p='[{"op": "add", "path": "/spec/template/spec/containers/0/args/-", "value": "--emit-admission-events=true" }]' -n gatekeeper-system
+    oc patch deployment/gatekeeper-controller-manager --type json -p='[{"op": "add", "path": "/spec/template/spec/containers/0/args/-", "value": "--emit-admission-events=true" }]' -n gatekeeper-system
 
-  echo ""
-  echo "Patching gatekeeper to include core namespaces in exempt-namespace..."
-  #HACK: to make sure the above patch is finished
-  sleep 1s
-  oc get deployment/gatekeeper-controller-manager -n gatekeeper-system -o json | jq ".spec.template.spec.containers[0].args |= . + [${excludedNamespacesComma}]" | oc apply -f -
+    echo ""
+    echo "Patching gatekeeper to include core namespaces in exempt-namespace..."
+    oc get deployment/gatekeeper-controller-manager -n gatekeeper-system -o json | jq ".spec.template.spec.containers[0].args |= . + [${excludedNamespacesComma}]" | oc apply -f -
 
-  echo ""
-  echo "Waiting for gatekeeper to be ready..."
-  oc rollout status Deployment/gatekeeper-audit -n gatekeeper-system --watch=true
-  oc rollout status Deployment/gatekeeper-controller-manager -n gatekeeper-system --watch=true
+    echo ""
+    echo "Waiting for gatekeeper to be ready..."
+    oc scale --replicas=1 deployment/gatekeeper-audit -n gatekeeper-system
+    oc scale --replicas=3 deployment/gatekeeper-controller-manager -n gatekeeper-system
+  fi
 
-  oc create -f gatekeeper/config.yml -n gatekeeper-system
-  oc create -f gatekeeper/gatekeeper-template-manager.yml
+  oc rollout status deployment/gatekeeper-audit -n gatekeeper-system --watch=true --timeout=10m
+  oc rollout status deployment/gatekeeper-controller-manager -n gatekeeper-system --watch=true --timeout=10m
 }
 
 patch_namespaceselector_for_webhook() {
@@ -86,16 +87,16 @@ patch_namespaceselector_for_webhook() {
   echo ""
   echo "Restarting Gatekeeper and waiting for it to be ready..."
   oc delete pods --all -n gatekeeper-system
-  oc rollout status Deployment/gatekeeper-audit -n gatekeeper-system --watch=true
-  oc rollout status Deployment/gatekeeper-controller-manager -n gatekeeper-system --watch=true
+  oc rollout status deployment/gatekeeper-audit -n gatekeeper-system --watch=true
+  oc rollout status deployment/gatekeeper-controller-manager -n gatekeeper-system --watch=true
 }
 
 restart_gatekeeper() {
   echo ""
   echo "Restarting Gatekeeper and waiting for it to be ready..."
   oc delete pods --all -n gatekeeper-system
-  oc rollout status Deployment/gatekeeper-audit -n gatekeeper-system --watch=true
-  oc rollout status Deployment/gatekeeper-controller-manager -n gatekeeper-system --watch=true
+  oc rollout status deployment/gatekeeper-audit -n gatekeeper-system --watch=true
+  oc rollout status deployment/gatekeeper-controller-manager -n gatekeeper-system --watch=true
 }
 
 generate_constraints() {
