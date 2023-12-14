@@ -469,7 +469,7 @@ _source: [policy/ocp/bestpractices/container-readinessprobe-notset](policy/ocp/b
 
 If you're not sure about what's the best settings for your app, it's better not to set the CPU limits.
 See: Resources utilisation -> https://learnk8s.io/production-best-practices#application-development
-See: https://www.reddit.com/r/kubernetes/comments/all1vg/on_kubernetes_cpu_limits
+See: reddit.com/r/kubernetes/comments/all1vg/on_kubernetes_cpu_limits
 
 ### Rego
 
