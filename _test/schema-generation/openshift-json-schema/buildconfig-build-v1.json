@@ -1,5 +1,5 @@
 {
-  "description": "Build configurations define a build process for new container images. There are three types of builds possible - a container image build using a Dockerfile, a Source-to-Image build that uses a specially prepared base image that accepts source code that it can make runnable, and a custom build that can run // arbitrary container images as a base and accept the build parameters. Builds run on the cluster and on completion are pushed to the container image registry specified in the \"output\" section. A build can be triggered via a webhook, when the base image changes, or when a user manually requests a new build be // created.\n\nEach build created by a build configuration is numbered and refers back to its parent configuration. Multiple builds can be triggered at once. Builds that do not have \"output\" set can be used to test code or run a verification build.",
+  "description": "Build configurations define a build process for new container images. There are three types of builds possible - a container image build using a Dockerfile, a Source-to-Image build that uses a specially prepared base image that accepts source code that it can make runnable, and a custom build that can run // arbitrary container images as a base and accept the build parameters. Builds run on the cluster and on completion are pushed to the container image registry specified in the \"output\" section. A build can be triggered via a webhook, when the base image changes, or when a user manually requests a new build be // created.\n\nEach build created by a build configuration is numbered and refers back to its parent configuration. Multiple builds can be triggered at once. Builds that do not have \"output\" set can be used to test code or run a verification build.\n\nCompatibility level 1: Stable within a major release for a minimum of 12 months or 3 minor releases (whichever is longer).",
   "type": "object",
   "required": [
     "spec"
@@ -46,13 +46,6 @@
             ]
           }
         },
-        "clusterName": {
-          "description": "The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request.",
-          "type": [
-            "string",
-            "null"
-          ]
-        },
         "creationTimestamp": {
           "description": "Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.",
           "type": [
@@ -92,7 +85,7 @@
           "x-kubernetes-patch-strategy": "merge"
         },
         "generateName": {
-          "description": "GenerateName is an optional prefix, used by the server, to generate a unique name ONLY IF the Name field has not been provided. If this field is used, the name returned to the client will be different than the name passed. This value will also be combined with a unique suffix. The provided value has the same validation rules as the Name field, and may be truncated by the length of the suffix required to make the value unique on the server.\n\nIf this field is specified and the generated name exists, the server will NOT return a 409 - instead, it will either return 201 Created or 500 with Reason ServerTimeout indicating a unique name could not be found in the time allotted, and the client should retry (optionally after the time indicated in the Retry-After header).\n\nApplied only if Name is not specified. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#idempotency",
+          "description": "GenerateName is an optional prefix, used by the server, to generate a unique name ONLY IF the Name field has not been provided. If this field is used, the name returned to the client will be different than the name passed. This value will also be combined with a unique suffix. The provided value has the same validation rules as the Name field, and may be truncated by the length of the suffix required to make the value unique on the server.\n\nIf this field is specified and the generated name exists, the server will return a 409.\n\nApplied only if Name is not specified. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#idempotency",
           "type": [
             "string",
             "null"
@@ -167,6 +160,13 @@
                   "null"
                 ]
               },
+              "subresource": {
+                "description": "Subresource is the name of the subresource used to update that object, or empty string if the object was updated through the main resource. The value of this field is used to distinguish between managers, even if they share the same name. For example, a status update will be distinct from a regular update using the same manager name. Note that the APIVersion field is not related to the Subresource field and it always corresponds to the version of the main resource.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
               "time": {
                 "description": "Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.",
                 "type": [
@@ -217,7 +217,7 @@
                 "type": "string"
               },
               "blockOwnerDeletion": {
-                "description": "If true, AND if the owner has the \"foregroundDeletion\" finalizer, then the owner cannot be deleted from the key-value store until this reference is removed. Defaults to false. To set this field, a user needs \"delete\" permission of the owner, otherwise 422 (Unprocessable Entity) will be returned.",
+                "description": "If true, AND if the owner has the \"foregroundDeletion\" finalizer, then the owner cannot be deleted from the key-value store until this reference is removed. See https://kubernetes.io/docs/concepts/architecture/garbage-collection/#foreground-deletion for how the garbage collector interacts with this field and enforces the foreground deletion. Defaults to false. To set this field, a user needs \"delete\" permission of the owner, otherwise 422 (Unprocessable Entity) will be returned.",
                 "type": [
                   "boolean",
                   "null"
@@ -243,6 +243,7 @@
                 "type": "string"
               }
             },
+            "x-kubernetes-map-type": "atomic",
             "additionalProperties": false
           },
           "x-kubernetes-patch-merge-key": "uid",
@@ -256,7 +257,7 @@
           ]
         },
         "selfLink": {
-          "description": "SelfLink is a URL representing this object. Populated by the system. Read-only.\n\nDEPRECATED Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.",
+          "description": "Deprecated: selfLink is a legacy read-only field that is no longer populated by the system.",
           "type": [
             "string",
             "null"
@@ -297,6 +298,13 @@
             "null"
           ],
           "format": "int32"
+        },
+        "mountTrustedCA": {
+          "description": "mountTrustedCA bind mounts the cluster's trusted certificate authorities, as defined in the cluster's proxy configuration, into the build. This lets processes within a build trust components signed by custom PKI certificate authorities, such as private artifact repositories and HTTPS proxies.\n\nWhen this field is set to true, the contents of `/etc/pki/ca-trust` within the build are managed by the build container, and any changes to this directory or its subdirectories (for example - within a Dockerfile `RUN` instruction) are not persisted in the build's output image.",
+          "type": [
+            "boolean",
+            "null"
+          ]
         },
         "nodeSelector": {
           "description": "nodeSelector is a selector which must be true for the build pod to fit on a node If nil, it can be overridden by default build nodeselector values for the cluster. If set to an empty map or a map with any values, default build nodeselector values are ignored.",
@@ -364,6 +372,7 @@
                   ]
                 }
               },
+              "x-kubernetes-map-type": "atomic",
               "additionalProperties": false
             },
             "to": {
@@ -423,13 +432,14 @@
                   ]
                 }
               },
+              "x-kubernetes-map-type": "atomic",
               "additionalProperties": false
             }
           },
           "additionalProperties": false
         },
         "postCommit": {
-          "description": "A BuildPostCommitSpec holds a build post commit hook specification. The hook executes a command in a temporary container running the build output image, immediately after the last layer of the image is committed and before the image is pushed to a registry. The command is executed with the current working directory ($PWD) set to the image's WORKDIR.\n\nThe build will be marked as failed if the hook execution fails. It will fail if the script or command return a non-zero exit code, or if there is any other error related to starting the temporary container.\n\nThere are five different ways to configure the hook. As an example, all forms below are equivalent and will execute `rake test --verbose`.\n\n1. Shell script:\n\n       \"postCommit\": {\n         \"script\": \"rake test --verbose\",\n       }\n\n    The above is a convenient form which is equivalent to:\n\n       \"postCommit\": {\n         \"command\": [\"/bin/sh\", \"-ic\"],\n         \"args\":    [\"rake test --verbose\"]\n       }\n\n2. A command as the image entrypoint:\n\n       \"postCommit\": {\n         \"commit\": [\"rake\", \"test\", \"--verbose\"]\n       }\n\n    Command overrides the image entrypoint in the exec form, as documented in\n    Docker: https://docs.docker.com/engine/reference/builder/#entrypoint.\n\n3. Pass arguments to the default entrypoint:\n\n       \"postCommit\": {\n\t\t      \"args\": [\"rake\", \"test\", \"--verbose\"]\n\t      }\n\n    This form is only useful if the image entrypoint can handle arguments.\n\n4. Shell script with arguments:\n\n       \"postCommit\": {\n         \"script\": \"rake test $1\",\n         \"args\":   [\"--verbose\"]\n       }\n\n    This form is useful if you need to pass arguments that would otherwise be\n    hard to quote properly in the shell script. In the script, $0 will be\n    \"/bin/sh\" and $1, $2, etc, are the positional arguments from Args.\n\n5. Command with arguments:\n\n       \"postCommit\": {\n         \"command\": [\"rake\", \"test\"],\n         \"args\":    [\"--verbose\"]\n       }\n\n    This form is equivalent to appending the arguments to the Command slice.\n\nIt is invalid to provide both Script and Command simultaneously. If none of the fields are specified, the hook is not executed.",
+          "description": "A BuildPostCommitSpec holds a build post commit hook specification. The hook executes a command in a temporary container running the build output image, immediately after the last layer of the image is committed and before the image is pushed to a registry. The command is executed with the current working directory ($PWD) set to the image's WORKDIR.\n\nThe build will be marked as failed if the hook execution fails. It will fail if the script or command return a non-zero exit code, or if there is any other error related to starting the temporary container.\n\nThere are five different ways to configure the hook. As an example, all forms below are equivalent and will execute `rake test --verbose`.\n\n1. Shell script:\n\n\t   \"postCommit\": {\n\t     \"script\": \"rake test --verbose\",\n\t   }\n\n\tThe above is a convenient form which is equivalent to:\n\n\t   \"postCommit\": {\n\t     \"command\": [\"/bin/sh\", \"-ic\"],\n\t     \"args\":    [\"rake test --verbose\"]\n\t   }\n\n2. A command as the image entrypoint:\n\n\t   \"postCommit\": {\n\t     \"commit\": [\"rake\", \"test\", \"--verbose\"]\n\t   }\n\n\tCommand overrides the image entrypoint in the exec form, as documented in\n\tDocker: https://docs.docker.com/engine/reference/builder/#entrypoint.\n\n3. Pass arguments to the default entrypoint:\n\n\t       \"postCommit\": {\n\t\t\t      \"args\": [\"rake\", \"test\", \"--verbose\"]\n\t\t      }\n\n\t    This form is only useful if the image entrypoint can handle arguments.\n\n4. Shell script with arguments:\n\n\t   \"postCommit\": {\n\t     \"script\": \"rake test $1\",\n\t     \"args\":   [\"--verbose\"]\n\t   }\n\n\tThis form is useful if you need to pass arguments that would otherwise be\n\thard to quote properly in the shell script. In the script, $0 will be\n\t\"/bin/sh\" and $1, $2, etc, are the positional arguments from Args.\n\n5. Command with arguments:\n\n\t   \"postCommit\": {\n\t     \"command\": [\"rake\", \"test\"],\n\t     \"args\":    [\"--verbose\"]\n\t   }\n\n\tThis form is equivalent to appending the arguments to the Command slice.\n\nIt is invalid to provide both Script and Command simultaneously. If none of the fields are specified, the hook is not executed.",
           "type": [
             "object",
             "null"
@@ -479,7 +489,7 @@
           ],
           "properties": {
             "limits": {
-              "description": "Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/",
+              "description": "Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/",
               "type": [
                 "object",
                 "null"
@@ -502,7 +512,7 @@
               }
             },
             "requests": {
-              "description": "Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/",
+              "description": "Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/",
               "type": [
                 "object",
                 "null"
@@ -636,9 +646,6 @@
             "object",
             "null"
           ],
-          "required": [
-            "type"
-          ],
           "properties": {
             "binary": {
               "description": "BinaryBuildSource describes a binary file to be used for the Docker and Source build strategies, where the file will be extracted and used as the build source.",
@@ -685,6 +692,7 @@
                         ]
                       }
                     },
+                    "x-kubernetes-map-type": "atomic",
                     "additionalProperties": false
                   },
                   "destinationDir": {
@@ -840,6 +848,7 @@
                         ]
                       }
                     },
+                    "x-kubernetes-map-type": "atomic",
                     "additionalProperties": false
                   },
                   "paths": {
@@ -886,6 +895,7 @@
                         ]
                       }
                     },
+                    "x-kubernetes-map-type": "atomic",
                     "additionalProperties": false
                   }
                 },
@@ -927,6 +937,7 @@
                         ]
                       }
                     },
+                    "x-kubernetes-map-type": "atomic",
                     "additionalProperties": false
                   }
                 },
@@ -948,11 +959,15 @@
                   ]
                 }
               },
+              "x-kubernetes-map-type": "atomic",
               "additionalProperties": false
             },
             "type": {
               "description": "type of build input to accept",
-              "type": "string"
+              "type": [
+                "string",
+                "null"
+              ]
             }
           },
           "additionalProperties": false
@@ -960,9 +975,6 @@
         "strategy": {
           "description": "BuildStrategy contains the details of how to perform a build.",
           "type": "object",
-          "required": [
-            "type"
-          ],
           "properties": {
             "customStrategy": {
               "description": "CustomBuildStrategy defines input parameters specific to Custom build.",
@@ -1002,7 +1014,7 @@
                         "type": "string"
                       },
                       "value": {
-                        "description": "Variable references $(VAR_NAME) are expanded using the previous defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to \"\".",
+                        "description": "Variable references $(VAR_NAME) are expanded using the previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. \"$$(VAR_NAME)\" will produce the string literal \"$(VAR_NAME)\". Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to \"\".",
                         "type": [
                           "string",
                           "null"
@@ -1044,6 +1056,7 @@
                                 ]
                               }
                             },
+                            "x-kubernetes-map-type": "atomic",
                             "additionalProperties": false
                           },
                           "fieldRef": {
@@ -1068,6 +1081,7 @@
                                 "type": "string"
                               }
                             },
+                            "x-kubernetes-map-type": "atomic",
                             "additionalProperties": false
                           },
                           "resourceFieldRef": {
@@ -1108,6 +1122,7 @@
                                 "type": "string"
                               }
                             },
+                            "x-kubernetes-map-type": "atomic",
                             "additionalProperties": false
                           },
                           "secretKeyRef": {
@@ -1139,6 +1154,7 @@
                                 ]
                               }
                             },
+                            "x-kubernetes-map-type": "atomic",
                             "additionalProperties": false
                           }
                         },
@@ -1216,6 +1232,7 @@
                       ]
                     }
                   },
+                  "x-kubernetes-map-type": "atomic",
                   "additionalProperties": false
                 },
                 "pullSecret": {
@@ -1233,6 +1250,7 @@
                       ]
                     }
                   },
+                  "x-kubernetes-map-type": "atomic",
                   "additionalProperties": false
                 },
                 "secrets": {
@@ -1268,6 +1286,7 @@
                             ]
                           }
                         },
+                        "x-kubernetes-map-type": "atomic",
                         "additionalProperties": false
                       }
                     },
@@ -1285,7 +1304,7 @@
               ],
               "properties": {
                 "buildArgs": {
-                  "description": "buildArgs contains build arguments that will be resolved in the Dockerfile.  See https://docs.docker.com/engine/reference/builder/#/arg for more details.",
+                  "description": "buildArgs contains build arguments that will be resolved in the Dockerfile.  See https://docs.docker.com/engine/reference/builder/#/arg for more details. NOTE: Only the 'name' and 'value' fields are supported. Any settings on the 'valueFrom' field are ignored.",
                   "type": [
                     "array",
                     "null"
@@ -1305,7 +1324,7 @@
                         "type": "string"
                       },
                       "value": {
-                        "description": "Variable references $(VAR_NAME) are expanded using the previous defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to \"\".",
+                        "description": "Variable references $(VAR_NAME) are expanded using the previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. \"$$(VAR_NAME)\" will produce the string literal \"$(VAR_NAME)\". Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to \"\".",
                         "type": [
                           "string",
                           "null"
@@ -1347,6 +1366,7 @@
                                 ]
                               }
                             },
+                            "x-kubernetes-map-type": "atomic",
                             "additionalProperties": false
                           },
                           "fieldRef": {
@@ -1371,6 +1391,7 @@
                                 "type": "string"
                               }
                             },
+                            "x-kubernetes-map-type": "atomic",
                             "additionalProperties": false
                           },
                           "resourceFieldRef": {
@@ -1411,6 +1432,7 @@
                                 "type": "string"
                               }
                             },
+                            "x-kubernetes-map-type": "atomic",
                             "additionalProperties": false
                           },
                           "secretKeyRef": {
@@ -1442,6 +1464,7 @@
                                 ]
                               }
                             },
+                            "x-kubernetes-map-type": "atomic",
                             "additionalProperties": false
                           }
                         },
@@ -1479,7 +1502,7 @@
                         "type": "string"
                       },
                       "value": {
-                        "description": "Variable references $(VAR_NAME) are expanded using the previous defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to \"\".",
+                        "description": "Variable references $(VAR_NAME) are expanded using the previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. \"$$(VAR_NAME)\" will produce the string literal \"$(VAR_NAME)\". Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to \"\".",
                         "type": [
                           "string",
                           "null"
@@ -1521,6 +1544,7 @@
                                 ]
                               }
                             },
+                            "x-kubernetes-map-type": "atomic",
                             "additionalProperties": false
                           },
                           "fieldRef": {
@@ -1545,6 +1569,7 @@
                                 "type": "string"
                               }
                             },
+                            "x-kubernetes-map-type": "atomic",
                             "additionalProperties": false
                           },
                           "resourceFieldRef": {
@@ -1585,6 +1610,7 @@
                                 "type": "string"
                               }
                             },
+                            "x-kubernetes-map-type": "atomic",
                             "additionalProperties": false
                           },
                           "secretKeyRef": {
@@ -1616,6 +1642,7 @@
                                 ]
                               }
                             },
+                            "x-kubernetes-map-type": "atomic",
                             "additionalProperties": false
                           }
                         },
@@ -1689,6 +1716,7 @@
                       ]
                     }
                   },
+                  "x-kubernetes-map-type": "atomic",
                   "additionalProperties": false
                 },
                 "imageOptimizationPolicy": {
@@ -1720,7 +1748,281 @@
                       ]
                     }
                   },
+                  "x-kubernetes-map-type": "atomic",
                   "additionalProperties": false
+                },
+                "volumes": {
+                  "description": "volumes is a list of input volumes that can be mounted into the builds runtime environment. Only a subset of Kubernetes Volume sources are supported by builds. More info: https://kubernetes.io/docs/concepts/storage/volumes",
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "description": "BuildVolume describes a volume that is made available to build pods, such that it can be mounted into buildah's runtime environment. Only a subset of Kubernetes Volume sources are supported.",
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "required": [
+                      "name",
+                      "source",
+                      "mounts"
+                    ],
+                    "properties": {
+                      "mounts": {
+                        "description": "mounts represents the location of the volume in the image build container",
+                        "type": "array",
+                        "items": {
+                          "description": "BuildVolumeMount describes the mounting of a Volume within buildah's runtime environment.",
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "required": [
+                            "destinationPath"
+                          ],
+                          "properties": {
+                            "destinationPath": {
+                              "description": "destinationPath is the path within the buildah runtime environment at which the volume should be mounted. The transient mount within the build image and the backing volume will both be mounted read only. Must be an absolute path, must not contain '..' or ':', and must not collide with a destination path generated by the builder process Paths that collide with those added by the build controller will result in a failed build with an error message detailing which path caused the error.",
+                              "type": "string"
+                            }
+                          },
+                          "additionalProperties": false
+                        },
+                        "x-kubernetes-list-map-keys": [
+                          "destinationPath"
+                        ],
+                        "x-kubernetes-list-type": "map",
+                        "x-kubernetes-patch-merge-key": "destinationPath",
+                        "x-kubernetes-patch-strategy": "merge"
+                      },
+                      "name": {
+                        "description": "name is a unique identifier for this BuildVolume. It must conform to the Kubernetes DNS label standard and be unique within the pod. Names that collide with those added by the build controller will result in a failed build with an error message detailing which name caused the error. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                        "type": "string"
+                      },
+                      "source": {
+                        "description": "BuildVolumeSource represents the source of a volume to mount Only one of its supported types may be specified at any given time.",
+                        "type": "object",
+                        "required": [
+                          "type"
+                        ],
+                        "properties": {
+                          "configMap": {
+                            "description": "Adapts a ConfigMap into a volume.\n\nThe contents of the target ConfigMap's Data field will be presented in a volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. ConfigMap volumes support ownership management and SELinux relabeling.",
+                            "type": [
+                              "object",
+                              "null"
+                            ],
+                            "properties": {
+                              "defaultMode": {
+                                "description": "defaultMode is optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.",
+                                "type": [
+                                  "integer",
+                                  "null"
+                                ],
+                                "format": "int32"
+                              },
+                              "items": {
+                                "description": "items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.",
+                                "type": [
+                                  "array",
+                                  "null"
+                                ],
+                                "items": {
+                                  "description": "Maps a string key to a path within a volume.",
+                                  "type": [
+                                    "object",
+                                    "null"
+                                  ],
+                                  "required": [
+                                    "key",
+                                    "path"
+                                  ],
+                                  "properties": {
+                                    "key": {
+                                      "description": "key is the key to project.",
+                                      "type": "string"
+                                    },
+                                    "mode": {
+                                      "description": "mode is Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.",
+                                      "type": [
+                                        "integer",
+                                        "null"
+                                      ],
+                                      "format": "int32"
+                                    },
+                                    "path": {
+                                      "description": "path is the relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.",
+                                      "type": "string"
+                                    }
+                                  },
+                                  "additionalProperties": false
+                                }
+                              },
+                              "name": {
+                                "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              },
+                              "optional": {
+                                "description": "optional specify whether the ConfigMap or its keys must be defined",
+                                "type": [
+                                  "boolean",
+                                  "null"
+                                ]
+                              }
+                            },
+                            "additionalProperties": false
+                          },
+                          "csi": {
+                            "description": "Represents a source location of a volume to mount, managed by an external CSI driver",
+                            "type": [
+                              "object",
+                              "null"
+                            ],
+                            "required": [
+                              "driver"
+                            ],
+                            "properties": {
+                              "driver": {
+                                "description": "driver is the name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.",
+                                "type": "string"
+                              },
+                              "fsType": {
+                                "description": "fsType to mount. Ex. \"ext4\", \"xfs\", \"ntfs\". If not provided, the empty value is passed to the associated CSI driver which will determine the default filesystem to apply.",
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              },
+                              "nodePublishSecretRef": {
+                                "description": "LocalObjectReference contains enough information to let you locate the referenced object inside the same namespace.",
+                                "type": [
+                                  "object",
+                                  "null"
+                                ],
+                                "properties": {
+                                  "name": {
+                                    "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                                    "type": [
+                                      "string",
+                                      "null"
+                                    ]
+                                  }
+                                },
+                                "x-kubernetes-map-type": "atomic",
+                                "additionalProperties": false
+                              },
+                              "readOnly": {
+                                "description": "readOnly specifies a read-only configuration for the volume. Defaults to false (read/write).",
+                                "type": [
+                                  "boolean",
+                                  "null"
+                                ]
+                              },
+                              "volumeAttributes": {
+                                "description": "volumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.",
+                                "type": [
+                                  "object",
+                                  "null"
+                                ],
+                                "additionalProperties": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                }
+                              }
+                            },
+                            "additionalProperties": false
+                          },
+                          "secret": {
+                            "description": "Adapts a Secret into a volume.\n\nThe contents of the target Secret's Data field will be presented in a volume as files using the keys in the Data field as the file names. Secret volumes support ownership management and SELinux relabeling.",
+                            "type": [
+                              "object",
+                              "null"
+                            ],
+                            "properties": {
+                              "defaultMode": {
+                                "description": "defaultMode is Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.",
+                                "type": [
+                                  "integer",
+                                  "null"
+                                ],
+                                "format": "int32"
+                              },
+                              "items": {
+                                "description": "items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.",
+                                "type": [
+                                  "array",
+                                  "null"
+                                ],
+                                "items": {
+                                  "description": "Maps a string key to a path within a volume.",
+                                  "type": [
+                                    "object",
+                                    "null"
+                                  ],
+                                  "required": [
+                                    "key",
+                                    "path"
+                                  ],
+                                  "properties": {
+                                    "key": {
+                                      "description": "key is the key to project.",
+                                      "type": "string"
+                                    },
+                                    "mode": {
+                                      "description": "mode is Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.",
+                                      "type": [
+                                        "integer",
+                                        "null"
+                                      ],
+                                      "format": "int32"
+                                    },
+                                    "path": {
+                                      "description": "path is the relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.",
+                                      "type": "string"
+                                    }
+                                  },
+                                  "additionalProperties": false
+                                }
+                              },
+                              "optional": {
+                                "description": "optional field specify whether the Secret or its keys must be defined",
+                                "type": [
+                                  "boolean",
+                                  "null"
+                                ]
+                              },
+                              "secretName": {
+                                "description": "secretName is the name of the secret in the pod's namespace to use. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret",
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              }
+                            },
+                            "additionalProperties": false
+                          },
+                          "type": {
+                            "description": "type is the BuildVolumeSourceType for the volume source. Type must match the populated volume source. Valid types are: Secret, ConfigMap",
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "x-kubernetes-list-map-keys": [
+                    "name"
+                  ],
+                  "x-kubernetes-list-type": "map",
+                  "x-kubernetes-patch-merge-key": "name",
+                  "x-kubernetes-patch-strategy": "merge"
                 }
               },
               "additionalProperties": false
@@ -1753,7 +2055,7 @@
                         "type": "string"
                       },
                       "value": {
-                        "description": "Variable references $(VAR_NAME) are expanded using the previous defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to \"\".",
+                        "description": "Variable references $(VAR_NAME) are expanded using the previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. \"$$(VAR_NAME)\" will produce the string literal \"$(VAR_NAME)\". Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to \"\".",
                         "type": [
                           "string",
                           "null"
@@ -1795,6 +2097,7 @@
                                 ]
                               }
                             },
+                            "x-kubernetes-map-type": "atomic",
                             "additionalProperties": false
                           },
                           "fieldRef": {
@@ -1819,6 +2122,7 @@
                                 "type": "string"
                               }
                             },
+                            "x-kubernetes-map-type": "atomic",
                             "additionalProperties": false
                           },
                           "resourceFieldRef": {
@@ -1859,6 +2163,7 @@
                                 "type": "string"
                               }
                             },
+                            "x-kubernetes-map-type": "atomic",
                             "additionalProperties": false
                           },
                           "secretKeyRef": {
@@ -1890,6 +2195,7 @@
                                 ]
                               }
                             },
+                            "x-kubernetes-map-type": "atomic",
                             "additionalProperties": false
                           }
                         },
@@ -1947,7 +2253,7 @@
                         "type": "string"
                       },
                       "value": {
-                        "description": "Variable references $(VAR_NAME) are expanded using the previous defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to \"\".",
+                        "description": "Variable references $(VAR_NAME) are expanded using the previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. \"$$(VAR_NAME)\" will produce the string literal \"$(VAR_NAME)\". Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to \"\".",
                         "type": [
                           "string",
                           "null"
@@ -1989,6 +2295,7 @@
                                 ]
                               }
                             },
+                            "x-kubernetes-map-type": "atomic",
                             "additionalProperties": false
                           },
                           "fieldRef": {
@@ -2013,6 +2320,7 @@
                                 "type": "string"
                               }
                             },
+                            "x-kubernetes-map-type": "atomic",
                             "additionalProperties": false
                           },
                           "resourceFieldRef": {
@@ -2053,6 +2361,7 @@
                                 "type": "string"
                               }
                             },
+                            "x-kubernetes-map-type": "atomic",
                             "additionalProperties": false
                           },
                           "secretKeyRef": {
@@ -2084,6 +2393,7 @@
                                 ]
                               }
                             },
+                            "x-kubernetes-map-type": "atomic",
                             "additionalProperties": false
                           }
                         },
@@ -2154,6 +2464,7 @@
                       ]
                     }
                   },
+                  "x-kubernetes-map-type": "atomic",
                   "additionalProperties": false
                 },
                 "incremental": {
@@ -2178,6 +2489,7 @@
                       ]
                     }
                   },
+                  "x-kubernetes-map-type": "atomic",
                   "additionalProperties": false
                 },
                 "scripts": {
@@ -2186,13 +2498,289 @@
                     "string",
                     "null"
                   ]
+                },
+                "volumes": {
+                  "description": "volumes is a list of input volumes that can be mounted into the builds runtime environment. Only a subset of Kubernetes Volume sources are supported by builds. More info: https://kubernetes.io/docs/concepts/storage/volumes",
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "description": "BuildVolume describes a volume that is made available to build pods, such that it can be mounted into buildah's runtime environment. Only a subset of Kubernetes Volume sources are supported.",
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "required": [
+                      "name",
+                      "source",
+                      "mounts"
+                    ],
+                    "properties": {
+                      "mounts": {
+                        "description": "mounts represents the location of the volume in the image build container",
+                        "type": "array",
+                        "items": {
+                          "description": "BuildVolumeMount describes the mounting of a Volume within buildah's runtime environment.",
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "required": [
+                            "destinationPath"
+                          ],
+                          "properties": {
+                            "destinationPath": {
+                              "description": "destinationPath is the path within the buildah runtime environment at which the volume should be mounted. The transient mount within the build image and the backing volume will both be mounted read only. Must be an absolute path, must not contain '..' or ':', and must not collide with a destination path generated by the builder process Paths that collide with those added by the build controller will result in a failed build with an error message detailing which path caused the error.",
+                              "type": "string"
+                            }
+                          },
+                          "additionalProperties": false
+                        },
+                        "x-kubernetes-list-map-keys": [
+                          "destinationPath"
+                        ],
+                        "x-kubernetes-list-type": "map",
+                        "x-kubernetes-patch-merge-key": "destinationPath",
+                        "x-kubernetes-patch-strategy": "merge"
+                      },
+                      "name": {
+                        "description": "name is a unique identifier for this BuildVolume. It must conform to the Kubernetes DNS label standard and be unique within the pod. Names that collide with those added by the build controller will result in a failed build with an error message detailing which name caused the error. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                        "type": "string"
+                      },
+                      "source": {
+                        "description": "BuildVolumeSource represents the source of a volume to mount Only one of its supported types may be specified at any given time.",
+                        "type": "object",
+                        "required": [
+                          "type"
+                        ],
+                        "properties": {
+                          "configMap": {
+                            "description": "Adapts a ConfigMap into a volume.\n\nThe contents of the target ConfigMap's Data field will be presented in a volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. ConfigMap volumes support ownership management and SELinux relabeling.",
+                            "type": [
+                              "object",
+                              "null"
+                            ],
+                            "properties": {
+                              "defaultMode": {
+                                "description": "defaultMode is optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.",
+                                "type": [
+                                  "integer",
+                                  "null"
+                                ],
+                                "format": "int32"
+                              },
+                              "items": {
+                                "description": "items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.",
+                                "type": [
+                                  "array",
+                                  "null"
+                                ],
+                                "items": {
+                                  "description": "Maps a string key to a path within a volume.",
+                                  "type": [
+                                    "object",
+                                    "null"
+                                  ],
+                                  "required": [
+                                    "key",
+                                    "path"
+                                  ],
+                                  "properties": {
+                                    "key": {
+                                      "description": "key is the key to project.",
+                                      "type": "string"
+                                    },
+                                    "mode": {
+                                      "description": "mode is Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.",
+                                      "type": [
+                                        "integer",
+                                        "null"
+                                      ],
+                                      "format": "int32"
+                                    },
+                                    "path": {
+                                      "description": "path is the relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.",
+                                      "type": "string"
+                                    }
+                                  },
+                                  "additionalProperties": false
+                                }
+                              },
+                              "name": {
+                                "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              },
+                              "optional": {
+                                "description": "optional specify whether the ConfigMap or its keys must be defined",
+                                "type": [
+                                  "boolean",
+                                  "null"
+                                ]
+                              }
+                            },
+                            "additionalProperties": false
+                          },
+                          "csi": {
+                            "description": "Represents a source location of a volume to mount, managed by an external CSI driver",
+                            "type": [
+                              "object",
+                              "null"
+                            ],
+                            "required": [
+                              "driver"
+                            ],
+                            "properties": {
+                              "driver": {
+                                "description": "driver is the name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.",
+                                "type": "string"
+                              },
+                              "fsType": {
+                                "description": "fsType to mount. Ex. \"ext4\", \"xfs\", \"ntfs\". If not provided, the empty value is passed to the associated CSI driver which will determine the default filesystem to apply.",
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              },
+                              "nodePublishSecretRef": {
+                                "description": "LocalObjectReference contains enough information to let you locate the referenced object inside the same namespace.",
+                                "type": [
+                                  "object",
+                                  "null"
+                                ],
+                                "properties": {
+                                  "name": {
+                                    "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+                                    "type": [
+                                      "string",
+                                      "null"
+                                    ]
+                                  }
+                                },
+                                "x-kubernetes-map-type": "atomic",
+                                "additionalProperties": false
+                              },
+                              "readOnly": {
+                                "description": "readOnly specifies a read-only configuration for the volume. Defaults to false (read/write).",
+                                "type": [
+                                  "boolean",
+                                  "null"
+                                ]
+                              },
+                              "volumeAttributes": {
+                                "description": "volumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.",
+                                "type": [
+                                  "object",
+                                  "null"
+                                ],
+                                "additionalProperties": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                }
+                              }
+                            },
+                            "additionalProperties": false
+                          },
+                          "secret": {
+                            "description": "Adapts a Secret into a volume.\n\nThe contents of the target Secret's Data field will be presented in a volume as files using the keys in the Data field as the file names. Secret volumes support ownership management and SELinux relabeling.",
+                            "type": [
+                              "object",
+                              "null"
+                            ],
+                            "properties": {
+                              "defaultMode": {
+                                "description": "defaultMode is Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.",
+                                "type": [
+                                  "integer",
+                                  "null"
+                                ],
+                                "format": "int32"
+                              },
+                              "items": {
+                                "description": "items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.",
+                                "type": [
+                                  "array",
+                                  "null"
+                                ],
+                                "items": {
+                                  "description": "Maps a string key to a path within a volume.",
+                                  "type": [
+                                    "object",
+                                    "null"
+                                  ],
+                                  "required": [
+                                    "key",
+                                    "path"
+                                  ],
+                                  "properties": {
+                                    "key": {
+                                      "description": "key is the key to project.",
+                                      "type": "string"
+                                    },
+                                    "mode": {
+                                      "description": "mode is Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.",
+                                      "type": [
+                                        "integer",
+                                        "null"
+                                      ],
+                                      "format": "int32"
+                                    },
+                                    "path": {
+                                      "description": "path is the relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.",
+                                      "type": "string"
+                                    }
+                                  },
+                                  "additionalProperties": false
+                                }
+                              },
+                              "optional": {
+                                "description": "optional field specify whether the Secret or its keys must be defined",
+                                "type": [
+                                  "boolean",
+                                  "null"
+                                ]
+                              },
+                              "secretName": {
+                                "description": "secretName is the name of the secret in the pod's namespace to use. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret",
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              }
+                            },
+                            "additionalProperties": false
+                          },
+                          "type": {
+                            "description": "type is the BuildVolumeSourceType for the volume source. Type must match the populated volume source. Valid types are: Secret, ConfigMap",
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "x-kubernetes-list-map-keys": [
+                    "name"
+                  ],
+                  "x-kubernetes-list-type": "map",
+                  "x-kubernetes-patch-merge-key": "name",
+                  "x-kubernetes-patch-strategy": "merge"
                 }
               },
               "additionalProperties": false
             },
             "type": {
               "description": "type is the kind of build strategy.",
-              "type": "string"
+              "type": [
+                "string",
+                "null"
+              ]
             }
           },
           "additionalProperties": false
@@ -2449,10 +3037,11 @@
                         ]
                       }
                     },
+                    "x-kubernetes-map-type": "atomic",
                     "additionalProperties": false
                   },
                   "lastTriggeredImageID": {
-                    "description": "lastTriggeredImageID is used internally by the ImageChangeController to save last used image ID for build",
+                    "description": "lastTriggeredImageID is used internally by the ImageChangeController to save last used image ID for build This field is deprecated and will be removed in a future release. Deprecated",
                     "type": [
                       "string",
                       "null"
@@ -2469,7 +3058,7 @@
                 "additionalProperties": false
               },
               "type": {
-                "description": "type is the type of build trigger",
+                "description": "type is the type of build trigger. Valid values:\n\n- GitHub GitHubWebHookBuildTriggerType represents a trigger that launches builds on GitHub webhook invocations\n\n- Generic GenericWebHookBuildTriggerType represents a trigger that launches builds on generic webhook invocations\n\n- GitLab GitLabWebHookBuildTriggerType represents a trigger that launches builds on GitLab webhook invocations\n\n- Bitbucket BitbucketWebHookBuildTriggerType represents a trigger that launches builds on Bitbucket webhook invocations\n\n- ImageChange ImageChangeBuildTriggerType represents a trigger that launches builds on availability of a new version of an image\n\n- ConfigChange ConfigChangeBuildTriggerType will trigger a build on an initial build config creation WARNING: In the future the behavior will change to trigger a build on any config change",
                 "type": "string"
               }
             },
@@ -2489,6 +3078,62 @@
         "lastVersion"
       ],
       "properties": {
+        "imageChangeTriggers": {
+          "description": "ImageChangeTriggers captures the runtime state of any ImageChangeTrigger specified in the BuildConfigSpec, including the value reconciled by the OpenShift APIServer for the lastTriggeredImageID. There is a single entry in this array for each image change trigger in spec. Each trigger status references the ImageStreamTag that acts as the source of the trigger.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "description": "ImageChangeTriggerStatus tracks the latest resolved status of the associated ImageChangeTrigger policy specified in the BuildConfigSpec.Triggers struct.",
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "from": {
+                "description": "ImageStreamTagReference references the ImageStreamTag in an image change trigger by namespace and name.",
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "name": {
+                    "description": "name is the name of the ImageStreamTag for an ImageChangeTrigger",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "namespace": {
+                    "description": "namespace is the namespace where the ImageStreamTag for an ImageChangeTrigger is located",
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                },
+                "additionalProperties": false
+              },
+              "lastTriggerTime": {
+                "description": "Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.",
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date-time"
+              },
+              "lastTriggeredImageID": {
+                "description": "lastTriggeredImageID represents the sha/id of the ImageStreamTag when a Build for this BuildConfig was started. The lastTriggeredImageID is updated each time a Build for this BuildConfig is started, even if this ImageStreamTag is not the reason the Build is started.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        },
         "lastVersion": {
           "description": "lastVersion is used to inform about number of last triggered build.",
           "type": "integer",
