@@ -27,7 +27,7 @@ jobs:
           echo "hashes=$(sha256sum policy.tar | base64 -w0)" >> "$GITHUB_OUTPUT"
 
       - name: Upload policy.tar
-        uses: actions/upload-artifact@c7d193f32edcb7bfad88892161225aeda64e9392 # v4
+        uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4
         with:
           name: policy.tar
           path: policy.tar
