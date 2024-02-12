@@ -1,9 +1,15 @@
-# @title RHCOP-OCP_REQ_INV-00004: Deployment has matching ServiceAccount
-#
-# If Deployment has 'spec.serviceAccountName' set, there should be matching ServiceAccount.
-# If not, this would suggest a mistake.
-#
-# @kinds apps/Deployment
+# METADATA
+# title: 'RHCOP-OCP_REQ_INV-00004: Deployment has matching ServiceAccount'
+# description: |-
+#   If Deployment has 'spec.serviceAccountName' set, there should be matching ServiceAccount.
+#   If not, this would suggest a mistake.
+# custom:
+#   matchers:
+#     kinds:
+#     - apiGroups:
+#       - apps
+#       kinds:
+#       - Deployment
 package ocp.requiresinventory.deployment_has_matching_serviceaccount
 
 import data.lib.konstraint.core as konstraint_core

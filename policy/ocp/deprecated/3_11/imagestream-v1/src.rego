@@ -1,9 +1,14 @@
-# @title RHCOP-OCP_DEPRECATED-3_11-00003: ImageStream no longer served by v1
-#
-# OCP4.x expects image.openshift.io/v1.
-#
-# @skip-constraint
-# @kinds v1/ImageStream
+# METADATA
+# title: 'RHCOP-OCP_DEPRECATED-3_11-00003: ImageStream no longer served by v1'
+# description: OCP4.x expects image.openshift.io/v1.
+# custom:
+#   matchers:
+#     kinds:
+#     - apiGroups:
+#       - v1
+#       kinds:
+#       - ImageStream
+#   skipConstraint: true
 package ocp.deprecated.ocp3_11.imagestream_v1
 
 import data.lib.konstraint.core as konstraint_core

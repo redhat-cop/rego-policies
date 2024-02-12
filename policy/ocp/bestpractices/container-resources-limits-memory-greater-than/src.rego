@@ -1,10 +1,33 @@
-# @title RHCOP-OCP_BESTPRACT-00011: Container resource limits memory not greater than
-#
-# Setting a too high memory limit can cause under utilisation on a node.
-# It is better to run multiple pods which use smaller limits.
-# See: Resources utilisation -> https://learnk8s.io/production-best-practices#application-development
-#
-# @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+# METADATA
+# title: 'RHCOP-OCP_BESTPRACT-00011: Container resource limits memory not greater than'
+# description: |-
+#   Setting a too high memory limit can cause under utilisation on a node.
+#   It is better to run multiple pods which use smaller limits.
+#   See: Resources utilisation -> https://learnk8s.io/production-best-practices#application-development
+# custom:
+#   matchers:
+#     kinds:
+#     - apiGroups:
+#       - ""
+#       kinds:
+#       - Pod
+#       - ReplicationController
+#     - apiGroups:
+#       - apps
+#       kinds:
+#       - DaemonSet
+#       - Deployment
+#       - Job
+#       - ReplicaSet
+#       - StatefulSet
+#     - apiGroups:
+#       - apps.openshift.io
+#       kinds:
+#       - DeploymentConfig
+#     - apiGroups:
+#       - batch
+#       kinds:
+#       - CronJob
 package ocp.bestpractices.container_resources_limits_memory_greater_than
 
 import data.lib.konstraint.core as konstraint_core

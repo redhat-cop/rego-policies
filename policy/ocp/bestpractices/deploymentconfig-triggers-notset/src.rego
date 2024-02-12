@@ -1,9 +1,15 @@
-# @title RHCOP-OCP_BESTPRACT-00019: DeploymentConfig triggers not set
-#
-# If you are using a DeploymentConfig without 'spec.triggers' set, you could probably just use the k8s Deployment.
-#
-# @skip-constraint
-# @kinds apps.openshift.io/DeploymentConfig
+# METADATA
+# title: 'RHCOP-OCP_BESTPRACT-00019: DeploymentConfig triggers not set'
+# description: If you are using a DeploymentConfig without 'spec.triggers' set, you
+#   could probably just use the k8s Deployment.
+# custom:
+#   matchers:
+#     kinds:
+#     - apiGroups:
+#       - apps.openshift.io
+#       kinds:
+#       - DeploymentConfig
+#   skipConstraint: true
 package ocp.bestpractices.deploymentconfig_triggers_notset
 
 import data.lib.konstraint.core as konstraint_core

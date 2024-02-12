@@ -1,11 +1,18 @@
-# @title RHCOP-PODMAN-00001: Image contains expected SHA in history
+# METADATA
+# title: 'RHCOP-PODMAN-00001: Image contains expected SHA in history'
+# description: |-
+#   Most images are built from a subset of authorised base images in a company,
+#   this policy allows enforcement of that policy by checking for an expected SHA.
 #
-# Most images are built from a subset of authorised base images in a company,
-# this policy allows enforcement of that policy by checking for an expected SHA.
-#
-# @skip-constraint
-# @kinds redhat-cop.github.com/PodmanHistory
-# parameter expected_layer_ids array string
+#   parameter expected_layer_ids array string
+# custom:
+#   matchers:
+#     kinds:
+#     - apiGroups:
+#       - redhat-cop.github.com
+#       kinds:
+#       - PodmanHistory
+#   skipConstraint: true
 package podman.history.contains_layer
 
 import data.lib.konstraint.core as konstraint_core

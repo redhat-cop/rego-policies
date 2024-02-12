@@ -1,9 +1,14 @@
-# @title RHCOP-OCP_DEPRECATED-3_11-00005: RoleBinding no longer served by v1
-#
-# OCP4.x expects rbac.authorization.k8s.io/v1
-#
-# @skip-constraint
-# @kinds v1/RoleBinding
+# METADATA
+# title: 'RHCOP-OCP_DEPRECATED-3_11-00005: RoleBinding no longer served by v1'
+# description: OCP4.x expects rbac.authorization.k8s.io/v1
+# custom:
+#   matchers:
+#     kinds:
+#     - apiGroups:
+#       - v1
+#       kinds:
+#       - RoleBinding
+#   skipConstraint: true
 package ocp.deprecated.ocp3_11.rolebinding_v1
 
 import data.lib.konstraint.core as konstraint_core

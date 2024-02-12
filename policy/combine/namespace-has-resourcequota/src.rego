@@ -1,13 +1,20 @@
-# @title RHCOP-COMBINE-00002: Namespace has a ResourceQuota
-#
-# With ResourceQuotas, you can limit the total resource consumption of all containers inside a Namespace.
-# Defining a resource quota for a namespace limits the total amount of CPU, memory or storage resources
-# that can be consumed by all containers belonging to that namespace. You can also set quotas for other
-# Kubernetes objects such as the number of Pods in the current namespace.
-# See: Namespace limits -> https://learnk8s.io/production-best-practices#governance
-#
-# @skip-constraint
-# @kinds core/Namespace core/ResourceQuota
+# METADATA
+# title: 'RHCOP-COMBINE-00002: Namespace has a ResourceQuota'
+# description: |-
+#   With ResourceQuotas, you can limit the total resource consumption of all containers inside a Namespace.
+#   Defining a resource quota for a namespace limits the total amount of CPU, memory or storage resources
+#   that can be consumed by all containers belonging to that namespace. You can also set quotas for other
+#   Kubernetes objects such as the number of Pods in the current namespace.
+#   See: Namespace limits -> https://learnk8s.io/production-best-practices#governance
+# custom:
+#   matchers:
+#     kinds:
+#     - apiGroups:
+#       - ""
+#       kinds:
+#       - Namespace
+#       - ResourceQuota
+#   skipConstraint: true
 package combine.namespace_has_resourcequota
 
 import data.lib.konstraint.core as konstraint_core

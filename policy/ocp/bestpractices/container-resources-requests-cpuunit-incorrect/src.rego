@@ -1,9 +1,33 @@
-# @title RHCOP-OCP_BESTPRACT-00014: Container resources requests cpu has incorrect unit
-#
-# Beginners can easily confuse the allowed cpu unit, this policy enforces what is valid.
-# See: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes
-#
-# @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+# METADATA
+# title: 'RHCOP-OCP_BESTPRACT-00014: Container resources requests cpu has incorrect
+#   unit'
+# description: |-
+#   Beginners can easily confuse the allowed cpu unit, this policy enforces what is valid.
+#   See: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes
+# custom:
+#   matchers:
+#     kinds:
+#     - apiGroups:
+#       - ""
+#       kinds:
+#       - Pod
+#       - ReplicationController
+#     - apiGroups:
+#       - apps
+#       kinds:
+#       - DaemonSet
+#       - Deployment
+#       - Job
+#       - ReplicaSet
+#       - StatefulSet
+#     - apiGroups:
+#       - apps.openshift.io
+#       kinds:
+#       - DeploymentConfig
+#     - apiGroups:
+#       - batch
+#       kinds:
+#       - CronJob
 package ocp.bestpractices.container_resources_requests_cpuunit_incorrect
 
 import future.keywords.in

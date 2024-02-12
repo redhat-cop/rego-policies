@@ -1,8 +1,13 @@
-# @title RHCOP-OCP_BESTPRACT-00025: Route has TLS Termination Defined
-#
-# Routes should specify a TLS termination type to allow only secure ingress.
-#
-# @kinds route.openshift.io/Route
+# METADATA
+# title: 'RHCOP-OCP_BESTPRACT-00025: Route has TLS Termination Defined'
+# description: Routes should specify a TLS termination type to allow only secure ingress.
+# custom:
+#   matchers:
+#     kinds:
+#     - apiGroups:
+#       - route.openshift.io
+#       kinds:
+#       - Route
 package ocp.bestpractices.route_tls_termination_notset
 
 import data.lib.konstraint.core as konstraint_core

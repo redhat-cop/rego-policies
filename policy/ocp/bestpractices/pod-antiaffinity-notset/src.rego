@@ -1,11 +1,28 @@
-# @title RHCOP-OCP_BESTPRACT-00026: Pod anti-affinity not set
+# METADATA
+# title: 'RHCOP-OCP_BESTPRACT-00026: Pod anti-affinity not set'
+# description: |-
+#   Even if you run several copies of your Pods, there are no guarantees that losing a node won't take down your service.
+#   Anti-Affinity
 #
-# Even if you run several copies of your Pods, there are no guarantees that losing a node won't take down your service.
-# Anti-Affinity
-#
-# See: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
-#
-# @kinds apps.openshift.io/DeploymentConfig apps/Deployment apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod
+#   See: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
+# custom:
+#   matchers:
+#     kinds:
+#     - apiGroups:
+#       - ""
+#       kinds:
+#       - Pod
+#       - ReplicationController
+#     - apiGroups:
+#       - apps
+#       kinds:
+#       - Deployment
+#       - ReplicaSet
+#       - StatefulSet
+#     - apiGroups:
+#       - apps.openshift.io
+#       kinds:
+#       - DeploymentConfig
 package ocp.bestpractices.pod_antiaffinity_notset
 
 import data.lib.konstraint.core as konstraint_core
