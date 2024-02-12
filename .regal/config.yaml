@@ -29,3 +29,6 @@ rules:
       level: ignore
     unconditional-assignment:
       level: ignore
+  imports:
+    use-rego-v1:
+      level: ignore
