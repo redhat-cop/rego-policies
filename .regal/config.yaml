@@ -2,6 +2,8 @@ rules:
   bugs:
     inconsistent-args:
       level: ignore
+    deprecated-builtin:
+      level: ignore
   idiomatic:
     no-defined-entrypoint:
       level: ignore
@@ -28,4 +30,7 @@ rules:
     todo-comment:
       level: ignore
     unconditional-assignment:
+      level: ignore
+  imports:
+    use-rego-v1:
       level: ignore

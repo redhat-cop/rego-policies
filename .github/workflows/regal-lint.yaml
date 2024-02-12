@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       # renovate: datasource=github-releases depName=StyraInc/regal
-      REGAL_VERSION: v0.14.0
+      REGAL_VERSION: v0.16.0
     steps:
       - name: Check out code
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
