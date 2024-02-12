@@ -1,42 +1,33 @@
-clone_forked_openapi2jsonschema() {
-  # See: https://github.com/instrumenta/openapi2jsonschema/issues/49
-  rm -rf _test/openapi2jsonschema || exit 0
-  git clone --depth 1 --single-branch https://github.com/garethahealy/openapi2jsonschema.git _test/schema-generation/openapi2jsonschema
-
-  chmod +x _test/schema-generation/openapi2jsonschema/openapi2jsonschema/command.py
-}
-
 download_remote_schema() {
-  curl -kL -H "Authorization: Bearer $(oc whoami -t)" $(oc whoami --show-server)/openapi/v2 > _test/schema-generation/openshift-openapi-spec.json
+  # See: https://github.com/instrumenta/openapi2jsonschema/issues/49
+  curl -kL -H "Authorization: Bearer $(oc whoami -t)" $(oc whoami --show-server)/openapi/v2 | jq '.definitions[] |= if .["x-kubernetes-group-version-kind"] then . + {properties: (.properties // {})} else . end' > _test/schema-generation/openshift-openapi-spec.json
 }
 
 generate_all_schemas() {
-  _test/schema-generation/openapi2jsonschema/openapi2jsonschema/command.py -o "_test/schema-generation/all-openshift-json-schema" --expanded --kubernetes --stand-alone --strict "_test/schema-generation/openshift-openapi-spec.json"
+  podman run -i -v ${PWD}:${PWD} -v "${PWD}/_test/schema-generation/openshift-json-schema:/out" ghcr.io/yannh/openapi2jsonschema:latest --expanded --kubernetes --stand-alone --strict "${PWD}/_test/schema-generation/openshift-openapi-spec.json"
 }
 
 generate_known_schemas() {
-  declare -a apiKinds=(
-    "v1,namespace;"
-    "v1,resourcequota;"
-    "rbac/v1,rolebinding;"
-    "networking/v1,networkpolicy;"
-    "build/v1,buildconfig;"
-    "image/v1,imagestream;"
-    "v1,container;"
-    "v1,pod;"
-    "apps/v1,deploymentconfig;"
-    "apps/v1,deployment;"
-    "v1,service;"
-    "route/v1,route;"
-    "security/v1,securitycontextconstraints"
+  declare -a files=(
+    "buildconfig-build-v1.json"
+    "container-v1.json"
+    "deployment-apps-v1.json"
+    "deploymentconfig-apps-v1.json"
+    "imagestream-image-v1.json"
+    "namespace-v1.json"
+    "networkpolicy-networking-v1.json"
+    "pod-v1.json"
+    "resourcequota-v1.json"
+    "rolebinding-rbac-v1.json"
+    "route-route-v1.json"
+    "securitycontextconstraints-security-v1.json"
+    "service-v1.json"
   )
 
-  _test/schema-generation/openapi2jsonschema/openapi2jsonschema/command.py -o "_test/schema-generation/openshift-json-schema" --expanded --kubernetes --stand-alone --strict --apiversionkind "$(printf "%s" "${apiKinds[@]}")" "_test/schema-generation/openshift-openapi-spec.json"
+  for schema in "${files[@]}"; do
+    cp _test/schema-generation/openshift-json-schema/schemas/${schema} _test/schema-generation/openshift-json-schema
+  done
 }
-
-if [[ ! -d "_test/schema-generation/openapi2jsonschema" ]]; then
-  clone_forked_openapi2jsonschema
-fi
 
 if [[ ! -f "_test/schema-generation/openshift-openapi-spec.json" ]]; then
   download_remote_schema
