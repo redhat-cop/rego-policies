@@ -1,9 +1,14 @@
-# @title RHCOP-OCP_DEPRECATED-3_11-00008: Template no longer served by v1
-#
-# OCP4.x expects template.openshift.io/v1.
-#
-# @skip-constraint
-# @kinds v1/Template
+# METADATA
+# title: 'RHCOP-OCP_DEPRECATED-3_11-00008: Template no longer served by v1'
+# description: OCP4.x expects template.openshift.io/v1.
+# custom:
+#   matchers:
+#     kinds:
+#     - apiGroups:
+#       - v1
+#       kinds:
+#       - Template
+#   skipConstraint: true
 package ocp.deprecated.ocp3_11.template_v1
 
 import data.lib.konstraint.core as konstraint_core

@@ -1,9 +1,15 @@
-# @title RHCOP-OCP_REQ_INV-00002: Deployment has matching PersistentVolumeClaim
-#
-# If Deployment has 'spec.template.spec.volumes.persistentVolumeClaim' set, there should be matching PersistentVolumeClaim.
-# If not, this would suggest a mistake.
-#
-# @kinds apps/Deployment
+# METADATA
+# title: 'RHCOP-OCP_REQ_INV-00002: Deployment has matching PersistentVolumeClaim'
+# description: |-
+#   If Deployment has 'spec.template.spec.volumes.persistentVolumeClaim' set, there should be matching PersistentVolumeClaim.
+#   If not, this would suggest a mistake.
+# custom:
+#   matchers:
+#     kinds:
+#     - apiGroups:
+#       - apps
+#       kinds:
+#       - Deployment
 package ocp.requiresinventory.deployment_has_matching_pvc
 
 import data.lib.konstraint.core as konstraint_core

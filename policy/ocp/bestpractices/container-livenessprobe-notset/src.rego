@@ -1,10 +1,33 @@
-# @title RHCOP-OCP_BESTPRACT-00008: Container liveness prob is not set
-#
-# A Liveness checks determines if the container in which it is scheduled is still running.
-# If the liveness probe fails due to a condition such as a deadlock, the kubelet kills the container.
-# See: https://docs.openshift.com/container-platform/4.6/applications/application-health.html
-#
-# @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+# METADATA
+# title: 'RHCOP-OCP_BESTPRACT-00008: Container liveness prob is not set'
+# description: |-
+#   A Liveness checks determines if the container in which it is scheduled is still running.
+#   If the liveness probe fails due to a condition such as a deadlock, the kubelet kills the container.
+#   See: https://docs.openshift.com/container-platform/4.6/applications/application-health.html
+# custom:
+#   matchers:
+#     kinds:
+#     - apiGroups:
+#       - ""
+#       kinds:
+#       - Pod
+#       - ReplicationController
+#     - apiGroups:
+#       - apps
+#       kinds:
+#       - DaemonSet
+#       - Deployment
+#       - Job
+#       - ReplicaSet
+#       - StatefulSet
+#     - apiGroups:
+#       - apps.openshift.io
+#       kinds:
+#       - DeploymentConfig
+#     - apiGroups:
+#       - batch
+#       kinds:
+#       - CronJob
 package ocp.bestpractices.container_livenessprobe_notset
 
 import data.lib.konstraint.core as konstraint_core

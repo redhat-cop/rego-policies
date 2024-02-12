@@ -1,9 +1,37 @@
-# @title RHCOP-OCP_BESTPRACT-00001: Common k8s labels are set
-#
-# Check if all workload related kinds contain labels as suggested by k8s.
-# See: https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels
-#
-# @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob core/Service route.openshift.io/Route
+# METADATA
+# title: 'RHCOP-OCP_BESTPRACT-00001: Common k8s labels are set'
+# description: |-
+#   Check if all workload related kinds contain labels as suggested by k8s.
+#   See: https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels
+# custom:
+#   matchers:
+#     kinds:
+#     - apiGroups:
+#       - ""
+#       kinds:
+#       - Pod
+#       - ReplicationController
+#       - Service
+#     - apiGroups:
+#       - apps
+#       kinds:
+#       - DaemonSet
+#       - Deployment
+#       - Job
+#       - ReplicaSet
+#       - StatefulSet
+#     - apiGroups:
+#       - apps.openshift.io
+#       kinds:
+#       - DeploymentConfig
+#     - apiGroups:
+#       - batch
+#       kinds:
+#       - CronJob
+#     - apiGroups:
+#       - route.openshift.io
+#       kinds:
+#       - Route
 package ocp.bestpractices.common_k8s_labels_notset
 
 import data.lib.konstraint.core as konstraint_core

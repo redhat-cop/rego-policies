@@ -1,11 +1,34 @@
-# @title RHCOP-OCP_BESTPRACT-00016: Container secret not mounted as envs
-#
-# The content of Secret resources should be mounted into containers as volumes rather than passed in as environment variables.
-# This is to prevent that the secret values appear in the command that was used to start the container, which may be inspected
-# by individuals that shouldn't have access to the secret values.
-# See: Configuration and secrets -> https://learnk8s.io/production-best-practices#application-development
-#
-# @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+# METADATA
+# title: 'RHCOP-OCP_BESTPRACT-00016: Container secret not mounted as envs'
+# description: |-
+#   The content of Secret resources should be mounted into containers as volumes rather than passed in as environment variables.
+#   This is to prevent that the secret values appear in the command that was used to start the container, which may be inspected
+#   by individuals that shouldn't have access to the secret values.
+#   See: Configuration and secrets -> https://learnk8s.io/production-best-practices#application-development
+# custom:
+#   matchers:
+#     kinds:
+#     - apiGroups:
+#       - ""
+#       kinds:
+#       - Pod
+#       - ReplicationController
+#     - apiGroups:
+#       - apps
+#       kinds:
+#       - DaemonSet
+#       - Deployment
+#       - Job
+#       - ReplicaSet
+#       - StatefulSet
+#     - apiGroups:
+#       - apps.openshift.io
+#       kinds:
+#       - DeploymentConfig
+#     - apiGroups:
+#       - batch
+#       kinds:
+#       - CronJob
 package ocp.bestpractices.container_secret_mounted_envs
 
 import data.lib.konstraint.core as konstraint_core

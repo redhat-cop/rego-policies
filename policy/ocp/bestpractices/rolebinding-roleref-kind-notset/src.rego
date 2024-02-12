@@ -1,9 +1,14 @@
-# @title RHCOP-OCP_BESTPRACT-00024: RoleBinding has kind set
-#
-# Migrating from 3.11 to 4.x requires the 'roleRef.kind' to be set.
-#
-# @skip-constraint
-# @kinds rbac.authorization.k8s.io/RoleBinding
+# METADATA
+# title: 'RHCOP-OCP_BESTPRACT-00024: RoleBinding has kind set'
+# description: Migrating from 3.11 to 4.x requires the 'roleRef.kind' to be set.
+# custom:
+#   matchers:
+#     kinds:
+#     - apiGroups:
+#       - rbac.authorization.k8s.io
+#       kinds:
+#       - RoleBinding
+#   skipConstraint: true
 package ocp.bestpractices.rolebinding_roleref_kind_notset
 
 import data.lib.konstraint.core as konstraint_core

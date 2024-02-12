@@ -1,10 +1,16 @@
-# @title RHCOP-OCP_REQ_INV-00001: Deployment has a matching PodDisruptionBudget
-#
-# All Deployments should have matching PodDisruptionBudget, via 'spec.template.metadata.labels', to provide HA guarantees.
-# See: Fault tolerance -> https://learnk8s.io/production-best-practices#application-development
-# See: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
-#
-# @kinds apps/Deployment
+# METADATA
+# title: 'RHCOP-OCP_REQ_INV-00001: Deployment has a matching PodDisruptionBudget'
+# description: |-
+#   All Deployments should have matching PodDisruptionBudget, via 'spec.template.metadata.labels', to provide HA guarantees.
+#   See: Fault tolerance -> https://learnk8s.io/production-best-practices#application-development
+#   See: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
+# custom:
+#   matchers:
+#     kinds:
+#     - apiGroups:
+#       - apps
+#       kinds:
+#       - Deployment
 package ocp.requiresinventory.deployment_has_matching_poddisruptionbudget
 
 import data.lib.konstraint.core as konstraint_core

@@ -1,9 +1,15 @@
-# @title RHCOP-OCP_REQ_INV-00005: Service has matching ServiceMonitor
-#
-# All Service should have a matching ServiceMonitor, via 'spec.selector'.
-# Service without a ServiceMonitor are not being monitored and should be questioned as to why.
-#
-# @kinds core/Service
+# METADATA
+# title: 'RHCOP-OCP_REQ_INV-00005: Service has matching ServiceMonitor'
+# description: |-
+#   All Service should have a matching ServiceMonitor, via 'spec.selector'.
+#   Service without a ServiceMonitor are not being monitored and should be questioned as to why.
+# custom:
+#   matchers:
+#     kinds:
+#     - apiGroups:
+#       - ""
+#       kinds:
+#       - Service
 package ocp.requiresinventory.service_has_matching_servicenonitor
 
 import data.lib.konstraint.core as konstraint_core

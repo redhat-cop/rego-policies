@@ -1,9 +1,14 @@
-# @title RHCOP-OCP_DEPRECATED-3_11-00006: Route no longer served by v1
-#
-# OCP4.x expects route.openshift.io/v1.
-#
-# @skip-constraint
-# @kinds v1/Route
+# METADATA
+# title: 'RHCOP-OCP_DEPRECATED-3_11-00006: Route no longer served by v1'
+# description: OCP4.x expects route.openshift.io/v1.
+# custom:
+#   matchers:
+#     kinds:
+#     - apiGroups:
+#       - v1
+#       kinds:
+#       - Route
+#   skipConstraint: true
 package ocp.deprecated.ocp3_11.route_v1
 
 import data.lib.konstraint.core as konstraint_core

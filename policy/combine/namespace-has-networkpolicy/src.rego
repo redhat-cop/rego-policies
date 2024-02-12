@@ -1,12 +1,22 @@
-# @title RHCOP-COMBINE-00001: Namespace has a NetworkPolicy
-#
-# Kubernetes network policies specify the access permissions for groups of pods,
-# much like security groups in the cloud are used to control access to VM instances.
-# In other words, it creates firewalls between pods running on a Kubernetes cluster.
-# See: Network policies -> https://learnk8s.io/production-best-practices#governance
-#
-# @skip-constraint
-# @kinds core/Namespace networking.k8s.io/NetworkPolicy
+# METADATA
+# title: 'RHCOP-COMBINE-00001: Namespace has a NetworkPolicy'
+# description: |-
+#   Kubernetes network policies specify the access permissions for groups of pods,
+#   much like security groups in the cloud are used to control access to VM instances.
+#   In other words, it creates firewalls between pods running on a Kubernetes cluster.
+#   See: Network policies -> https://learnk8s.io/production-best-practices#governance
+# custom:
+#   matchers:
+#     kinds:
+#     - apiGroups:
+#       - ""
+#       kinds:
+#       - Namespace
+#     - apiGroups:
+#       - networking.k8s.io
+#       kinds:
+#       - NetworkPolicy
+#   skipConstraint: true
 package combine.namespace_has_networkpolicy
 
 import data.lib.konstraint.core as konstraint_core

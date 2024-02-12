@@ -1,9 +1,14 @@
-# @title RHCOP-OCP_DEPRECATED-3_11-00002: DeploymentConfig no longer served by v1
-#
-# OCP4.x expects apps.openshift.io/v1.
-#
-# @skip-constraint
-# @kinds v1/DeploymentConfig
+# METADATA
+# title: 'RHCOP-OCP_DEPRECATED-3_11-00002: DeploymentConfig no longer served by v1'
+# description: OCP4.x expects apps.openshift.io/v1.
+# custom:
+#   matchers:
+#     kinds:
+#     - apiGroups:
+#       - v1
+#       kinds:
+#       - DeploymentConfig
+#   skipConstraint: true
 package ocp.deprecated.ocp3_11.deploymentconfig_v1
 
 import data.lib.konstraint.core as konstraint_core

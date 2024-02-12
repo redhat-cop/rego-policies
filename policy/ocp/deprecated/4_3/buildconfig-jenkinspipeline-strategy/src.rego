@@ -1,10 +1,16 @@
-# @title RHCOP-OCP_DEPRECATED-4_3-00001: BuildConfig jenkinsPipelineStrategy is deprecated
-#
-# 'spec.strategy.jenkinsPipelineStrategy' is no longer supported by BuildConfig.
-# See: https://docs.openshift.com/container-platform/4.3/release_notes/ocp-4-3-release-notes.html#ocp-4-3-deprecated-features
-#
-# @skip-constraint
-# @kinds build.openshift.io/BuildConfig
+# METADATA
+# title: 'RHCOP-OCP_DEPRECATED-4_3-00001: BuildConfig jenkinsPipelineStrategy is deprecated'
+# description: |-
+#   'spec.strategy.jenkinsPipelineStrategy' is no longer supported by BuildConfig.
+#   See: https://docs.openshift.com/container-platform/4.3/release_notes/ocp-4-3-release-notes.html#ocp-4-3-deprecated-features
+# custom:
+#   matchers:
+#     kinds:
+#     - apiGroups:
+#       - build.openshift.io
+#       kinds:
+#       - BuildConfig
+#   skipConstraint: true
 package ocp.deprecated.ocp4_3.buildconfig_jenkinspipeline_strategy
 
 import data.lib.konstraint.core as konstraint_core

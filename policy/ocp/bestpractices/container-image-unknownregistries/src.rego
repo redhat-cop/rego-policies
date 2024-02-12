@@ -1,8 +1,30 @@
-# @title RHCOP-OCP_BESTPRACT-00004: Container image is not from a known registry
-#
-# Only images from trusted and known registries should be used
-#
-# @kinds apps.openshift.io/DeploymentConfig apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet core/ReplicationController apps/StatefulSet core/Pod batch/CronJob
+# METADATA
+# title: 'RHCOP-OCP_BESTPRACT-00004: Container image is not from a known registry'
+# description: Only images from trusted and known registries should be used
+# custom:
+#   matchers:
+#     kinds:
+#     - apiGroups:
+#       - ""
+#       kinds:
+#       - Pod
+#       - ReplicationController
+#     - apiGroups:
+#       - apps
+#       kinds:
+#       - DaemonSet
+#       - Deployment
+#       - Job
+#       - ReplicaSet
+#       - StatefulSet
+#     - apiGroups:
+#       - apps.openshift.io
+#       kinds:
+#       - DeploymentConfig
+#     - apiGroups:
+#       - batch
+#       kinds:
+#       - CronJob
 package ocp.bestpractices.container_image_unknownregistries
 
 import future.keywords.in

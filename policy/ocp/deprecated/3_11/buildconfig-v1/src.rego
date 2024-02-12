@@ -1,9 +1,14 @@
-# @title RHCOP-OCP_DEPRECATED-3_11-00001: BuildConfig no longer served by v1
-#
-# OCP4.x expects build.openshift.io/v1.
-#
-# @skip-constraint
-# @kinds v1/BuildConfig
+# METADATA
+# title: 'RHCOP-OCP_DEPRECATED-3_11-00001: BuildConfig no longer served by v1'
+# description: OCP4.x expects build.openshift.io/v1.
+# custom:
+#   matchers:
+#     kinds:
+#     - apiGroups:
+#       - v1
+#       kinds:
+#       - BuildConfig
+#   skipConstraint: true
 package ocp.deprecated.ocp3_11.buildconfig_v1
 
 import data.lib.konstraint.core as konstraint_core

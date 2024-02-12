@@ -1,10 +1,17 @@
-# @title RHCOP-PODMAN-00002: Image size is not greater than an expected value
+# METADATA
+# title: 'RHCOP-PODMAN-00002: Image size is not greater than an expected value'
+# description: |-
+#   Typically, the "smaller the better" rule applies to images so lets enforce that.
 #
-# Typically, the "smaller the better" rule applies to images so lets enforce that.
-#
-# @skip-constraint
-# @kinds redhat-cop.github.com/PodmanImages
-# parameter image_size_upperbound integer
+#   parameter image_size_upperbound integer
+# custom:
+#   matchers:
+#     kinds:
+#     - apiGroups:
+#       - redhat-cop.github.com
+#       kinds:
+#       - PodmanImages
+#   skipConstraint: true
 package podman.images.image_size_not_greater_than
 
 import data.lib.konstraint.core as konstraint_core

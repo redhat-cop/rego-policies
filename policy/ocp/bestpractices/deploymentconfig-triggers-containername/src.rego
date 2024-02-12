@@ -1,9 +1,15 @@
-# @title RHCOP-OCP_BESTPRACT-00027: DeploymentConfig triggers container name miss match
-#
-# If you are using a DeploymentConfig with 'spec.triggers' set, but the container name does not match the trigger will never fire.
-# There is probably a mistake in your definition.
-#
-# @kinds apps.openshift.io/DeploymentConfig
+# METADATA
+# title: 'RHCOP-OCP_BESTPRACT-00027: DeploymentConfig triggers container name miss match'
+# description: |-
+#   If you are using a DeploymentConfig with 'spec.triggers' set, but the container name does not match the trigger will never fire.
+#   There is probably a mistake in your definition.
+# custom:
+#   matchers:
+#     kinds:
+#     - apiGroups:
+#       - apps.openshift.io
+#       kinds:
+#       - DeploymentConfig
 package ocp.bestpractices.deploymentconfig_triggers_containername
 
 import data.lib.konstraint.core as konstraint_core
