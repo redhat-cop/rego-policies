@@ -2,6 +2,8 @@ rules:
   bugs:
     inconsistent-args:
       level: ignore
+    deprecated-builtin:
+      level: ignore
   idiomatic:
     no-defined-entrypoint:
       level: ignore
