@@ -17,13 +17,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
 
-      - name: Validate integration test data via kubeval
-        uses: redhat-cop/github-actions/confbatstest@11f2ce27643eb7c76ac3623cb99d9b08be30d762 # v4
+      - name: Find test data to validate
+        shell: bash
+        id: data
+        run: |
+          echo "files=$(find policy/* -regex '.*test_data\/integration\/.*$' | xargs)" >> "$GITHUB_OUTPUT"
+
+      - name: Validate integration test data via kubeconform
+        uses: docker://ghcr.io/yannh/kubeconform:v0.6.4
         with:
-          raw: find policy/* -regex '.*test_data\/integration\/.*$' -exec kubeval --openshift --strict --skip-kinds ServiceMonitor {} \;
+          args: -summary -schema-location "https://raw.githubusercontent.com/garethahealy/openshift-json-schema/main/4.13/schemas/{{ .ResourceKind }}{{ .KindSuffix }}.json" ${{ steps.data.outputs.files }}
 
       - name: Create k8s Kind Cluster
         uses: helm/kind-action@99576bfa6ddf9a8e612d83b513da5a75875caced # v1.9.0
+
+      - name: Setup confbatstest
+        uses: redhat-cop/github-actions/confbatstest@11f2ce27643eb7c76ac3623cb99d9b08be30d762 # v4
+        with:
+          raw: echo "Needed for next stage"
 
       - name: Test against KinD
         run: |
