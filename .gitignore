@@ -46,4 +46,4 @@ opa-profile.log
 **/template.yaml
 **/constraint.yaml
 
-_test/schema-generation/openshift-json-schema/schemas
+_test/schema-generation

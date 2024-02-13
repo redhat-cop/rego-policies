@@ -7,6 +7,16 @@ load test_helper/redhatcop-bats-library/load
 setup_file() {
   rm -rf /tmp/rhcop
   rm -f opa-profile.log
+
+  if [[ ! -d "_test/schema-generation/openshift-json-schema" ]]; then
+    mkdir -p _test/schema-generation/openshift-json-schema
+    rm -rf /tmp/openshift-json-schema
+
+    # Download openshift-json-schema dynamically so it doesnt need to be added into source
+    git clone https://github.com/garethahealy/openshift-json-schema.git /tmp/openshift-json-schema --depth 1
+
+    mv /tmp/openshift-json-schema/4.13/schemas/* _test/schema-generation/openshift-json-schema
+  fi
 }
 
 check_violations() {
