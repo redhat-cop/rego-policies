@@ -31,6 +31,8 @@ rules:
       level: ignore
     unconditional-assignment:
       level: ignore
+    rule-name-repeats-package:
+      level: ignore
   imports:
     use-rego-v1:
       level: ignore
