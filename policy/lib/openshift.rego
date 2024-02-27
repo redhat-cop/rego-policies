@@ -46,7 +46,7 @@ is_pod_or_networking {
 	is_route
 }
 
-is_policy_active(policyId) {
+is_policy_active(_) {
 	# regal ignore:external-reference
 	not konstraint_core.is_gatekeeper
 }

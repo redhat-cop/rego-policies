@@ -271,15 +271,9 @@ violation[msg] {
   some container in openshift.containers
 
   registry := resolve_registry(container.image)
-  not known_registry(container.image, registry)
+  not known_registry(registry)
 
-  msg := konstraint_core.format_with_id(
-    sprintf(
-      "%s/%s: container '%s' is from (%s), which is an unknown registry.",
-      [konstraint_core.kind, konstraint_core.name, container.name, container.image],
-    ),
-    "RHCOP-OCP_BESTPRACT-00004",
-  )
+  msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' is from (%s), which is an unknown registry.", [konstraint_core.kind, konstraint_core.name, container.name, container.image]), "RHCOP-OCP_BESTPRACT-00004")
 }
 
 resolve_registry(image) := registry {
@@ -290,7 +284,7 @@ resolve_registry(image) := registry {
   registry := possible_registry
 }
 
-known_registry(image, registry) {
+known_registry(registry) {
   known_registries := ["image-registry.openshift-image-registry.svc", "registry.redhat.io", "registry.connect.redhat.com", "quay.io"]
   registry in known_registries
 }
@@ -372,7 +366,7 @@ violation[msg] {
 
   not label_key_starts_with_expected(key)
 
-  msg := konstraint_core.format_with_id(sprintf("%s/%s: has a label key which did not start with 'app.kubernetes.io/' or 'redhat-cop.github.com/'. Found '%s'", [konstraint_core.kind, konstraint_core.name, key]), "RHCOP-OCP_BESTPRACT-00006")
+  msg := konstraint_core.format_with_id(sprintf("%s/%s: has a label key which did not start with 'app.kubernetes.io/' or 'redhat-cop.github.com/'. Found '%s=%s'", [konstraint_core.kind, konstraint_core.name, key, value]), "RHCOP-OCP_BESTPRACT-00006")
 }
 
 label_key_starts_with_expected(key) {
@@ -663,24 +657,16 @@ violation[msg] {
 }
 
 is_resource_requests_cpu_contains_dollar(container) {
-  not is_resource_requests_cpu_a_core(container)
+  not is_number(container.resources.requests.cpu)
   startswith(container.resources.requests.cpu, "$")
 }
 
-is_resource_requests_cpu_a_core(container) {
-  is_number(input.resources.requests.cpu)
-
-  # This should never fail given that is_number succeeds
-  # regal ignore:unused-return-value
-  to_number(input.resources.requests.cpu)
+is_resource_requests_cpu_units_valid(container) {
+  is_number(container.resources.requests.cpu)
 }
 
 is_resource_requests_cpu_units_valid(container) {
-  is_resource_requests_cpu_a_core(container)
-}
-
-is_resource_requests_cpu_units_valid(container) {
-  not is_resource_requests_cpu_a_core(container)
+  not is_number(container.resources.requests.cpu)
 
   # 'cpu' can be a quoted number, which is why we concat an empty string[] to match whole cpu cores
   requests_unit := array.concat(regex.find_n(`[A-Za-z]+`, container.resources.requests.cpu, 1), [""])[0]

@@ -37,15 +37,9 @@ violation[msg] {
 	some container in openshift.containers
 
 	registry := resolve_registry(container.image)
-	not known_registry(container.image, registry)
+	not known_registry(registry)
 
-	msg := konstraint_core.format_with_id(
-		sprintf(
-			"%s/%s: container '%s' is from (%s), which is an unknown registry.",
-			[konstraint_core.kind, konstraint_core.name, container.name, container.image],
-		),
-		"RHCOP-OCP_BESTPRACT-00004",
-	)
+	msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' is from (%s), which is an unknown registry.", [konstraint_core.kind, konstraint_core.name, container.name, container.image]), "RHCOP-OCP_BESTPRACT-00004")
 }
 
 resolve_registry(image) := registry {
@@ -56,7 +50,7 @@ resolve_registry(image) := registry {
 	registry := possible_registry
 }
 
-known_registry(image, registry) {
+known_registry(registry) {
 	known_registries := ["image-registry.openshift-image-registry.svc", "registry.redhat.io", "registry.connect.redhat.com", "quay.io"]
 	registry in known_registries
 }

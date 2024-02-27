@@ -46,24 +46,16 @@ violation[msg] {
 }
 
 is_resource_requests_cpu_contains_dollar(container) {
-	not is_resource_requests_cpu_a_core(container)
+	not is_number(container.resources.requests.cpu)
 	startswith(container.resources.requests.cpu, "$")
 }
 
-is_resource_requests_cpu_a_core(container) {
-	is_number(input.resources.requests.cpu)
-
-	# This should never fail given that is_number succeeds
-	# regal ignore:unused-return-value
-	to_number(input.resources.requests.cpu)
+is_resource_requests_cpu_units_valid(container) {
+	is_number(container.resources.requests.cpu)
 }
 
 is_resource_requests_cpu_units_valid(container) {
-	is_resource_requests_cpu_a_core(container)
-}
-
-is_resource_requests_cpu_units_valid(container) {
-	not is_resource_requests_cpu_a_core(container)
+	not is_number(container.resources.requests.cpu)
 
 	# 'cpu' can be a quoted number, which is why we concat an empty string[] to match whole cpu cores
 	requests_unit := array.concat(regex.find_n(`[A-Za-z]+`, container.resources.requests.cpu, 1), [""])[0]
