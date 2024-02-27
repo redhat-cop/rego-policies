@@ -30,14 +30,16 @@
 #       - CronJob
 package ocp.bestpractices.container_livenessprobe_notset
 
+import future.keywords.in
+
 import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
-  openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00008")
-  container := openshift.containers[_]
+	openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00008")
+	some container in openshift.containers
 
-  konstraint_core.missing_field(container, "livenessProbe")
+	konstraint_core.missing_field(container, "livenessProbe")
 
-  msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' has no livenessProbe. See: https://docs.openshift.com/container-platform/4.6/applications/application-health.html", [konstraint_core.kind, konstraint_core.name, container.name]), "RHCOP-OCP_BESTPRACT-00008")
+	msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' has no livenessProbe. See: https://docs.openshift.com/container-platform/4.6/applications/application-health.html", [konstraint_core.kind, konstraint_core.name, container.name]), "RHCOP-OCP_BESTPRACT-00008")
 }

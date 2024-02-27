@@ -38,21 +38,21 @@ import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
-  openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00013")
-  container := openshift.containers[_]
+	openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00013")
+	some container in openshift.containers
 
-  not startswith(container.resources.requests.memory, "$")
-  not startswith(container.resources.limits.memory, "$")
-  not is_resource_memory_units_valid(container)
+	not startswith(container.resources.requests.memory, "$")
+	not startswith(container.resources.limits.memory, "$")
+	not is_resource_memory_units_valid(container)
 
-  msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' memory resources for limits or requests (%s / %s) has an incorrect unit. See: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes", [konstraint_core.kind, konstraint_core.name, container.name, container.resources.limits.memory, container.resources.requests.memory]), "RHCOP-OCP_BESTPRACT-00013")
+	msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' memory resources for limits or requests (%s / %s) has an incorrect unit. See: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes", [konstraint_core.kind, konstraint_core.name, container.name, container.resources.limits.memory, container.resources.requests.memory]), "RHCOP-OCP_BESTPRACT-00013")
 }
 
 is_resource_memory_units_valid(container) {
-  memoryLimitsUnit := regex.find_n(`[A-Za-z]+`, container.resources.limits.memory, 1)[0]
-  memoryRequestsUnit := regex.find_n(`[A-Za-z]+`, container.resources.requests.memory, 1)[0]
+	limits_unit := regex.find_n(`[A-Za-z]+`, container.resources.limits.memory, 1)[0]
+	requests_unit := regex.find_n(`[A-Za-z]+`, container.resources.requests.memory, 1)[0]
 
-  units := ["Ei", "Pi", "Ti", "Gi", "Mi", "Ki", "E", "P", "T", "G", "M", "K"]
-  memoryLimitsUnit in units
-  memoryRequestsUnit in units
+	units := ["Ei", "Pi", "Ti", "Gi", "Mi", "Ki", "E", "P", "T", "G", "M", "K"]
+	limits_unit in units
+	requests_unit in units
 }

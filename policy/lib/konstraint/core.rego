@@ -22,7 +22,7 @@ format_with_id(msg, id) := {
 	"details": {"policyID": id},
 }
 
-apiVersion := resource.apiVersion
+api_version := resource.apiVersion
 
 name := resource.metadata.name
 
@@ -32,14 +32,14 @@ labels := resource.metadata.labels
 
 annotations := resource.metadata.annotations
 
-gv := split(apiVersion, "/")
+gv := split(api_version, "/")
 
 group := gv[0] {
-	contains(apiVersion, "/")
+	contains(api_version, "/")
 }
 
 group := "core" {
-	not contains(apiVersion, "/")
+	not contains(api_version, "/")
 }
 
 version := gv[count(gv) - 1]

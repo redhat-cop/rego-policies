@@ -17,24 +17,25 @@
 #   skipConstraint: true
 package combine.namespace_has_resourcequota
 
+import future.keywords.in
+
 import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  manifests := input[_]
-  some i
+	some manifests in input
+	some namespace in manifests
 
-  lower(manifests[i].apiVersion) == "v1"
-  lower(manifests[i].kind) == "namespace"
-  namespace := manifests[i]
+	lower(namespace.apiVersion) == "v1"
+	lower(namespace.kind) == "namespace"
 
-  not namespace_has_resourcequota(manifests)
+	not has_resourcequota(manifests)
 
-  msg := konstraint_core.format_with_id(sprintf("%s/%s does not have a core/v1:ResourceQuota. See: https://docs.openshift.com/container-platform/4.6/applications/quotas/quotas-setting-per-project.html", [namespace.kind, namespace.metadata.name]), "RHCOP-COMBINE-00002")
+	msg := konstraint_core.format_with_id(sprintf("%s/%s does not have a core/v1:ResourceQuota. See: https://docs.openshift.com/container-platform/4.6/applications/quotas/quotas-setting-per-project.html", [namespace.kind, namespace.metadata.name]), "RHCOP-COMBINE-00002")
 }
 
-namespace_has_resourcequota(manifests) {
-  current := manifests[_]
+has_resourcequota(manifests) {
+	some current in manifests
 
-  lower(current.apiVersion) == "v1"
-  lower(current.kind) == "resourcequota"
+	lower(current.apiVersion) == "v1"
+	lower(current.kind) == "resourcequota"
 }
