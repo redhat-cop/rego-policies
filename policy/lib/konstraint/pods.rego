@@ -1,12 +1,13 @@
 package lib.konstraint.pods
 
+import future.keywords.in
+
 import data.lib.konstraint.core
 
 default pod := false
 
 pod := core.resource.spec.template {
-	pod_templates := ["daemonset", "deployment", "job", "replicaset", "replicationcontroller", "statefulset"]
-	lower(core.kind) == pod_templates[_]
+	lower(core.kind) in {"daemonset", "deployment", "job", "replicaset", "replicationcontroller", "statefulset"}
 }
 
 pod := core.resource {
@@ -19,7 +20,11 @@ pod := core.resource.spec.jobTemplate.spec.template {
 
 containers[container] {
 	keys := {"containers", "initContainers"}
+
+	# regal ignore:prefer-some-in-iteration
 	all_containers := [c | some k; keys[k]; c = pod.spec[k][_]]
+
+	# regal ignore:prefer-some-in-iteration
 	container := all_containers[_]
 }
 

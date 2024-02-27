@@ -9,6 +9,8 @@ jobs:
   lint-policy:
     runs-on: ubuntu-latest
     env:
+      # renovate: datasource=github-releases depName=open-policy-agent/opa
+      OPA_VERSION: v0.61.0
       # renovate: datasource=github-releases depName=StyraInc/regal
       REGAL_VERSION: v0.17.0
     steps:
@@ -17,13 +19,21 @@ jobs:
         with:
           egress-policy: audit
 
-      - name: Check out code
+      - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+
+      - name: Setup OPA
+        uses: open-policy-agent/setup-opa@v2
+        with:
+          version: ${{ env.OPA_VERSION }}
 
       - name: Setup Regal
         uses: StyraInc/setup-regal@33a142b1189004e0f14bf42b15972c67eecce776 # v1.0.0
         with:
           version: ${{ env.REGAL_VERSION }}
+
+      - name: Run OPA Check
+        run: opa check policy --strict
 
       - name: Run Regal lint
         run: regal lint --format github policy

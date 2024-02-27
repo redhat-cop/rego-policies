@@ -72,23 +72,24 @@ See: Network policies -> https://learnk8s.io/production-best-practices#governanc
 ```rego
 package combine.namespace_has_networkpolicy
 
+import future.keywords.in
+
 import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  manifests := input[_]
-  some i
+  some manifests in input
+  some namespace in manifests
 
-  lower(manifests[i].apiVersion) == "v1"
-  lower(manifests[i].kind) == "namespace"
-  namespace := manifests[i]
+  lower(namespace.apiVersion) == "v1"
+  lower(namespace.kind) == "namespace"
 
-  not namespace_has_networkpolicy(manifests)
+  not has_networkpolicy(manifests)
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s does not have a networking.k8s.io/v1:NetworkPolicy. See: https://docs.openshift.com/container-platform/4.6/networking/network_policy/about-network-policy.html", [namespace.kind, namespace.metadata.name]), "RHCOP-COMBINE-00001")
 }
 
-namespace_has_networkpolicy(manifests) {
-  current := manifests[_]
+has_networkpolicy(manifests) {
+  some current in manifests
 
   lower(current.apiVersion) == "networking.k8s.io/v1"
   lower(current.kind) == "networkpolicy"
@@ -114,23 +115,24 @@ See: Namespace limits -> https://learnk8s.io/production-best-practices#governanc
 ```rego
 package combine.namespace_has_resourcequota
 
+import future.keywords.in
+
 import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  manifests := input[_]
-  some i
+  some manifests in input
+  some namespace in manifests
 
-  lower(manifests[i].apiVersion) == "v1"
-  lower(manifests[i].kind) == "namespace"
-  namespace := manifests[i]
+  lower(namespace.apiVersion) == "v1"
+  lower(namespace.kind) == "namespace"
 
-  not namespace_has_resourcequota(manifests)
+  not has_resourcequota(manifests)
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s does not have a core/v1:ResourceQuota. See: https://docs.openshift.com/container-platform/4.6/applications/quotas/quotas-setting-per-project.html", [namespace.kind, namespace.metadata.name]), "RHCOP-COMBINE-00002")
 }
 
-namespace_has_resourcequota(manifests) {
-  current := manifests[_]
+has_resourcequota(manifests) {
+  some current in manifests
 
   lower(current.apiVersion) == "v1"
   lower(current.kind) == "resourcequota"
@@ -192,12 +194,14 @@ See: https://github.com/jboss-openshift/cct_module/blob/master/jboss/container/j
 ```rego
 package ocp.bestpractices.container_env_maxmemory_notset
 
+import future.keywords.in
+
 import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
   openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00002")
-  container := openshift.containers[_]
+  some container in openshift.containers
 
   konstraint_core.labels["redhat-cop.github.com/technology"] == "java"
   not is_env_max_memory_set(container)
@@ -206,7 +210,7 @@ violation[msg] {
 }
 
 is_env_max_memory_set(container) {
-  env := container.env[_]
+  some env in container.env
   env.name == "CONTAINER_MAX_MEMORY"
   env.valueFrom.resourceFieldRef.resource == "limits.memory"
 }
@@ -227,12 +231,14 @@ Images should use immutable tags. Today's latest is not tomorrows latest.
 ```rego
 package ocp.bestpractices.container_image_latest
 
+import future.keywords.in
+
 import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
   openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00003")
-  container := openshift.containers[_]
+  some container in openshift.containers
 
   endswith(container.image, ":latest")
 
@@ -262,15 +268,15 @@ import data.lib.openshift
 
 violation[msg] {
   openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00004")
-  container := openshift.containers[_]
+  some container in openshift.containers
 
-  registry := get_registry(container.image)
-  not known_registry(container.image, registry)
+  registry := resolve_registry(container.image)
+  not known_registry(registry)
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' is from (%s), which is an unknown registry.", [konstraint_core.kind, konstraint_core.name, container.name, container.image]), "RHCOP-OCP_BESTPRACT-00004")
 }
 
-get_registry(image) := registry {
+resolve_registry(image) := registry {
   contains(image, "/")
   possible_registry := lower(split(image, "/")[0])
   contains(possible_registry, ".")
@@ -278,7 +284,7 @@ get_registry(image) := registry {
   registry := possible_registry
 }
 
-known_registry(image, registry) {
+known_registry(registry) {
   known_registries := ["image-registry.openshift-image-registry.svc", "registry.redhat.io", "registry.connect.redhat.com", "quay.io"]
   registry in known_registries
 }
@@ -300,12 +306,14 @@ Instead of manually setting -Xmx, let the image automatically set it for you.
 ```rego
 package ocp.bestpractices.container_java_xmx_set
 
+import future.keywords.in
+
 import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
   openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00005")
-  container := openshift.containers[_]
+  some container in openshift.containers
 
   konstraint_core.labels["redhat-cop.github.com/technology"] == "java"
   container_opts_contains_xmx(container)
@@ -314,18 +322,18 @@ violation[msg] {
 }
 
 container_opts_contains_xmx(container) {
-  value := container.command[_]
-  contains(value, "-Xmx")
+  some command in container.command
+  contains(command, "-Xmx")
 }
 
 container_opts_contains_xmx(container) {
-  value := container.args[_]
-  contains(value, "-Xmx")
+  some arg in container.args
+  contains(arg, "-Xmx")
 }
 
 container_opts_contains_xmx(container) {
-  value := container.env[_]
-  contains(value.value, "-Xmx")
+  some env in container.env
+  contains(env.value, "-Xmx")
 }
 ```
 
@@ -352,11 +360,13 @@ violation[msg] {
   openshift.pod
 
   some key
+
+  # regal ignore:prefer-some-in-iteration
   value := konstraint_core.labels[key]
 
   not label_key_starts_with_expected(key)
 
-  msg := konstraint_core.format_with_id(sprintf("%s/%s: has a label key which did not start with 'app.kubernetes.io/' or 'redhat-cop.github.com/'. Found '%s'", [konstraint_core.kind, konstraint_core.name, key]), "RHCOP-OCP_BESTPRACT-00006")
+  msg := konstraint_core.format_with_id(sprintf("%s/%s: has a label key which did not start with 'app.kubernetes.io/' or 'redhat-cop.github.com/'. Found '%s=%s'", [konstraint_core.kind, konstraint_core.name, key, value]), "RHCOP-OCP_BESTPRACT-00006")
 }
 
 label_key_starts_with_expected(key) {
@@ -377,8 +387,9 @@ _source: [policy/ocp/bestpractices/container-labelkey-inconsistent](policy/ocp/b
 **Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
 
 When Liveness and Readiness probes are pointing to the same endpoint, the effects of the probes are combined.
-When the app signals that it's not ready or live, the kubelet detaches the container from the Service and delete it at the same time.
-You might notice dropping connections because the container does not have enough time to drain the current connections or process the incoming ones.
+When the app signals that it's not ready or live, the kubelet detaches the container from the Service
+and delete it at the same time. You might notice dropping connections because the container
+does not have enough time to drain the current connections or process the incoming ones.
 See: Health checks -> https://learnk8s.io/production-best-practices#application-development
 
 ### Rego
@@ -386,12 +397,14 @@ See: Health checks -> https://learnk8s.io/production-best-practices#application-
 ```rego
 package ocp.bestpractices.container_liveness_readinessprobe_equal
 
+import future.keywords.in
+
 import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
   openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00007")
-  container := openshift.containers[_]
+  some container in openshift.containers
 
   container.livenessProbe == container.readinessProbe
 
@@ -416,12 +429,14 @@ See: https://docs.openshift.com/container-platform/4.6/applications/application-
 ```rego
 package ocp.bestpractices.container_livenessprobe_notset
 
+import future.keywords.in
+
 import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
   openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00008")
-  container := openshift.containers[_]
+  some container in openshift.containers
 
   konstraint_core.missing_field(container, "livenessProbe")
 
@@ -438,7 +453,8 @@ _source: [policy/ocp/bestpractices/container-livenessprobe-notset](policy/ocp/be
 **Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
 
 A Readiness check determines if the container in which it is scheduled is ready to service requests.
-If the readiness probe fails a container, the endpoints controller ensures the container has its IP address removed from the endpoints of all services.
+If the readiness probe fails a container, the endpoints controller ensures the container has its IP address
+removed from the endpoints of all services.
 See: https://docs.openshift.com/container-platform/4.6/applications/application-health.html
 
 ### Rego
@@ -446,12 +462,14 @@ See: https://docs.openshift.com/container-platform/4.6/applications/application-
 ```rego
 package ocp.bestpractices.container_readinessprobe_notset
 
+import future.keywords.in
+
 import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
   openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00009")
-  container := openshift.containers[_]
+  some container in openshift.containers
 
   konstraint_core.missing_field(container, "readinessProbe")
 
@@ -476,12 +494,14 @@ See: reddit.com/r/kubernetes/comments/all1vg/on_kubernetes_cpu_limits
 ```rego
 package ocp.bestpractices.container_resources_limits_cpu_set
 
+import future.keywords.in
+
 import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
   openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00010")
-  container := openshift.containers[_]
+  some container in openshift.containers
 
   container.resources.limits.cpu
 
@@ -506,22 +526,25 @@ See: Resources utilisation -> https://learnk8s.io/production-best-practices#appl
 ```rego
 package ocp.bestpractices.container_resources_limits_memory_greater_than
 
+import future.keywords.in
+
 import data.lib.konstraint.core as konstraint_core
 import data.lib.memory
 import data.lib.openshift
 
 violation[msg] {
   openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00011")
-  #NOTE: upperBound is an arbitrary number and it should be changed to what your company believes is the correct policy
-  upperBound := 6 * memory.gb
 
-  container := openshift.containers[_]
+  # NOTE: upper_bound is an arbitrary number and it should be changed to what your company believes is the correct policy
+  upper_bound := 6 * memory.gb
+
+  some container in openshift.containers
 
   not startswith(container.resources.limits.memory, "$")
-  memoryBytes := units.parse_bytes(container.resources.limits.memory)
-  memoryBytes > upperBound
+  memory_bytes := units.parse_bytes(container.resources.limits.memory)
+  memory_bytes > upper_bound
 
-  msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' has a memory limit of '%s' which is larger than the upper '%dGi' limit.", [konstraint_core.kind, konstraint_core.name, container.name, container.resources.limits.memory, (upperBound / memory.gb)]), "RHCOP-OCP_BESTPRACT-00011")
+  msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' has a memory limit of '%s' which is larger than the upper '%dGi' limit.", [konstraint_core.kind, konstraint_core.name, container.name, container.resources.limits.memory, upper_bound / memory.gb]), "RHCOP-OCP_BESTPRACT-00011")
 }
 ```
 
@@ -534,7 +557,8 @@ _source: [policy/ocp/bestpractices/container-resources-limits-memory-greater-tha
 **Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
 
 A container without a memory limit has memory utilisation of zero — according to the scheduler.
-An unlimited number of Pods if schedulable on any nodes leading to resource overcommitment and potential node (and kubelet) crashes.
+An unlimited number of Pods if schedulable on any nodes leading to resource overcommitment
+and potential node (and kubelet) crashes.
 See: Resources utilisation -> https://learnk8s.io/production-best-practices#application-development
 
 ### Rego
@@ -542,15 +566,15 @@ See: Resources utilisation -> https://learnk8s.io/production-best-practices#appl
 ```rego
 package ocp.bestpractices.container_resources_limits_memory_notset
 
+import future.keywords.in
+
 import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
   openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00012")
-  container := openshift.containers[_]
+  some container in openshift.containers
 
-  # TODO: Maybe should use below factored out?
-  #konstraint.missing_field(container.resources.limits, "memory")
   not container.resources.limits.memory
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' has no memory limits. It is recommended to limit memory, as memory always has a maximum. See: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers", [konstraint_core.kind, konstraint_core.name, container.name]), "RHCOP-OCP_BESTPRACT-00012")
@@ -582,7 +606,7 @@ import data.lib.openshift
 
 violation[msg] {
   openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00013")
-  container := openshift.containers[_]
+  some container in openshift.containers
 
   not startswith(container.resources.requests.memory, "$")
   not startswith(container.resources.limits.memory, "$")
@@ -592,12 +616,12 @@ violation[msg] {
 }
 
 is_resource_memory_units_valid(container) {
-  memoryLimitsUnit := regex.find_n(`[A-Za-z]+`, container.resources.limits.memory, 1)[0]
-  memoryRequestsUnit := regex.find_n(`[A-Za-z]+`, container.resources.requests.memory, 1)[0]
+  limits_unit := regex.find_n(`[A-Za-z]+`, container.resources.limits.memory, 1)[0]
+  requests_unit := regex.find_n(`[A-Za-z]+`, container.resources.requests.memory, 1)[0]
 
   units := ["Ei", "Pi", "Ti", "Gi", "Mi", "Ki", "E", "P", "T", "G", "M", "K"]
-  memoryLimitsUnit in units
-  memoryRequestsUnit in units
+  limits_unit in units
+  requests_unit in units
 }
 ```
 
@@ -624,7 +648,7 @@ import data.lib.openshift
 
 violation[msg] {
   openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00014")
-  container := openshift.containers[_]
+  some container in openshift.containers
 
   not is_resource_requests_cpu_contains_dollar(container)
   not is_resource_requests_cpu_units_valid(container)
@@ -633,28 +657,21 @@ violation[msg] {
 }
 
 is_resource_requests_cpu_contains_dollar(container) {
-  not is_resource_requests_cpu_a_core(container)
+  not is_number(container.resources.requests.cpu)
   startswith(container.resources.requests.cpu, "$")
 }
 
-is_resource_requests_cpu_a_core(container)  {
-  is_number(input.resources.requests.cpu)
-  # This should never fail given that is_number succeeds
-  # regal ignore:unused-return-value
-  to_number(input.resources.requests.cpu)
+is_resource_requests_cpu_units_valid(container) {
+  is_number(container.resources.requests.cpu)
 }
 
-is_resource_requests_cpu_units_valid(container)  {
-  is_resource_requests_cpu_a_core(container)
-}
-
-is_resource_requests_cpu_units_valid(container)  {
-  not is_resource_requests_cpu_a_core(container)
+is_resource_requests_cpu_units_valid(container) {
+  not is_number(container.resources.requests.cpu)
 
   # 'cpu' can be a quoted number, which is why we concat an empty string[] to match whole cpu cores
-  cpuRequestsUnit := array.concat(regex.find_n(`[A-Za-z]+`, container.resources.requests.cpu, 1), [""])[0]
+  requests_unit := array.concat(regex.find_n(`[A-Za-z]+`, container.resources.requests.cpu, 1), [""])[0]
 
-  cpuRequestsUnit in {"m", ""}
+  requests_unit in {"m", ""}
 }
 ```
 
@@ -675,22 +692,25 @@ See: Resources utilisation -> https://learnk8s.io/production-best-practices#appl
 ```rego
 package ocp.bestpractices.container_resources_requests_memory_greater_than
 
+import future.keywords.in
+
 import data.lib.konstraint.core as konstraint_core
 import data.lib.memory
 import data.lib.openshift
 
 violation[msg] {
   openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00015")
-  #NOTE: upperBound is an arbitrary number and it should be changed to what your company believes is the correct policy
-  upperBound := 2 * memory.gb
 
-  container := openshift.containers[_]
+  # NOTE: upper_bound is an arbitrary number and it should be changed to what your company believes is the correct policy
+  upper_bound := 2 * memory.gb
+
+  some container in openshift.containers
 
   not startswith(container.resources.requests.memory, "$")
-  memoryBytes := units.parse_bytes(container.resources.requests.memory)
-  memoryBytes > upperBound
+  memory_bytes := units.parse_bytes(container.resources.requests.memory)
+  memory_bytes > upper_bound
 
-  msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' has a memory request of '%s' which is larger than the upper '%dGi' limit.", [konstraint_core.kind, konstraint_core.name, container.name, container.resources.requests.memory, (upperBound / memory.gb)]), "RHCOP-OCP_BESTPRACT-00015")
+  msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' has a memory request of '%s' which is larger than the upper '%dGi' limit.", [konstraint_core.kind, konstraint_core.name, container.name, container.resources.requests.memory, upper_bound / memory.gb]), "RHCOP-OCP_BESTPRACT-00015")
 }
 ```
 
@@ -702,9 +722,9 @@ _source: [policy/ocp/bestpractices/container-resources-requests-memory-greater-t
 
 **Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
 
-The content of Secret resources should be mounted into containers as volumes rather than passed in as environment variables.
-This is to prevent that the secret values appear in the command that was used to start the container, which may be inspected
-by individuals that shouldn't have access to the secret values.
+The content of Secret resources should be mounted into containers as volumes rather than,
+passed in as environment variables. This is to prevent that the secret values appear in the command that was
+used to start the container, which may be inspected by individuals that shouldn't have access to the secret values.
 See: Configuration and secrets -> https://learnk8s.io/production-best-practices#application-development
 
 ### Rego
@@ -712,14 +732,16 @@ See: Configuration and secrets -> https://learnk8s.io/production-best-practices#
 ```rego
 package ocp.bestpractices.container_secret_mounted_envs
 
+import future.keywords.in
+
 import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
   openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00016")
-  container := openshift.containers[_]
+  some container in openshift.containers
 
-  env := container.env[_]
+  some env in container.env
   env.valueFrom.secretKeyRef
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' has a secret '%s' mounted as an environment variable. Secrets are meant to be secret, it is not a good practice to mount them as env vars.", [konstraint_core.kind, konstraint_core.name, container.name, env.valueFrom.secretKeyRef.name]), "RHCOP-OCP_BESTPRACT-00016")
@@ -741,17 +763,19 @@ Mount paths should be mounted at '/var/run/company.com' to allow a consistent un
 ```rego
 package ocp.bestpractices.container_volumemount_inconsistent_path
 
+import future.keywords.in
+
 import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
   openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00017")
-  container := openshift.containers[_]
+  some container in openshift.containers
 
-  volumeMount := container.volumeMounts[_]
-  not startswith(volumeMount.mountPath, "/var/run")
+  some volume_mount in container.volumeMounts
+  not startswith(volume_mount.mountPath, "/var/run")
 
-  msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' has a volumeMount '%s' mountPath at '%s'. A good practice is to use consistent mount paths, such as: /var/run/{organization}/{mount} - i.e.: /var/run/io.redhat-cop/my-secret", [konstraint_core.kind, konstraint_core.name, container.name, volumeMount.name, volumeMount.mountPath]), "RHCOP-OCP_BESTPRACT-00017")
+  msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' has a volumeMount '%s' mountPath at '%s'. A good practice is to use consistent mount paths, such as: /var/run/{organization}/{mount} - i.e.: /var/run/io.redhat-cop/my-secret", [konstraint_core.kind, konstraint_core.name, container.name, volume_mount.name, volume_mount.mountPath]), "RHCOP-OCP_BESTPRACT-00017")
 }
 ```
 
@@ -770,12 +794,14 @@ A volume does not have a corresponding volume mount. There is probably a mistake
 ```rego
 package ocp.bestpractices.container_volumemount_missing
 
+import future.keywords.in
+
 import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
   openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00018")
-  volume := openshift.pod.spec.volumes[_]
+  some volume in openshift.pod.spec.volumes
 
   not containers_volumemounts_contains_volume(openshift.containers, volume)
 
@@ -990,9 +1016,8 @@ _source: [policy/ocp/bestpractices/route-tls-termination-notset](policy/ocp/best
 
 **Resources:** core/Pod core/ReplicationController apps/Deployment apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig
 
-Even if you run several copies of your Pods, there are no guarantees that losing a node won't take down your service.
-Anti-Affinity
-
+Even if you run several copies of your Pods,
+there are no guarantees that losing a node won't take down your service. Anti-Affinity helps here.
 See: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
 
 ### Rego
@@ -1007,8 +1032,8 @@ violation[msg] {
   openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00026")
   openshift.pod
 
-  podSpec := openshift.pod.spec
-  konstraint_core.missing_field(podSpec.affinity, "podAntiAffinity")
+  pod_spec := openshift.pod.spec
+  konstraint_core.missing_field(pod_spec.affinity, "podAntiAffinity")
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s: spec.affinity.podAntiAffinity not set. See: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity", [konstraint_core.kind, konstraint_core.name]), "RHCOP-OCP_BESTPRACT-00026")
 }
@@ -1022,13 +1047,15 @@ _source: [policy/ocp/bestpractices/pod-antiaffinity-notset](policy/ocp/bestpract
 
 **Resources:** apps.openshift.io/DeploymentConfig
 
-If you are using a DeploymentConfig with 'spec.triggers' set, but the container name does not match the trigger will never fire.
-There is probably a mistake in your definition.
+If you are using a DeploymentConfig with 'spec.triggers' set,
+but the container name does not match the trigger will never fire. There is probably a mistake in your definition.
 
 ### Rego
 
 ```rego
 package ocp.bestpractices.deploymentconfig_triggers_containername
+
+import future.keywords.in
 
 import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
@@ -1037,16 +1064,17 @@ violation[msg] {
   openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00027")
   openshift.is_deploymentconfig
 
-  triggerImageChangeParams := konstraint_core.resource.spec.triggers[_].imageChangeParams
-  triggerContainerName := triggerImageChangeParams.containerNames[_]
+  some trigger in konstraint_core.resource.spec.triggers
+  some container_name in trigger.imageChangeParams.containerNames
 
-  not containers_contains_trigger(openshift.containers, triggerContainerName)
+  not containers_contains_trigger(openshift.containers, container_name)
 
-  msg := konstraint_core.format_with_id(sprintf("%s/%s: has a imageChangeParams trigger with a miss-matching container name for '%s'", [konstraint_core.kind, konstraint_core.name, triggerContainerName]), "RHCOP-OCP_BESTPRACT-00027")
+  msg := konstraint_core.format_with_id(sprintf("%s/%s: has a imageChangeParams trigger with a miss-matching container name for '%s'", [konstraint_core.kind, konstraint_core.name, container_name]), "RHCOP-OCP_BESTPRACT-00027")
 }
 
-containers_contains_trigger(containers, triggerContainerName) {
-  containers[_].name == triggerContainerName
+containers_contains_trigger(containers, container_name) {
+  some container in containers
+  container.name == container_name
 }
 ```
 
@@ -1068,7 +1096,7 @@ package ocp.deprecated.ocp3_11.buildconfig_v1
 import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  lower(konstraint_core.apiVersion) == "v1"
+  lower(konstraint_core.api_version) == "v1"
   lower(konstraint_core.kind) == "buildconfig"
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s: API v1 for BuildConfig is no longer served by default, use build.openshift.io/v1 instead.", [konstraint_core.kind, konstraint_core.name]), "RHCOP-OCP_DEPRECATED-3.11-00001")
@@ -1093,7 +1121,7 @@ package ocp.deprecated.ocp3_11.deploymentconfig_v1
 import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  lower(konstraint_core.apiVersion) == "v1"
+  lower(konstraint_core.api_version) == "v1"
   lower(konstraint_core.kind) == "deploymentconfig"
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s: API v1 for DeploymentConfig is no longer served by default, use apps.openshift.io/v1 instead.", [konstraint_core.kind, konstraint_core.name]), "RHCOP-OCP_DEPRECATED-3.11-00002")
@@ -1118,7 +1146,7 @@ package ocp.deprecated.ocp3_11.imagestream_v1
 import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  lower(konstraint_core.apiVersion) == "v1"
+  lower(konstraint_core.api_version) == "v1"
   lower(konstraint_core.kind) == "imagestream"
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s: API v1 for ImageStream is no longer served by default, use image.openshift.io/v1 instead.", [konstraint_core.kind, konstraint_core.name]), "RHCOP-OCP_DEPRECATED-3.11-00003")
@@ -1143,7 +1171,7 @@ package ocp.deprecated.ocp3_11.projectrequest_v1
 import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  lower(konstraint_core.apiVersion) == "v1"
+  lower(konstraint_core.api_version) == "v1"
   lower(konstraint_core.kind) == "projectrequest"
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s: API v1 for ProjectRequest is no longer served by default, use project.openshift.io/v1 instead.", [konstraint_core.kind, konstraint_core.name]), "RHCOP-OCP_DEPRECATED-3.11-00004")
@@ -1168,7 +1196,7 @@ package ocp.deprecated.ocp3_11.rolebinding_v1
 import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  lower(konstraint_core.apiVersion) == "v1"
+  lower(konstraint_core.api_version) == "v1"
   lower(konstraint_core.kind) == "rolebinding"
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s: API v1 for RoleBinding is no longer served by default, use rbac.authorization.k8s.io/v1 instead.", [konstraint_core.kind, konstraint_core.name]), "RHCOP-OCP_DEPRECATED-3.11-00005")
@@ -1193,7 +1221,7 @@ package ocp.deprecated.ocp3_11.route_v1
 import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  lower(konstraint_core.apiVersion) == "v1"
+  lower(konstraint_core.api_version) == "v1"
   lower(konstraint_core.kind) == "route"
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s: API v1 for Route is no longer served by default, use route.openshift.io/v1 instead.", [konstraint_core.kind, konstraint_core.name]), "RHCOP-OCP_DEPRECATED-3.11-00006")
@@ -1218,7 +1246,7 @@ package ocp.deprecated.ocp3_11.securitycontextconstraints_v1
 import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  lower(konstraint_core.apiVersion) == "v1"
+  lower(konstraint_core.api_version) == "v1"
   lower(konstraint_core.kind) == "securitycontextconstraints"
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s: API v1 for SecurityContextConstraints is no longer served by default, use security.openshift.io/v1 instead.", [konstraint_core.kind, konstraint_core.name]), "RHCOP-OCP_DEPRECATED-3.11-00007")
@@ -1243,7 +1271,7 @@ package ocp.deprecated.ocp3_11.template_v1
 import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  lower(konstraint_core.apiVersion) == "v1"
+  lower(konstraint_core.api_version) == "v1"
   lower(konstraint_core.kind) == "template"
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s: API v1 for Template is no longer served by default, use template.openshift.io/v1 instead.", [konstraint_core.kind, konstraint_core.name]), "RHCOP-OCP_DEPRECATED-3.11-00008")
@@ -1269,7 +1297,7 @@ package ocp.deprecated.ocp4_1.buildconfig_custom_strategy
 import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  lower(konstraint_core.apiVersion) == "build.openshift.io/v1"
+  lower(konstraint_core.api_version) == "build.openshift.io/v1"
   lower(konstraint_core.kind) == "buildconfig"
 
   konstraint_core.resource.spec.strategy.customStrategy.exposeDockerSocket
@@ -1297,7 +1325,7 @@ package ocp.deprecated.ocp4_2.authorization_openshift
 import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  contains(lower(konstraint_core.apiVersion), "authorization.openshift.io")
+  contains(lower(konstraint_core.api_version), "authorization.openshift.io")
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s: API authorization.openshift.io for ClusterRole, ClusterRoleBinding, Role and RoleBinding is deprecated, use rbac.authorization.k8s.io/v1 instead.", [konstraint_core.kind, konstraint_core.name]), "RHCOP-OCP_DEPRECATED-4.2-00001")
 }
@@ -1323,7 +1351,7 @@ package ocp.deprecated.ocp4_2.automationbroker_v1alpha1
 import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  contains(lower(konstraint_core.apiVersion), "automationbroker.io/v1alpha1")
+  contains(lower(konstraint_core.api_version), "automationbroker.io/v1alpha1")
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s: automationbroker.io/v1alpha1 is deprecated.", [konstraint_core.kind, konstraint_core.name]), "RHCOP-OCP_DEPRECATED-4.2-00002")
 }
@@ -1349,7 +1377,7 @@ package ocp.deprecated.ocp4_2.catalogsourceconfigs_v1
 import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  contains(lower(konstraint_core.apiVersion), "operators.coreos.com/v1")
+  contains(lower(konstraint_core.api_version), "operators.coreos.com/v1")
   lower(konstraint_core.kind) == "catalogsourceconfigs"
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s: operators.coreos.com/v1 is deprecated.", [konstraint_core.kind, konstraint_core.name]), "RHCOP-OCP_DEPRECATED-4.2-00003")
@@ -1376,7 +1404,7 @@ package ocp.deprecated.ocp4_2.catalogsourceconfigs_v2
 import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  contains(lower(konstraint_core.apiVersion), "operators.coreos.com/v2")
+  contains(lower(konstraint_core.api_version), "operators.coreos.com/v2")
   lower(konstraint_core.kind) == "catalogsourceconfigs"
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s: operators.coreos.com/v2 is deprecated.", [konstraint_core.kind, konstraint_core.name]), "RHCOP-OCP_DEPRECATED-4.2-00004")
@@ -1402,7 +1430,7 @@ package ocp.deprecated.ocp4_2.operatorsources_v1
 import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  contains(lower(konstraint_core.apiVersion), "operators.coreos.com/v1")
+  contains(lower(konstraint_core.api_version), "operators.coreos.com/v1")
   lower(konstraint_core.kind) == "operatorsource"
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s: operators.coreos.com/v1 is deprecated.", [konstraint_core.kind, konstraint_core.name]), "RHCOP-OCP_DEPRECATED-4.2-00005")
@@ -1429,7 +1457,7 @@ package ocp.deprecated.ocp4_2.osb_v1
 import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  contains(lower(konstraint_core.apiVersion), "osb.openshift.io/v1")
+  contains(lower(konstraint_core.api_version), "osb.openshift.io/v1")
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s: osb.openshift.io/v1 is deprecated.", [konstraint_core.kind, konstraint_core.name]), "RHCOP-OCP_DEPRECATED-4.2-00006")
 }
@@ -1455,7 +1483,7 @@ package ocp.deprecated.ocp4_2.servicecatalog_v1beta1
 import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  contains(lower(konstraint_core.apiVersion), "servicecatalog.k8s.io/v1beta1")
+  contains(lower(konstraint_core.api_version), "servicecatalog.k8s.io/v1beta1")
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s: servicecatalog.k8s.io/v1beta1 is deprecated.", [konstraint_core.kind, konstraint_core.name]), "RHCOP-OCP_DEPRECATED-4.2-00007")
 }
@@ -1480,7 +1508,7 @@ package ocp.deprecated.ocp4_3.buildconfig_jenkinspipeline_strategy
 import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
-  lower(konstraint_core.apiVersion) == "build.openshift.io/v1"
+  lower(konstraint_core.api_version) == "build.openshift.io/v1"
   lower(konstraint_core.kind) == "buildconfig"
 
   konstraint_core.resource.spec.strategy.jenkinsPipelineStrategy
@@ -1506,6 +1534,8 @@ See: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
 ```rego
 package ocp.requiresinventory.deployment_has_matching_poddisruptionbudget
 
+import future.keywords.in
+
 import data.lib.konstraint.core as konstraint_core
 import data.lib.kubernetes
 import data.lib.openshift
@@ -1516,14 +1546,14 @@ violation[msg] {
 
   deployment := konstraint_core.resource
 
-  not deployment_has_matching_poddisruptionbudget(deployment, data.inventory.namespace[deployment.metadata.namespace])
+  not has_matching_poddisruptionbudget(deployment, data.inventory.namespace[deployment.metadata.namespace])
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s does not have a policy/v1:PodDisruptionBudget or its selector labels dont match. See: https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget", [deployment.kind, deployment.metadata.name]), "RHCOP-OCP_REQ_INV-00001")
 }
 
-deployment_has_matching_poddisruptionbudget(deployment, manifests) {
-  cached := manifests["policy/v1"]["PodDisruptionBudget"]
-  current := cached[_]
+has_matching_poddisruptionbudget(deployment, manifests) {
+  cached := manifests["policy/v1"].PodDisruptionBudget
+  some current in cached
 
   deployment.spec.template.metadata.labels == current.spec.selector.matchLabels
 }
@@ -1545,6 +1575,8 @@ If not, this would suggest a mistake.
 ```rego
 package ocp.requiresinventory.deployment_has_matching_pvc
 
+import future.keywords.in
+
 import data.lib.konstraint.core as konstraint_core
 import data.lib.kubernetes
 import data.lib.openshift
@@ -1554,18 +1586,24 @@ violation[msg] {
   kubernetes.is_deployment
 
   deployment := konstraint_core.resource
-  deployment.spec.template.spec.volumes[_].persistentVolumeClaim
+  has_persistentvolumeclaim(deployment.spec.template.spec.volumes)
 
-  not deployment_has_matching_persistentvolumeclaim(deployment, data.inventory.namespace[deployment.metadata.namespace])
+  not has_matching_persistentvolumeclaim(deployment, data.inventory.namespace[deployment.metadata.namespace])
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s has persistentVolumeClaim in its spec.template.spec.volumes but could not find corrasponding v1:PersistentVolumeClaim.", [deployment.kind, deployment.metadata.name]), "RHCOP-OCP_REQ_INV-00002")
 }
 
-deployment_has_matching_persistentvolumeclaim(deployment, manifests) {
-  cached := manifests["v1"]["PersistentVolumeClaim"]
-  current := cached[_]
+has_persistentvolumeclaim(volumes) {
+  some volume in volumes
+  volume.persistentVolumeClaim
+}
 
-  deployment.spec.template.spec.volumes[_].persistentVolumeClaim.claimName == current.metadata.name
+has_matching_persistentvolumeclaim(deployment, manifests) {
+  cached := manifests.v1.PersistentVolumeClaim
+  some current in cached
+
+  some volume in deployment.spec.template.spec.volumes
+  volume.persistentVolumeClaim.claimName == current.metadata.name
 }
 ```
 
@@ -1585,6 +1623,8 @@ Deployments without a Service are not accessible and should be questioned as to 
 ```rego
 package ocp.requiresinventory.deployment_has_matching_service
 
+import future.keywords.in
+
 import data.lib.konstraint.core as konstraint_core
 import data.lib.kubernetes
 import data.lib.openshift
@@ -1601,8 +1641,8 @@ violation[msg] {
 }
 
 deployment_labels_matches_service_selector(deployment, manifests) {
-  cached := manifests["v1"]["Service"]
-  current := cached[_]
+  cached := manifests.v1.Service
+  some current in cached
 
   deployment.spec.template.metadata.labels == current.spec.selector
 }
@@ -1624,6 +1664,8 @@ If not, this would suggest a mistake.
 ```rego
 package ocp.requiresinventory.deployment_has_matching_serviceaccount
 
+import future.keywords.in
+
 import data.lib.konstraint.core as konstraint_core
 import data.lib.kubernetes
 import data.lib.openshift
@@ -1635,14 +1677,14 @@ violation[msg] {
   deployment := konstraint_core.resource
   deployment.spec.template.spec.serviceAccountName
 
-  not deployment_has_matching_serviceaccount(deployment, data.inventory.namespace[deployment.metadata.namespace])
+  not has_matching_serviceaccount(deployment, data.inventory.namespace[deployment.metadata.namespace])
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s has spec.serviceAccountName '%s' but could not find corrasponding v1:ServiceAccount.", [deployment.kind, deployment.metadata.name, deployment.spec.template.spec.serviceAccountName]), "RHCOP-OCP_REQ_INV-00004")
 }
 
-deployment_has_matching_serviceaccount(deployment, manifests) {
-  cached := manifests["v1"]["ServiceAccount"]
-  current := cached[_]
+has_matching_serviceaccount(deployment, manifests) {
+  cached := manifests.v1.ServiceAccount
+  some current in cached
 
   deployment.spec.template.spec.serviceAccountName == current.metadata.name
 }
@@ -1664,6 +1706,8 @@ Service without a ServiceMonitor are not being monitored and should be questione
 ```rego
 package ocp.requiresinventory.service_has_matching_servicenonitor
 
+import future.keywords.in
+
 import data.lib.konstraint.core as konstraint_core
 import data.lib.kubernetes
 import data.lib.openshift
@@ -1680,8 +1724,8 @@ violation[msg] {
 }
 
 service_has_matching_servicemonitor(service, manifests) {
-  cached := manifests["monitoring.coreos.com/v1"]["ServiceMonitor"]
-  current := cached[_]
+  cached := manifests["monitoring.coreos.com/v1"].ServiceMonitor
+  some current in cached
 
   service.spec.selector == current.spec.selector.matchLabels
 }
@@ -1705,6 +1749,8 @@ parameter expected_layer_ids array string
 ```rego
 package podman.history.contains_layer
 
+import future.keywords.in
+
 import data.lib.konstraint.core as konstraint_core
 
 violation[msg] {
@@ -1717,7 +1763,9 @@ violation[msg] {
 }
 
 image_history_contains_layer(layers, expected_layer_ids) {
-  layers[_].id == expected_layer_ids[_]
+  some layer in layers
+  some expected_layer_id in expected_layer_ids
+  layer.id == expected_layer_id
 }
 ```
 
@@ -1738,6 +1786,8 @@ parameter image_size_upperbound integer
 ```rego
 package podman.images.image_size_not_greater_than
 
+import future.keywords.in
+
 import data.lib.konstraint.core as konstraint_core
 import data.lib.memory
 
@@ -1745,11 +1795,11 @@ violation[msg] {
   lower(input.apiVersion) == "redhat-cop.github.com/v1"
   lower(input.kind) == "podmanimages"
 
-  image := input.items[_]
-  sizeInMb := image.size / memory.mb
-  sizeInMb > data.parameters.image_size_upperbound
+  some image in input.items
+  size_mb := image.size / memory.mb
+  size_mb > data.parameters.image_size_upperbound
 
-  msg := konstraint_core.format_with_id(sprintf("%s: has a size of '%fMi', which is greater than '%dMi' limit.", [input.image, sizeInMb, data.parameters.image_size_upperbound]), "RHCOP-PODMAN-00002")
+  msg := konstraint_core.format_with_id(sprintf("%s: has a size of '%fMi', which is greater than '%dMi' limit.", [input.image, size_mb, data.parameters.image_size_upperbound]), "RHCOP-PODMAN-00002")
 }
 ```
 

@@ -14,10 +14,10 @@ import data.lib.konstraint.core as konstraint_core
 import data.lib.openshift
 
 violation[msg] {
-  openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00025")
-  openshift.is_route
+	openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00025")
+	openshift.is_route
 
-  not konstraint_core.resource.spec.tls.termination
+	not konstraint_core.resource.spec.tls.termination
 
-  msg := konstraint_core.format_with_id(sprintf("%s/%s: TLS termination type not set. See https://docs.openshift.com/container-platform/4.6/networking/routes/secured-routes.html", [konstraint_core.kind, konstraint_core.name]), "RHCOP-OCP_BESTPRACT-00025")
+	msg := konstraint_core.format_with_id(sprintf("%s/%s: TLS termination type not set. See https://docs.openshift.com/container-platform/4.6/networking/routes/secured-routes.html", [konstraint_core.kind, konstraint_core.name]), "RHCOP-OCP_BESTPRACT-00025")
 }

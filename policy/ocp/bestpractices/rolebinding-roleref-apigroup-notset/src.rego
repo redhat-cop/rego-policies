@@ -15,9 +15,9 @@ import data.lib.konstraint.core as konstraint_core
 import data.lib.kubernetes
 
 violation[msg] {
-  kubernetes.is_rolebinding
+	kubernetes.is_rolebinding
 
-  konstraint_core.missing_field(konstraint_core.resource.roleRef, "apiGroup")
+	konstraint_core.missing_field(konstraint_core.resource.roleRef, "apiGroup")
 
-  msg := konstraint_core.format_with_id(sprintf("%s/%s: RoleBinding roleRef.apiGroup key is null, use rbac.authorization.k8s.io instead.", [konstraint_core.kind, konstraint_core.name]), "RHCOP-OCP_BESTPRACT-00023")
+	msg := konstraint_core.format_with_id(sprintf("%s/%s: RoleBinding roleRef.apiGroup key is null, use rbac.authorization.k8s.io instead.", [konstraint_core.kind, konstraint_core.name]), "RHCOP-OCP_BESTPRACT-00023")
 }

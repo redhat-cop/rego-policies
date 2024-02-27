@@ -138,8 +138,8 @@ setup_file() {
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
   [ "${lines[0]}" = "1..2" ]
-  [ "${lines[1]}" = "not ok 1 - ${tmp}/list.yml - ocp.bestpractices.container_labelkey_inconsistent - RHCOP-OCP_BESTPRACT-00006: Deployment/nonestandardlabel: has a label key which did not start with 'app.kubernetes.io/' or 'redhat-cop.github.com/'. Found 'app'" ]
-  [ "${lines[2]}" = "not ok 2 - ${tmp}/list.yml - ocp.bestpractices.container_labelkey_inconsistent - RHCOP-OCP_BESTPRACT-00006: DeploymentConfig/nonestandardlabel: has a label key which did not start with 'app.kubernetes.io/' or 'redhat-cop.github.com/'. Found 'app'" ]
+  [ "${lines[1]}" = "not ok 1 - ${tmp}/list.yml - ocp.bestpractices.container_labelkey_inconsistent - RHCOP-OCP_BESTPRACT-00006: Deployment/nonestandardlabel: has a label key which did not start with 'app.kubernetes.io/' or 'redhat-cop.github.com/'. Found 'app=Foo'" ]
+  [ "${lines[2]}" = "not ok 2 - ${tmp}/list.yml - ocp.bestpractices.container_labelkey_inconsistent - RHCOP-OCP_BESTPRACT-00006: DeploymentConfig/nonestandardlabel: has a label key which did not start with 'app.kubernetes.io/' or 'redhat-cop.github.com/'. Found 'app=Foo'" ]
   [[ "${#lines[@]}" -eq 3 ]]
 }
 
