@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
 
       - name: Generate konstraint docs
-        uses: redhat-cop/github-actions/confbatstest@d65d0644b72384f601b29f18badcb08b8fec4440 # v4
+        uses: redhat-cop/github-actions/confbatstest@e4729075dcd3f34946b80df6b1bfb952b9fee166 # v4
         with:
           raw: konstraint doc -o POLICIES.md
 
