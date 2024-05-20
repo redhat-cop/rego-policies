@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
 
       - name: Conftest
-        uses: redhat-cop/github-actions/confbatstest@11f2ce27643eb7c76ac3623cb99d9b08be30d762 # v4
+        uses: redhat-cop/github-actions/confbatstest@e4729075dcd3f34946b80df6b1bfb952b9fee166 # v4
         with:
           tests: _test/conftest-unittests.sh
           policies: '[]' # An empty array is provided as the policies are already cloned via source.
