@@ -12,7 +12,7 @@ jobs:
       # renovate: datasource=github-releases depName=open-policy-agent/opa
       OPA_VERSION: v0.64.1
       # renovate: datasource=github-releases depName=StyraInc/regal
-      REGAL_VERSION: v0.21.3
+      REGAL_VERSION: v0.22.0
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@a4aa98b93cab29d9b1101a6143fb8bce00e2eac4 # v2.7.1
