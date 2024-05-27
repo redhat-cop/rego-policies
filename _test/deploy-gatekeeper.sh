@@ -6,7 +6,7 @@ command -v oc &> /dev/null || { echo >&2 'ERROR: oc not installed - Aborting'; e
 command -v konstraint &> /dev/null || { echo >&2 'ERROR: konstraint not installed - Aborting'; exit 1; }
 
 # renovate: datasource=github-releases depName=open-policy-agent/gatekeeper
-gatekeeper_version="v3.16.0"
+gatekeeper_version="v3.16.3"
 
 cleanup_gatekeeper_constraints() {
   echo ""
