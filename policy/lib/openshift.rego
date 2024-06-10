@@ -56,7 +56,7 @@ is_policy_active(policyId) {
 	konstraint_core.is_gatekeeper
 
 	# regal ignore:external-reference
-	disabledpolicies := namespace_disabled_policies_label
+	disabledpolicies := _namespace_disabled_policies_label
 	not label_contains(disabledpolicies, policyId)
 }
 
@@ -64,13 +64,13 @@ label_contains(disabledpolicies, policyId) {
 	policyId in disabledpolicies
 }
 
-namespace_disabled_policies_label := disabledpolicies {
+_namespace_disabled_policies_label := disabledpolicies {
 	namepace := data.inventory.cluster.v1.Namespace[konstraint_core.resource.metadata.namespace]
 	label := namepace.metadata.labels["redhat-cop.github.com/gatekeeper-disabled-policies"]
 	disabledpolicies := split(label, ",")
 }
 
-namespace_disabled_policies_label := [""] {
+_namespace_disabled_policies_label := [""] {
 	namepace := data.inventory.cluster.v1.Namespace[konstraint_core.resource.metadata.namespace]
 	not namepace.metadata.labels["redhat-cop.github.com/gatekeeper-disabled-policies"]
 }

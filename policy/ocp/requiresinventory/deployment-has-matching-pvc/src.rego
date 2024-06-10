@@ -23,19 +23,19 @@ violation[msg] {
 	kubernetes.is_deployment
 
 	deployment := konstraint_core.resource
-	has_persistentvolumeclaim(deployment.spec.template.spec.volumes)
+	_has_persistentvolumeclaim(deployment.spec.template.spec.volumes)
 
-	not has_matching_persistentvolumeclaim(deployment, data.inventory.namespace[deployment.metadata.namespace])
+	not _has_matching_persistentvolumeclaim(deployment, data.inventory.namespace[deployment.metadata.namespace])
 
 	msg := konstraint_core.format_with_id(sprintf("%s/%s has persistentVolumeClaim in its spec.template.spec.volumes but could not find corrasponding v1:PersistentVolumeClaim.", [deployment.kind, deployment.metadata.name]), "RHCOP-OCP_REQ_INV-00002")
 }
 
-has_persistentvolumeclaim(volumes) {
+_has_persistentvolumeclaim(volumes) {
 	some volume in volumes
 	volume.persistentVolumeClaim
 }
 
-has_matching_persistentvolumeclaim(deployment, manifests) {
+_has_matching_persistentvolumeclaim(deployment, manifests) {
 	cached := manifests.v1.PersistentVolumeClaim
 	some current in cached
 

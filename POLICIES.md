@@ -83,12 +83,12 @@ violation[msg] {
   lower(namespace.apiVersion) == "v1"
   lower(namespace.kind) == "namespace"
 
-  not has_networkpolicy(manifests)
+  not _has_networkpolicy(manifests)
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s does not have a networking.k8s.io/v1:NetworkPolicy. See: https://docs.openshift.com/container-platform/4.6/networking/network_policy/about-network-policy.html", [namespace.kind, namespace.metadata.name]), "RHCOP-COMBINE-00001")
 }
 
-has_networkpolicy(manifests) {
+_has_networkpolicy(manifests) {
   some current in manifests
 
   lower(current.apiVersion) == "networking.k8s.io/v1"
@@ -126,12 +126,12 @@ violation[msg] {
   lower(namespace.apiVersion) == "v1"
   lower(namespace.kind) == "namespace"
 
-  not has_resourcequota(manifests)
+  not _has_resourcequota(manifests)
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s does not have a core/v1:ResourceQuota. See: https://docs.openshift.com/container-platform/4.6/applications/quotas/quotas-setting-per-project.html", [namespace.kind, namespace.metadata.name]), "RHCOP-COMBINE-00002")
 }
 
-has_resourcequota(manifests) {
+_has_resourcequota(manifests) {
   some current in manifests
 
   lower(current.apiVersion) == "v1"
@@ -162,12 +162,12 @@ violation[msg] {
   openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00001")
   openshift.is_pod_or_networking
 
-  not is_common_labels_set(konstraint_core.resource.metadata)
+  not _is_common_labels_set(konstraint_core.resource.metadata)
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s: does not contain all the expected k8s labels in 'metadata.labels'. See: https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels", [konstraint_core.kind, konstraint_core.name]), "RHCOP-OCP_BESTPRACT-00001")
 }
 
-is_common_labels_set(metadata) {
+_is_common_labels_set(metadata) {
   metadata.labels["app.kubernetes.io/name"]
   metadata.labels["app.kubernetes.io/instance"]
   metadata.labels["app.kubernetes.io/version"]
@@ -204,12 +204,12 @@ violation[msg] {
   some container in openshift.containers
 
   konstraint_core.labels["redhat-cop.github.com/technology"] == "java"
-  not is_env_max_memory_set(container)
+  not _is_env_max_memory_set(container)
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' does not have an env named 'CONTAINER_MAX_MEMORY' which is used by the Red Hat base images to calculate memory. See: https://docs.openshift.com/container-platform/4.6/nodes/clusters/nodes-cluster-resource-configure.html and https://github.com/jboss-openshift/cct_module/blob/master/jboss/container/java/jvm/bash/artifacts/opt/jboss/container/java/jvm/java-default-options", [konstraint_core.kind, konstraint_core.name, container.name]), "RHCOP-OCP_BESTPRACT-00002")
 }
 
-is_env_max_memory_set(container) {
+_is_env_max_memory_set(container) {
   some env in container.env
   env.name == "CONTAINER_MAX_MEMORY"
   env.valueFrom.resourceFieldRef.resource == "limits.memory"
@@ -270,13 +270,13 @@ violation[msg] {
   openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00004")
   some container in openshift.containers
 
-  registry := resolve_registry(container.image)
-  not known_registry(registry)
+  registry := _resolve_registry(container.image)
+  not _known_registry(registry)
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' is from (%s), which is an unknown registry.", [konstraint_core.kind, konstraint_core.name, container.name, container.image]), "RHCOP-OCP_BESTPRACT-00004")
 }
 
-resolve_registry(image) := registry {
+_resolve_registry(image) := registry {
   contains(image, "/")
   possible_registry := lower(split(image, "/")[0])
   contains(possible_registry, ".")
@@ -284,7 +284,7 @@ resolve_registry(image) := registry {
   registry := possible_registry
 }
 
-known_registry(registry) {
+_known_registry(registry) {
   known_registries := ["image-registry.openshift-image-registry.svc", "registry.redhat.io", "registry.connect.redhat.com", "quay.io"]
   registry in known_registries
 }
@@ -316,22 +316,22 @@ violation[msg] {
   some container in openshift.containers
 
   konstraint_core.labels["redhat-cop.github.com/technology"] == "java"
-  container_opts_contains_xmx(container)
+  _container_opts_contains_xmx(container)
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' contains -Xmx in either, command, args or env. Instead, it is suggested you use the downward API to set the env 'CONTAINER_MAX_MEMORY'", [konstraint_core.kind, konstraint_core.name, container.name]), "RHCOP-OCP_BESTPRACT-00005")
 }
 
-container_opts_contains_xmx(container) {
+_container_opts_contains_xmx(container) {
   some command in container.command
   contains(command, "-Xmx")
 }
 
-container_opts_contains_xmx(container) {
+_container_opts_contains_xmx(container) {
   some arg in container.args
   contains(arg, "-Xmx")
 }
 
-container_opts_contains_xmx(container) {
+_container_opts_contains_xmx(container) {
   some env in container.env
   contains(env.value, "-Xmx")
 }
@@ -364,16 +364,16 @@ violation[msg] {
   # regal ignore:prefer-some-in-iteration
   value := konstraint_core.labels[key]
 
-  not label_key_starts_with_expected(key)
+  not _label_key_starts_with_expected(key)
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s: has a label key which did not start with 'app.kubernetes.io/' or 'redhat-cop.github.com/'. Found '%s=%s'", [konstraint_core.kind, konstraint_core.name, key, value]), "RHCOP-OCP_BESTPRACT-00006")
 }
 
-label_key_starts_with_expected(key) {
+_label_key_starts_with_expected(key) {
   startswith(key, "app.kubernetes.io/")
 }
 
-label_key_starts_with_expected(key) {
+_label_key_starts_with_expected(key) {
   startswith(key, "redhat-cop.github.com/")
 }
 ```
@@ -610,12 +610,12 @@ violation[msg] {
 
   not startswith(container.resources.requests.memory, "$")
   not startswith(container.resources.limits.memory, "$")
-  not is_resource_memory_units_valid(container)
+  not _is_resource_memory_units_valid(container)
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' memory resources for limits or requests (%s / %s) has an incorrect unit. See: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes", [konstraint_core.kind, konstraint_core.name, container.name, container.resources.limits.memory, container.resources.requests.memory]), "RHCOP-OCP_BESTPRACT-00013")
 }
 
-is_resource_memory_units_valid(container) {
+_is_resource_memory_units_valid(container) {
   limits_unit := regex.find_n(`[A-Za-z]+`, container.resources.limits.memory, 1)[0]
   requests_unit := regex.find_n(`[A-Za-z]+`, container.resources.requests.memory, 1)[0]
 
@@ -803,12 +803,12 @@ violation[msg] {
   openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00018")
   some volume in openshift.pod.spec.volumes
 
-  not containers_volumemounts_contains_volume(openshift.containers, volume)
+  not _containers_volumemounts_contains_volume(openshift.containers, volume)
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s: volume '%s' does not have a volumeMount in any of the containers.", [konstraint_core.kind, konstraint_core.name, volume.name]), "RHCOP-OCP_BESTPRACT-00018")
 }
 
-containers_volumemounts_contains_volume(containers, volume) {
+_containers_volumemounts_contains_volume(containers, volume) {
   containers[_].volumeMounts[_].name == volume.name
 }
 ```
@@ -1067,12 +1067,12 @@ violation[msg] {
   some trigger in konstraint_core.resource.spec.triggers
   some container_name in trigger.imageChangeParams.containerNames
 
-  not containers_contains_trigger(openshift.containers, container_name)
+  not _containers_contains_trigger(openshift.containers, container_name)
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s: has a imageChangeParams trigger with a miss-matching container name for '%s'", [konstraint_core.kind, konstraint_core.name, container_name]), "RHCOP-OCP_BESTPRACT-00027")
 }
 
-containers_contains_trigger(containers, container_name) {
+_containers_contains_trigger(containers, container_name) {
   some container in containers
   container.name == container_name
 }
@@ -1546,12 +1546,12 @@ violation[msg] {
 
   deployment := konstraint_core.resource
 
-  not has_matching_poddisruptionbudget(deployment, data.inventory.namespace[deployment.metadata.namespace])
+  not _has_matching_poddisruptionbudget(deployment, data.inventory.namespace[deployment.metadata.namespace])
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s does not have a policy/v1:PodDisruptionBudget or its selector labels dont match. See: https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget", [deployment.kind, deployment.metadata.name]), "RHCOP-OCP_REQ_INV-00001")
 }
 
-has_matching_poddisruptionbudget(deployment, manifests) {
+_has_matching_poddisruptionbudget(deployment, manifests) {
   cached := manifests["policy/v1"].PodDisruptionBudget
   some current in cached
 
@@ -1586,19 +1586,19 @@ violation[msg] {
   kubernetes.is_deployment
 
   deployment := konstraint_core.resource
-  has_persistentvolumeclaim(deployment.spec.template.spec.volumes)
+  _has_persistentvolumeclaim(deployment.spec.template.spec.volumes)
 
-  not has_matching_persistentvolumeclaim(deployment, data.inventory.namespace[deployment.metadata.namespace])
+  not _has_matching_persistentvolumeclaim(deployment, data.inventory.namespace[deployment.metadata.namespace])
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s has persistentVolumeClaim in its spec.template.spec.volumes but could not find corrasponding v1:PersistentVolumeClaim.", [deployment.kind, deployment.metadata.name]), "RHCOP-OCP_REQ_INV-00002")
 }
 
-has_persistentvolumeclaim(volumes) {
+_has_persistentvolumeclaim(volumes) {
   some volume in volumes
   volume.persistentVolumeClaim
 }
 
-has_matching_persistentvolumeclaim(deployment, manifests) {
+_has_matching_persistentvolumeclaim(deployment, manifests) {
   cached := manifests.v1.PersistentVolumeClaim
   some current in cached
 
@@ -1635,12 +1635,12 @@ violation[msg] {
 
   deployment := konstraint_core.resource
 
-  not deployment_labels_matches_service_selector(deployment, data.inventory.namespace[deployment.metadata.namespace])
+  not _deployment_labels_matches_service_selector(deployment, data.inventory.namespace[deployment.metadata.namespace])
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s does not have a v1:Service or its selector labels dont match. See: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#service-and-replicationcontroller", [deployment.kind, deployment.metadata.name]), "RHCOP-OCP_REQ_INV-00003")
 }
 
-deployment_labels_matches_service_selector(deployment, manifests) {
+_deployment_labels_matches_service_selector(deployment, manifests) {
   cached := manifests.v1.Service
   some current in cached
 
@@ -1677,12 +1677,12 @@ violation[msg] {
   deployment := konstraint_core.resource
   deployment.spec.template.spec.serviceAccountName
 
-  not has_matching_serviceaccount(deployment, data.inventory.namespace[deployment.metadata.namespace])
+  not _has_matching_serviceaccount(deployment, data.inventory.namespace[deployment.metadata.namespace])
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s has spec.serviceAccountName '%s' but could not find corrasponding v1:ServiceAccount.", [deployment.kind, deployment.metadata.name, deployment.spec.template.spec.serviceAccountName]), "RHCOP-OCP_REQ_INV-00004")
 }
 
-has_matching_serviceaccount(deployment, manifests) {
+_has_matching_serviceaccount(deployment, manifests) {
   cached := manifests.v1.ServiceAccount
   some current in cached
 
@@ -1718,12 +1718,12 @@ violation[msg] {
 
   service := konstraint_core.resource
 
-  not service_has_matching_servicemonitor(service, data.inventory.namespace[service.metadata.namespace])
+  not _service_has_matching_servicemonitor(service, data.inventory.namespace[service.metadata.namespace])
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s does not have a monitoring.coreos.com/v1:ServiceMonitor or its selector labels dont match. See: https://docs.openshift.com/container-platform/4.6/monitoring/enabling-monitoring-for-user-defined-projects.html", [service.kind, service.metadata.name]), "RHCOP-OCP_REQ_INV-00005")
 }
 
-service_has_matching_servicemonitor(service, manifests) {
+_service_has_matching_servicemonitor(service, manifests) {
   cached := manifests["monitoring.coreos.com/v1"].ServiceMonitor
   some current in cached
 
@@ -1757,12 +1757,12 @@ violation[msg] {
   lower(input.apiVersion) == "redhat-cop.github.com/v1"
   lower(input.kind) == "podmanhistory"
 
-  not image_history_contains_layer(input.items, data.parameters.expected_layer_ids)
+  not _image_history_contains_layer(input.items, data.parameters.expected_layer_ids)
 
   msg := konstraint_core.format_with_id(sprintf("%s: did not find expected SHA.", [input.image]), "RHCOP-PODMAN-00001")
 }
 
-image_history_contains_layer(layers, expected_layer_ids) {
+_image_history_contains_layer(layers, expected_layer_ids) {
   some layer in layers
   some expected_layer_id in expected_layer_ids
   layer.id == expected_layer_id

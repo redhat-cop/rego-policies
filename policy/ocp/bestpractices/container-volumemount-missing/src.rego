@@ -37,11 +37,11 @@ violation[msg] {
 	openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00018")
 	some volume in openshift.pod.spec.volumes
 
-	not containers_volumemounts_contains_volume(openshift.containers, volume)
+	not _containers_volumemounts_contains_volume(openshift.containers, volume)
 
 	msg := konstraint_core.format_with_id(sprintf("%s/%s: volume '%s' does not have a volumeMount in any of the containers.", [konstraint_core.kind, konstraint_core.name, volume.name]), "RHCOP-OCP_BESTPRACT-00018")
 }
 
-containers_volumemounts_contains_volume(containers, volume) {
+_containers_volumemounts_contains_volume(containers, volume) {
 	containers[_].volumeMounts[_].name == volume.name
 }

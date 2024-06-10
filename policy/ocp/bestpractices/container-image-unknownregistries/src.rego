@@ -36,13 +36,13 @@ violation[msg] {
 	openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00004")
 	some container in openshift.containers
 
-	registry := resolve_registry(container.image)
-	not known_registry(registry)
+	registry := _resolve_registry(container.image)
+	not _known_registry(registry)
 
 	msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' is from (%s), which is an unknown registry.", [konstraint_core.kind, konstraint_core.name, container.name, container.image]), "RHCOP-OCP_BESTPRACT-00004")
 }
 
-resolve_registry(image) := registry {
+_resolve_registry(image) := registry {
 	contains(image, "/")
 	possible_registry := lower(split(image, "/")[0])
 	contains(possible_registry, ".")
@@ -50,7 +50,7 @@ resolve_registry(image) := registry {
 	registry := possible_registry
 }
 
-known_registry(registry) {
+_known_registry(registry) {
 	known_registries := ["image-registry.openshift-image-registry.svc", "registry.redhat.io", "registry.connect.redhat.com", "quay.io"]
 	registry in known_registries
 }

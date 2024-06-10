@@ -25,12 +25,12 @@ violation[msg] {
 	deployment := konstraint_core.resource
 	deployment.spec.template.spec.serviceAccountName
 
-	not has_matching_serviceaccount(deployment, data.inventory.namespace[deployment.metadata.namespace])
+	not _has_matching_serviceaccount(deployment, data.inventory.namespace[deployment.metadata.namespace])
 
 	msg := konstraint_core.format_with_id(sprintf("%s/%s has spec.serviceAccountName '%s' but could not find corrasponding v1:ServiceAccount.", [deployment.kind, deployment.metadata.name, deployment.spec.template.spec.serviceAccountName]), "RHCOP-OCP_REQ_INV-00004")
 }
 
-has_matching_serviceaccount(deployment, manifests) {
+_has_matching_serviceaccount(deployment, manifests) {
 	cached := manifests.v1.ServiceAccount
 	some current in cached
 

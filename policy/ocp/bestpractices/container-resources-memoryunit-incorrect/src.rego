@@ -43,12 +43,12 @@ violation[msg] {
 
 	not startswith(container.resources.requests.memory, "$")
 	not startswith(container.resources.limits.memory, "$")
-	not is_resource_memory_units_valid(container)
+	not _is_resource_memory_units_valid(container)
 
 	msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' memory resources for limits or requests (%s / %s) has an incorrect unit. See: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes", [konstraint_core.kind, konstraint_core.name, container.name, container.resources.limits.memory, container.resources.requests.memory]), "RHCOP-OCP_BESTPRACT-00013")
 }
 
-is_resource_memory_units_valid(container) {
+_is_resource_memory_units_valid(container) {
 	limits_unit := regex.find_n(`[A-Za-z]+`, container.resources.limits.memory, 1)[0]
 	requests_unit := regex.find_n(`[A-Za-z]+`, container.resources.requests.memory, 1)[0]
 

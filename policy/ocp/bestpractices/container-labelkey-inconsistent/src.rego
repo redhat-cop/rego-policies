@@ -40,15 +40,15 @@ violation[msg] {
 	# regal ignore:prefer-some-in-iteration
 	value := konstraint_core.labels[key]
 
-	not label_key_starts_with_expected(key)
+	not _label_key_starts_with_expected(key)
 
 	msg := konstraint_core.format_with_id(sprintf("%s/%s: has a label key which did not start with 'app.kubernetes.io/' or 'redhat-cop.github.com/'. Found '%s=%s'", [konstraint_core.kind, konstraint_core.name, key, value]), "RHCOP-OCP_BESTPRACT-00006")
 }
 
-label_key_starts_with_expected(key) {
+_label_key_starts_with_expected(key) {
 	startswith(key, "app.kubernetes.io/")
 }
 
-label_key_starts_with_expected(key) {
+_label_key_starts_with_expected(key) {
 	startswith(key, "redhat-cop.github.com/")
 }

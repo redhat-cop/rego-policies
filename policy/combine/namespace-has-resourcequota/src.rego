@@ -28,12 +28,12 @@ violation[msg] {
 	lower(namespace.apiVersion) == "v1"
 	lower(namespace.kind) == "namespace"
 
-	not has_resourcequota(manifests)
+	not _has_resourcequota(manifests)
 
 	msg := konstraint_core.format_with_id(sprintf("%s/%s does not have a core/v1:ResourceQuota. See: https://docs.openshift.com/container-platform/4.6/applications/quotas/quotas-setting-per-project.html", [namespace.kind, namespace.metadata.name]), "RHCOP-COMBINE-00002")
 }
 
-has_resourcequota(manifests) {
+_has_resourcequota(manifests) {
 	some current in manifests
 
 	lower(current.apiVersion) == "v1"

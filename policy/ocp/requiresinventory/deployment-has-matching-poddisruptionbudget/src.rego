@@ -25,12 +25,12 @@ violation[msg] {
 
 	deployment := konstraint_core.resource
 
-	not has_matching_poddisruptionbudget(deployment, data.inventory.namespace[deployment.metadata.namespace])
+	not _has_matching_poddisruptionbudget(deployment, data.inventory.namespace[deployment.metadata.namespace])
 
 	msg := konstraint_core.format_with_id(sprintf("%s/%s does not have a policy/v1:PodDisruptionBudget or its selector labels dont match. See: https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget", [deployment.kind, deployment.metadata.name]), "RHCOP-OCP_REQ_INV-00001")
 }
 
-has_matching_poddisruptionbudget(deployment, manifests) {
+_has_matching_poddisruptionbudget(deployment, manifests) {
 	cached := manifests["policy/v1"].PodDisruptionBudget
 	some current in cached
 

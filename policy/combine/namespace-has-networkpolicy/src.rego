@@ -30,12 +30,12 @@ violation[msg] {
 	lower(namespace.apiVersion) == "v1"
 	lower(namespace.kind) == "namespace"
 
-	not has_networkpolicy(manifests)
+	not _has_networkpolicy(manifests)
 
 	msg := konstraint_core.format_with_id(sprintf("%s/%s does not have a networking.k8s.io/v1:NetworkPolicy. See: https://docs.openshift.com/container-platform/4.6/networking/network_policy/about-network-policy.html", [namespace.kind, namespace.metadata.name]), "RHCOP-COMBINE-00001")
 }
 
-has_networkpolicy(manifests) {
+_has_networkpolicy(manifests) {
 	some current in manifests
 
 	lower(current.apiVersion) == "networking.k8s.io/v1"
