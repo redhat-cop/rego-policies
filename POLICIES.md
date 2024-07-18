@@ -278,10 +278,7 @@ violation[msg] {
 
 _resolve_registry(image) := registry {
   contains(image, "/")
-  possible_registry := lower(split(image, "/")[0])
-  contains(possible_registry, ".")
-
-  registry := possible_registry
+  registry := lower(split(image, "/")[0])
 }
 
 _known_registry(registry) {
@@ -619,9 +616,9 @@ _is_resource_memory_units_valid(container) {
   limits_unit := regex.find_n(`[A-Za-z]+`, container.resources.limits.memory, 1)[0]
   requests_unit := regex.find_n(`[A-Za-z]+`, container.resources.requests.memory, 1)[0]
 
-  units := ["Ei", "Pi", "Ti", "Gi", "Mi", "Ki", "E", "P", "T", "G", "M", "K"]
-  limits_unit in units
-  requests_unit in units
+  memory_units := ["Ei", "Pi", "Ti", "Gi", "Mi", "Ki", "E", "P", "T", "G", "M", "K"]
+  limits_unit in memory_units
+  requests_unit in memory_units
 }
 ```
 

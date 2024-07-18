@@ -44,10 +44,7 @@ violation[msg] {
 
 _resolve_registry(image) := registry {
 	contains(image, "/")
-	possible_registry := lower(split(image, "/")[0])
-	contains(possible_registry, ".")
-
-	registry := possible_registry
+	registry := lower(split(image, "/")[0])
 }
 
 _known_registry(registry) {

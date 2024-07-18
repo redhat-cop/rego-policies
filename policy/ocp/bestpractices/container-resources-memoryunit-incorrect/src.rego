@@ -52,7 +52,7 @@ _is_resource_memory_units_valid(container) {
 	limits_unit := regex.find_n(`[A-Za-z]+`, container.resources.limits.memory, 1)[0]
 	requests_unit := regex.find_n(`[A-Za-z]+`, container.resources.requests.memory, 1)[0]
 
-	units := ["Ei", "Pi", "Ti", "Gi", "Mi", "Ki", "E", "P", "T", "G", "M", "K"]
-	limits_unit in units
-	requests_unit in units
+	memory_units := ["Ei", "Pi", "Ti", "Gi", "Mi", "Ki", "E", "P", "T", "G", "M", "K"]
+	limits_unit in memory_units
+	requests_unit in memory_units
 }

@@ -55,9 +55,7 @@ is_policy_active(policyId) {
 	# regal ignore:external-reference
 	konstraint_core.is_gatekeeper
 
-	# regal ignore:external-reference
-	disabledpolicies := _namespace_disabled_policies_label
-	not label_contains(disabledpolicies, policyId)
+	not label_contains(_namespace_disabled_policies_label, policyId)
 }
 
 label_contains(disabledpolicies, policyId) {
