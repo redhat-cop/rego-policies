@@ -45,6 +45,9 @@ violation[msg] {
 _resolve_registry(image) := registry {
 	contains(image, "/")
 	registry := lower(split(image, "/")[0])
+
+	# Check its an external URL and not internal OCP registry ref
+	contains(registry, ".")
 }
 
 _known_registry(registry) {
