@@ -4,6 +4,9 @@ load bats-support-clone
 load test_helper/bats-support/load
 load test_helper/redhatcop-bats-library/load
 
+# renovate: datasource=github-releases depName=garethahealy/openshift-json-schema
+ocp_schema_version="4.16.0"
+
 setup_file() {
   rm -rf /tmp/rhcop
   rm -f opa-profile.log
@@ -15,7 +18,7 @@ setup_file() {
     # Download openshift-json-schema dynamically so it doesnt need to be added into source
     git clone https://github.com/garethahealy/openshift-json-schema.git /tmp/openshift-json-schema --depth 1
 
-    mv /tmp/openshift-json-schema/4.13/schemas/* _test/schema-generation/openshift-json-schema
+    mv /tmp/openshift-json-schema/v${ocp_schema_version}/schemas/* _test/schema-generation/openshift-json-schema
   fi
 }
 
