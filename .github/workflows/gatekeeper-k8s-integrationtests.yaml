@@ -24,9 +24,12 @@ jobs:
           echo "files=$(find policy/* -regex '.*test_data\/integration\/.*$' | xargs)" >> "$GITHUB_OUTPUT"
 
       - name: Validate integration test data via kubeconform
+        env:
+          # renovate: datasource=github-releases depName=garethahealy/openshift-json-schema
+          OCP_SCHEMA_VERSION: "4.16.0"
         uses: docker://ghcr.io/yannh/kubeconform:v0.6.6@sha256:e4c69e6966a4842196ad3babc6f4c869d4ee51dc306fcf012faf10b25bb63a9c
         with:
-          args: -summary -schema-location "https://raw.githubusercontent.com/garethahealy/openshift-json-schema/main/4.13/schemas/{{ .ResourceKind }}{{ .KindSuffix }}.json" ${{ steps.data.outputs.files }}
+          args: -summary -kubernetes-version ${{ env.OCP_SCHEMA_VERSION }} -schema-location "https://raw.githubusercontent.com/garethahealy/openshift-json-schema/main/{{ .NormalizedKubernetesVersion }}/schemas/{{ .ResourceKind }}{{ .KindSuffix }}.json" ${{ steps.data.outputs.files }}
 
       - name: Create k8s Kind Cluster
         uses: helm/kind-action@0025e74a8c7512023d06dc019c617aa3cf561fde # v1.10.0
