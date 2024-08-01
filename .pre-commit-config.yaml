@@ -1,0 +1,28 @@
+repos:
+  - repo: local
+    hooks:
+      - id: opa-check
+        name: OPA check
+        description: Check syntax of staged Rego files
+        entry: opa check
+        args: [ 'policy', '--strict' ]
+        pass_filenames: false
+        language: system
+      - id: opa-fmt
+        name: OPA fmt
+        description: Formats Rego policy using opa fmt
+        entry: opa fmt
+        args: [ '--write', 'policy' ]
+        language: system
+      - id: regal-lint
+        name: regal lint
+        description: Lint the rego
+        entry: regal lint
+        args: [ 'policy' ]
+        language: system
+      - id: konstraint-doc
+        name: konstraint-doc
+        description: Generate docs
+        entry: konstraint doc --output POLICIES.md
+        language: system
+        pass_filenames: false
