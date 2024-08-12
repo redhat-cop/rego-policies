@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       # renovate: datasource=github-releases depName=open-policy-agent/opa
-      OPA_VERSION: v0.67.0
+      OPA_VERSION: v0.67.1
       # renovate: datasource=github-releases depName=StyraInc/regal
       REGAL_VERSION: v0.24.0
     steps:
