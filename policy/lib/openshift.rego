@@ -7,6 +7,7 @@ import data.lib.konstraint.pods as konstraint_pods
 import data.lib.kubernetes
 
 pod := konstraint_pods.pod {
+	# regal ignore:redundant-existence-check
 	konstraint_pods.pod
 }
 
@@ -51,21 +52,21 @@ is_policy_active(_) {
 	not konstraint_core.is_gatekeeper
 }
 
-is_policy_active(policyId) {
+is_policy_active(policy_id) {
 	# regal ignore:external-reference
 	konstraint_core.is_gatekeeper
 
-	not label_contains(_namespace_disabled_policies_label, policyId)
+	not label_contains(_namespace_disabled_policies_label, policy_id)
 }
 
-label_contains(disabledpolicies, policyId) {
-	policyId in disabledpolicies
+label_contains(disabled_policies, policy_id) {
+	policy_id in disabled_policies
 }
 
-_namespace_disabled_policies_label := disabledpolicies {
+_namespace_disabled_policies_label := disabled_policies {
 	namepace := data.inventory.cluster.v1.Namespace[konstraint_core.resource.metadata.namespace]
 	label := namepace.metadata.labels["redhat-cop.github.com/gatekeeper-disabled-policies"]
-	disabledpolicies := split(label, ",")
+	disabled_policies := split(label, ",")
 }
 
 _namespace_disabled_policies_label := [""] {
