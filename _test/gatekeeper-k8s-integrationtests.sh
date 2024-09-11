@@ -42,8 +42,8 @@ teardown() {
 # ocp/bestpractices
 ####################
 
-@test "policy/ocp/bestpractices/common-k8s-labels-notset" {
-  tmp=$(split_files "policy/ocp/bestpractices/common-k8s-labels-notset/test_data/integration")
+@test "policy/ocp/bestpractices/common_k8s_labels_notset" {
+  tmp=$(split_files "policy/ocp/bestpractices/common_k8s_labels_notset/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
   cmd="kubectl create -f ${tmp} -n ${project_name}"
@@ -55,8 +55,8 @@ teardown() {
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
-@test "policy/ocp/bestpractices/container-env-maxmemory-notset" {
-  tmp=$(split_files "policy/ocp/bestpractices/container-env-maxmemory-notset/test_data/integration")
+@test "policy/ocp/bestpractices/container_env_maxmemory_notset" {
+  tmp=$(split_files "policy/ocp/bestpractices/container_env_maxmemory_notset/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
   cmd="kubectl create -f ${tmp} -n ${project_name}"
@@ -68,8 +68,8 @@ teardown() {
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
-@test "policy/ocp/bestpractices/container-image-latest" {
-  tmp=$(split_files "policy/ocp/bestpractices/container-image-latest/test_data/integration")
+@test "policy/ocp/bestpractices/container_image_latest" {
+  tmp=$(split_files "policy/ocp/bestpractices/container_image_latest/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
   cmd="kubectl create -f ${tmp} -n ${project_name}"
@@ -81,8 +81,8 @@ teardown() {
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
-@test "policy/ocp/bestpractices/container-image-unknownregistries" {
-  tmp=$(split_files "policy/ocp/bestpractices/container-image-unknownregistries/test_data/integration")
+@test "policy/ocp/bestpractices/container_image_unknownregistries" {
+  tmp=$(split_files "policy/ocp/bestpractices/container_image_unknownregistries/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
   cmd="kubectl create -f ${tmp} -n ${project_name}"
@@ -94,8 +94,8 @@ teardown() {
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
-@test "policy/ocp/bestpractices/container-java-xmx-set" {
-  tmp=$(split_files "policy/ocp/bestpractices/container-java-xmx-set/test_data/integration")
+@test "policy/ocp/bestpractices/container_java_xmx_set" {
+  tmp=$(split_files "policy/ocp/bestpractices/container_java_xmx_set/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
   cmd="kubectl create -f ${tmp} -n ${project_name}"
@@ -109,8 +109,8 @@ teardown() {
   [[ "${#lines[@]}" -eq 3 ]]
 }
 
-@test "policy/ocp/bestpractices/container-labelkey-inconsistent" {
-  tmp=$(split_files "policy/ocp/bestpractices/container-labelkey-inconsistent/test_data/integration")
+@test "policy/ocp/bestpractices/container_labelkey_inconsistent" {
+  tmp=$(split_files "policy/ocp/bestpractices/container_labelkey_inconsistent/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
   cmd="kubectl create -f ${tmp} -n ${project_name}"
@@ -122,8 +122,8 @@ teardown() {
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
-@test "policy/ocp/bestpractices/container-liveness-readinessprobe-equal" {
-  tmp=$(split_files "policy/ocp/bestpractices/container-liveness-readinessprobe-equal/test_data/integration")
+@test "policy/ocp/bestpractices/container_liveness_readinessprobe_equal" {
+  tmp=$(split_files "policy/ocp/bestpractices/container_liveness_readinessprobe_equal/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
   cmd="kubectl create -f ${tmp} -n ${project_name}"
@@ -135,8 +135,8 @@ teardown() {
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
-@test "policy/ocp/bestpractices/container-livenessprobe-notset" {
-  tmp=$(split_files "policy/ocp/bestpractices/container-livenessprobe-notset/test_data/integration")
+@test "policy/ocp/bestpractices/container_livenessprobe_notset" {
+  tmp=$(split_files "policy/ocp/bestpractices/container_livenessprobe_notset/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
   cmd="kubectl create -f ${tmp} -n ${project_name}"
@@ -148,8 +148,8 @@ teardown() {
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
-@test "policy/ocp/bestpractices/container-readinessprobe-notset" {
-  tmp=$(split_files "policy/ocp/bestpractices/container-readinessprobe-notset/test_data/integration")
+@test "policy/ocp/bestpractices/container_readinessprobe_notset" {
+  tmp=$(split_files "policy/ocp/bestpractices/container_readinessprobe_notset/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
   cmd="kubectl create -f ${tmp} -n ${project_name}"
@@ -161,8 +161,8 @@ teardown() {
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
-@test "policy/ocp/bestpractices/container-resources-limits-cpu-set" {
-  tmp=$(split_files "policy/ocp/bestpractices/container-resources-limits-cpu-set/test_data/integration")
+@test "policy/ocp/bestpractices/container_resources_limits_cpu_set" {
+  tmp=$(split_files "policy/ocp/bestpractices/container_resources_limits_cpu_set/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
   cmd="kubectl create -f ${tmp} -n ${project_name}"
@@ -174,8 +174,8 @@ teardown() {
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
-@test "policy/ocp/bestpractices/container-resources-limits-memory-greater-than" {
-  tmp=$(split_files "policy/ocp/bestpractices/container-resources-limits-memory-greater-than/test_data/integration")
+@test "policy/ocp/bestpractices/container_resources_limits_memory_greater_than" {
+  tmp=$(split_files "policy/ocp/bestpractices/container_resources_limits_memory_greater_than/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
   cmd="kubectl create -f ${tmp} -n ${project_name}"
@@ -187,8 +187,8 @@ teardown() {
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
-@test "policy/ocp/bestpractices/container-resources-limits-memory-notset" {
-  tmp=$(split_files "policy/ocp/bestpractices/container-resources-limits-memory-notset/test_data/integration")
+@test "policy/ocp/bestpractices/container_resources_limits_memory_notset" {
+  tmp=$(split_files "policy/ocp/bestpractices/container_resources_limits_memory_notset/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
   cmd="kubectl create -f ${tmp} -n ${project_name}"
@@ -200,8 +200,8 @@ teardown() {
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
-@test "policy/ocp/bestpractices/container-resources-memoryunit-incorrect" {
-  tmp=$(split_files "policy/ocp/bestpractices/container-resources-memoryunit-incorrect/test_data/integration")
+@test "policy/ocp/bestpractices/container_resources_memoryunit_incorrect" {
+  tmp=$(split_files "policy/ocp/bestpractices/container_resources_memoryunit_incorrect/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
   cmd="kubectl create -f ${tmp} -n ${project_name}"
@@ -217,8 +217,8 @@ teardown() {
   [[ "${#lines[@]}" -eq 4 ]]
 }
 
-@test "policy/ocp/bestpractices/container-resources-requests-cpuunit-incorrect" {
-  tmp=$(split_files "policy/ocp/bestpractices/container-resources-requests-cpuunit-incorrect/test_data/integration")
+@test "policy/ocp/bestpractices/container_resources_requests_cpuunit_incorrect" {
+  tmp=$(split_files "policy/ocp/bestpractices/container_resources_requests_cpuunit_incorrect/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
   cmd="kubectl create -f ${tmp} -n ${project_name}"
@@ -230,8 +230,8 @@ teardown() {
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
-@test "policy/ocp/bestpractices/container-resources-requests-memory-greater-than" {
-  tmp=$(split_files "policy/ocp/bestpractices/container-resources-requests-memory-greater-than/test_data/integration")
+@test "policy/ocp/bestpractices/container_resources_requests_memory_greater_than" {
+  tmp=$(split_files "policy/ocp/bestpractices/container_resources_requests_memory_greater_than/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
   cmd="kubectl create -f ${tmp} -n ${project_name}"
@@ -243,8 +243,8 @@ teardown() {
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
-@test "policy/ocp/bestpractices/container-secret-mounted-envs" {
-  tmp=$(split_files "policy/ocp/bestpractices/container-secret-mounted-envs/test_data/integration")
+@test "policy/ocp/bestpractices/container_secret_mounted_envs" {
+  tmp=$(split_files "policy/ocp/bestpractices/container_secret_mounted_envs/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
   cmd="kubectl create -f ${tmp} -n ${project_name}"
@@ -256,8 +256,8 @@ teardown() {
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
-@test "policy/ocp/bestpractices/container-volumemount-inconsistent-path" {
-  tmp=$(split_files "policy/ocp/bestpractices/container-volumemount-inconsistent-path/test_data/integration")
+@test "policy/ocp/bestpractices/container_volumemount_inconsistent_path" {
+  tmp=$(split_files "policy/ocp/bestpractices/container_volumemount_inconsistent_path/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
   cmd="kubectl create -f ${tmp} -n ${project_name}"
@@ -269,8 +269,8 @@ teardown() {
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
-@test "policy/ocp/bestpractices/container-volumemount-missing" {
-  tmp=$(split_files "policy/ocp/bestpractices/container-volumemount-missing/test_data/integration")
+@test "policy/ocp/bestpractices/container_volumemount_missing" {
+  tmp=$(split_files "policy/ocp/bestpractices/container_volumemount_missing/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
   cmd="kubectl create -f ${tmp} -n ${project_name}"
@@ -282,8 +282,8 @@ teardown() {
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
-@test "policy/ocp/bestpractices/pod-hostnetwork" {
-  tmp=$(split_files "policy/ocp/bestpractices/pod-hostnetwork/test_data/integration")
+@test "policy/ocp/bestpractices/pod_hostnetwork" {
+  tmp=$(split_files "policy/ocp/bestpractices/pod_hostnetwork/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
   cmd="kubectl create -f ${tmp} -n ${project_name}"
@@ -295,8 +295,8 @@ teardown() {
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
-@test "policy/ocp/bestpractices/pod-replicas-below-one" {
-  tmp=$(split_files "policy/ocp/bestpractices/pod-replicas-below-one/test_data/integration")
+@test "policy/ocp/bestpractices/pod_replicas_below_one" {
+  tmp=$(split_files "policy/ocp/bestpractices/pod_replicas_below_one/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
   cmd="kubectl create -f ${tmp} -n ${project_name}"
@@ -308,8 +308,8 @@ teardown() {
   [[ "${#lines[@]}" -eq 1 ]]
 }
 
-@test "policy/ocp/bestpractices/pod-replicas-not-odd" {
-  tmp=$(split_files "policy/ocp/bestpractices/pod-replicas-not-odd/test_data/integration")
+@test "policy/ocp/bestpractices/pod_replicas_not_odd" {
+  tmp=$(split_files "policy/ocp/bestpractices/pod_replicas_not_odd/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
   cmd="kubectl create -f ${tmp} -n ${project_name}"
@@ -336,8 +336,8 @@ teardown() {
   [ "$status" -eq 0 ]
 }
 
-@test "policy/ocp/bestpractices/common-k8s-labels-notset - disabled policy label" {
-  tmp=$(split_files "policy/ocp/bestpractices/common-k8s-labels-notset/test_data/integration")
+@test "policy/ocp/bestpractices/common_k8s_labels_notset - disabled policy label" {
+  tmp=$(split_files "policy/ocp/bestpractices/common_k8s_labels_notset/test_data/integration")
   remove_ocp_resources "${tmp}/list.yml"
 
   cmd="kubectl create -f ${tmp} -n ${project_name_disabled}"

@@ -13,6 +13,7 @@ repos:
         description: Formats Rego policy using opa fmt
         entry: opa fmt
         args: [ '--write', 'policy' ]
+        pass_filenames: false
         language: system
       - id: regal-lint
         name: regal lint
