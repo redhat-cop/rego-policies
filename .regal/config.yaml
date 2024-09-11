@@ -1,5 +1,7 @@
 rules:
   idiomatic:
+    directory-package-mismatch:
+      level: ignore
     no-defined-entrypoint:
       level: ignore
     use-contains:
