@@ -15,7 +15,7 @@ jobs:
           egress-policy: audit
 
       - name: Checkout
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+        uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4.2.1
 
       - name: Generate konstraint docs
         uses: redhat-cop/github-actions/confbatstest@1a584131f8a335296e866d1fb0988870ca83aefb # v4.3
