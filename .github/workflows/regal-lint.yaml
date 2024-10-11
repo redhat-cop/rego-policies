@@ -10,9 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     env:
       # renovate: datasource=github-releases depName=open-policy-agent/opa
-      OPA_VERSION: v0.68.0
+      OPA_VERSION: v0.69.0
       # renovate: datasource=github-releases depName=StyraInc/regal
       REGAL_VERSION: v0.27.0
+      # renovate: datasource=github-releases depName=garethahealy/openshift-json-schema
+      OCP_SCHEMA_VERSION: 4.16.0
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@91182cccc01eb5e619899d80e4e971d6181294a7 # v2.10.1
@@ -32,8 +34,20 @@ jobs:
         with:
           version: ${{ env.REGAL_VERSION }}
 
+      - name: Clone schemas
+        run: |
+          if [[ ! -d "_test/schema-generation/openshift-json-schema" ]]; then
+            mkdir -p _test/schema-generation/openshift-json-schema
+            rm -rf /tmp/openshift-json-schema
+        
+            # Download openshift-json-schema dynamically so it doesnt need to be added into source
+            git clone https://github.com/garethahealy/openshift-json-schema.git /tmp/openshift-json-schema --depth 1
+        
+            mv /tmp/openshift-json-schema/v${OCP_SCHEMA_VERSION}/schemas/* _test/schema-generation/openshift-json-schema
+          fi
+
       - name: Run OPA Check
-        run: opa check policy --strict
+        run: opa check policy --strict --schema _test/schema-generation/openshift-json-schema
 
       - name: Run Regal lint
         run: regal lint --format github policy
