@@ -5,7 +5,7 @@ repos:
         name: OPA check
         description: Check syntax of staged Rego files
         entry: opa check
-        args: [ 'policy', '--strict' ]
+        args: [ 'policy', '--strict', '--schema _test/schema-generation/openshift-json-schema' ]
         pass_filenames: false
         language: system
       - id: opa-fmt
