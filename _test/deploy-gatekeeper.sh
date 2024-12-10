@@ -100,9 +100,14 @@ restart_gatekeeper() {
 }
 
 generate_constraints() {
+  # TEMP FIX
+  wget https://github.com/garethahealy/konstraint/releases/download/v0.38.0-PR/konstraint
+  chmod +x konstraint
+  mv konstraint konstraint_tmp
+
   echo "Creating ConstraintTemplates via konstraint..."
   konstraint doc -o POLICIES.md
-  konstraint create --constraint-template-version v1
+  ./konstraint_tmp create --constraint-template-version v1
 
   # shellcheck disable=SC2038
   for file in $(find policy/* \( -name "template.yaml" \) -type f | xargs); do
@@ -112,13 +117,13 @@ generate_constraints() {
     elif [[ "${file}" == *"/ocp/deprecated/"* ]]; then
       # tests cant be deployed to a 4.x cluster so cant be tested against gatekeeper
       rm -f "${file}"
-    elif [[ "${file}" == *"/ocp/bestpractices/deploymentconfig-triggers-notset/"* ]]; then
+    elif [[ "${file}" == *"/ocp/bestpractices/deploymentconfig_triggers_notset/"* ]]; then
       # OCP API-Server adds a default ConfigChange trigger by default so cant be tested against gatekeeper
       rm -f "${file}"
-    elif [[ "${file}" == *"/ocp/bestpractices/rolebinding-roleref-apigroup-notset/"* ]]; then
+    elif [[ "${file}" == *"/ocp/bestpractices/rolebinding_roleref_apigroup_notset/"* ]]; then
       # OCP API-Server does not accept data matching this criteria but they are good for conftest when people are moving from 3.11 to 4.x
       rm -f "${file}"
-    elif [[ "${file}" == *"/ocp/bestpractices/rolebinding-roleref-kind-notset/"* ]]; then
+    elif [[ "${file}" == *"/ocp/bestpractices/rolebinding_roleref_kind_notset/"* ]]; then
       # OCP API-Server does not accept data matching this criteria but they are good for conftest when people are moving from 3.11 to 4.x
       rm -f "${file}"
     elif [[ "${file}" == *"/podman/"* ]]; then
