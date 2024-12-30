@@ -32,7 +32,7 @@ jobs:
           args: -summary -kubernetes-version ${{ env.OCP_SCHEMA_VERSION }} -schema-location "https://raw.githubusercontent.com/garethahealy/openshift-json-schema/main/{{ .NormalizedKubernetesVersion }}/schemas/{{ .ResourceKind }}{{ .KindSuffix }}.json" ${{ steps.data.outputs.files }}
 
       - name: Create k8s Kind Cluster
-        uses: helm/kind-action@ae94020eaf628e9b9b9f341a10cc0cdcf5c018fb # v1.11.0
+        uses: helm/kind-action@a1b0e391336a6ee6713a0583f8c6240d70863de3 # v1.12.0
 
       - name: Setup confbatstest
         uses: redhat-cop/github-actions/confbatstest@0c6e3b63690cfa917a0ddc162efdfda3da82d66c # v4.4
