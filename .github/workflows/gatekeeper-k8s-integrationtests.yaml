@@ -26,7 +26,7 @@ jobs:
       - name: Validate integration test data via kubeconform
         env:
           # renovate: datasource=github-releases depName=garethahealy/openshift-json-schema
-          OCP_SCHEMA_VERSION: "4.16.0"
+          OCP_SCHEMA_VERSION: "4.17.0"
         uses: docker://ghcr.io/yannh/kubeconform:v0.6.7@sha256:0925177fb05b44ce18574076141b5c3d83235e1904d3f952182ac99ddc45762c
         with:
           args: -summary -kubernetes-version ${{ env.OCP_SCHEMA_VERSION }} -schema-location "https://raw.githubusercontent.com/garethahealy/openshift-json-schema/main/{{ .NormalizedKubernetesVersion }}/schemas/{{ .ResourceKind }}{{ .KindSuffix }}.json" ${{ steps.data.outputs.files }}
