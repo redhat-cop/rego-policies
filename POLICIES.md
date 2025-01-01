@@ -31,23 +31,23 @@
 * [RHCOP-OCP_BESTPRACT-00025: Route has TLS Termination Defined](#rhcop-ocp_bestpract-00025-route-has-tls-termination-defined)
 * [RHCOP-OCP_BESTPRACT-00026: Pod anti-affinity not set](#rhcop-ocp_bestpract-00026-pod-anti-affinity-not-set)
 * [RHCOP-OCP_BESTPRACT-00027: DeploymentConfig triggers container name miss match](#rhcop-ocp_bestpract-00027-deploymentconfig-triggers-container-name-miss-match)
-* [RHCOP-OCP_DEPRECATED-3_11-00001: BuildConfig no longer served by v1](#rhcop-ocp_deprecated-3_11-00001-buildconfig-no-longer-served-by-v1)
-* [RHCOP-OCP_DEPRECATED-3_11-00002: DeploymentConfig no longer served by v1](#rhcop-ocp_deprecated-3_11-00002-deploymentconfig-no-longer-served-by-v1)
-* [RHCOP-OCP_DEPRECATED-3_11-00003: ImageStream no longer served by v1](#rhcop-ocp_deprecated-3_11-00003-imagestream-no-longer-served-by-v1)
-* [RHCOP-OCP_DEPRECATED-3_11-00004: ProjectRequest no longer served by v1](#rhcop-ocp_deprecated-3_11-00004-projectrequest-no-longer-served-by-v1)
-* [RHCOP-OCP_DEPRECATED-3_11-00005: RoleBinding no longer served by v1](#rhcop-ocp_deprecated-3_11-00005-rolebinding-no-longer-served-by-v1)
-* [RHCOP-OCP_DEPRECATED-3_11-00006: Route no longer served by v1](#rhcop-ocp_deprecated-3_11-00006-route-no-longer-served-by-v1)
-* [RHCOP-OCP_DEPRECATED-3_11-00007: SecurityContextConstraints no longer served by v1](#rhcop-ocp_deprecated-3_11-00007-securitycontextconstraints-no-longer-served-by-v1)
-* [RHCOP-OCP_DEPRECATED-3_11-00008: Template no longer served by v1](#rhcop-ocp_deprecated-3_11-00008-template-no-longer-served-by-v1)
-* [RHCOP-OCP_DEPRECATED-4_1-00001: BuildConfig exposeDockerSocket deprecated](#rhcop-ocp_deprecated-4_1-00001-buildconfig-exposedockersocket-deprecated)
-* [RHCOP-OCP_DEPRECATED-4_2-00001: authorization openshift io is deprecated](#rhcop-ocp_deprecated-4_2-00001-authorization-openshift-io-is-deprecated)
-* [RHCOP-OCP_DEPRECATED-4_2-00002: automationbroker io v1alpha1 is deprecated](#rhcop-ocp_deprecated-4_2-00002-automationbroker-io-v1alpha1-is-deprecated)
-* [RHCOP-OCP_DEPRECATED-4_2-00003: operators coreos com v1 CatalogSourceConfigs is deprecated](#rhcop-ocp_deprecated-4_2-00003-operators-coreos-com-v1-catalogsourceconfigs-is-deprecated)
-* [RHCOP-OCP_DEPRECATED-4_2-00004: operators coreos com v2 CatalogSourceConfigs is deprecated](#rhcop-ocp_deprecated-4_2-00004-operators-coreos-com-v2-catalogsourceconfigs-is-deprecated)
-* [RHCOP-OCP_DEPRECATED-4_2-00005: operators coreos com v1 OperatorSource is deprecated](#rhcop-ocp_deprecated-4_2-00005-operators-coreos-com-v1-operatorsource-is-deprecated)
-* [RHCOP-OCP_DEPRECATED-4_2-00006: osb openshift io v1 is deprecated](#rhcop-ocp_deprecated-4_2-00006-osb-openshift-io-v1-is-deprecated)
-* [RHCOP-OCP_DEPRECATED-4_2-00007: servicecatalog k8s io v1beta1 is deprecated](#rhcop-ocp_deprecated-4_2-00007-servicecatalog-k8s-io-v1beta1-is-deprecated)
-* [RHCOP-OCP_DEPRECATED-4_3-00001: BuildConfig jenkinsPipelineStrategy is deprecated](#rhcop-ocp_deprecated-4_3-00001-buildconfig-jenkinspipelinestrategy-is-deprecated)
+* [RHCOP-OCP_DEPRECATED-ocp3_11-00001: BuildConfig no longer served by v1](#rhcop-ocp_deprecated-ocp3_11-00001-buildconfig-no-longer-served-by-v1)
+* [RHCOP-OCP_DEPRECATED-ocp3_11-00002: DeploymentConfig no longer served by v1](#rhcop-ocp_deprecated-ocp3_11-00002-deploymentconfig-no-longer-served-by-v1)
+* [RHCOP-OCP_DEPRECATED-ocp3_11-00003: ImageStream no longer served by v1](#rhcop-ocp_deprecated-ocp3_11-00003-imagestream-no-longer-served-by-v1)
+* [RHCOP-OCP_DEPRECATED-ocp3_11-00004: ProjectRequest no longer served by v1](#rhcop-ocp_deprecated-ocp3_11-00004-projectrequest-no-longer-served-by-v1)
+* [RHCOP-OCP_DEPRECATED-ocp3_11-00005: RoleBinding no longer served by v1](#rhcop-ocp_deprecated-ocp3_11-00005-rolebinding-no-longer-served-by-v1)
+* [RHCOP-OCP_DEPRECATED-ocp3_11-00006: Route no longer served by v1](#rhcop-ocp_deprecated-ocp3_11-00006-route-no-longer-served-by-v1)
+* [RHCOP-OCP_DEPRECATED-ocp3_11-00007: SecurityContextConstraints no longer served by v1](#rhcop-ocp_deprecated-ocp3_11-00007-securitycontextconstraints-no-longer-served-by-v1)
+* [RHCOP-OCP_DEPRECATED-ocp3_11-00008: Template no longer served by v1](#rhcop-ocp_deprecated-ocp3_11-00008-template-no-longer-served-by-v1)
+* [RHCOP-OCP_DEPRECATED-ocp4_1-00001: BuildConfig exposeDockerSocket deprecated](#rhcop-ocp_deprecated-ocp4_1-00001-buildconfig-exposedockersocket-deprecated)
+* [RHCOP-OCP_DEPRECATED-ocp4_2-00001: authorization openshift io is deprecated](#rhcop-ocp_deprecated-ocp4_2-00001-authorization-openshift-io-is-deprecated)
+* [RHCOP-OCP_DEPRECATED-ocp4_2-00002: automationbroker io v1alpha1 is deprecated](#rhcop-ocp_deprecated-ocp4_2-00002-automationbroker-io-v1alpha1-is-deprecated)
+* [RHCOP-OCP_DEPRECATED-ocp4_2-00003: operators coreos com v1 CatalogSourceConfigs is deprecated](#rhcop-ocp_deprecated-ocp4_2-00003-operators-coreos-com-v1-catalogsourceconfigs-is-deprecated)
+* [RHCOP-OCP_DEPRECATED-ocp4_2-00004: operators coreos com v2 CatalogSourceConfigs is deprecated](#rhcop-ocp_deprecated-ocp4_2-00004-operators-coreos-com-v2-catalogsourceconfigs-is-deprecated)
+* [RHCOP-OCP_DEPRECATED-ocp4_2-00005: operators coreos com v1 OperatorSource is deprecated](#rhcop-ocp_deprecated-ocp4_2-00005-operators-coreos-com-v1-operatorsource-is-deprecated)
+* [RHCOP-OCP_DEPRECATED-ocp4_2-00006: osb openshift io v1 is deprecated](#rhcop-ocp_deprecated-ocp4_2-00006-osb-openshift-io-v1-is-deprecated)
+* [RHCOP-OCP_DEPRECATED-ocp4_2-00007: servicecatalog k8s io v1beta1 is deprecated](#rhcop-ocp_deprecated-ocp4_2-00007-servicecatalog-k8s-io-v1beta1-is-deprecated)
+* [RHCOP-OCP_DEPRECATED-ocp4_3-00001: BuildConfig jenkinsPipelineStrategy is deprecated](#rhcop-ocp_deprecated-ocp4_3-00001-buildconfig-jenkinspipelinestrategy-is-deprecated)
 * [RHCOP-OCP_REQ_INV-00001: Deployment has a matching PodDisruptionBudget](#rhcop-ocp_req_inv-00001-deployment-has-a-matching-poddisruptionbudget)
 * [RHCOP-OCP_REQ_INV-00002: Deployment has matching PersistentVolumeClaim](#rhcop-ocp_req_inv-00002-deployment-has-matching-persistentvolumeclaim)
 * [RHCOP-OCP_REQ_INV-00003: Deployment has a matching Service](#rhcop-ocp_req_inv-00003-deployment-has-a-matching-service)
@@ -96,7 +96,7 @@ _has_networkpolicy(manifests) {
 }
 ```
 
-_source: [policy/combine/namespace-has-networkpolicy](policy/combine/namespace-has-networkpolicy)_
+_source: [policy/combine/namespace_has_networkpolicy](policy/combine/namespace_has_networkpolicy)_
 
 ## RHCOP-COMBINE-00002: Namespace has a ResourceQuota
 
@@ -139,7 +139,7 @@ _has_resourcequota(manifests) {
 }
 ```
 
-_source: [policy/combine/namespace-has-resourcequota](policy/combine/namespace-has-resourcequota)_
+_source: [policy/combine/namespace_has_resourcequota](policy/combine/namespace_has_resourcequota)_
 
 ## RHCOP-OCP_BESTPRACT-00001: Common k8s labels are set
 
@@ -177,7 +177,7 @@ _is_common_labels_set(metadata) {
 }
 ```
 
-_source: [policy/ocp/bestpractices/common-k8s-labels-notset](policy/ocp/bestpractices/common-k8s-labels-notset)_
+_source: [policy/ocp/bestpractices/common_k8s_labels_notset](policy/ocp/bestpractices/common_k8s_labels_notset)_
 
 ## RHCOP-OCP_BESTPRACT-00002: Container env has CONTAINER_MAX_MEMORY set
 
@@ -216,7 +216,7 @@ _is_env_max_memory_set(container) {
 }
 ```
 
-_source: [policy/ocp/bestpractices/container-env-maxmemory-notset](policy/ocp/bestpractices/container-env-maxmemory-notset)_
+_source: [policy/ocp/bestpractices/container_env_maxmemory_notset](policy/ocp/bestpractices/container_env_maxmemory_notset)_
 
 ## RHCOP-OCP_BESTPRACT-00003: Container image is not set as latest
 
@@ -246,7 +246,7 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/bestpractices/container-image-latest](policy/ocp/bestpractices/container-image-latest)_
+_source: [policy/ocp/bestpractices/container_image_latest](policy/ocp/bestpractices/container_image_latest)_
 
 ## RHCOP-OCP_BESTPRACT-00004: Container image is not from a known registry
 
@@ -290,7 +290,7 @@ _known_registry(registry) {
 }
 ```
 
-_source: [policy/ocp/bestpractices/container-image-unknownregistries](policy/ocp/bestpractices/container-image-unknownregistries)_
+_source: [policy/ocp/bestpractices/container_image_unknownregistries](policy/ocp/bestpractices/container_image_unknownregistries)_
 
 ## RHCOP-OCP_BESTPRACT-00005: Container does not set Java Xmx option
 
@@ -337,7 +337,7 @@ _container_opts_contains_xmx(container) {
 }
 ```
 
-_source: [policy/ocp/bestpractices/container-java-xmx-set](policy/ocp/bestpractices/container-java-xmx-set)_
+_source: [policy/ocp/bestpractices/container_java_xmx_set](policy/ocp/bestpractices/container_java_xmx_set)_
 
 ## RHCOP-OCP_BESTPRACT-00006: Label key is consistent
 
@@ -378,7 +378,7 @@ _label_key_starts_with_expected(key) {
 }
 ```
 
-_source: [policy/ocp/bestpractices/container-labelkey-inconsistent](policy/ocp/bestpractices/container-labelkey-inconsistent)_
+_source: [policy/ocp/bestpractices/container_labelkey_inconsistent](policy/ocp/bestpractices/container_labelkey_inconsistent)_
 
 ## RHCOP-OCP_BESTPRACT-00007: Container liveness and readiness probes are equal
 
@@ -412,7 +412,7 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/bestpractices/container-liveness-readinessprobe-equal](policy/ocp/bestpractices/container-liveness-readinessprobe-equal)_
+_source: [policy/ocp/bestpractices/container_liveness_readinessprobe_equal](policy/ocp/bestpractices/container_liveness_readinessprobe_equal)_
 
 ## RHCOP-OCP_BESTPRACT-00008: Container liveness prob is not set
 
@@ -444,7 +444,7 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/bestpractices/container-livenessprobe-notset](policy/ocp/bestpractices/container-livenessprobe-notset)_
+_source: [policy/ocp/bestpractices/container_livenessprobe_notset](policy/ocp/bestpractices/container_livenessprobe_notset)_
 
 ## RHCOP-OCP_BESTPRACT-00009: Container readiness prob is not set
 
@@ -477,7 +477,7 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/bestpractices/container-readinessprobe-notset](policy/ocp/bestpractices/container-readinessprobe-notset)_
+_source: [policy/ocp/bestpractices/container_readinessprobe_notset](policy/ocp/bestpractices/container_readinessprobe_notset)_
 
 ## RHCOP-OCP_BESTPRACT-00010: Container resource limits CPU not set
 
@@ -509,7 +509,7 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/bestpractices/container-resources-limits-cpu-set](policy/ocp/bestpractices/container-resources-limits-cpu-set)_
+_source: [policy/ocp/bestpractices/container_resources_limits_cpu_set](policy/ocp/bestpractices/container_resources_limits_cpu_set)_
 
 ## RHCOP-OCP_BESTPRACT-00011: Container resource limits memory not greater than
 
@@ -548,7 +548,7 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/bestpractices/container-resources-limits-memory-greater-than](policy/ocp/bestpractices/container-resources-limits-memory-greater-than)_
+_source: [policy/ocp/bestpractices/container_resources_limits_memory_greater_than](policy/ocp/bestpractices/container_resources_limits_memory_greater_than)_
 
 ## RHCOP-OCP_BESTPRACT-00012: Container resource limits memory not set
 
@@ -581,7 +581,7 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/bestpractices/container-resources-limits-memory-notset](policy/ocp/bestpractices/container-resources-limits-memory-notset)_
+_source: [policy/ocp/bestpractices/container_resources_limits_memory_notset](policy/ocp/bestpractices/container_resources_limits_memory_notset)_
 
 ## RHCOP-OCP_BESTPRACT-00013: Container resources limit memory has incorrect unit
 
@@ -625,7 +625,7 @@ _is_resource_memory_units_valid(container) {
 }
 ```
 
-_source: [policy/ocp/bestpractices/container-resources-memoryunit-incorrect](policy/ocp/bestpractices/container-resources-memoryunit-incorrect)_
+_source: [policy/ocp/bestpractices/container_resources_memoryunit_incorrect](policy/ocp/bestpractices/container_resources_memoryunit_incorrect)_
 
 ## RHCOP-OCP_BESTPRACT-00014: Container resources requests cpu has incorrect unit
 
@@ -675,7 +675,7 @@ is_resource_requests_cpu_units_valid(container) {
 }
 ```
 
-_source: [policy/ocp/bestpractices/container-resources-requests-cpuunit-incorrect](policy/ocp/bestpractices/container-resources-requests-cpuunit-incorrect)_
+_source: [policy/ocp/bestpractices/container_resources_requests_cpuunit_incorrect](policy/ocp/bestpractices/container_resources_requests_cpuunit_incorrect)_
 
 ## RHCOP-OCP_BESTPRACT-00015: Container resource requests memory not greater than
 
@@ -714,7 +714,7 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/bestpractices/container-resources-requests-memory-greater-than](policy/ocp/bestpractices/container-resources-requests-memory-greater-than)_
+_source: [policy/ocp/bestpractices/container_resources_requests_memory_greater_than](policy/ocp/bestpractices/container_resources_requests_memory_greater_than)_
 
 ## RHCOP-OCP_BESTPRACT-00016: Container secret not mounted as envs
 
@@ -748,7 +748,7 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/bestpractices/container-secret-mounted-envs](policy/ocp/bestpractices/container-secret-mounted-envs)_
+_source: [policy/ocp/bestpractices/container_secret_mounted_envs](policy/ocp/bestpractices/container_secret_mounted_envs)_
 
 ## RHCOP-OCP_BESTPRACT-00017: Container volume mount path is consistent
 
@@ -779,7 +779,7 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/bestpractices/container-volumemount-inconsistent-path](policy/ocp/bestpractices/container-volumemount-inconsistent-path)_
+_source: [policy/ocp/bestpractices/container_volumemount_inconsistent_path](policy/ocp/bestpractices/container_volumemount_inconsistent_path)_
 
 ## RHCOP-OCP_BESTPRACT-00018: Container volume mount not set
 
@@ -813,7 +813,7 @@ _containers_volumemounts_contains_volume(containers, volume) {
 }
 ```
 
-_source: [policy/ocp/bestpractices/container-volumemount-missing](policy/ocp/bestpractices/container-volumemount-missing)_
+_source: [policy/ocp/bestpractices/container_volumemount_missing](policy/ocp/bestpractices/container_volumemount_missing)_
 
 ## RHCOP-OCP_BESTPRACT-00019: DeploymentConfig triggers not set
 
@@ -840,7 +840,7 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/bestpractices/deploymentconfig-triggers-notset](policy/ocp/bestpractices/deploymentconfig-triggers-notset)_
+_source: [policy/ocp/bestpractices/deploymentconfig_triggers_notset](policy/ocp/bestpractices/deploymentconfig_triggers_notset)_
 
 ## RHCOP-OCP_BESTPRACT-00020: Pod hostnetwork not set
 
@@ -866,7 +866,7 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/bestpractices/pod-hostnetwork](policy/ocp/bestpractices/pod-hostnetwork)_
+_source: [policy/ocp/bestpractices/pod_hostnetwork](policy/ocp/bestpractices/pod_hostnetwork)_
 
 ## RHCOP-OCP_BESTPRACT-00021: Pod replica below 1
 
@@ -896,7 +896,7 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/bestpractices/pod-replicas-below-one](policy/ocp/bestpractices/pod-replicas-below-one)_
+_source: [policy/ocp/bestpractices/pod_replicas_below_one](policy/ocp/bestpractices/pod_replicas_below_one)_
 
 ## RHCOP-OCP_BESTPRACT-00022: Pod replica is not odd
 
@@ -926,7 +926,7 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/bestpractices/pod-replicas-not-odd](policy/ocp/bestpractices/pod-replicas-not-odd)_
+_source: [policy/ocp/bestpractices/pod_replicas_not_odd](policy/ocp/bestpractices/pod_replicas_not_odd)_
 
 ## RHCOP-OCP_BESTPRACT-00023: RoleBinding has apiGroup set
 
@@ -953,7 +953,7 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/bestpractices/rolebinding-roleref-apigroup-notset](policy/ocp/bestpractices/rolebinding-roleref-apigroup-notset)_
+_source: [policy/ocp/bestpractices/rolebinding_roleref_apigroup_notset](policy/ocp/bestpractices/rolebinding_roleref_apigroup_notset)_
 
 ## RHCOP-OCP_BESTPRACT-00024: RoleBinding has kind set
 
@@ -980,7 +980,7 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/bestpractices/rolebinding-roleref-kind-notset](policy/ocp/bestpractices/rolebinding-roleref-kind-notset)_
+_source: [policy/ocp/bestpractices/rolebinding_roleref_kind_notset](policy/ocp/bestpractices/rolebinding_roleref_kind_notset)_
 
 ## RHCOP-OCP_BESTPRACT-00025: Route has TLS Termination Defined
 
@@ -1008,7 +1008,7 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/bestpractices/route-tls-termination-notset](policy/ocp/bestpractices/route-tls-termination-notset)_
+_source: [policy/ocp/bestpractices/route_tls_termination_notset](policy/ocp/bestpractices/route_tls_termination_notset)_
 
 ## RHCOP-OCP_BESTPRACT-00026: Pod anti-affinity not set
 
@@ -1039,7 +1039,7 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/bestpractices/pod-antiaffinity-notset](policy/ocp/bestpractices/pod-antiaffinity-notset)_
+_source: [policy/ocp/bestpractices/pod_antiaffinity_notset](policy/ocp/bestpractices/pod_antiaffinity_notset)_
 
 ## RHCOP-OCP_BESTPRACT-00027: DeploymentConfig triggers container name miss match
 
@@ -1078,9 +1078,9 @@ _containers_contains_trigger(containers, container_name) {
 }
 ```
 
-_source: [policy/ocp/bestpractices/deploymentconfig-triggers-containername](policy/ocp/bestpractices/deploymentconfig-triggers-containername)_
+_source: [policy/ocp/bestpractices/deploymentconfig_triggers_containername](policy/ocp/bestpractices/deploymentconfig_triggers_containername)_
 
-## RHCOP-OCP_DEPRECATED-3_11-00001: BuildConfig no longer served by v1
+## RHCOP-OCP_DEPRECATED-ocp3_11-00001: BuildConfig no longer served by v1
 
 **Severity:** Violation
 
@@ -1103,9 +1103,9 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/deprecated/3_11/buildconfig-v1](policy/ocp/deprecated/3_11/buildconfig-v1)_
+_source: [policy/ocp/deprecated/ocp3_11/buildconfig_v1](policy/ocp/deprecated/ocp3_11/buildconfig_v1)_
 
-## RHCOP-OCP_DEPRECATED-3_11-00002: DeploymentConfig no longer served by v1
+## RHCOP-OCP_DEPRECATED-ocp3_11-00002: DeploymentConfig no longer served by v1
 
 **Severity:** Violation
 
@@ -1128,9 +1128,9 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/deprecated/3_11/deploymentconfig-v1](policy/ocp/deprecated/3_11/deploymentconfig-v1)_
+_source: [policy/ocp/deprecated/ocp3_11/deploymentconfig_v1](policy/ocp/deprecated/ocp3_11/deploymentconfig_v1)_
 
-## RHCOP-OCP_DEPRECATED-3_11-00003: ImageStream no longer served by v1
+## RHCOP-OCP_DEPRECATED-ocp3_11-00003: ImageStream no longer served by v1
 
 **Severity:** Violation
 
@@ -1153,9 +1153,9 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/deprecated/3_11/imagestream-v1](policy/ocp/deprecated/3_11/imagestream-v1)_
+_source: [policy/ocp/deprecated/ocp3_11/imagestream_v1](policy/ocp/deprecated/ocp3_11/imagestream_v1)_
 
-## RHCOP-OCP_DEPRECATED-3_11-00004: ProjectRequest no longer served by v1
+## RHCOP-OCP_DEPRECATED-ocp3_11-00004: ProjectRequest no longer served by v1
 
 **Severity:** Violation
 
@@ -1178,9 +1178,9 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/deprecated/3_11/projectrequest-v1](policy/ocp/deprecated/3_11/projectrequest-v1)_
+_source: [policy/ocp/deprecated/ocp3_11/projectrequest_v1](policy/ocp/deprecated/ocp3_11/projectrequest_v1)_
 
-## RHCOP-OCP_DEPRECATED-3_11-00005: RoleBinding no longer served by v1
+## RHCOP-OCP_DEPRECATED-ocp3_11-00005: RoleBinding no longer served by v1
 
 **Severity:** Violation
 
@@ -1203,9 +1203,9 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/deprecated/3_11/rolebinding-v1](policy/ocp/deprecated/3_11/rolebinding-v1)_
+_source: [policy/ocp/deprecated/ocp3_11/rolebinding_v1](policy/ocp/deprecated/ocp3_11/rolebinding_v1)_
 
-## RHCOP-OCP_DEPRECATED-3_11-00006: Route no longer served by v1
+## RHCOP-OCP_DEPRECATED-ocp3_11-00006: Route no longer served by v1
 
 **Severity:** Violation
 
@@ -1228,9 +1228,9 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/deprecated/3_11/route-v1](policy/ocp/deprecated/3_11/route-v1)_
+_source: [policy/ocp/deprecated/ocp3_11/route_v1](policy/ocp/deprecated/ocp3_11/route_v1)_
 
-## RHCOP-OCP_DEPRECATED-3_11-00007: SecurityContextConstraints no longer served by v1
+## RHCOP-OCP_DEPRECATED-ocp3_11-00007: SecurityContextConstraints no longer served by v1
 
 **Severity:** Violation
 
@@ -1253,9 +1253,9 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/deprecated/3_11/securitycontextconstraints-v1](policy/ocp/deprecated/3_11/securitycontextconstraints-v1)_
+_source: [policy/ocp/deprecated/ocp3_11/securitycontextconstraints_v1](policy/ocp/deprecated/ocp3_11/securitycontextconstraints_v1)_
 
-## RHCOP-OCP_DEPRECATED-3_11-00008: Template no longer served by v1
+## RHCOP-OCP_DEPRECATED-ocp3_11-00008: Template no longer served by v1
 
 **Severity:** Violation
 
@@ -1278,9 +1278,9 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/deprecated/3_11/template-v1](policy/ocp/deprecated/3_11/template-v1)_
+_source: [policy/ocp/deprecated/ocp3_11/template_v1](policy/ocp/deprecated/ocp3_11/template_v1)_
 
-## RHCOP-OCP_DEPRECATED-4_1-00001: BuildConfig exposeDockerSocket deprecated
+## RHCOP-OCP_DEPRECATED-ocp4_1-00001: BuildConfig exposeDockerSocket deprecated
 
 **Severity:** Violation
 
@@ -1306,9 +1306,9 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/deprecated/4_1/buildconfig-custom-strategy](policy/ocp/deprecated/4_1/buildconfig-custom-strategy)_
+_source: [policy/ocp/deprecated/ocp4_1/buildconfig_custom_strategy](policy/ocp/deprecated/ocp4_1/buildconfig_custom_strategy)_
 
-## RHCOP-OCP_DEPRECATED-4_2-00001: authorization openshift io is deprecated
+## RHCOP-OCP_DEPRECATED-ocp4_2-00001: authorization openshift io is deprecated
 
 **Severity:** Violation
 
@@ -1331,9 +1331,9 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/deprecated/4_2/authorization-openshift](policy/ocp/deprecated/4_2/authorization-openshift)_
+_source: [policy/ocp/deprecated/ocp4_2/authorization_openshift](policy/ocp/deprecated/ocp4_2/authorization_openshift)_
 
-## RHCOP-OCP_DEPRECATED-4_2-00002: automationbroker io v1alpha1 is deprecated
+## RHCOP-OCP_DEPRECATED-ocp4_2-00002: automationbroker io v1alpha1 is deprecated
 
 **Severity:** Violation
 
@@ -1357,9 +1357,9 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/deprecated/4_2/automationbroker-v1alpha1](policy/ocp/deprecated/4_2/automationbroker-v1alpha1)_
+_source: [policy/ocp/deprecated/ocp4_2/automationbroker_v1alpha1](policy/ocp/deprecated/ocp4_2/automationbroker_v1alpha1)_
 
-## RHCOP-OCP_DEPRECATED-4_2-00003: operators coreos com v1 CatalogSourceConfigs is deprecated
+## RHCOP-OCP_DEPRECATED-ocp4_2-00003: operators coreos com v1 CatalogSourceConfigs is deprecated
 
 **Severity:** Violation
 
@@ -1384,9 +1384,9 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/deprecated/4_2/catalogsourceconfigs-v1](policy/ocp/deprecated/4_2/catalogsourceconfigs-v1)_
+_source: [policy/ocp/deprecated/ocp4_2/catalogsourceconfigs_v1](policy/ocp/deprecated/ocp4_2/catalogsourceconfigs_v1)_
 
-## RHCOP-OCP_DEPRECATED-4_2-00004: operators coreos com v2 CatalogSourceConfigs is deprecated
+## RHCOP-OCP_DEPRECATED-ocp4_2-00004: operators coreos com v2 CatalogSourceConfigs is deprecated
 
 **Severity:** Violation
 
@@ -1411,9 +1411,9 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/deprecated/4_2/catalogsourceconfigs-v2](policy/ocp/deprecated/4_2/catalogsourceconfigs-v2)_
+_source: [policy/ocp/deprecated/ocp4_2/catalogsourceconfigs_v2](policy/ocp/deprecated/ocp4_2/catalogsourceconfigs_v2)_
 
-## RHCOP-OCP_DEPRECATED-4_2-00005: operators coreos com v1 OperatorSource is deprecated
+## RHCOP-OCP_DEPRECATED-ocp4_2-00005: operators coreos com v1 OperatorSource is deprecated
 
 **Severity:** Violation
 
@@ -1437,9 +1437,9 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/deprecated/4_2/operatorsources-v1](policy/ocp/deprecated/4_2/operatorsources-v1)_
+_source: [policy/ocp/deprecated/ocp4_2/operatorsources_v1](policy/ocp/deprecated/ocp4_2/operatorsources_v1)_
 
-## RHCOP-OCP_DEPRECATED-4_2-00006: osb openshift io v1 is deprecated
+## RHCOP-OCP_DEPRECATED-ocp4_2-00006: osb openshift io v1 is deprecated
 
 **Severity:** Violation
 
@@ -1463,9 +1463,9 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/deprecated/4_2/osb-v1](policy/ocp/deprecated/4_2/osb-v1)_
+_source: [policy/ocp/deprecated/ocp4_2/osb_v1](policy/ocp/deprecated/ocp4_2/osb_v1)_
 
-## RHCOP-OCP_DEPRECATED-4_2-00007: servicecatalog k8s io v1beta1 is deprecated
+## RHCOP-OCP_DEPRECATED-ocp4_2-00007: servicecatalog k8s io v1beta1 is deprecated
 
 **Severity:** Violation
 
@@ -1489,9 +1489,9 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/deprecated/4_2/servicecatalog-v1beta1](policy/ocp/deprecated/4_2/servicecatalog-v1beta1)_
+_source: [policy/ocp/deprecated/ocp4_2/servicecatalog_v1beta1](policy/ocp/deprecated/ocp4_2/servicecatalog_v1beta1)_
 
-## RHCOP-OCP_DEPRECATED-4_3-00001: BuildConfig jenkinsPipelineStrategy is deprecated
+## RHCOP-OCP_DEPRECATED-ocp4_3-00001: BuildConfig jenkinsPipelineStrategy is deprecated
 
 **Severity:** Violation
 
@@ -1517,7 +1517,7 @@ violation[msg] {
 }
 ```
 
-_source: [policy/ocp/deprecated/4_3/buildconfig-jenkinspipeline-strategy](policy/ocp/deprecated/4_3/buildconfig-jenkinspipeline-strategy)_
+_source: [policy/ocp/deprecated/ocp4_3/buildconfig_jenkinspipeline_strategy](policy/ocp/deprecated/ocp4_3/buildconfig_jenkinspipeline_strategy)_
 
 ## RHCOP-OCP_REQ_INV-00001: Deployment has a matching PodDisruptionBudget
 
@@ -1559,7 +1559,7 @@ _has_matching_poddisruptionbudget(deployment, manifests) {
 }
 ```
 
-_source: [policy/ocp/requiresinventory/deployment-has-matching-poddisruptionbudget](policy/ocp/requiresinventory/deployment-has-matching-poddisruptionbudget)_
+_source: [policy/ocp/requiresinventory/deployment_has_matching_poddisruptionbudget](policy/ocp/requiresinventory/deployment_has_matching_poddisruptionbudget)_
 
 ## RHCOP-OCP_REQ_INV-00002: Deployment has matching PersistentVolumeClaim
 
@@ -1607,7 +1607,7 @@ _has_matching_persistentvolumeclaim(deployment, manifests) {
 }
 ```
 
-_source: [policy/ocp/requiresinventory/deployment-has-matching-pvc](policy/ocp/requiresinventory/deployment-has-matching-pvc)_
+_source: [policy/ocp/requiresinventory/deployment_has_matching_pvc](policy/ocp/requiresinventory/deployment_has_matching_pvc)_
 
 ## RHCOP-OCP_REQ_INV-00003: Deployment has a matching Service
 
@@ -1648,7 +1648,7 @@ _deployment_labels_matches_service_selector(deployment, manifests) {
 }
 ```
 
-_source: [policy/ocp/requiresinventory/deployment-has-matching-service](policy/ocp/requiresinventory/deployment-has-matching-service)_
+_source: [policy/ocp/requiresinventory/deployment_has_matching_service](policy/ocp/requiresinventory/deployment_has_matching_service)_
 
 ## RHCOP-OCP_REQ_INV-00004: Deployment has matching ServiceAccount
 
@@ -1690,7 +1690,7 @@ _has_matching_serviceaccount(deployment, manifests) {
 }
 ```
 
-_source: [policy/ocp/requiresinventory/deployment-has-matching-serviceaccount](policy/ocp/requiresinventory/deployment-has-matching-serviceaccount)_
+_source: [policy/ocp/requiresinventory/deployment_has_matching_serviceaccount](policy/ocp/requiresinventory/deployment_has_matching_serviceaccount)_
 
 ## RHCOP-OCP_REQ_INV-00005: Service has matching ServiceMonitor
 
@@ -1704,7 +1704,7 @@ Service without a ServiceMonitor are not being monitored and should be questione
 ### Rego
 
 ```rego
-package ocp.requiresinventory.service_has_matching_servicenonitor
+package ocp.requiresinventory.service_has_matching_servicemonitor
 
 import future.keywords.in
 
@@ -1731,7 +1731,7 @@ _service_has_matching_servicemonitor(service, manifests) {
 }
 ```
 
-_source: [policy/ocp/requiresinventory/service-has-matching-servicemonitor](policy/ocp/requiresinventory/service-has-matching-servicemonitor)_
+_source: [policy/ocp/requiresinventory/service_has_matching_servicemonitor](policy/ocp/requiresinventory/service_has_matching_servicemonitor)_
 
 ## RHCOP-PODMAN-00001: Image contains expected SHA in history
 
@@ -1769,7 +1769,7 @@ _image_history_contains_layer(layers, expected_layer_ids) {
 }
 ```
 
-_source: [policy/podman/history/contains-layer](policy/podman/history/contains-layer)_
+_source: [policy/podman/history/contains_layer](policy/podman/history/contains_layer)_
 
 ## RHCOP-PODMAN-00002: Image size is not greater than an expected value
 
@@ -1803,5 +1803,5 @@ violation[msg] {
 }
 ```
 
-_source: [policy/podman/images/image-size-not-greater-than](policy/podman/images/image-size-not-greater-than)_
+_source: [policy/podman/images/image_size_not_greater_than](policy/podman/images/image_size_not_greater_than)_
 
