@@ -229,9 +229,9 @@ import data.lib.openshift
 
 violation[msg] {
   openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00002")
-  some container in openshift.containers
-
   konstraint_core.labels["redhat-cop.github.com/technology"] == "java"
+
+  some container in openshift.containers
   not _is_env_max_memory_set(container)
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' does not have an env named 'CONTAINER_MAX_MEMORY' which is used by the Red Hat base images to calculate memory. See: https://docs.openshift.com/container-platform/4.6/nodes/clusters/nodes-cluster-resource-configure.html and https://github.com/jboss-openshift/cct_module/blob/master/jboss/container/java/jvm/bash/artifacts/opt/jboss/container/java/jvm/java-default-options", [konstraint_core.kind, konstraint_core.name, container.name]), "RHCOP-OCP_BESTPRACT-00002")
@@ -371,9 +371,9 @@ import data.lib.openshift
 
 violation[msg] {
   openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00005")
-  some container in openshift.containers
-
   konstraint_core.labels["redhat-cop.github.com/technology"] == "java"
+
+  some container in openshift.containers
   _container_opts_contains_xmx(container)
 
   msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' contains -Xmx in either, command, args or env. Instead, it is suggested you use the downward API to set the env 'CONTAINER_MAX_MEMORY'", [konstraint_core.kind, konstraint_core.name, container.name]), "RHCOP-OCP_BESTPRACT-00005")
