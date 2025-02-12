@@ -35,7 +35,7 @@ jobs:
         uses: helm/kind-action@a1b0e391336a6ee6713a0583f8c6240d70863de3 # v1.12.0
 
       - name: Setup confbatstest
-        uses: redhat-cop/github-actions/confbatstest@0c6e3b63690cfa917a0ddc162efdfda3da82d66c # v4.4
+        uses: redhat-cop/github-actions/confbatstest@561af5e610560aef3210ca7a08fe73b2add97648 # v4.5
         with:
           raw: echo "Needed for next stage"
 
