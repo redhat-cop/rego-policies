@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Opa eval --profile
-        uses: redhat-cop/github-actions/confbatstest@0c6e3b63690cfa917a0ddc162efdfda3da82d66c # v4.4
+        uses: redhat-cop/github-actions/confbatstest@561af5e610560aef3210ca7a08fe73b2add97648 # v4.5
         with:
           tests: _test/opa-profile.sh
           policies: '[]' # An empty array is provided as the policies are already cloned via source.
