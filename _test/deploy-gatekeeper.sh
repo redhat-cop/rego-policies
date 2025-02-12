@@ -100,14 +100,9 @@ restart_gatekeeper() {
 }
 
 generate_constraints() {
-  # TEMP FIX
-  wget https://github.com/garethahealy/konstraint/releases/download/v0.38.0-PR/konstraint
-  chmod +x konstraint
-  mv konstraint konstraint_tmp
-
   echo "Creating ConstraintTemplates via konstraint..."
   konstraint doc -o POLICIES.md
-  ./konstraint_tmp create --constraint-template-version v1
+  konstraint create --constraint-template-version v1
 
   # shellcheck disable=SC2038
   for file in $(find policy/* \( -name "template.yaml" \) -type f | xargs); do
