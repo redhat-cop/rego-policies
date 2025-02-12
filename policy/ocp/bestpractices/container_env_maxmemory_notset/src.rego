@@ -38,7 +38,7 @@ import data.lib.openshift
 violation[msg] {
 	openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00002")
 	konstraint_core.labels["redhat-cop.github.com/technology"] == "java"
-	
+
 	some container in openshift.containers
 	not _is_env_max_memory_set(container)
 
