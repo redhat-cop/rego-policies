@@ -60,7 +60,10 @@
 
 **Severity:** Violation
 
-**Resources:** core/Namespace networking.k8s.io/NetworkPolicy
+**Resources:**
+
+- core/Namespace
+- networking.k8s.io/NetworkPolicy
 
 Kubernetes network policies specify the access permissions for groups of pods,
 much like security groups in the cloud are used to control access to VM instances.
@@ -102,7 +105,10 @@ _source: [policy/combine/namespace_has_networkpolicy](policy/combine/namespace_h
 
 **Severity:** Violation
 
-**Resources:** core/Namespace core/ResourceQuota
+**Resources:**
+
+- core/Namespace
+- core/ResourceQuota
 
 With ResourceQuotas, you can limit the total resource consumption of all containers inside a Namespace.
 Defining a resource quota for a namespace limits the total amount of CPU, memory or storage resources
@@ -145,7 +151,19 @@ _source: [policy/combine/namespace_has_resourcequota](policy/combine/namespace_h
 
 **Severity:** Violation
 
-**Resources:** core/Pod core/ReplicationController core/Service apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob route.openshift.io/Route
+**Resources:**
+
+- core/Pod
+- core/ReplicationController
+- core/Service
+- apps/DaemonSet
+- apps/Deployment
+- apps/Job
+- apps/ReplicaSet
+- apps/StatefulSet
+- apps.openshift.io/DeploymentConfig
+- batch/CronJob
+- route.openshift.io/Route
 
 Check if all workload related kinds contain labels as suggested by k8s.
 See: https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels
@@ -183,7 +201,17 @@ _source: [policy/ocp/bestpractices/common_k8s_labels_notset](policy/ocp/bestprac
 
 **Severity:** Violation
 
-**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
+**Resources:**
+
+- core/Pod
+- core/ReplicationController
+- apps/DaemonSet
+- apps/Deployment
+- apps/Job
+- apps/ReplicaSet
+- apps/StatefulSet
+- apps.openshift.io/DeploymentConfig
+- batch/CronJob
 
 Red Hat OpenJDK image uses CONTAINER_MAX_MEMORY env via the downward API to set Java memory settings.
 Instead of manually setting -Xmx, let the image automatically set it for you.
@@ -222,7 +250,17 @@ _source: [policy/ocp/bestpractices/container_env_maxmemory_notset](policy/ocp/be
 
 **Severity:** Violation
 
-**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
+**Resources:**
+
+- core/Pod
+- core/ReplicationController
+- apps/DaemonSet
+- apps/Deployment
+- apps/Job
+- apps/ReplicaSet
+- apps/StatefulSet
+- apps.openshift.io/DeploymentConfig
+- batch/CronJob
 
 Images should use immutable tags. Today's latest is not tomorrows latest.
 
@@ -252,7 +290,17 @@ _source: [policy/ocp/bestpractices/container_image_latest](policy/ocp/bestpracti
 
 **Severity:** Violation
 
-**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
+**Resources:**
+
+- core/Pod
+- core/ReplicationController
+- apps/DaemonSet
+- apps/Deployment
+- apps/Job
+- apps/ReplicaSet
+- apps/StatefulSet
+- apps.openshift.io/DeploymentConfig
+- batch/CronJob
 
 Only images from trusted and known registries should be used
 
@@ -296,7 +344,17 @@ _source: [policy/ocp/bestpractices/container_image_unknownregistries](policy/ocp
 
 **Severity:** Violation
 
-**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
+**Resources:**
+
+- core/Pod
+- core/ReplicationController
+- apps/DaemonSet
+- apps/Deployment
+- apps/Job
+- apps/ReplicaSet
+- apps/StatefulSet
+- apps.openshift.io/DeploymentConfig
+- batch/CronJob
 
 Red Hat OpenJDK image uses CONTAINER_MAX_MEMORY env via the downward API to set Java memory settings.
 Instead of manually setting -Xmx, let the image automatically set it for you.
@@ -343,7 +401,17 @@ _source: [policy/ocp/bestpractices/container_java_xmx_set](policy/ocp/bestpracti
 
 **Severity:** Violation
 
-**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
+**Resources:**
+
+- core/Pod
+- core/ReplicationController
+- apps/DaemonSet
+- apps/Deployment
+- apps/Job
+- apps/ReplicaSet
+- apps/StatefulSet
+- apps.openshift.io/DeploymentConfig
+- batch/CronJob
 
 Label keys should be qualified by 'app.kubernetes.io' or 'company.com' to allow a consistent understanding.
 
@@ -384,7 +452,17 @@ _source: [policy/ocp/bestpractices/container_labelkey_inconsistent](policy/ocp/b
 
 **Severity:** Violation
 
-**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
+**Resources:**
+
+- core/Pod
+- core/ReplicationController
+- apps/DaemonSet
+- apps/Deployment
+- apps/Job
+- apps/ReplicaSet
+- apps/StatefulSet
+- apps.openshift.io/DeploymentConfig
+- batch/CronJob
 
 When Liveness and Readiness probes are pointing to the same endpoint, the effects of the probes are combined.
 When the app signals that it's not ready or live, the kubelet detaches the container from the Service
@@ -418,7 +496,17 @@ _source: [policy/ocp/bestpractices/container_liveness_readinessprobe_equal](poli
 
 **Severity:** Violation
 
-**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
+**Resources:**
+
+- core/Pod
+- core/ReplicationController
+- apps/DaemonSet
+- apps/Deployment
+- apps/Job
+- apps/ReplicaSet
+- apps/StatefulSet
+- apps.openshift.io/DeploymentConfig
+- batch/CronJob
 
 A Liveness checks determines if the container in which it is scheduled is still running.
 If the liveness probe fails due to a condition such as a deadlock, the kubelet kills the container.
@@ -450,7 +538,17 @@ _source: [policy/ocp/bestpractices/container_livenessprobe_notset](policy/ocp/be
 
 **Severity:** Violation
 
-**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
+**Resources:**
+
+- core/Pod
+- core/ReplicationController
+- apps/DaemonSet
+- apps/Deployment
+- apps/Job
+- apps/ReplicaSet
+- apps/StatefulSet
+- apps.openshift.io/DeploymentConfig
+- batch/CronJob
 
 A Readiness check determines if the container in which it is scheduled is ready to service requests.
 If the readiness probe fails a container, the endpoints controller ensures the container has its IP address
@@ -483,7 +581,17 @@ _source: [policy/ocp/bestpractices/container_readinessprobe_notset](policy/ocp/b
 
 **Severity:** Violation
 
-**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
+**Resources:**
+
+- core/Pod
+- core/ReplicationController
+- apps/DaemonSet
+- apps/Deployment
+- apps/Job
+- apps/ReplicaSet
+- apps/StatefulSet
+- apps.openshift.io/DeploymentConfig
+- batch/CronJob
 
 If you're not sure about what's the best settings for your app, it's better not to set the CPU limits.
 See: Resources utilisation -> https://learnk8s.io/production-best-practices#application-development
@@ -515,7 +623,17 @@ _source: [policy/ocp/bestpractices/container_resources_limits_cpu_set](policy/oc
 
 **Severity:** Violation
 
-**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
+**Resources:**
+
+- core/Pod
+- core/ReplicationController
+- apps/DaemonSet
+- apps/Deployment
+- apps/Job
+- apps/ReplicaSet
+- apps/StatefulSet
+- apps.openshift.io/DeploymentConfig
+- batch/CronJob
 
 Setting a too high memory limit can cause under utilisation on a node.
 It is better to run multiple pods which use smaller limits.
@@ -554,7 +672,17 @@ _source: [policy/ocp/bestpractices/container_resources_limits_memory_greater_tha
 
 **Severity:** Violation
 
-**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
+**Resources:**
+
+- core/Pod
+- core/ReplicationController
+- apps/DaemonSet
+- apps/Deployment
+- apps/Job
+- apps/ReplicaSet
+- apps/StatefulSet
+- apps.openshift.io/DeploymentConfig
+- batch/CronJob
 
 A container without a memory limit has memory utilisation of zero — according to the scheduler.
 An unlimited number of Pods if schedulable on any nodes leading to resource overcommitment
@@ -587,7 +715,17 @@ _source: [policy/ocp/bestpractices/container_resources_limits_memory_notset](pol
 
 **Severity:** Violation
 
-**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
+**Resources:**
+
+- core/Pod
+- core/ReplicationController
+- apps/DaemonSet
+- apps/Deployment
+- apps/Job
+- apps/ReplicaSet
+- apps/StatefulSet
+- apps.openshift.io/DeploymentConfig
+- batch/CronJob
 
 Begininers can easily confuse the allowed memory unit, this policy enforces what is valid.
 k8s also allows for millibyte as a unit for memory, which causes unintended consequences for the scheduler.
@@ -631,7 +769,17 @@ _source: [policy/ocp/bestpractices/container_resources_memoryunit_incorrect](pol
 
 **Severity:** Violation
 
-**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
+**Resources:**
+
+- core/Pod
+- core/ReplicationController
+- apps/DaemonSet
+- apps/Deployment
+- apps/Job
+- apps/ReplicaSet
+- apps/StatefulSet
+- apps.openshift.io/DeploymentConfig
+- batch/CronJob
 
 Beginners can easily confuse the allowed cpu unit, this policy enforces what is valid.
 See: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes
@@ -681,7 +829,17 @@ _source: [policy/ocp/bestpractices/container_resources_requests_cpuunit_incorrec
 
 **Severity:** Violation
 
-**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
+**Resources:**
+
+- core/Pod
+- core/ReplicationController
+- apps/DaemonSet
+- apps/Deployment
+- apps/Job
+- apps/ReplicaSet
+- apps/StatefulSet
+- apps.openshift.io/DeploymentConfig
+- batch/CronJob
 
 Setting a too high memory request can cause under utilisation on a node.
 It is better to run multiple pods which use smaller requests.
@@ -720,7 +878,17 @@ _source: [policy/ocp/bestpractices/container_resources_requests_memory_greater_t
 
 **Severity:** Violation
 
-**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
+**Resources:**
+
+- core/Pod
+- core/ReplicationController
+- apps/DaemonSet
+- apps/Deployment
+- apps/Job
+- apps/ReplicaSet
+- apps/StatefulSet
+- apps.openshift.io/DeploymentConfig
+- batch/CronJob
 
 The content of Secret resources should be mounted into containers as volumes rather than,
 passed in as environment variables. This is to prevent that the secret values appear in the command that was
@@ -754,7 +922,17 @@ _source: [policy/ocp/bestpractices/container_secret_mounted_envs](policy/ocp/bes
 
 **Severity:** Violation
 
-**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
+**Resources:**
+
+- core/Pod
+- core/ReplicationController
+- apps/DaemonSet
+- apps/Deployment
+- apps/Job
+- apps/ReplicaSet
+- apps/StatefulSet
+- apps.openshift.io/DeploymentConfig
+- batch/CronJob
 
 Mount paths should be mounted at '/var/run/company.com' to allow a consistent understanding.
 
@@ -785,7 +963,17 @@ _source: [policy/ocp/bestpractices/container_volumemount_inconsistent_path](poli
 
 **Severity:** Violation
 
-**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
+**Resources:**
+
+- core/Pod
+- core/ReplicationController
+- apps/DaemonSet
+- apps/Deployment
+- apps/Job
+- apps/ReplicaSet
+- apps/StatefulSet
+- apps.openshift.io/DeploymentConfig
+- batch/CronJob
 
 A volume does not have a corresponding volume mount. There is probably a mistake in your definition.
 
@@ -819,7 +1007,9 @@ _source: [policy/ocp/bestpractices/container_volumemount_missing](policy/ocp/bes
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig
+**Resources:**
+
+- apps.openshift.io/DeploymentConfig
 
 If you are using a DeploymentConfig without 'spec.triggers' set, you could probably just use the k8s Deployment.
 
@@ -846,7 +1036,17 @@ _source: [policy/ocp/bestpractices/deploymentconfig_triggers_notset](policy/ocp/
 
 **Severity:** Violation
 
-**Resources:** core/Pod core/ReplicationController apps/DaemonSet apps/Deployment apps/Job apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig batch/CronJob
+**Resources:**
+
+- core/Pod
+- core/ReplicationController
+- apps/DaemonSet
+- apps/Deployment
+- apps/Job
+- apps/ReplicaSet
+- apps/StatefulSet
+- apps.openshift.io/DeploymentConfig
+- batch/CronJob
 
 Pods which require 'spec.hostNetwork' should be limited due to security concerns.
 
@@ -872,7 +1072,10 @@ _source: [policy/ocp/bestpractices/pod_hostnetwork](policy/ocp/bestpractices/pod
 
 **Severity:** Violation
 
-**Resources:** apps/Deployment apps.openshift.io/DeploymentConfig
+**Resources:**
+
+- apps/Deployment
+- apps.openshift.io/DeploymentConfig
 
 Never run a single Pod individually.
 See: Fault tolerance -> https://learnk8s.io/production-best-practices#application-development
@@ -902,7 +1105,10 @@ _source: [policy/ocp/bestpractices/pod_replicas_below_one](policy/ocp/bestpracti
 
 **Severity:** Violation
 
-**Resources:** apps/Deployment apps.openshift.io/DeploymentConfig
+**Resources:**
+
+- apps/Deployment
+- apps.openshift.io/DeploymentConfig
 
 Pods should be run with a replica which is odd, i.e.: 3, 5, 7, etc, for HA guarantees.
 See: Fault tolerance -> https://learnk8s.io/production-best-practices#application-development
@@ -932,7 +1138,9 @@ _source: [policy/ocp/bestpractices/pod_replicas_not_odd](policy/ocp/bestpractice
 
 **Severity:** Violation
 
-**Resources:** rbac.authorization.k8s.io/RoleBinding
+**Resources:**
+
+- rbac.authorization.k8s.io/RoleBinding
 
 Migrating from 3.11 to 4.x requires the 'roleRef.apiGroup' to be set.
 
@@ -959,7 +1167,9 @@ _source: [policy/ocp/bestpractices/rolebinding_roleref_apigroup_notset](policy/o
 
 **Severity:** Violation
 
-**Resources:** rbac.authorization.k8s.io/RoleBinding
+**Resources:**
+
+- rbac.authorization.k8s.io/RoleBinding
 
 Migrating from 3.11 to 4.x requires the 'roleRef.kind' to be set.
 
@@ -986,7 +1196,9 @@ _source: [policy/ocp/bestpractices/rolebinding_roleref_kind_notset](policy/ocp/b
 
 **Severity:** Violation
 
-**Resources:** route.openshift.io/Route
+**Resources:**
+
+- route.openshift.io/Route
 
 Routes should specify a TLS termination type to allow only secure ingress.
 
@@ -1014,7 +1226,14 @@ _source: [policy/ocp/bestpractices/route_tls_termination_notset](policy/ocp/best
 
 **Severity:** Violation
 
-**Resources:** core/Pod core/ReplicationController apps/Deployment apps/ReplicaSet apps/StatefulSet apps.openshift.io/DeploymentConfig
+**Resources:**
+
+- core/Pod
+- core/ReplicationController
+- apps/Deployment
+- apps/ReplicaSet
+- apps/StatefulSet
+- apps.openshift.io/DeploymentConfig
 
 Even if you run several copies of your Pods,
 there are no guarantees that losing a node won't take down your service. Anti-Affinity helps here.
@@ -1045,7 +1264,9 @@ _source: [policy/ocp/bestpractices/pod_antiaffinity_notset](policy/ocp/bestpract
 
 **Severity:** Violation
 
-**Resources:** apps.openshift.io/DeploymentConfig
+**Resources:**
+
+- apps.openshift.io/DeploymentConfig
 
 If you are using a DeploymentConfig with 'spec.triggers' set,
 but the container name does not match the trigger will never fire. There is probably a mistake in your definition.
@@ -1084,7 +1305,9 @@ _source: [policy/ocp/bestpractices/deploymentconfig_triggers_containername](poli
 
 **Severity:** Violation
 
-**Resources:** v1/BuildConfig
+**Resources:**
+
+- v1/BuildConfig
 
 OCP4.x expects build.openshift.io/v1.
 
@@ -1109,7 +1332,9 @@ _source: [policy/ocp/deprecated/ocp3_11/buildconfig_v1](policy/ocp/deprecated/oc
 
 **Severity:** Violation
 
-**Resources:** v1/DeploymentConfig
+**Resources:**
+
+- v1/DeploymentConfig
 
 OCP4.x expects apps.openshift.io/v1.
 
@@ -1134,7 +1359,9 @@ _source: [policy/ocp/deprecated/ocp3_11/deploymentconfig_v1](policy/ocp/deprecat
 
 **Severity:** Violation
 
-**Resources:** v1/ImageStream
+**Resources:**
+
+- v1/ImageStream
 
 OCP4.x expects image.openshift.io/v1.
 
@@ -1159,7 +1386,9 @@ _source: [policy/ocp/deprecated/ocp3_11/imagestream_v1](policy/ocp/deprecated/oc
 
 **Severity:** Violation
 
-**Resources:** v1/ProjectRequest
+**Resources:**
+
+- v1/ProjectRequest
 
 OCP4.x expects project.openshift.io/v1.
 
@@ -1184,7 +1413,9 @@ _source: [policy/ocp/deprecated/ocp3_11/projectrequest_v1](policy/ocp/deprecated
 
 **Severity:** Violation
 
-**Resources:** v1/RoleBinding
+**Resources:**
+
+- v1/RoleBinding
 
 OCP4.x expects rbac.authorization.k8s.io/v1
 
@@ -1209,7 +1440,9 @@ _source: [policy/ocp/deprecated/ocp3_11/rolebinding_v1](policy/ocp/deprecated/oc
 
 **Severity:** Violation
 
-**Resources:** v1/Route
+**Resources:**
+
+- v1/Route
 
 OCP4.x expects route.openshift.io/v1.
 
@@ -1234,7 +1467,9 @@ _source: [policy/ocp/deprecated/ocp3_11/route_v1](policy/ocp/deprecated/ocp3_11/
 
 **Severity:** Violation
 
-**Resources:** v1/SecurityContextConstraints
+**Resources:**
+
+- v1/SecurityContextConstraints
 
 OCP4.x expects security.openshift.io/v1.
 
@@ -1259,7 +1494,9 @@ _source: [policy/ocp/deprecated/ocp3_11/securitycontextconstraints_v1](policy/oc
 
 **Severity:** Violation
 
-**Resources:** v1/Template
+**Resources:**
+
+- v1/Template
 
 OCP4.x expects template.openshift.io/v1.
 
@@ -1284,7 +1521,9 @@ _source: [policy/ocp/deprecated/ocp3_11/template_v1](policy/ocp/deprecated/ocp3_
 
 **Severity:** Violation
 
-**Resources:** build.openshift.io/BuildConfig
+**Resources:**
+
+- build.openshift.io/BuildConfig
 
 'spec.strategy.customStrategy.exposeDockerSocket' is no longer supported by BuildConfig.
 See: https://docs.openshift.com/container-platform/4.1/release_notes/ocp-4-1-release-notes.html#ocp-41-deprecated-features
@@ -1312,7 +1551,12 @@ _source: [policy/ocp/deprecated/ocp4_1/buildconfig_custom_strategy](policy/ocp/d
 
 **Severity:** Violation
 
-**Resources:** authorization.openshift.io/ClusterRole authorization.openshift.io/ClusterRoleBinding authorization.openshift.io/Role authorization.openshift.io/RoleBinding
+**Resources:**
+
+- authorization.openshift.io/ClusterRole
+- authorization.openshift.io/ClusterRoleBinding
+- authorization.openshift.io/Role
+- authorization.openshift.io/RoleBinding
 
 From OCP4.2 onwards, you should migrate from 'authorization.openshift.io' to rbac.authorization.k8s.io/v1.
 See: https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html#ocp-4-2-deprecated-features
@@ -1337,7 +1581,11 @@ _source: [policy/ocp/deprecated/ocp4_2/authorization_openshift](policy/ocp/depre
 
 **Severity:** Violation
 
-**Resources:** automationbroker.io/Bundle automationbroker.io/BundleBinding automationbroker.io/BundleInstance
+**Resources:**
+
+- automationbroker.io/Bundle
+- automationbroker.io/BundleBinding
+- automationbroker.io/BundleInstance
 
 'automationbroker.io/v1alpha1' is deprecated in OCP 4.2 and removed in 4.4.
 See: https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html#ocp-4-2-deprecated-features
@@ -1363,7 +1611,9 @@ _source: [policy/ocp/deprecated/ocp4_2/automationbroker_v1alpha1](policy/ocp/dep
 
 **Severity:** Violation
 
-**Resources:** operators.coreos.com/CatalogSourceConfigs
+**Resources:**
+
+- operators.coreos.com/CatalogSourceConfigs
 
 'operators.coreos.com/v1:CatalogSourceConfigs' is deprecated in OCP 4.2 and removed in 4.5.
 See: https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html#ocp-4-2-deprecated-features
@@ -1390,7 +1640,9 @@ _source: [policy/ocp/deprecated/ocp4_2/catalogsourceconfigs_v1](policy/ocp/depre
 
 **Severity:** Violation
 
-**Resources:** operators.coreos.com/CatalogSourceConfigs
+**Resources:**
+
+- operators.coreos.com/CatalogSourceConfigs
 
 'operators.coreos.com/v2:CatalogSourceConfigs' is deprecated in OCP 4.2 and removed in 4.5.
 See: https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html#ocp-4-2-deprecated-features
@@ -1417,7 +1669,9 @@ _source: [policy/ocp/deprecated/ocp4_2/catalogsourceconfigs_v2](policy/ocp/depre
 
 **Severity:** Violation
 
-**Resources:** operators.coreos.com/OperatorSource
+**Resources:**
+
+- operators.coreos.com/OperatorSource
 
 'operators.coreos.com/v1:OperatorSource' is deprecated in OCP 4.2 and will be removed in a future version.
 See: https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html#ocp-4-2-deprecated-features
@@ -1443,7 +1697,10 @@ _source: [policy/ocp/deprecated/ocp4_2/operatorsources_v1](policy/ocp/deprecated
 
 **Severity:** Violation
 
-**Resources:** osb.openshift.io/AutomationBroker osb.openshift.io/TemplateServiceBroker
+**Resources:**
+
+- osb.openshift.io/AutomationBroker
+- osb.openshift.io/TemplateServiceBroker
 
 'osb.openshift.io/v1' is deprecated in OCP 4.2 and removed in 4.5.
 See: https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html#ocp-4-2-deprecated-features
@@ -1469,7 +1726,13 @@ _source: [policy/ocp/deprecated/ocp4_2/osb_v1](policy/ocp/deprecated/ocp4_2/osb_
 
 **Severity:** Violation
 
-**Resources:** servicecatalog.k8s.io/ClusterServiceBroker servicecatalog.k8s.io/ClusterServiceClass servicecatalog.k8s.io/ClusterServicePlan servicecatalog.k8s.io/ServiceBinding servicecatalog.k8s.io/ServiceInstance
+**Resources:**
+
+- servicecatalog.k8s.io/ClusterServiceBroker
+- servicecatalog.k8s.io/ClusterServiceClass
+- servicecatalog.k8s.io/ClusterServicePlan
+- servicecatalog.k8s.io/ServiceBinding
+- servicecatalog.k8s.io/ServiceInstance
 
 'servicecatalog.k8s.io/v1beta1' is deprecated in OCP 4.2 and removed in 4.5.
 See: https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html#ocp-4-2-deprecated-features
@@ -1495,7 +1758,9 @@ _source: [policy/ocp/deprecated/ocp4_2/servicecatalog_v1beta1](policy/ocp/deprec
 
 **Severity:** Violation
 
-**Resources:** build.openshift.io/BuildConfig
+**Resources:**
+
+- build.openshift.io/BuildConfig
 
 'spec.strategy.jenkinsPipelineStrategy' is no longer supported by BuildConfig.
 See: https://docs.openshift.com/container-platform/4.3/release_notes/ocp-4-3-release-notes.html#ocp-4-3-deprecated-features
@@ -1523,7 +1788,9 @@ _source: [policy/ocp/deprecated/ocp4_3/buildconfig_jenkinspipeline_strategy](pol
 
 **Severity:** Violation
 
-**Resources:** apps/Deployment
+**Resources:**
+
+- apps/Deployment
 
 All Deployments should have matching PodDisruptionBudget, via 'spec.template.metadata.labels', to provide HA guarantees.
 See: Fault tolerance -> https://learnk8s.io/production-best-practices#application-development
@@ -1565,7 +1832,9 @@ _source: [policy/ocp/requiresinventory/deployment_has_matching_poddisruptionbudg
 
 **Severity:** Violation
 
-**Resources:** apps/Deployment
+**Resources:**
+
+- apps/Deployment
 
 If Deployment has 'spec.template.spec.volumes.persistentVolumeClaim' set, there should be matching PersistentVolumeClaim.
 If not, this would suggest a mistake.
@@ -1613,7 +1882,9 @@ _source: [policy/ocp/requiresinventory/deployment_has_matching_pvc](policy/ocp/r
 
 **Severity:** Violation
 
-**Resources:** apps/Deployment
+**Resources:**
+
+- apps/Deployment
 
 All Deployments should have matching Service, via 'spec.template.metadata.labels'.
 Deployments without a Service are not accessible and should be questioned as to why.
@@ -1654,7 +1925,9 @@ _source: [policy/ocp/requiresinventory/deployment_has_matching_service](policy/o
 
 **Severity:** Violation
 
-**Resources:** apps/Deployment
+**Resources:**
+
+- apps/Deployment
 
 If Deployment has 'spec.serviceAccountName' set, there should be matching ServiceAccount.
 If not, this would suggest a mistake.
@@ -1696,7 +1969,9 @@ _source: [policy/ocp/requiresinventory/deployment_has_matching_serviceaccount](p
 
 **Severity:** Violation
 
-**Resources:** core/Service
+**Resources:**
+
+- core/Service
 
 All Service should have a matching ServiceMonitor, via 'spec.selector'.
 Service without a ServiceMonitor are not being monitored and should be questioned as to why.
@@ -1737,7 +2012,9 @@ _source: [policy/ocp/requiresinventory/service_has_matching_servicemonitor](poli
 
 **Severity:** Violation
 
-**Resources:** redhat-cop.github.com/PodmanHistory
+**Resources:**
+
+- redhat-cop.github.com/PodmanHistory
 
 Most images are built from a subset of authorised base images in a company,
 this policy allows enforcement of that policy by checking for an expected SHA.
@@ -1775,7 +2052,9 @@ _source: [policy/podman/history/contains_layer](policy/podman/history/contains_l
 
 **Severity:** Violation
 
-**Resources:** redhat-cop.github.com/PodmanImages
+**Resources:**
+
+- redhat-cop.github.com/PodmanImages
 
 Typically, the "smaller the better" rule applies to images so lets enforce that.
 

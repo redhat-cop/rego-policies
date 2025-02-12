@@ -59,7 +59,7 @@ teardown() {
 
   cmd="oc create -f ${tmp} -n ${project_name}"
   run ${cmd}
-  
+
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
   [[ "${lines[1]}" == *"denied the request: [containerenvmaxmemorynotset] RHCOP-OCP_BESTPRACT-00002: Deployment/nodownwardmemoryenv"* ]]

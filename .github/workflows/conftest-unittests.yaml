@@ -28,7 +28,7 @@ jobs:
         id: hash
         run: |
           tar cvf policy.tar policy/
-          
+
           echo "hashes=$(sha256sum policy.tar | base64 -w0)" >> "$GITHUB_OUTPUT"
 
       - name: Upload policy.tar

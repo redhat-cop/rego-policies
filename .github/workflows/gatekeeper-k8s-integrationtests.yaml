@@ -64,15 +64,15 @@ jobs:
 
           echo "## api-versions:"
           kubectl api-versions
-          
+
           echo "## describe deployment/gatekeeper-audit:"
           kubectl describe deployment/gatekeeper-audit -n gatekeeper-system
-          
+
           echo "## logs deployment/gatekeeper-audit:"
           kubectl logs deployment/gatekeeper-audit -n gatekeeper-system
-          
+
           echo "## describe deployment/gatekeeper-controller-manager:"
           kubectl describe deployment/gatekeeper-controller-manager -n gatekeeper-system
-          
+
           echo "## logs deployment/gatekeeper-controller-manager:"
           kubectl logs deployment/gatekeeper-controller-manager -n gatekeeper-system

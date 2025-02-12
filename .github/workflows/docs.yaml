@@ -30,9 +30,9 @@ jobs:
         if: steps.changes.outputs.changed >= 1
         run: |
           echo "Uncommited changes to POLICIES.md exist. Failing."
-          echo 
+          echo
           git status --porcelain
-          git --no-pager diff POLICIES.md 
+          git --no-pager diff POLICIES.md
           exit 1
 
       - name: Link checker

@@ -1,20 +1,33 @@
+exclude: 'POLICIES.md'
+
 repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-case-conflict
+      - id: check-yaml
+      - id: check-shebang-scripts-are-executable
+      - id: check-json
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
   - repo: local
     hooks:
       - id: opa-check
         name: OPA check
         description: Check syntax of staged Rego files
         entry: opa check
-        args: [ 'policy', '--strict' ]
+        args: [ '--v0-compatible', 'policy', '--strict' ]
         pass_filenames: false
         language: system
+        files: (\.rego)$
       - id: opa-fmt
         name: OPA fmt
         description: Formats Rego policy using opa fmt
         entry: opa fmt
-        args: [ '--write', 'policy' ]
-        pass_filenames: false
+        args: [ '--v0-compatible', '--write', 'policy' ]
         language: system
+        files: (\.rego)$
       - id: regal-lint
         name: regal lint
         description: Lint the rego
@@ -27,3 +40,12 @@ repos:
         entry: konstraint doc --output POLICIES.md
         language: system
         pass_filenames: false
+  - repo: https://gitlab.cee.redhat.com/infosec-public/developer-workbench/tools.git
+    rev: rh-pre-commit-2.3.2
+    hooks:
+      # If you have not run this hook on your system before, it may prompt you to
+      # log in for patterns, and you will need to try again.
+      #
+      # Docs: https://source.redhat.com/departments/it/it-information-security/leaktk/leaktk_components/rh_pre_commit
+      - id: rh-pre-commit
+      - id: rh-pre-commit.commit-msg # Optional for commit-msg attestation

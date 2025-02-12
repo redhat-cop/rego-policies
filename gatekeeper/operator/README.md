@@ -8,4 +8,3 @@ the operator, you can follow the below:
 
 ## Known differences
 - https://github.com/gatekeeper/gatekeeper-operator/issues/146
-    
