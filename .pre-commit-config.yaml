@@ -25,6 +25,7 @@ repos:
         description: Formats Rego policy using opa fmt
         entry: opa fmt
         args: [ '--v0-compatible', '--write', 'policy' ]
+        pass_filenames: false
         language: system
         files: (\.rego)$
       - id: regal-lint
