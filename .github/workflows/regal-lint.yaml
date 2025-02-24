@@ -33,7 +33,7 @@ jobs:
           version: ${{ env.REGAL_VERSION }}
 
       - name: Run OPA Check
-        run: opa check policy --strict
+        run: opa check policy --strict --v0-compatible
 
       - name: Run Regal lint
         run: regal lint --format github policy
