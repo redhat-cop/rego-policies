@@ -18,16 +18,13 @@
   ],
   "packageRules": [
     {
-      "matchDepTypes": [
-        "action"
+      "matchManagers": [
+        "github-actions"
       ],
       "matchPackageNames": [
         "slsa-framework/slsa-github-generator"
       ],
-      "matchUpdateTypes": [
-        "pinDigest"
-      ],
-      "enabled": false
+      "pinDigests": false
     }
   ]
 }
