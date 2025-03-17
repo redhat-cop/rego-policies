@@ -16,7 +16,7 @@ repos:
         name: OPA check
         description: Check syntax of staged Rego files
         entry: opa check
-        args: [ '--v0-compatible', 'policy', '--strict' ]
+        args: ['--v0-compatible', 'policy', '--strict']
         pass_filenames: false
         language: system
         files: (\.rego)$
@@ -24,7 +24,7 @@ repos:
         name: OPA fmt
         description: Formats Rego policy using opa fmt
         entry: opa fmt
-        args: [ '--v0-compatible', '--write', 'policy' ]
+        args: ['--v0-compatible', '--write', 'policy']
         pass_filenames: false
         language: system
         files: (\.rego)$
@@ -32,7 +32,7 @@ repos:
         name: regal lint
         description: Lint the rego
         entry: regal lint
-        args: [ 'policy' ]
+        args: ['policy']
         language: system
       - id: konstraint-doc
         name: konstraint-doc

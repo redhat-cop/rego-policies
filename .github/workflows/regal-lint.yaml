@@ -1,9 +1,13 @@
-name: Lint policies with Regal
+name: Lint policies with OPA/Regal
 
 on: [push, pull_request]
 
 # Declare default permissions as read only.
 permissions: read-all
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   lint-policy:
@@ -13,6 +17,8 @@ jobs:
       OPA_VERSION: v1.2.0
       # renovate: datasource=github-releases depName=StyraInc/regal
       REGAL_VERSION: v0.31.1
+      # renovate: datasource=pypi depName=yq
+      YQ_VERSION: 3.4.3
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@4d991eb9b905ef189e4c376166672c3f2f230481 # v2.11.0
@@ -21,6 +27,13 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Setup Python
+        uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5
+
+      - name: Setup yq (pypi.org/project/yq/)
+        run: |
+          pip3 install yq==${YQ_VERSION}
 
       - name: Setup OPA
         uses: open-policy-agent/setup-opa@34a30e8a924d1b03ce2cf7abe97250bbb1f332b5 # v2.2.0
@@ -32,8 +45,28 @@ jobs:
         with:
           version: ${{ env.REGAL_VERSION }}
 
+      - name: Setup Bats
+        uses: bats-core/bats-action@2104b40bb7b6c2d5110b23a26b0bf265ab8027db # 3.0.0
+
+      - name: Setup Conftest
+        uses: princespaghetti/setup-conftest@d75fd184422abf484802a0fefc0453f2cda20f95 # v1.1.23
+
+      - name: Setup oc
+        uses: redhat-actions/openshift-tools-installer@144527c7d98999f2652264c048c7a9bd103f8a82 # v1
+        with:
+          oc: "4"
+
       - name: Run OPA Check
         run: opa check policy --strict --v0-compatible
 
       - name: Run Regal lint
         run: regal lint --format github policy
+
+      - name: Run OPA eval --profile
+        run: _test/opa-profile.sh
+
+      - name: Upload opa-profile.log
+        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4
+        with:
+          name: profile-results
+          path: opa-profile.log
