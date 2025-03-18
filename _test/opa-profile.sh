@@ -30,10 +30,10 @@ check_violations() {
 
   tmp_path=$(dirname "${tmp_file}")
 
-  opa eval --input ${tmp_file} --data policy/lib ${opa_data_params} --data ${policy_dir}/src.rego ${policy_package} | jq '.' > ${tmp_path}/eval.json
+  opa eval --v0-compatible --input ${tmp_file} --data policy/lib ${opa_data_params} --data ${policy_dir}/src.rego ${policy_package} | jq '.' > ${tmp_path}/eval.json
   violation_count=$(jq '.result[].expressions[].value.violation | length' ${tmp_path}/eval.json)
   if [[ "${violation_count}" -ne 1 ]] ; then
-    batslib_err "# opa eval --input ${tmp_file} --data policy/lib ${opa_data_params} --data ${policy_dir}/src.rego ${policy_package}"
+    batslib_err "# opa eval --v0-compatible --input ${tmp_file} --data policy/lib ${opa_data_params} --data ${policy_dir}/src.rego ${policy_package}"
     fail "# FATAL-ERROR: check_violations: '.result[].expressions[].value.violation' count == ${violation_count}" || return $?
   fi
 
@@ -52,7 +52,7 @@ check_violations() {
   policy_package="data.ocp.bestpractices.common_k8s_labels_notset"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -71,7 +71,7 @@ check_violations() {
   policy_package="data.ocp.bestpractices.container_env_maxmemory_notset"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -90,7 +90,7 @@ check_violations() {
   policy_package="data.ocp.bestpractices.container_image_latest"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -110,7 +110,7 @@ check_violations() {
   policy_package="data.ocp.bestpractices.container_image_unknownregistries"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -129,7 +129,7 @@ check_violations() {
   policy_package="data.ocp.bestpractices.container_java_xmx_set"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -148,7 +148,7 @@ check_violations() {
   policy_package="data.ocp.bestpractices.container_labelkey_inconsistent"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -167,7 +167,7 @@ check_violations() {
   policy_package="data.ocp.bestpractices.container_liveness_readinessprobe_equal"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -186,7 +186,7 @@ check_violations() {
   policy_package="data.ocp.bestpractices.container_livenessprobe_notset"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -205,7 +205,7 @@ check_violations() {
   policy_package="data.ocp.bestpractices.container_readinessprobe_notset"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -224,7 +224,7 @@ check_violations() {
   policy_package="data.ocp.bestpractices.container_resources_limits_cpu_set"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -243,7 +243,7 @@ check_violations() {
   policy_package="data.ocp.bestpractices.container_resources_limits_memory_greater_than"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -262,7 +262,7 @@ check_violations() {
   policy_package="data.ocp.bestpractices.container_resources_limits_memory_notset"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -281,7 +281,7 @@ check_violations() {
   policy_package="data.ocp.bestpractices.container_resources_memoryunit_incorrect"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -300,7 +300,7 @@ check_violations() {
   policy_package="data.ocp.bestpractices.container_resources_requests_cpuunit_incorrect"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -319,7 +319,7 @@ check_violations() {
   policy_package="data.ocp.bestpractices.container_resources_requests_memory_greater_than"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -338,7 +338,7 @@ check_violations() {
   policy_package="data.ocp.bestpractices.container_secret_mounted_envs"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -357,7 +357,7 @@ check_violations() {
   policy_package="data.ocp.bestpractices.container_volumemount_inconsistent_path"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -376,7 +376,7 @@ check_violations() {
   policy_package="data.ocp.bestpractices.container_volumemount_missing"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -395,7 +395,7 @@ check_violations() {
   policy_package="data.ocp.bestpractices.deploymentconfig_triggers_containername"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -414,7 +414,7 @@ check_violations() {
   policy_package="data.ocp.bestpractices.deploymentconfig_triggers_notset"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -433,7 +433,7 @@ check_violations() {
   policy_package="data.ocp.bestpractices.pod_hostnetwork"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -452,7 +452,7 @@ check_violations() {
   policy_package="data.ocp.bestpractices.pod_replicas_below_one"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -471,7 +471,7 @@ check_violations() {
   policy_package="data.ocp.bestpractices.pod_replicas_not_odd"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -490,7 +490,7 @@ check_violations() {
   policy_package="data.ocp.bestpractices.rolebinding_roleref_apigroup_notset"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -509,7 +509,7 @@ check_violations() {
   policy_package="data.ocp.bestpractices.rolebinding_roleref_kind_notset"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -528,7 +528,7 @@ check_violations() {
   policy_package="data.ocp.bestpractices.route_tls_termination_notset"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -547,7 +547,7 @@ check_violations() {
   policy_package="data.ocp.bestpractices.pod_antiaffinity_notset"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/list.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -570,7 +570,7 @@ check_violations() {
   policy_package="data.ocp.deprecated.ocp3_11.buildconfig_v1"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -589,7 +589,7 @@ check_violations() {
   policy_package="data.ocp.deprecated.ocp3_11.deploymentconfig_v1"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -608,7 +608,7 @@ check_violations() {
   policy_package="data.ocp.deprecated.ocp3_11.imagestream_v1"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -627,7 +627,7 @@ check_violations() {
   policy_package="data.ocp.deprecated.ocp3_11.projectrequest_v1"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -646,7 +646,7 @@ check_violations() {
   policy_package="data.ocp.deprecated.ocp3_11.rolebinding_v1"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -665,7 +665,7 @@ check_violations() {
   policy_package="data.ocp.deprecated.ocp3_11.route_v1"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -684,7 +684,7 @@ check_violations() {
   policy_package="data.ocp.deprecated.ocp3_11.securitycontextconstraints_v1"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -703,7 +703,7 @@ check_violations() {
   policy_package="data.ocp.deprecated.ocp3_11.template_v1"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -722,7 +722,7 @@ check_violations() {
   policy_package="data.ocp.deprecated.ocp4_1.buildconfig_custom_strategy"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -741,7 +741,7 @@ check_violations() {
   policy_package="data.ocp.deprecated.ocp4_2.authorization_openshift"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -760,7 +760,7 @@ check_violations() {
   policy_package="data.ocp.deprecated.ocp4_2.automationbroker_v1alpha1"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -779,7 +779,7 @@ check_violations() {
   policy_package="data.ocp.deprecated.ocp4_2.catalogsourceconfigs_v1"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -798,7 +798,7 @@ check_violations() {
   policy_package="data.ocp.deprecated.ocp4_2.catalogsourceconfigs_v2"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -817,7 +817,7 @@ check_violations() {
   policy_package="data.ocp.deprecated.ocp4_2.operatorsources_v1"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -836,7 +836,7 @@ check_violations() {
   policy_package="data.ocp.deprecated.ocp4_2.osb_v1"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -855,7 +855,7 @@ check_violations() {
   policy_package="data.ocp.deprecated.ocp4_2.servicecatalog_v1beta1"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -874,7 +874,7 @@ check_violations() {
   policy_package="data.ocp.deprecated.ocp4_3.buildconfig_jenkinspipeline_strategy"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/example.yml --data policy/lib --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -897,7 +897,7 @@ check_violations() {
   policy_package="data.podman.history.contains_layer"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/jenkins-python-mising.json --data policy/lib --data policy/podman/data_parameters.rego --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/jenkins-python-mising.json --data policy/lib --data policy/podman/data_parameters.rego --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -916,7 +916,7 @@ check_violations() {
   policy_package="data.podman.images.image_size_not_greater_than"
   schema_dir="_test/schema-generation/openshift-json-schema"
 
-  cmd="opa eval --input ${tmp}/jenkins-base.json --data policy/lib --data policy/podman/data_parameters.rego --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
+  cmd="opa eval --v0-compatible --input ${tmp}/jenkins-base.json --data policy/lib --data policy/podman/data_parameters.rego --data ${policy_dir}/src.rego --profile --format pretty --schema ${schema_dir} ${policy_package}"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"

@@ -83,12 +83,6 @@ patch_namespaceselector_for_webhook() {
   echo ""
   echo "Patching ValidatingWebhookConfiguration/gatekeeper-validating-webhook-configuration to only watch namespaces with: 'redhat-cop.github.com/gatekeeper-active == true'..."
   oc patch ValidatingWebhookConfiguration/gatekeeper-validating-webhook-configuration -p='{"webhooks":[{"name":"validation.gatekeeper.sh","namespaceSelector":{"matchExpressions":[{"key":"redhat-cop.github.com/gatekeeper-active","operator":"In","values":["true"]}]}}]}'
-
-  echo ""
-  echo "Restarting Gatekeeper and waiting for it to be ready..."
-  oc delete pods --all -n gatekeeper-system
-  oc rollout status deployment/gatekeeper-audit -n gatekeeper-system --watch=true
-  oc rollout status deployment/gatekeeper-controller-manager -n gatekeeper-system --watch=true
 }
 
 restart_gatekeeper() {
@@ -165,6 +159,7 @@ case $1 in
     ;;
   patch_namespaceselector)
     patch_namespaceselector_for_webhook
+    restart_gatekeeper
     ;;
   deploy_constraints)
     cleanup_gatekeeper_constraints

@@ -166,8 +166,8 @@ setup_file() {
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
   [ "${lines[0]}" = "1..2" ]
-  [ "${lines[1]}" = "not ok 1 - ${tmp}/list.yml - ocp.bestpractices.container_livenessprobe_notset - RHCOP-OCP_BESTPRACT-00008: Deployment/noproblivenessset: container 'bar' has no livenessProbe. See: https://docs.openshift.com/container-platform/4.6/applications/application-health.html" ]
-  [ "${lines[2]}" = "not ok 2 - ${tmp}/list.yml - ocp.bestpractices.container_livenessprobe_notset - RHCOP-OCP_BESTPRACT-00008: DeploymentConfig/noproblivenessset: container 'bar' has no livenessProbe. See: https://docs.openshift.com/container-platform/4.6/applications/application-health.html" ]
+  [ "${lines[1]}" = "not ok 1 - ${tmp}/list.yml - ocp.bestpractices.container_livenessprobe_notset - RHCOP-OCP_BESTPRACT-00008: Deployment/noproblivenessset: container 'bar' has no livenessProbe. See: https://docs.redhat.com/en/documentation/openshift_container_platform/4.18/html/building_applications/application-health" ]
+  [ "${lines[2]}" = "not ok 2 - ${tmp}/list.yml - ocp.bestpractices.container_livenessprobe_notset - RHCOP-OCP_BESTPRACT-00008: DeploymentConfig/noproblivenessset: container 'bar' has no livenessProbe. See: https://docs.redhat.com/en/documentation/openshift_container_platform/4.18/html/building_applications/application-health" ]
   [[ "${#lines[@]}" -eq 3 ]]
 }
 
@@ -180,8 +180,8 @@ setup_file() {
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
   [ "$status" -eq 1 ]
   [ "${lines[0]}" = "1..2" ]
-  [ "${lines[1]}" = "not ok 1 - ${tmp}/list.yml - ocp.bestpractices.container_readinessprobe_notset - RHCOP-OCP_BESTPRACT-00009: Deployment/noreadinessprob: container 'bar' has no readinessProbe. See: https://docs.openshift.com/container-platform/4.6/applications/application-health.html" ]
-  [ "${lines[2]}" = "not ok 2 - ${tmp}/list.yml - ocp.bestpractices.container_readinessprobe_notset - RHCOP-OCP_BESTPRACT-00009: DeploymentConfig/noreadinessprob: container 'bar' has no readinessProbe. See: https://docs.openshift.com/container-platform/4.6/applications/application-health.html" ]
+  [ "${lines[1]}" = "not ok 1 - ${tmp}/list.yml - ocp.bestpractices.container_readinessprobe_notset - RHCOP-OCP_BESTPRACT-00009: Deployment/noreadinessprob: container 'bar' has no readinessProbe. See: https://docs.redhat.com/en/documentation/openshift_container_platform/4.18/html/building_applications/application-health" ]
+  [ "${lines[2]}" = "not ok 2 - ${tmp}/list.yml - ocp.bestpractices.container_readinessprobe_notset - RHCOP-OCP_BESTPRACT-00009: DeploymentConfig/noreadinessprob: container 'bar' has no readinessProbe. See: https://docs.redhat.com/en/documentation/openshift_container_platform/4.18/html/building_applications/application-health" ]
   [[ "${#lines[@]}" -eq 3 ]]
 }
 
