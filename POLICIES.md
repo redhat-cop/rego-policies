@@ -510,7 +510,7 @@ _source: [policy/ocp/bestpractices/container_liveness_readinessprobe_equal](poli
 
 A Liveness checks determines if the container in which it is scheduled is still running.
 If the liveness probe fails due to a condition such as a deadlock, the kubelet kills the container.
-See: https://docs.openshift.com/container-platform/4.6/applications/application-health.html
+See: https://docs.redhat.com/en/documentation/openshift_container_platform/4.18/html/building_applications/application-health
 
 ### Rego
 
@@ -528,7 +528,7 @@ violation[msg] {
 
   konstraint_core.missing_field(container, "livenessProbe")
 
-  msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' has no livenessProbe. See: https://docs.openshift.com/container-platform/4.6/applications/application-health.html", [konstraint_core.kind, konstraint_core.name, container.name]), "RHCOP-OCP_BESTPRACT-00008")
+  msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' has no livenessProbe. See: https://docs.redhat.com/en/documentation/openshift_container_platform/4.18/html/building_applications/application-health", [konstraint_core.kind, konstraint_core.name, container.name]), "RHCOP-OCP_BESTPRACT-00008")
 }
 ```
 
@@ -553,7 +553,7 @@ _source: [policy/ocp/bestpractices/container_livenessprobe_notset](policy/ocp/be
 A Readiness check determines if the container in which it is scheduled is ready to service requests.
 If the readiness probe fails a container, the endpoints controller ensures the container has its IP address
 removed from the endpoints of all services.
-See: https://docs.openshift.com/container-platform/4.6/applications/application-health.html
+See: https://docs.redhat.com/en/documentation/openshift_container_platform/4.18/html/building_applications/application-health
 
 ### Rego
 
@@ -571,7 +571,7 @@ violation[msg] {
 
   konstraint_core.missing_field(container, "readinessProbe")
 
-  msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' has no readinessProbe. See: https://docs.openshift.com/container-platform/4.6/applications/application-health.html", [konstraint_core.kind, konstraint_core.name, container.name]), "RHCOP-OCP_BESTPRACT-00009")
+  msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' has no readinessProbe. See: https://docs.redhat.com/en/documentation/openshift_container_platform/4.18/html/building_applications/application-health", [konstraint_core.kind, konstraint_core.name, container.name]), "RHCOP-OCP_BESTPRACT-00009")
 }
 ```
 
@@ -1763,7 +1763,7 @@ _source: [policy/ocp/deprecated/ocp4_2/servicecatalog_v1beta1](policy/ocp/deprec
 - build.openshift.io/BuildConfig
 
 'spec.strategy.jenkinsPipelineStrategy' is no longer supported by BuildConfig.
-See: https://docs.openshift.com/container-platform/4.3/release_notes/ocp-4-3-release-notes.html#ocp-4-3-deprecated-features
+See: https://docs.redhat.com/en/documentation/openshift_container_platform/4.3/html/release_notes/ocp-4-3-release-notes#ocp-4-3-pipelines-now-deprecated
 
 ### Rego
 

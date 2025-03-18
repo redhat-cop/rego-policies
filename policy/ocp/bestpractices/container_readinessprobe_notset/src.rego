@@ -4,7 +4,7 @@
 #   A Readiness check determines if the container in which it is scheduled is ready to service requests.
 #   If the readiness probe fails a container, the endpoints controller ensures the container has its IP address
 #   removed from the endpoints of all services.
-#   See: https://docs.openshift.com/container-platform/4.6/applications/application-health.html
+#   See: https://docs.redhat.com/en/documentation/openshift_container_platform/4.18/html/building_applications/application-health
 # custom:
 #   matchers:
 #     kinds:
@@ -42,5 +42,5 @@ violation[msg] {
 
 	konstraint_core.missing_field(container, "readinessProbe")
 
-	msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' has no readinessProbe. See: https://docs.openshift.com/container-platform/4.6/applications/application-health.html", [konstraint_core.kind, konstraint_core.name, container.name]), "RHCOP-OCP_BESTPRACT-00009")
+	msg := konstraint_core.format_with_id(sprintf("%s/%s: container '%s' has no readinessProbe. See: https://docs.redhat.com/en/documentation/openshift_container_platform/4.18/html/building_applications/application-health", [konstraint_core.kind, konstraint_core.name, container.name]), "RHCOP-OCP_BESTPRACT-00009")
 }
