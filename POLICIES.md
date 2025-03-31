@@ -2,68 +2,68 @@
 
 ## Violations
 
-* [RHCOP-COMBINE-00001: Namespace has a NetworkPolicy](#rhcop-combine-00001-namespace-has-a-networkpolicy)
-* [RHCOP-COMBINE-00002: Namespace has a ResourceQuota](#rhcop-combine-00002-namespace-has-a-resourcequota)
-* [RHCOP-OCP_BESTPRACT-00001: Common k8s labels are set](#rhcop-ocp_bestpract-00001-common-k8s-labels-are-set)
-* [RHCOP-OCP_BESTPRACT-00002: Container env has CONTAINER_MAX_MEMORY set](#rhcop-ocp_bestpract-00002-container-env-has-container_max_memory-set)
-* [RHCOP-OCP_BESTPRACT-00003: Container image is not set as latest](#rhcop-ocp_bestpract-00003-container-image-is-not-set-as-latest)
-* [RHCOP-OCP_BESTPRACT-00004: Container image is not from a known registry](#rhcop-ocp_bestpract-00004-container-image-is-not-from-a-known-registry)
-* [RHCOP-OCP_BESTPRACT-00005: Container does not set Java Xmx option](#rhcop-ocp_bestpract-00005-container-does-not-set-java-xmx-option)
-* [RHCOP-OCP_BESTPRACT-00006: Label key is consistent](#rhcop-ocp_bestpract-00006-label-key-is-consistent)
-* [RHCOP-OCP_BESTPRACT-00007: Container liveness and readiness probes are equal](#rhcop-ocp_bestpract-00007-container-liveness-and-readiness-probes-are-equal)
-* [RHCOP-OCP_BESTPRACT-00008: Container liveness prob is not set](#rhcop-ocp_bestpract-00008-container-liveness-prob-is-not-set)
-* [RHCOP-OCP_BESTPRACT-00009: Container readiness prob is not set](#rhcop-ocp_bestpract-00009-container-readiness-prob-is-not-set)
-* [RHCOP-OCP_BESTPRACT-00010: Container resource limits CPU not set](#rhcop-ocp_bestpract-00010-container-resource-limits-cpu-not-set)
-* [RHCOP-OCP_BESTPRACT-00011: Container resource limits memory not greater than](#rhcop-ocp_bestpract-00011-container-resource-limits-memory-not-greater-than)
-* [RHCOP-OCP_BESTPRACT-00012: Container resource limits memory not set](#rhcop-ocp_bestpract-00012-container-resource-limits-memory-not-set)
-* [RHCOP-OCP_BESTPRACT-00013: Container resources limit memory has incorrect unit](#rhcop-ocp_bestpract-00013-container-resources-limit-memory-has-incorrect-unit)
-* [RHCOP-OCP_BESTPRACT-00014: Container resources requests cpu has incorrect unit](#rhcop-ocp_bestpract-00014-container-resources-requests-cpu-has-incorrect-unit)
-* [RHCOP-OCP_BESTPRACT-00015: Container resource requests memory not greater than](#rhcop-ocp_bestpract-00015-container-resource-requests-memory-not-greater-than)
-* [RHCOP-OCP_BESTPRACT-00016: Container secret not mounted as envs](#rhcop-ocp_bestpract-00016-container-secret-not-mounted-as-envs)
-* [RHCOP-OCP_BESTPRACT-00017: Container volume mount path is consistent](#rhcop-ocp_bestpract-00017-container-volume-mount-path-is-consistent)
-* [RHCOP-OCP_BESTPRACT-00018: Container volume mount not set](#rhcop-ocp_bestpract-00018-container-volume-mount-not-set)
-* [RHCOP-OCP_BESTPRACT-00019: DeploymentConfig triggers not set](#rhcop-ocp_bestpract-00019-deploymentconfig-triggers-not-set)
-* [RHCOP-OCP_BESTPRACT-00020: Pod hostnetwork not set](#rhcop-ocp_bestpract-00020-pod-hostnetwork-not-set)
-* [RHCOP-OCP_BESTPRACT-00021: Pod replica below 1](#rhcop-ocp_bestpract-00021-pod-replica-below-1)
-* [RHCOP-OCP_BESTPRACT-00022: Pod replica is not odd](#rhcop-ocp_bestpract-00022-pod-replica-is-not-odd)
-* [RHCOP-OCP_BESTPRACT-00023: RoleBinding has apiGroup set](#rhcop-ocp_bestpract-00023-rolebinding-has-apigroup-set)
-* [RHCOP-OCP_BESTPRACT-00024: RoleBinding has kind set](#rhcop-ocp_bestpract-00024-rolebinding-has-kind-set)
-* [RHCOP-OCP_BESTPRACT-00025: Route has TLS Termination Defined](#rhcop-ocp_bestpract-00025-route-has-tls-termination-defined)
-* [RHCOP-OCP_BESTPRACT-00026: Pod anti-affinity not set](#rhcop-ocp_bestpract-00026-pod-anti-affinity-not-set)
-* [RHCOP-OCP_BESTPRACT-00027: DeploymentConfig triggers container name miss match](#rhcop-ocp_bestpract-00027-deploymentconfig-triggers-container-name-miss-match)
-* [RHCOP-OCP_DEPRECATED-ocp3_11-00001: BuildConfig no longer served by v1](#rhcop-ocp_deprecated-ocp3_11-00001-buildconfig-no-longer-served-by-v1)
-* [RHCOP-OCP_DEPRECATED-ocp3_11-00002: DeploymentConfig no longer served by v1](#rhcop-ocp_deprecated-ocp3_11-00002-deploymentconfig-no-longer-served-by-v1)
-* [RHCOP-OCP_DEPRECATED-ocp3_11-00003: ImageStream no longer served by v1](#rhcop-ocp_deprecated-ocp3_11-00003-imagestream-no-longer-served-by-v1)
-* [RHCOP-OCP_DEPRECATED-ocp3_11-00004: ProjectRequest no longer served by v1](#rhcop-ocp_deprecated-ocp3_11-00004-projectrequest-no-longer-served-by-v1)
-* [RHCOP-OCP_DEPRECATED-ocp3_11-00005: RoleBinding no longer served by v1](#rhcop-ocp_deprecated-ocp3_11-00005-rolebinding-no-longer-served-by-v1)
-* [RHCOP-OCP_DEPRECATED-ocp3_11-00006: Route no longer served by v1](#rhcop-ocp_deprecated-ocp3_11-00006-route-no-longer-served-by-v1)
-* [RHCOP-OCP_DEPRECATED-ocp3_11-00007: SecurityContextConstraints no longer served by v1](#rhcop-ocp_deprecated-ocp3_11-00007-securitycontextconstraints-no-longer-served-by-v1)
-* [RHCOP-OCP_DEPRECATED-ocp3_11-00008: Template no longer served by v1](#rhcop-ocp_deprecated-ocp3_11-00008-template-no-longer-served-by-v1)
-* [RHCOP-OCP_DEPRECATED-ocp4_1-00001: BuildConfig exposeDockerSocket deprecated](#rhcop-ocp_deprecated-ocp4_1-00001-buildconfig-exposedockersocket-deprecated)
-* [RHCOP-OCP_DEPRECATED-ocp4_2-00001: authorization openshift io is deprecated](#rhcop-ocp_deprecated-ocp4_2-00001-authorization-openshift-io-is-deprecated)
-* [RHCOP-OCP_DEPRECATED-ocp4_2-00002: automationbroker io v1alpha1 is deprecated](#rhcop-ocp_deprecated-ocp4_2-00002-automationbroker-io-v1alpha1-is-deprecated)
-* [RHCOP-OCP_DEPRECATED-ocp4_2-00003: operators coreos com v1 CatalogSourceConfigs is deprecated](#rhcop-ocp_deprecated-ocp4_2-00003-operators-coreos-com-v1-catalogsourceconfigs-is-deprecated)
-* [RHCOP-OCP_DEPRECATED-ocp4_2-00004: operators coreos com v2 CatalogSourceConfigs is deprecated](#rhcop-ocp_deprecated-ocp4_2-00004-operators-coreos-com-v2-catalogsourceconfigs-is-deprecated)
-* [RHCOP-OCP_DEPRECATED-ocp4_2-00005: operators coreos com v1 OperatorSource is deprecated](#rhcop-ocp_deprecated-ocp4_2-00005-operators-coreos-com-v1-operatorsource-is-deprecated)
-* [RHCOP-OCP_DEPRECATED-ocp4_2-00006: osb openshift io v1 is deprecated](#rhcop-ocp_deprecated-ocp4_2-00006-osb-openshift-io-v1-is-deprecated)
-* [RHCOP-OCP_DEPRECATED-ocp4_2-00007: servicecatalog k8s io v1beta1 is deprecated](#rhcop-ocp_deprecated-ocp4_2-00007-servicecatalog-k8s-io-v1beta1-is-deprecated)
-* [RHCOP-OCP_DEPRECATED-ocp4_3-00001: BuildConfig jenkinsPipelineStrategy is deprecated](#rhcop-ocp_deprecated-ocp4_3-00001-buildconfig-jenkinspipelinestrategy-is-deprecated)
-* [RHCOP-OCP_REQ_INV-00001: Deployment has a matching PodDisruptionBudget](#rhcop-ocp_req_inv-00001-deployment-has-a-matching-poddisruptionbudget)
-* [RHCOP-OCP_REQ_INV-00002: Deployment has matching PersistentVolumeClaim](#rhcop-ocp_req_inv-00002-deployment-has-matching-persistentvolumeclaim)
-* [RHCOP-OCP_REQ_INV-00003: Deployment has a matching Service](#rhcop-ocp_req_inv-00003-deployment-has-a-matching-service)
-* [RHCOP-OCP_REQ_INV-00004: Deployment has matching ServiceAccount](#rhcop-ocp_req_inv-00004-deployment-has-matching-serviceaccount)
-* [RHCOP-OCP_REQ_INV-00005: Service has matching ServiceMonitor](#rhcop-ocp_req_inv-00005-service-has-matching-servicemonitor)
-* [RHCOP-PODMAN-00001: Image contains expected SHA in history](#rhcop-podman-00001-image-contains-expected-sha-in-history)
-* [RHCOP-PODMAN-00002: Image size is not greater than an expected value](#rhcop-podman-00002-image-size-is-not-greater-than-an-expected-value)
+* [RHCOP\-COMBINE\-00001: Namespace has a NetworkPolicy](#rhcop-combine-00001-namespace-has-a-networkpolicy)
+* [RHCOP\-COMBINE\-00002: Namespace has a ResourceQuota](#rhcop-combine-00002-namespace-has-a-resourcequota)
+* [RHCOP\-OCP\_BESTPRACT\-00001: Common k8s labels are set](#rhcop-ocp_bestpract-00001-common-k8s-labels-are-set)
+* [RHCOP\-OCP\_BESTPRACT\-00002: Container env has CONTAINER\_MAX\_MEMORY set](#rhcop-ocp_bestpract-00002-container-env-has-container_max_memory-set)
+* [RHCOP\-OCP\_BESTPRACT\-00003: Container image is not set as latest](#rhcop-ocp_bestpract-00003-container-image-is-not-set-as-latest)
+* [RHCOP\-OCP\_BESTPRACT\-00004: Container image is not from a known registry](#rhcop-ocp_bestpract-00004-container-image-is-not-from-a-known-registry)
+* [RHCOP\-OCP\_BESTPRACT\-00005: Container does not set Java Xmx option](#rhcop-ocp_bestpract-00005-container-does-not-set-java-xmx-option)
+* [RHCOP\-OCP\_BESTPRACT\-00006: Label key is consistent](#rhcop-ocp_bestpract-00006-label-key-is-consistent)
+* [RHCOP\-OCP\_BESTPRACT\-00007: Container liveness and readiness probes are equal](#rhcop-ocp_bestpract-00007-container-liveness-and-readiness-probes-are-equal)
+* [RHCOP\-OCP\_BESTPRACT\-00008: Container liveness prob is not set](#rhcop-ocp_bestpract-00008-container-liveness-prob-is-not-set)
+* [RHCOP\-OCP\_BESTPRACT\-00009: Container readiness prob is not set](#rhcop-ocp_bestpract-00009-container-readiness-prob-is-not-set)
+* [RHCOP\-OCP\_BESTPRACT\-00010: Container resource limits CPU not set](#rhcop-ocp_bestpract-00010-container-resource-limits-cpu-not-set)
+* [RHCOP\-OCP\_BESTPRACT\-00011: Container resource limits memory not greater than](#rhcop-ocp_bestpract-00011-container-resource-limits-memory-not-greater-than)
+* [RHCOP\-OCP\_BESTPRACT\-00012: Container resource limits memory not set](#rhcop-ocp_bestpract-00012-container-resource-limits-memory-not-set)
+* [RHCOP\-OCP\_BESTPRACT\-00013: Container resources limit memory has incorrect unit](#rhcop-ocp_bestpract-00013-container-resources-limit-memory-has-incorrect-unit)
+* [RHCOP\-OCP\_BESTPRACT\-00014: Container resources requests cpu has incorrect unit](#rhcop-ocp_bestpract-00014-container-resources-requests-cpu-has-incorrect-unit)
+* [RHCOP\-OCP\_BESTPRACT\-00015: Container resource requests memory not greater than](#rhcop-ocp_bestpract-00015-container-resource-requests-memory-not-greater-than)
+* [RHCOP\-OCP\_BESTPRACT\-00016: Container secret not mounted as envs](#rhcop-ocp_bestpract-00016-container-secret-not-mounted-as-envs)
+* [RHCOP\-OCP\_BESTPRACT\-00017: Container volume mount path is consistent](#rhcop-ocp_bestpract-00017-container-volume-mount-path-is-consistent)
+* [RHCOP\-OCP\_BESTPRACT\-00018: Container volume mount not set](#rhcop-ocp_bestpract-00018-container-volume-mount-not-set)
+* [RHCOP\-OCP\_BESTPRACT\-00019: DeploymentConfig triggers not set](#rhcop-ocp_bestpract-00019-deploymentconfig-triggers-not-set)
+* [RHCOP\-OCP\_BESTPRACT\-00020: Pod hostnetwork not set](#rhcop-ocp_bestpract-00020-pod-hostnetwork-not-set)
+* [RHCOP\-OCP\_BESTPRACT\-00021: Pod replica below 1](#rhcop-ocp_bestpract-00021-pod-replica-below-1)
+* [RHCOP\-OCP\_BESTPRACT\-00022: Pod replica is not odd](#rhcop-ocp_bestpract-00022-pod-replica-is-not-odd)
+* [RHCOP\-OCP\_BESTPRACT\-00023: RoleBinding has apiGroup set](#rhcop-ocp_bestpract-00023-rolebinding-has-apigroup-set)
+* [RHCOP\-OCP\_BESTPRACT\-00024: RoleBinding has kind set](#rhcop-ocp_bestpract-00024-rolebinding-has-kind-set)
+* [RHCOP\-OCP\_BESTPRACT\-00025: Route has TLS Termination Defined](#rhcop-ocp_bestpract-00025-route-has-tls-termination-defined)
+* [RHCOP\-OCP\_BESTPRACT\-00026: Pod anti\-affinity not set](#rhcop-ocp_bestpract-00026-pod-anti-affinity-not-set)
+* [RHCOP\-OCP\_BESTPRACT\-00027: DeploymentConfig triggers container name miss match](#rhcop-ocp_bestpract-00027-deploymentconfig-triggers-container-name-miss-match)
+* [RHCOP\-OCP\_DEPRECATED\-ocp3\_11\-00001: BuildConfig no longer served by v1](#rhcop-ocp_deprecated-ocp3_11-00001-buildconfig-no-longer-served-by-v1)
+* [RHCOP\-OCP\_DEPRECATED\-ocp3\_11\-00002: DeploymentConfig no longer served by v1](#rhcop-ocp_deprecated-ocp3_11-00002-deploymentconfig-no-longer-served-by-v1)
+* [RHCOP\-OCP\_DEPRECATED\-ocp3\_11\-00003: ImageStream no longer served by v1](#rhcop-ocp_deprecated-ocp3_11-00003-imagestream-no-longer-served-by-v1)
+* [RHCOP\-OCP\_DEPRECATED\-ocp3\_11\-00004: ProjectRequest no longer served by v1](#rhcop-ocp_deprecated-ocp3_11-00004-projectrequest-no-longer-served-by-v1)
+* [RHCOP\-OCP\_DEPRECATED\-ocp3\_11\-00005: RoleBinding no longer served by v1](#rhcop-ocp_deprecated-ocp3_11-00005-rolebinding-no-longer-served-by-v1)
+* [RHCOP\-OCP\_DEPRECATED\-ocp3\_11\-00006: Route no longer served by v1](#rhcop-ocp_deprecated-ocp3_11-00006-route-no-longer-served-by-v1)
+* [RHCOP\-OCP\_DEPRECATED\-ocp3\_11\-00007: SecurityContextConstraints no longer served by v1](#rhcop-ocp_deprecated-ocp3_11-00007-securitycontextconstraints-no-longer-served-by-v1)
+* [RHCOP\-OCP\_DEPRECATED\-ocp3\_11\-00008: Template no longer served by v1](#rhcop-ocp_deprecated-ocp3_11-00008-template-no-longer-served-by-v1)
+* [RHCOP\-OCP\_DEPRECATED\-ocp4\_1\-00001: BuildConfig exposeDockerSocket deprecated](#rhcop-ocp_deprecated-ocp4_1-00001-buildconfig-exposedockersocket-deprecated)
+* [RHCOP\-OCP\_DEPRECATED\-ocp4\_2\-00001: authorization openshift io is deprecated](#rhcop-ocp_deprecated-ocp4_2-00001-authorization-openshift-io-is-deprecated)
+* [RHCOP\-OCP\_DEPRECATED\-ocp4\_2\-00002: automationbroker io v1alpha1 is deprecated](#rhcop-ocp_deprecated-ocp4_2-00002-automationbroker-io-v1alpha1-is-deprecated)
+* [RHCOP\-OCP\_DEPRECATED\-ocp4\_2\-00003: operators coreos com v1 CatalogSourceConfigs is deprecated](#rhcop-ocp_deprecated-ocp4_2-00003-operators-coreos-com-v1-catalogsourceconfigs-is-deprecated)
+* [RHCOP\-OCP\_DEPRECATED\-ocp4\_2\-00004: operators coreos com v2 CatalogSourceConfigs is deprecated](#rhcop-ocp_deprecated-ocp4_2-00004-operators-coreos-com-v2-catalogsourceconfigs-is-deprecated)
+* [RHCOP\-OCP\_DEPRECATED\-ocp4\_2\-00005: operators coreos com v1 OperatorSource is deprecated](#rhcop-ocp_deprecated-ocp4_2-00005-operators-coreos-com-v1-operatorsource-is-deprecated)
+* [RHCOP\-OCP\_DEPRECATED\-ocp4\_2\-00006: osb openshift io v1 is deprecated](#rhcop-ocp_deprecated-ocp4_2-00006-osb-openshift-io-v1-is-deprecated)
+* [RHCOP\-OCP\_DEPRECATED\-ocp4\_2\-00007: servicecatalog k8s io v1beta1 is deprecated](#rhcop-ocp_deprecated-ocp4_2-00007-servicecatalog-k8s-io-v1beta1-is-deprecated)
+* [RHCOP\-OCP\_DEPRECATED\-ocp4\_3\-00001: BuildConfig jenkinsPipelineStrategy is deprecated](#rhcop-ocp_deprecated-ocp4_3-00001-buildconfig-jenkinspipelinestrategy-is-deprecated)
+* [RHCOP\-OCP\_REQ\_INV\-00001: Deployment has a matching PodDisruptionBudget](#rhcop-ocp_req_inv-00001-deployment-has-a-matching-poddisruptionbudget)
+* [RHCOP\-OCP\_REQ\_INV\-00002: Deployment has matching PersistentVolumeClaim](#rhcop-ocp_req_inv-00002-deployment-has-matching-persistentvolumeclaim)
+* [RHCOP\-OCP\_REQ\_INV\-00003: Deployment has a matching Service](#rhcop-ocp_req_inv-00003-deployment-has-a-matching-service)
+* [RHCOP\-OCP\_REQ\_INV\-00004: Deployment has matching ServiceAccount](#rhcop-ocp_req_inv-00004-deployment-has-matching-serviceaccount)
+* [RHCOP\-OCP\_REQ\_INV\-00005: Service has matching ServiceMonitor](#rhcop-ocp_req_inv-00005-service-has-matching-servicemonitor)
+* [RHCOP\-PODMAN\-00001: Image contains expected SHA in history](#rhcop-podman-00001-image-contains-expected-sha-in-history)
+* [RHCOP\-PODMAN\-00002: Image size is not greater than an expected value](#rhcop-podman-00002-image-size-is-not-greater-than-an-expected-value)
 
-## RHCOP-COMBINE-00001: Namespace has a NetworkPolicy
+## RHCOP\-COMBINE\-00001: Namespace has a NetworkPolicy
 
 **Severity:** Violation
 
 **Resources:**
 
-- core/Namespace
-- networking.k8s.io/NetworkPolicy
+* core/Namespace
+* networking\.k8s\.io/NetworkPolicy
 
 Kubernetes network policies specify the access permissions for groups of pods,
 much like security groups in the cloud are used to control access to VM instances.
@@ -101,14 +101,14 @@ _has_networkpolicy(manifests) {
 
 _source: [policy/combine/namespace_has_networkpolicy](policy/combine/namespace_has_networkpolicy)_
 
-## RHCOP-COMBINE-00002: Namespace has a ResourceQuota
+## RHCOP\-COMBINE\-00002: Namespace has a ResourceQuota
 
 **Severity:** Violation
 
 **Resources:**
 
-- core/Namespace
-- core/ResourceQuota
+* core/Namespace
+* core/ResourceQuota
 
 With ResourceQuotas, you can limit the total resource consumption of all containers inside a Namespace.
 Defining a resource quota for a namespace limits the total amount of CPU, memory or storage resources
@@ -147,23 +147,23 @@ _has_resourcequota(manifests) {
 
 _source: [policy/combine/namespace_has_resourcequota](policy/combine/namespace_has_resourcequota)_
 
-## RHCOP-OCP_BESTPRACT-00001: Common k8s labels are set
+## RHCOP\-OCP\_BESTPRACT\-00001: Common k8s labels are set
 
 **Severity:** Violation
 
 **Resources:**
 
-- core/Pod
-- core/ReplicationController
-- core/Service
-- apps/DaemonSet
-- apps/Deployment
-- apps/Job
-- apps/ReplicaSet
-- apps/StatefulSet
-- apps.openshift.io/DeploymentConfig
-- batch/CronJob
-- route.openshift.io/Route
+* core/Pod
+* core/ReplicationController
+* core/Service
+* apps/DaemonSet
+* apps/Deployment
+* apps/Job
+* apps/ReplicaSet
+* apps/StatefulSet
+* apps\.openshift\.io/DeploymentConfig
+* batch/CronJob
+* route\.openshift\.io/Route
 
 Check if all workload related kinds contain labels as suggested by k8s.
 See: https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels
@@ -197,21 +197,21 @@ _is_common_labels_set(metadata) {
 
 _source: [policy/ocp/bestpractices/common_k8s_labels_notset](policy/ocp/bestpractices/common_k8s_labels_notset)_
 
-## RHCOP-OCP_BESTPRACT-00002: Container env has CONTAINER_MAX_MEMORY set
+## RHCOP\-OCP\_BESTPRACT\-00002: Container env has CONTAINER\_MAX\_MEMORY set
 
 **Severity:** Violation
 
 **Resources:**
 
-- core/Pod
-- core/ReplicationController
-- apps/DaemonSet
-- apps/Deployment
-- apps/Job
-- apps/ReplicaSet
-- apps/StatefulSet
-- apps.openshift.io/DeploymentConfig
-- batch/CronJob
+* core/Pod
+* core/ReplicationController
+* apps/DaemonSet
+* apps/Deployment
+* apps/Job
+* apps/ReplicaSet
+* apps/StatefulSet
+* apps\.openshift\.io/DeploymentConfig
+* batch/CronJob
 
 Red Hat OpenJDK image uses CONTAINER_MAX_MEMORY env via the downward API to set Java memory settings.
 Instead of manually setting -Xmx, let the image automatically set it for you.
@@ -246,21 +246,21 @@ _is_env_max_memory_set(container) {
 
 _source: [policy/ocp/bestpractices/container_env_maxmemory_notset](policy/ocp/bestpractices/container_env_maxmemory_notset)_
 
-## RHCOP-OCP_BESTPRACT-00003: Container image is not set as latest
+## RHCOP\-OCP\_BESTPRACT\-00003: Container image is not set as latest
 
 **Severity:** Violation
 
 **Resources:**
 
-- core/Pod
-- core/ReplicationController
-- apps/DaemonSet
-- apps/Deployment
-- apps/Job
-- apps/ReplicaSet
-- apps/StatefulSet
-- apps.openshift.io/DeploymentConfig
-- batch/CronJob
+* core/Pod
+* core/ReplicationController
+* apps/DaemonSet
+* apps/Deployment
+* apps/Job
+* apps/ReplicaSet
+* apps/StatefulSet
+* apps\.openshift\.io/DeploymentConfig
+* batch/CronJob
 
 Images should use immutable tags. Today's latest is not tomorrows latest.
 
@@ -286,21 +286,21 @@ violation[msg] {
 
 _source: [policy/ocp/bestpractices/container_image_latest](policy/ocp/bestpractices/container_image_latest)_
 
-## RHCOP-OCP_BESTPRACT-00004: Container image is not from a known registry
+## RHCOP\-OCP\_BESTPRACT\-00004: Container image is not from a known registry
 
 **Severity:** Violation
 
 **Resources:**
 
-- core/Pod
-- core/ReplicationController
-- apps/DaemonSet
-- apps/Deployment
-- apps/Job
-- apps/ReplicaSet
-- apps/StatefulSet
-- apps.openshift.io/DeploymentConfig
-- batch/CronJob
+* core/Pod
+* core/ReplicationController
+* apps/DaemonSet
+* apps/Deployment
+* apps/Job
+* apps/ReplicaSet
+* apps/StatefulSet
+* apps\.openshift\.io/DeploymentConfig
+* batch/CronJob
 
 Only images from trusted and known registries should be used
 
@@ -340,21 +340,21 @@ _known_registry(registry) {
 
 _source: [policy/ocp/bestpractices/container_image_unknownregistries](policy/ocp/bestpractices/container_image_unknownregistries)_
 
-## RHCOP-OCP_BESTPRACT-00005: Container does not set Java Xmx option
+## RHCOP\-OCP\_BESTPRACT\-00005: Container does not set Java Xmx option
 
 **Severity:** Violation
 
 **Resources:**
 
-- core/Pod
-- core/ReplicationController
-- apps/DaemonSet
-- apps/Deployment
-- apps/Job
-- apps/ReplicaSet
-- apps/StatefulSet
-- apps.openshift.io/DeploymentConfig
-- batch/CronJob
+* core/Pod
+* core/ReplicationController
+* apps/DaemonSet
+* apps/Deployment
+* apps/Job
+* apps/ReplicaSet
+* apps/StatefulSet
+* apps\.openshift\.io/DeploymentConfig
+* batch/CronJob
 
 Red Hat OpenJDK image uses CONTAINER_MAX_MEMORY env via the downward API to set Java memory settings.
 Instead of manually setting -Xmx, let the image automatically set it for you.
@@ -397,21 +397,21 @@ _container_opts_contains_xmx(container) {
 
 _source: [policy/ocp/bestpractices/container_java_xmx_set](policy/ocp/bestpractices/container_java_xmx_set)_
 
-## RHCOP-OCP_BESTPRACT-00006: Label key is consistent
+## RHCOP\-OCP\_BESTPRACT\-00006: Label key is consistent
 
 **Severity:** Violation
 
 **Resources:**
 
-- core/Pod
-- core/ReplicationController
-- apps/DaemonSet
-- apps/Deployment
-- apps/Job
-- apps/ReplicaSet
-- apps/StatefulSet
-- apps.openshift.io/DeploymentConfig
-- batch/CronJob
+* core/Pod
+* core/ReplicationController
+* apps/DaemonSet
+* apps/Deployment
+* apps/Job
+* apps/ReplicaSet
+* apps/StatefulSet
+* apps\.openshift\.io/DeploymentConfig
+* batch/CronJob
 
 Label keys should be qualified by 'app.kubernetes.io' or 'company.com' to allow a consistent understanding.
 
@@ -448,21 +448,21 @@ _label_key_starts_with_expected(key) {
 
 _source: [policy/ocp/bestpractices/container_labelkey_inconsistent](policy/ocp/bestpractices/container_labelkey_inconsistent)_
 
-## RHCOP-OCP_BESTPRACT-00007: Container liveness and readiness probes are equal
+## RHCOP\-OCP\_BESTPRACT\-00007: Container liveness and readiness probes are equal
 
 **Severity:** Violation
 
 **Resources:**
 
-- core/Pod
-- core/ReplicationController
-- apps/DaemonSet
-- apps/Deployment
-- apps/Job
-- apps/ReplicaSet
-- apps/StatefulSet
-- apps.openshift.io/DeploymentConfig
-- batch/CronJob
+* core/Pod
+* core/ReplicationController
+* apps/DaemonSet
+* apps/Deployment
+* apps/Job
+* apps/ReplicaSet
+* apps/StatefulSet
+* apps\.openshift\.io/DeploymentConfig
+* batch/CronJob
 
 When Liveness and Readiness probes are pointing to the same endpoint, the effects of the probes are combined.
 When the app signals that it's not ready or live, the kubelet detaches the container from the Service
@@ -492,21 +492,21 @@ violation[msg] {
 
 _source: [policy/ocp/bestpractices/container_liveness_readinessprobe_equal](policy/ocp/bestpractices/container_liveness_readinessprobe_equal)_
 
-## RHCOP-OCP_BESTPRACT-00008: Container liveness prob is not set
+## RHCOP\-OCP\_BESTPRACT\-00008: Container liveness prob is not set
 
 **Severity:** Violation
 
 **Resources:**
 
-- core/Pod
-- core/ReplicationController
-- apps/DaemonSet
-- apps/Deployment
-- apps/Job
-- apps/ReplicaSet
-- apps/StatefulSet
-- apps.openshift.io/DeploymentConfig
-- batch/CronJob
+* core/Pod
+* core/ReplicationController
+* apps/DaemonSet
+* apps/Deployment
+* apps/Job
+* apps/ReplicaSet
+* apps/StatefulSet
+* apps\.openshift\.io/DeploymentConfig
+* batch/CronJob
 
 A Liveness checks determines if the container in which it is scheduled is still running.
 If the liveness probe fails due to a condition such as a deadlock, the kubelet kills the container.
@@ -534,21 +534,21 @@ violation[msg] {
 
 _source: [policy/ocp/bestpractices/container_livenessprobe_notset](policy/ocp/bestpractices/container_livenessprobe_notset)_
 
-## RHCOP-OCP_BESTPRACT-00009: Container readiness prob is not set
+## RHCOP\-OCP\_BESTPRACT\-00009: Container readiness prob is not set
 
 **Severity:** Violation
 
 **Resources:**
 
-- core/Pod
-- core/ReplicationController
-- apps/DaemonSet
-- apps/Deployment
-- apps/Job
-- apps/ReplicaSet
-- apps/StatefulSet
-- apps.openshift.io/DeploymentConfig
-- batch/CronJob
+* core/Pod
+* core/ReplicationController
+* apps/DaemonSet
+* apps/Deployment
+* apps/Job
+* apps/ReplicaSet
+* apps/StatefulSet
+* apps\.openshift\.io/DeploymentConfig
+* batch/CronJob
 
 A Readiness check determines if the container in which it is scheduled is ready to service requests.
 If the readiness probe fails a container, the endpoints controller ensures the container has its IP address
@@ -577,21 +577,21 @@ violation[msg] {
 
 _source: [policy/ocp/bestpractices/container_readinessprobe_notset](policy/ocp/bestpractices/container_readinessprobe_notset)_
 
-## RHCOP-OCP_BESTPRACT-00010: Container resource limits CPU not set
+## RHCOP\-OCP\_BESTPRACT\-00010: Container resource limits CPU not set
 
 **Severity:** Violation
 
 **Resources:**
 
-- core/Pod
-- core/ReplicationController
-- apps/DaemonSet
-- apps/Deployment
-- apps/Job
-- apps/ReplicaSet
-- apps/StatefulSet
-- apps.openshift.io/DeploymentConfig
-- batch/CronJob
+* core/Pod
+* core/ReplicationController
+* apps/DaemonSet
+* apps/Deployment
+* apps/Job
+* apps/ReplicaSet
+* apps/StatefulSet
+* apps\.openshift\.io/DeploymentConfig
+* batch/CronJob
 
 If you're not sure about what's the best settings for your app, it's better not to set the CPU limits.
 See: Resources utilisation -> https://learnk8s.io/production-best-practices#application-development
@@ -619,21 +619,21 @@ violation[msg] {
 
 _source: [policy/ocp/bestpractices/container_resources_limits_cpu_set](policy/ocp/bestpractices/container_resources_limits_cpu_set)_
 
-## RHCOP-OCP_BESTPRACT-00011: Container resource limits memory not greater than
+## RHCOP\-OCP\_BESTPRACT\-00011: Container resource limits memory not greater than
 
 **Severity:** Violation
 
 **Resources:**
 
-- core/Pod
-- core/ReplicationController
-- apps/DaemonSet
-- apps/Deployment
-- apps/Job
-- apps/ReplicaSet
-- apps/StatefulSet
-- apps.openshift.io/DeploymentConfig
-- batch/CronJob
+* core/Pod
+* core/ReplicationController
+* apps/DaemonSet
+* apps/Deployment
+* apps/Job
+* apps/ReplicaSet
+* apps/StatefulSet
+* apps\.openshift\.io/DeploymentConfig
+* batch/CronJob
 
 Setting a too high memory limit can cause under utilisation on a node.
 It is better to run multiple pods which use smaller limits.
@@ -668,21 +668,21 @@ violation[msg] {
 
 _source: [policy/ocp/bestpractices/container_resources_limits_memory_greater_than](policy/ocp/bestpractices/container_resources_limits_memory_greater_than)_
 
-## RHCOP-OCP_BESTPRACT-00012: Container resource limits memory not set
+## RHCOP\-OCP\_BESTPRACT\-00012: Container resource limits memory not set
 
 **Severity:** Violation
 
 **Resources:**
 
-- core/Pod
-- core/ReplicationController
-- apps/DaemonSet
-- apps/Deployment
-- apps/Job
-- apps/ReplicaSet
-- apps/StatefulSet
-- apps.openshift.io/DeploymentConfig
-- batch/CronJob
+* core/Pod
+* core/ReplicationController
+* apps/DaemonSet
+* apps/Deployment
+* apps/Job
+* apps/ReplicaSet
+* apps/StatefulSet
+* apps\.openshift\.io/DeploymentConfig
+* batch/CronJob
 
 A container without a memory limit has memory utilisation of zero — according to the scheduler.
 An unlimited number of Pods if schedulable on any nodes leading to resource overcommitment
@@ -711,21 +711,21 @@ violation[msg] {
 
 _source: [policy/ocp/bestpractices/container_resources_limits_memory_notset](policy/ocp/bestpractices/container_resources_limits_memory_notset)_
 
-## RHCOP-OCP_BESTPRACT-00013: Container resources limit memory has incorrect unit
+## RHCOP\-OCP\_BESTPRACT\-00013: Container resources limit memory has incorrect unit
 
 **Severity:** Violation
 
 **Resources:**
 
-- core/Pod
-- core/ReplicationController
-- apps/DaemonSet
-- apps/Deployment
-- apps/Job
-- apps/ReplicaSet
-- apps/StatefulSet
-- apps.openshift.io/DeploymentConfig
-- batch/CronJob
+* core/Pod
+* core/ReplicationController
+* apps/DaemonSet
+* apps/Deployment
+* apps/Job
+* apps/ReplicaSet
+* apps/StatefulSet
+* apps\.openshift\.io/DeploymentConfig
+* batch/CronJob
 
 Begininers can easily confuse the allowed memory unit, this policy enforces what is valid.
 k8s also allows for millibyte as a unit for memory, which causes unintended consequences for the scheduler.
@@ -765,21 +765,21 @@ _is_resource_memory_units_valid(container) {
 
 _source: [policy/ocp/bestpractices/container_resources_memoryunit_incorrect](policy/ocp/bestpractices/container_resources_memoryunit_incorrect)_
 
-## RHCOP-OCP_BESTPRACT-00014: Container resources requests cpu has incorrect unit
+## RHCOP\-OCP\_BESTPRACT\-00014: Container resources requests cpu has incorrect unit
 
 **Severity:** Violation
 
 **Resources:**
 
-- core/Pod
-- core/ReplicationController
-- apps/DaemonSet
-- apps/Deployment
-- apps/Job
-- apps/ReplicaSet
-- apps/StatefulSet
-- apps.openshift.io/DeploymentConfig
-- batch/CronJob
+* core/Pod
+* core/ReplicationController
+* apps/DaemonSet
+* apps/Deployment
+* apps/Job
+* apps/ReplicaSet
+* apps/StatefulSet
+* apps\.openshift\.io/DeploymentConfig
+* batch/CronJob
 
 Beginners can easily confuse the allowed cpu unit, this policy enforces what is valid.
 See: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes
@@ -825,21 +825,21 @@ is_resource_requests_cpu_units_valid(container) {
 
 _source: [policy/ocp/bestpractices/container_resources_requests_cpuunit_incorrect](policy/ocp/bestpractices/container_resources_requests_cpuunit_incorrect)_
 
-## RHCOP-OCP_BESTPRACT-00015: Container resource requests memory not greater than
+## RHCOP\-OCP\_BESTPRACT\-00015: Container resource requests memory not greater than
 
 **Severity:** Violation
 
 **Resources:**
 
-- core/Pod
-- core/ReplicationController
-- apps/DaemonSet
-- apps/Deployment
-- apps/Job
-- apps/ReplicaSet
-- apps/StatefulSet
-- apps.openshift.io/DeploymentConfig
-- batch/CronJob
+* core/Pod
+* core/ReplicationController
+* apps/DaemonSet
+* apps/Deployment
+* apps/Job
+* apps/ReplicaSet
+* apps/StatefulSet
+* apps\.openshift\.io/DeploymentConfig
+* batch/CronJob
 
 Setting a too high memory request can cause under utilisation on a node.
 It is better to run multiple pods which use smaller requests.
@@ -874,21 +874,21 @@ violation[msg] {
 
 _source: [policy/ocp/bestpractices/container_resources_requests_memory_greater_than](policy/ocp/bestpractices/container_resources_requests_memory_greater_than)_
 
-## RHCOP-OCP_BESTPRACT-00016: Container secret not mounted as envs
+## RHCOP\-OCP\_BESTPRACT\-00016: Container secret not mounted as envs
 
 **Severity:** Violation
 
 **Resources:**
 
-- core/Pod
-- core/ReplicationController
-- apps/DaemonSet
-- apps/Deployment
-- apps/Job
-- apps/ReplicaSet
-- apps/StatefulSet
-- apps.openshift.io/DeploymentConfig
-- batch/CronJob
+* core/Pod
+* core/ReplicationController
+* apps/DaemonSet
+* apps/Deployment
+* apps/Job
+* apps/ReplicaSet
+* apps/StatefulSet
+* apps\.openshift\.io/DeploymentConfig
+* batch/CronJob
 
 The content of Secret resources should be mounted into containers as volumes rather than,
 passed in as environment variables. This is to prevent that the secret values appear in the command that was
@@ -918,21 +918,21 @@ violation[msg] {
 
 _source: [policy/ocp/bestpractices/container_secret_mounted_envs](policy/ocp/bestpractices/container_secret_mounted_envs)_
 
-## RHCOP-OCP_BESTPRACT-00017: Container volume mount path is consistent
+## RHCOP\-OCP\_BESTPRACT\-00017: Container volume mount path is consistent
 
 **Severity:** Violation
 
 **Resources:**
 
-- core/Pod
-- core/ReplicationController
-- apps/DaemonSet
-- apps/Deployment
-- apps/Job
-- apps/ReplicaSet
-- apps/StatefulSet
-- apps.openshift.io/DeploymentConfig
-- batch/CronJob
+* core/Pod
+* core/ReplicationController
+* apps/DaemonSet
+* apps/Deployment
+* apps/Job
+* apps/ReplicaSet
+* apps/StatefulSet
+* apps\.openshift\.io/DeploymentConfig
+* batch/CronJob
 
 Mount paths should be mounted at '/var/run/company.com' to allow a consistent understanding.
 
@@ -959,21 +959,21 @@ violation[msg] {
 
 _source: [policy/ocp/bestpractices/container_volumemount_inconsistent_path](policy/ocp/bestpractices/container_volumemount_inconsistent_path)_
 
-## RHCOP-OCP_BESTPRACT-00018: Container volume mount not set
+## RHCOP\-OCP\_BESTPRACT\-00018: Container volume mount not set
 
 **Severity:** Violation
 
 **Resources:**
 
-- core/Pod
-- core/ReplicationController
-- apps/DaemonSet
-- apps/Deployment
-- apps/Job
-- apps/ReplicaSet
-- apps/StatefulSet
-- apps.openshift.io/DeploymentConfig
-- batch/CronJob
+* core/Pod
+* core/ReplicationController
+* apps/DaemonSet
+* apps/Deployment
+* apps/Job
+* apps/ReplicaSet
+* apps/StatefulSet
+* apps\.openshift\.io/DeploymentConfig
+* batch/CronJob
 
 A volume does not have a corresponding volume mount. There is probably a mistake in your definition.
 
@@ -1003,13 +1003,13 @@ _containers_volumemounts_contains_volume(containers, volume) {
 
 _source: [policy/ocp/bestpractices/container_volumemount_missing](policy/ocp/bestpractices/container_volumemount_missing)_
 
-## RHCOP-OCP_BESTPRACT-00019: DeploymentConfig triggers not set
+## RHCOP\-OCP\_BESTPRACT\-00019: DeploymentConfig triggers not set
 
 **Severity:** Violation
 
 **Resources:**
 
-- apps.openshift.io/DeploymentConfig
+* apps\.openshift\.io/DeploymentConfig
 
 If you are using a DeploymentConfig without 'spec.triggers' set, you could probably just use the k8s Deployment.
 
@@ -1032,21 +1032,21 @@ violation[msg] {
 
 _source: [policy/ocp/bestpractices/deploymentconfig_triggers_notset](policy/ocp/bestpractices/deploymentconfig_triggers_notset)_
 
-## RHCOP-OCP_BESTPRACT-00020: Pod hostnetwork not set
+## RHCOP\-OCP\_BESTPRACT\-00020: Pod hostnetwork not set
 
 **Severity:** Violation
 
 **Resources:**
 
-- core/Pod
-- core/ReplicationController
-- apps/DaemonSet
-- apps/Deployment
-- apps/Job
-- apps/ReplicaSet
-- apps/StatefulSet
-- apps.openshift.io/DeploymentConfig
-- batch/CronJob
+* core/Pod
+* core/ReplicationController
+* apps/DaemonSet
+* apps/Deployment
+* apps/Job
+* apps/ReplicaSet
+* apps/StatefulSet
+* apps\.openshift\.io/DeploymentConfig
+* batch/CronJob
 
 Pods which require 'spec.hostNetwork' should be limited due to security concerns.
 
@@ -1068,14 +1068,14 @@ violation[msg] {
 
 _source: [policy/ocp/bestpractices/pod_hostnetwork](policy/ocp/bestpractices/pod_hostnetwork)_
 
-## RHCOP-OCP_BESTPRACT-00021: Pod replica below 1
+## RHCOP\-OCP\_BESTPRACT\-00021: Pod replica below 1
 
 **Severity:** Violation
 
 **Resources:**
 
-- apps/Deployment
-- apps.openshift.io/DeploymentConfig
+* apps/Deployment
+* apps\.openshift\.io/DeploymentConfig
 
 Never run a single Pod individually.
 See: Fault tolerance -> https://learnk8s.io/production-best-practices#application-development
@@ -1101,14 +1101,14 @@ violation[msg] {
 
 _source: [policy/ocp/bestpractices/pod_replicas_below_one](policy/ocp/bestpractices/pod_replicas_below_one)_
 
-## RHCOP-OCP_BESTPRACT-00022: Pod replica is not odd
+## RHCOP\-OCP\_BESTPRACT\-00022: Pod replica is not odd
 
 **Severity:** Violation
 
 **Resources:**
 
-- apps/Deployment
-- apps.openshift.io/DeploymentConfig
+* apps/Deployment
+* apps\.openshift\.io/DeploymentConfig
 
 Pods should be run with a replica which is odd, i.e.: 3, 5, 7, etc, for HA guarantees.
 See: Fault tolerance -> https://learnk8s.io/production-best-practices#application-development
@@ -1134,13 +1134,13 @@ violation[msg] {
 
 _source: [policy/ocp/bestpractices/pod_replicas_not_odd](policy/ocp/bestpractices/pod_replicas_not_odd)_
 
-## RHCOP-OCP_BESTPRACT-00023: RoleBinding has apiGroup set
+## RHCOP\-OCP\_BESTPRACT\-00023: RoleBinding has apiGroup set
 
 **Severity:** Violation
 
 **Resources:**
 
-- rbac.authorization.k8s.io/RoleBinding
+* rbac\.authorization\.k8s\.io/RoleBinding
 
 Migrating from 3.11 to 4.x requires the 'roleRef.apiGroup' to be set.
 
@@ -1163,13 +1163,13 @@ violation[msg] {
 
 _source: [policy/ocp/bestpractices/rolebinding_roleref_apigroup_notset](policy/ocp/bestpractices/rolebinding_roleref_apigroup_notset)_
 
-## RHCOP-OCP_BESTPRACT-00024: RoleBinding has kind set
+## RHCOP\-OCP\_BESTPRACT\-00024: RoleBinding has kind set
 
 **Severity:** Violation
 
 **Resources:**
 
-- rbac.authorization.k8s.io/RoleBinding
+* rbac\.authorization\.k8s\.io/RoleBinding
 
 Migrating from 3.11 to 4.x requires the 'roleRef.kind' to be set.
 
@@ -1192,13 +1192,13 @@ violation[msg] {
 
 _source: [policy/ocp/bestpractices/rolebinding_roleref_kind_notset](policy/ocp/bestpractices/rolebinding_roleref_kind_notset)_
 
-## RHCOP-OCP_BESTPRACT-00025: Route has TLS Termination Defined
+## RHCOP\-OCP\_BESTPRACT\-00025: Route has TLS Termination Defined
 
 **Severity:** Violation
 
 **Resources:**
 
-- route.openshift.io/Route
+* route\.openshift\.io/Route
 
 Routes should specify a TLS termination type to allow only secure ingress.
 
@@ -1222,18 +1222,18 @@ violation[msg] {
 
 _source: [policy/ocp/bestpractices/route_tls_termination_notset](policy/ocp/bestpractices/route_tls_termination_notset)_
 
-## RHCOP-OCP_BESTPRACT-00026: Pod anti-affinity not set
+## RHCOP\-OCP\_BESTPRACT\-00026: Pod anti\-affinity not set
 
 **Severity:** Violation
 
 **Resources:**
 
-- core/Pod
-- core/ReplicationController
-- apps/Deployment
-- apps/ReplicaSet
-- apps/StatefulSet
-- apps.openshift.io/DeploymentConfig
+* core/Pod
+* core/ReplicationController
+* apps/Deployment
+* apps/ReplicaSet
+* apps/StatefulSet
+* apps\.openshift\.io/DeploymentConfig
 
 Even if you run several copies of your Pods,
 there are no guarantees that losing a node won't take down your service. Anti-Affinity helps here.
@@ -1260,13 +1260,13 @@ violation[msg] {
 
 _source: [policy/ocp/bestpractices/pod_antiaffinity_notset](policy/ocp/bestpractices/pod_antiaffinity_notset)_
 
-## RHCOP-OCP_BESTPRACT-00027: DeploymentConfig triggers container name miss match
+## RHCOP\-OCP\_BESTPRACT\-00027: DeploymentConfig triggers container name miss match
 
 **Severity:** Violation
 
 **Resources:**
 
-- apps.openshift.io/DeploymentConfig
+* apps\.openshift\.io/DeploymentConfig
 
 If you are using a DeploymentConfig with 'spec.triggers' set,
 but the container name does not match the trigger will never fire. There is probably a mistake in your definition.
@@ -1301,13 +1301,13 @@ _containers_contains_trigger(containers, container_name) {
 
 _source: [policy/ocp/bestpractices/deploymentconfig_triggers_containername](policy/ocp/bestpractices/deploymentconfig_triggers_containername)_
 
-## RHCOP-OCP_DEPRECATED-ocp3_11-00001: BuildConfig no longer served by v1
+## RHCOP\-OCP\_DEPRECATED\-ocp3\_11\-00001: BuildConfig no longer served by v1
 
 **Severity:** Violation
 
 **Resources:**
 
-- v1/BuildConfig
+* v1/BuildConfig
 
 OCP4.x expects build.openshift.io/v1.
 
@@ -1328,13 +1328,13 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/ocp3_11/buildconfig_v1](policy/ocp/deprecated/ocp3_11/buildconfig_v1)_
 
-## RHCOP-OCP_DEPRECATED-ocp3_11-00002: DeploymentConfig no longer served by v1
+## RHCOP\-OCP\_DEPRECATED\-ocp3\_11\-00002: DeploymentConfig no longer served by v1
 
 **Severity:** Violation
 
 **Resources:**
 
-- v1/DeploymentConfig
+* v1/DeploymentConfig
 
 OCP4.x expects apps.openshift.io/v1.
 
@@ -1355,13 +1355,13 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/ocp3_11/deploymentconfig_v1](policy/ocp/deprecated/ocp3_11/deploymentconfig_v1)_
 
-## RHCOP-OCP_DEPRECATED-ocp3_11-00003: ImageStream no longer served by v1
+## RHCOP\-OCP\_DEPRECATED\-ocp3\_11\-00003: ImageStream no longer served by v1
 
 **Severity:** Violation
 
 **Resources:**
 
-- v1/ImageStream
+* v1/ImageStream
 
 OCP4.x expects image.openshift.io/v1.
 
@@ -1382,13 +1382,13 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/ocp3_11/imagestream_v1](policy/ocp/deprecated/ocp3_11/imagestream_v1)_
 
-## RHCOP-OCP_DEPRECATED-ocp3_11-00004: ProjectRequest no longer served by v1
+## RHCOP\-OCP\_DEPRECATED\-ocp3\_11\-00004: ProjectRequest no longer served by v1
 
 **Severity:** Violation
 
 **Resources:**
 
-- v1/ProjectRequest
+* v1/ProjectRequest
 
 OCP4.x expects project.openshift.io/v1.
 
@@ -1409,13 +1409,13 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/ocp3_11/projectrequest_v1](policy/ocp/deprecated/ocp3_11/projectrequest_v1)_
 
-## RHCOP-OCP_DEPRECATED-ocp3_11-00005: RoleBinding no longer served by v1
+## RHCOP\-OCP\_DEPRECATED\-ocp3\_11\-00005: RoleBinding no longer served by v1
 
 **Severity:** Violation
 
 **Resources:**
 
-- v1/RoleBinding
+* v1/RoleBinding
 
 OCP4.x expects rbac.authorization.k8s.io/v1
 
@@ -1436,13 +1436,13 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/ocp3_11/rolebinding_v1](policy/ocp/deprecated/ocp3_11/rolebinding_v1)_
 
-## RHCOP-OCP_DEPRECATED-ocp3_11-00006: Route no longer served by v1
+## RHCOP\-OCP\_DEPRECATED\-ocp3\_11\-00006: Route no longer served by v1
 
 **Severity:** Violation
 
 **Resources:**
 
-- v1/Route
+* v1/Route
 
 OCP4.x expects route.openshift.io/v1.
 
@@ -1463,13 +1463,13 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/ocp3_11/route_v1](policy/ocp/deprecated/ocp3_11/route_v1)_
 
-## RHCOP-OCP_DEPRECATED-ocp3_11-00007: SecurityContextConstraints no longer served by v1
+## RHCOP\-OCP\_DEPRECATED\-ocp3\_11\-00007: SecurityContextConstraints no longer served by v1
 
 **Severity:** Violation
 
 **Resources:**
 
-- v1/SecurityContextConstraints
+* v1/SecurityContextConstraints
 
 OCP4.x expects security.openshift.io/v1.
 
@@ -1490,13 +1490,13 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/ocp3_11/securitycontextconstraints_v1](policy/ocp/deprecated/ocp3_11/securitycontextconstraints_v1)_
 
-## RHCOP-OCP_DEPRECATED-ocp3_11-00008: Template no longer served by v1
+## RHCOP\-OCP\_DEPRECATED\-ocp3\_11\-00008: Template no longer served by v1
 
 **Severity:** Violation
 
 **Resources:**
 
-- v1/Template
+* v1/Template
 
 OCP4.x expects template.openshift.io/v1.
 
@@ -1517,13 +1517,13 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/ocp3_11/template_v1](policy/ocp/deprecated/ocp3_11/template_v1)_
 
-## RHCOP-OCP_DEPRECATED-ocp4_1-00001: BuildConfig exposeDockerSocket deprecated
+## RHCOP\-OCP\_DEPRECATED\-ocp4\_1\-00001: BuildConfig exposeDockerSocket deprecated
 
 **Severity:** Violation
 
 **Resources:**
 
-- build.openshift.io/BuildConfig
+* build\.openshift\.io/BuildConfig
 
 'spec.strategy.customStrategy.exposeDockerSocket' is no longer supported by BuildConfig.
 See: https://docs.openshift.com/container-platform/4.1/release_notes/ocp-4-1-release-notes.html#ocp-41-deprecated-features
@@ -1547,16 +1547,16 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/ocp4_1/buildconfig_custom_strategy](policy/ocp/deprecated/ocp4_1/buildconfig_custom_strategy)_
 
-## RHCOP-OCP_DEPRECATED-ocp4_2-00001: authorization openshift io is deprecated
+## RHCOP\-OCP\_DEPRECATED\-ocp4\_2\-00001: authorization openshift io is deprecated
 
 **Severity:** Violation
 
 **Resources:**
 
-- authorization.openshift.io/ClusterRole
-- authorization.openshift.io/ClusterRoleBinding
-- authorization.openshift.io/Role
-- authorization.openshift.io/RoleBinding
+* authorization\.openshift\.io/ClusterRole
+* authorization\.openshift\.io/ClusterRoleBinding
+* authorization\.openshift\.io/Role
+* authorization\.openshift\.io/RoleBinding
 
 From OCP4.2 onwards, you should migrate from 'authorization.openshift.io' to rbac.authorization.k8s.io/v1.
 See: https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html#ocp-4-2-deprecated-features
@@ -1577,15 +1577,15 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/ocp4_2/authorization_openshift](policy/ocp/deprecated/ocp4_2/authorization_openshift)_
 
-## RHCOP-OCP_DEPRECATED-ocp4_2-00002: automationbroker io v1alpha1 is deprecated
+## RHCOP\-OCP\_DEPRECATED\-ocp4\_2\-00002: automationbroker io v1alpha1 is deprecated
 
 **Severity:** Violation
 
 **Resources:**
 
-- automationbroker.io/Bundle
-- automationbroker.io/BundleBinding
-- automationbroker.io/BundleInstance
+* automationbroker\.io/Bundle
+* automationbroker\.io/BundleBinding
+* automationbroker\.io/BundleInstance
 
 'automationbroker.io/v1alpha1' is deprecated in OCP 4.2 and removed in 4.4.
 See: https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html#ocp-4-2-deprecated-features
@@ -1607,13 +1607,13 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/ocp4_2/automationbroker_v1alpha1](policy/ocp/deprecated/ocp4_2/automationbroker_v1alpha1)_
 
-## RHCOP-OCP_DEPRECATED-ocp4_2-00003: operators coreos com v1 CatalogSourceConfigs is deprecated
+## RHCOP\-OCP\_DEPRECATED\-ocp4\_2\-00003: operators coreos com v1 CatalogSourceConfigs is deprecated
 
 **Severity:** Violation
 
 **Resources:**
 
-- operators.coreos.com/CatalogSourceConfigs
+* operators\.coreos\.com/CatalogSourceConfigs
 
 'operators.coreos.com/v1:CatalogSourceConfigs' is deprecated in OCP 4.2 and removed in 4.5.
 See: https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html#ocp-4-2-deprecated-features
@@ -1636,13 +1636,13 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/ocp4_2/catalogsourceconfigs_v1](policy/ocp/deprecated/ocp4_2/catalogsourceconfigs_v1)_
 
-## RHCOP-OCP_DEPRECATED-ocp4_2-00004: operators coreos com v2 CatalogSourceConfigs is deprecated
+## RHCOP\-OCP\_DEPRECATED\-ocp4\_2\-00004: operators coreos com v2 CatalogSourceConfigs is deprecated
 
 **Severity:** Violation
 
 **Resources:**
 
-- operators.coreos.com/CatalogSourceConfigs
+* operators\.coreos\.com/CatalogSourceConfigs
 
 'operators.coreos.com/v2:CatalogSourceConfigs' is deprecated in OCP 4.2 and removed in 4.5.
 See: https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html#ocp-4-2-deprecated-features
@@ -1665,13 +1665,13 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/ocp4_2/catalogsourceconfigs_v2](policy/ocp/deprecated/ocp4_2/catalogsourceconfigs_v2)_
 
-## RHCOP-OCP_DEPRECATED-ocp4_2-00005: operators coreos com v1 OperatorSource is deprecated
+## RHCOP\-OCP\_DEPRECATED\-ocp4\_2\-00005: operators coreos com v1 OperatorSource is deprecated
 
 **Severity:** Violation
 
 **Resources:**
 
-- operators.coreos.com/OperatorSource
+* operators\.coreos\.com/OperatorSource
 
 'operators.coreos.com/v1:OperatorSource' is deprecated in OCP 4.2 and will be removed in a future version.
 See: https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html#ocp-4-2-deprecated-features
@@ -1693,14 +1693,14 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/ocp4_2/operatorsources_v1](policy/ocp/deprecated/ocp4_2/operatorsources_v1)_
 
-## RHCOP-OCP_DEPRECATED-ocp4_2-00006: osb openshift io v1 is deprecated
+## RHCOP\-OCP\_DEPRECATED\-ocp4\_2\-00006: osb openshift io v1 is deprecated
 
 **Severity:** Violation
 
 **Resources:**
 
-- osb.openshift.io/AutomationBroker
-- osb.openshift.io/TemplateServiceBroker
+* osb\.openshift\.io/AutomationBroker
+* osb\.openshift\.io/TemplateServiceBroker
 
 'osb.openshift.io/v1' is deprecated in OCP 4.2 and removed in 4.5.
 See: https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html#ocp-4-2-deprecated-features
@@ -1722,17 +1722,17 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/ocp4_2/osb_v1](policy/ocp/deprecated/ocp4_2/osb_v1)_
 
-## RHCOP-OCP_DEPRECATED-ocp4_2-00007: servicecatalog k8s io v1beta1 is deprecated
+## RHCOP\-OCP\_DEPRECATED\-ocp4\_2\-00007: servicecatalog k8s io v1beta1 is deprecated
 
 **Severity:** Violation
 
 **Resources:**
 
-- servicecatalog.k8s.io/ClusterServiceBroker
-- servicecatalog.k8s.io/ClusterServiceClass
-- servicecatalog.k8s.io/ClusterServicePlan
-- servicecatalog.k8s.io/ServiceBinding
-- servicecatalog.k8s.io/ServiceInstance
+* servicecatalog\.k8s\.io/ClusterServiceBroker
+* servicecatalog\.k8s\.io/ClusterServiceClass
+* servicecatalog\.k8s\.io/ClusterServicePlan
+* servicecatalog\.k8s\.io/ServiceBinding
+* servicecatalog\.k8s\.io/ServiceInstance
 
 'servicecatalog.k8s.io/v1beta1' is deprecated in OCP 4.2 and removed in 4.5.
 See: https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html#ocp-4-2-deprecated-features
@@ -1754,13 +1754,13 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/ocp4_2/servicecatalog_v1beta1](policy/ocp/deprecated/ocp4_2/servicecatalog_v1beta1)_
 
-## RHCOP-OCP_DEPRECATED-ocp4_3-00001: BuildConfig jenkinsPipelineStrategy is deprecated
+## RHCOP\-OCP\_DEPRECATED\-ocp4\_3\-00001: BuildConfig jenkinsPipelineStrategy is deprecated
 
 **Severity:** Violation
 
 **Resources:**
 
-- build.openshift.io/BuildConfig
+* build\.openshift\.io/BuildConfig
 
 'spec.strategy.jenkinsPipelineStrategy' is no longer supported by BuildConfig.
 See: https://docs.redhat.com/en/documentation/openshift_container_platform/4.3/html/release_notes/ocp-4-3-release-notes#ocp-4-3-pipelines-now-deprecated
@@ -1784,13 +1784,13 @@ violation[msg] {
 
 _source: [policy/ocp/deprecated/ocp4_3/buildconfig_jenkinspipeline_strategy](policy/ocp/deprecated/ocp4_3/buildconfig_jenkinspipeline_strategy)_
 
-## RHCOP-OCP_REQ_INV-00001: Deployment has a matching PodDisruptionBudget
+## RHCOP\-OCP\_REQ\_INV\-00001: Deployment has a matching PodDisruptionBudget
 
 **Severity:** Violation
 
 **Resources:**
 
-- apps/Deployment
+* apps/Deployment
 
 All Deployments should have matching PodDisruptionBudget, via 'spec.template.metadata.labels', to provide HA guarantees.
 See: Fault tolerance -> https://learnk8s.io/production-best-practices#application-development
@@ -1828,13 +1828,13 @@ _has_matching_poddisruptionbudget(deployment, manifests) {
 
 _source: [policy/ocp/requiresinventory/deployment_has_matching_poddisruptionbudget](policy/ocp/requiresinventory/deployment_has_matching_poddisruptionbudget)_
 
-## RHCOP-OCP_REQ_INV-00002: Deployment has matching PersistentVolumeClaim
+## RHCOP\-OCP\_REQ\_INV\-00002: Deployment has matching PersistentVolumeClaim
 
 **Severity:** Violation
 
 **Resources:**
 
-- apps/Deployment
+* apps/Deployment
 
 If Deployment has 'spec.template.spec.volumes.persistentVolumeClaim' set, there should be matching PersistentVolumeClaim.
 If not, this would suggest a mistake.
@@ -1878,13 +1878,13 @@ _has_matching_persistentvolumeclaim(deployment, manifests) {
 
 _source: [policy/ocp/requiresinventory/deployment_has_matching_pvc](policy/ocp/requiresinventory/deployment_has_matching_pvc)_
 
-## RHCOP-OCP_REQ_INV-00003: Deployment has a matching Service
+## RHCOP\-OCP\_REQ\_INV\-00003: Deployment has a matching Service
 
 **Severity:** Violation
 
 **Resources:**
 
-- apps/Deployment
+* apps/Deployment
 
 All Deployments should have matching Service, via 'spec.template.metadata.labels'.
 Deployments without a Service are not accessible and should be questioned as to why.
@@ -1921,13 +1921,13 @@ _deployment_labels_matches_service_selector(deployment, manifests) {
 
 _source: [policy/ocp/requiresinventory/deployment_has_matching_service](policy/ocp/requiresinventory/deployment_has_matching_service)_
 
-## RHCOP-OCP_REQ_INV-00004: Deployment has matching ServiceAccount
+## RHCOP\-OCP\_REQ\_INV\-00004: Deployment has matching ServiceAccount
 
 **Severity:** Violation
 
 **Resources:**
 
-- apps/Deployment
+* apps/Deployment
 
 If Deployment has 'spec.serviceAccountName' set, there should be matching ServiceAccount.
 If not, this would suggest a mistake.
@@ -1965,13 +1965,13 @@ _has_matching_serviceaccount(deployment, manifests) {
 
 _source: [policy/ocp/requiresinventory/deployment_has_matching_serviceaccount](policy/ocp/requiresinventory/deployment_has_matching_serviceaccount)_
 
-## RHCOP-OCP_REQ_INV-00005: Service has matching ServiceMonitor
+## RHCOP\-OCP\_REQ\_INV\-00005: Service has matching ServiceMonitor
 
 **Severity:** Violation
 
 **Resources:**
 
-- core/Service
+* core/Service
 
 All Service should have a matching ServiceMonitor, via 'spec.selector'.
 Service without a ServiceMonitor are not being monitored and should be questioned as to why.
@@ -2008,13 +2008,13 @@ _service_has_matching_servicemonitor(service, manifests) {
 
 _source: [policy/ocp/requiresinventory/service_has_matching_servicemonitor](policy/ocp/requiresinventory/service_has_matching_servicemonitor)_
 
-## RHCOP-PODMAN-00001: Image contains expected SHA in history
+## RHCOP\-PODMAN\-00001: Image contains expected SHA in history
 
 **Severity:** Violation
 
 **Resources:**
 
-- redhat-cop.github.com/PodmanHistory
+* redhat\-cop\.github\.com/PodmanHistory
 
 Most images are built from a subset of authorised base images in a company,
 this policy allows enforcement of that policy by checking for an expected SHA.
@@ -2048,13 +2048,13 @@ _image_history_contains_layer(layers, expected_layer_ids) {
 
 _source: [policy/podman/history/contains_layer](policy/podman/history/contains_layer)_
 
-## RHCOP-PODMAN-00002: Image size is not greater than an expected value
+## RHCOP\-PODMAN\-00002: Image size is not greater than an expected value
 
 **Severity:** Violation
 
 **Resources:**
 
-- redhat-cop.github.com/PodmanImages
+* redhat\-cop\.github\.com/PodmanImages
 
 Typically, the "smaller the better" rule applies to images so lets enforce that.
 
@@ -2083,4 +2083,3 @@ violation[msg] {
 ```
 
 _source: [policy/podman/images/image_size_not_greater_than](policy/podman/images/image_size_not_greater_than)_
-
