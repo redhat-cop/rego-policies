@@ -16,7 +16,7 @@ jobs:
       # renovate: datasource=github-releases depName=open-policy-agent/opa
       OPA_VERSION: v1.2.0
       # renovate: datasource=github-releases depName=StyraInc/regal
-      REGAL_VERSION: v0.31.1
+      REGAL_VERSION: v0.32.0
       # renovate: datasource=github-releases depName=plexsystems/konstraint
       KONSTRAINT_VERSION: v0.41.0
     name: pre-commit
