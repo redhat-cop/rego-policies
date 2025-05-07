@@ -1617,7 +1617,7 @@ _source: [policy/ocp/deprecated/ocp4_2/automationbroker_v1alpha1](policy/ocp/dep
 
 'operators.coreos.com/v1:CatalogSourceConfigs' is deprecated in OCP 4.2 and removed in 4.5.
 See: https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html#ocp-4-2-deprecated-features
-See: https://docs.openshift.com/container-platform/4.5/release_notes/ocp-4-5-release-notes.html#ocp-4-5-deprecated-removed-features
+See: https://docs.redhat.com/en/documentation/openshift_container_platform/4.5/html/release_notes/ocp-4-5-release-notes#ocp-4-5-deprecated-removed-features
 
 ### Rego
 
@@ -1646,7 +1646,7 @@ _source: [policy/ocp/deprecated/ocp4_2/catalogsourceconfigs_v1](policy/ocp/depre
 
 'operators.coreos.com/v2:CatalogSourceConfigs' is deprecated in OCP 4.2 and removed in 4.5.
 See: https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html#ocp-4-2-deprecated-features
-See: https://docs.openshift.com/container-platform/4.5/release_notes/ocp-4-5-release-notes.html#ocp-4-5-deprecated-removed-features
+See: https://docs.redhat.com/en/documentation/openshift_container_platform/4.5/html/release_notes/ocp-4-5-release-notes#ocp-4-5-deprecated-removed-features
 
 ### Rego
 
@@ -1704,7 +1704,7 @@ _source: [policy/ocp/deprecated/ocp4_2/operatorsources_v1](policy/ocp/deprecated
 
 'osb.openshift.io/v1' is deprecated in OCP 4.2 and removed in 4.5.
 See: https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html#ocp-4-2-deprecated-features
-See: https://docs.openshift.com/container-platform/4.5/release_notes/ocp-4-5-release-notes.html#ocp-4-5-deprecated-removed-features
+See: https://docs.redhat.com/en/documentation/openshift_container_platform/4.5/html/release_notes/ocp-4-5-release-notes#ocp-4-5-deprecated-removed-features
 
 ### Rego
 
@@ -1736,7 +1736,7 @@ _source: [policy/ocp/deprecated/ocp4_2/osb_v1](policy/ocp/deprecated/ocp4_2/osb_
 
 'servicecatalog.k8s.io/v1beta1' is deprecated in OCP 4.2 and removed in 4.5.
 See: https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html#ocp-4-2-deprecated-features
-See: https://docs.openshift.com/container-platform/4.5/release_notes/ocp-4-5-release-notes.html#ocp-4-5-deprecated-removed-features
+See: https://docs.redhat.com/en/documentation/openshift_container_platform/4.5/html/release_notes/ocp-4-5-release-notes#ocp-4-5-deprecated-removed-features
 
 ### Rego
 
