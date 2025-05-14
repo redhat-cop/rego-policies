@@ -15,7 +15,7 @@ setup_file() {
 @test "policy/ocp/bestpractices/_all-namespaces" {
   tmp=$(split_files "policy/ocp/bestpractices/_all-namespaces/test_data/integration")
 
-  cmd="conftest test ${tmp} --all-namespaces"
+  cmd="conftest test ${tmp} --all-namespaces --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -29,7 +29,7 @@ setup_file() {
 @test "policy/combine/namespace_has_networkpolicy" {
   tmp=$(split_files "policy/combine/namespace_has_networkpolicy/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --combine --namespace combine.namespace_has_networkpolicy"
+  cmd="conftest test ${tmp} --output tap --combine --namespace combine.namespace_has_networkpolicy --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -42,7 +42,7 @@ setup_file() {
 @test "policy/combine/namespace_has_resourcequota" {
   tmp=$(split_files "policy/combine/namespace_has_resourcequota/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --combine --namespace combine.namespace_has_resourcequota"
+  cmd="conftest test ${tmp} --output tap --combine --namespace combine.namespace_has_resourcequota --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -59,7 +59,7 @@ setup_file() {
 @test "policy/ocp/bestpractices/common_k8s_labels_notset" {
   tmp=$(split_files "policy/ocp/bestpractices/common_k8s_labels_notset/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.common_k8s_labels_notset"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.common_k8s_labels_notset --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -73,7 +73,7 @@ setup_file() {
 @test "policy/ocp/bestpractices/container_env_maxmemory_notset" {
   tmp=$(split_files "policy/ocp/bestpractices/container_env_maxmemory_notset/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_env_maxmemory_notset"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_env_maxmemory_notset --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -87,7 +87,7 @@ setup_file() {
 @test "policy/ocp/bestpractices/container_image_latest" {
   tmp=$(split_files "policy/ocp/bestpractices/container_image_latest/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_image_latest"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_image_latest --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -100,7 +100,7 @@ setup_file() {
 @test "policy/ocp/bestpractices/container_image_unknownregistries" {
   tmp=$(split_files "policy/ocp/bestpractices/container_image_unknownregistries/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_image_unknownregistries"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_image_unknownregistries --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -114,7 +114,7 @@ setup_file() {
 @test "policy/ocp/bestpractices/container_java_xmx_set" {
   tmp=$(split_files "policy/ocp/bestpractices/container_java_xmx_set/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_java_xmx_set"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_java_xmx_set --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -132,7 +132,7 @@ setup_file() {
 @test "policy/ocp/bestpractices/container_labelkey_inconsistent" {
   tmp=$(split_files "policy/ocp/bestpractices/container_labelkey_inconsistent/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_labelkey_inconsistent"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_labelkey_inconsistent --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -146,7 +146,7 @@ setup_file() {
 @test "policy/ocp/bestpractices/container_liveness_readinessprobe_equal" {
   tmp=$(split_files "policy/ocp/bestpractices/container_liveness_readinessprobe_equal/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_liveness_readinessprobe_equal"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_liveness_readinessprobe_equal --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -160,7 +160,7 @@ setup_file() {
 @test "policy/ocp/bestpractices/container_livenessprobe_notset" {
   tmp=$(split_files "policy/ocp/bestpractices/container_livenessprobe_notset/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_livenessprobe_notset"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_livenessprobe_notset --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -174,7 +174,7 @@ setup_file() {
 @test "policy/ocp/bestpractices/container_readinessprobe_notset" {
   tmp=$(split_files "policy/ocp/bestpractices/container_readinessprobe_notset/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_readinessprobe_notset"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_readinessprobe_notset --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -188,7 +188,7 @@ setup_file() {
 @test "policy/ocp/bestpractices/container_resources_limits_cpu_set" {
   tmp=$(split_files "policy/ocp/bestpractices/container_resources_limits_cpu_set/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_resources_limits_cpu_set"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_resources_limits_cpu_set --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -202,7 +202,7 @@ setup_file() {
 @test "policy/ocp/bestpractices/container_resources_limits_memory_greater_than" {
   tmp=$(split_files "policy/ocp/bestpractices/container_resources_limits_memory_greater_than/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_resources_limits_memory_greater_than"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_resources_limits_memory_greater_than --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -216,7 +216,7 @@ setup_file() {
 @test "policy/ocp/bestpractices/container_resources_limits_memory_notset" {
   tmp=$(split_files "policy/ocp/bestpractices/container_resources_limits_memory_notset/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_resources_limits_memory_notset"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_resources_limits_memory_notset --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -230,7 +230,7 @@ setup_file() {
 @test "policy/ocp/bestpractices/container_resources_memoryunit_incorrect" {
   tmp=$(split_files "policy/ocp/bestpractices/container_resources_memoryunit_incorrect/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_resources_memoryunit_incorrect"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_resources_memoryunit_incorrect --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -246,7 +246,7 @@ setup_file() {
 @test "policy/ocp/bestpractices/container_resources_requests_cpuunit_incorrect" {
   tmp=$(split_files "policy/ocp/bestpractices/container_resources_requests_cpuunit_incorrect/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_resources_requests_cpuunit_incorrect"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_resources_requests_cpuunit_incorrect --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -260,7 +260,7 @@ setup_file() {
 @test "policy/ocp/bestpractices/container_resources_requests_memory_greater_than" {
   tmp=$(split_files "policy/ocp/bestpractices/container_resources_requests_memory_greater_than/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_resources_requests_memory_greater_than"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_resources_requests_memory_greater_than --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -274,7 +274,7 @@ setup_file() {
 @test "policy/ocp/bestpractices/container_secret_mounted_envs" {
   tmp=$(split_files "policy/ocp/bestpractices/container_secret_mounted_envs/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_secret_mounted_envs"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_secret_mounted_envs --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -288,7 +288,7 @@ setup_file() {
 @test "policy/ocp/bestpractices/container_volumemount_inconsistent_path" {
   tmp=$(split_files "policy/ocp/bestpractices/container_volumemount_inconsistent_path/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_volumemount_inconsistent_path"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_volumemount_inconsistent_path --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -302,7 +302,7 @@ setup_file() {
 @test "policy/ocp/bestpractices/container_volumemount_missing" {
   tmp=$(split_files "policy/ocp/bestpractices/container_volumemount_missing/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_volumemount_missing"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.container_volumemount_missing --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -316,7 +316,7 @@ setup_file() {
 @test "policy/ocp/bestpractices/deploymentconfig_triggers_containername" {
   tmp=$(split_files "policy/ocp/bestpractices/deploymentconfig_triggers_containername/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.deploymentconfig_triggers_containername"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.deploymentconfig_triggers_containername --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -329,7 +329,7 @@ setup_file() {
 @test "policy/ocp/bestpractices/deploymentconfig_triggers_notset" {
   tmp=$(split_files "policy/ocp/bestpractices/deploymentconfig_triggers_notset/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.deploymentconfig_triggers_notset"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.deploymentconfig_triggers_notset --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -342,7 +342,7 @@ setup_file() {
 @test "policy/ocp/bestpractices/pod_hostnetwork" {
   tmp=$(split_files "policy/ocp/bestpractices/pod_hostnetwork/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.pod_hostnetwork"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.pod_hostnetwork --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -356,7 +356,7 @@ setup_file() {
 @test "policy/ocp/bestpractices/pod_replicas_below_one" {
   tmp=$(split_files "policy/ocp/bestpractices/pod_replicas_below_one/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.pod_replicas_below_one"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.pod_replicas_below_one --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -370,7 +370,7 @@ setup_file() {
 @test "policy/ocp/bestpractices/pod_replicas_not_odd" {
   tmp=$(split_files "policy/ocp/bestpractices/pod_replicas_not_odd/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.pod_replicas_not_odd"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.pod_replicas_not_odd --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -384,7 +384,7 @@ setup_file() {
 @test "policy/ocp/bestpractices/rolebinding_roleref_apigroup_notset" {
   tmp=$(split_files "policy/ocp/bestpractices/rolebinding_roleref_apigroup_notset/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.rolebinding_roleref_apigroup_notset"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.rolebinding_roleref_apigroup_notset --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -397,7 +397,7 @@ setup_file() {
 @test "policy/ocp/bestpractices/rolebinding_roleref_kind_notset" {
   tmp=$(split_files "policy/ocp/bestpractices/rolebinding_roleref_kind_notset/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.rolebinding_roleref_kind_notset"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.rolebinding_roleref_kind_notset --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -410,7 +410,7 @@ setup_file() {
 @test "policy/ocp/bestpractices/route_tls_termination_notset" {
   tmp=$(split_files "policy/ocp/bestpractices/route_tls_termination_notset/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.route_tls_termination_notset"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.route_tls_termination_notset --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -423,7 +423,7 @@ setup_file() {
 @test "policy/ocp/bestpractices/pod_antiaffinity_notset" {
   tmp=$(split_files "policy/ocp/bestpractices/pod_antiaffinity_notset/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.pod_antiaffinity_notset"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.bestpractices.pod_antiaffinity_notset --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -441,7 +441,7 @@ setup_file() {
 @test "policy/ocp/deprecated/ocp3_11/buildconfig_v1" {
   tmp=$(split_files "policy/ocp/deprecated/ocp3_11/buildconfig_v1/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp3_11.buildconfig_v1"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp3_11.buildconfig_v1 --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -454,7 +454,7 @@ setup_file() {
 @test "policy/ocp/deprecated/ocp3_11/deploymentconfig_v1" {
   tmp=$(split_files "policy/ocp/deprecated/ocp3_11/deploymentconfig_v1/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp3_11.deploymentconfig_v1"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp3_11.deploymentconfig_v1 --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -467,7 +467,7 @@ setup_file() {
 @test "policy/ocp/deprecated/ocp3_11/imagestream_v1" {
   tmp=$(split_files "policy/ocp/deprecated/ocp3_11/imagestream_v1/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp3_11.imagestream_v1"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp3_11.imagestream_v1 --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -480,7 +480,7 @@ setup_file() {
 @test "policy/ocp/deprecated/ocp3_11/projectrequest_v1" {
   tmp=$(split_files "policy/ocp/deprecated/ocp3_11/projectrequest_v1/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp3_11.projectrequest_v1"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp3_11.projectrequest_v1 --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -493,7 +493,7 @@ setup_file() {
 @test "policy/ocp/deprecated/ocp3_11/rolebinding_v1" {
   tmp=$(split_files "policy/ocp/deprecated/ocp3_11/rolebinding_v1/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp3_11.rolebinding_v1"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp3_11.rolebinding_v1 --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -506,7 +506,7 @@ setup_file() {
 @test "policy/ocp/deprecated/ocp3_11/route_v1" {
   tmp=$(split_files "policy/ocp/deprecated/ocp3_11/route_v1/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp3_11.route_v1"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp3_11.route_v1 --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -519,7 +519,7 @@ setup_file() {
 @test "policy/ocp/deprecated/ocp3_11/securitycontextconstraints_v1" {
   tmp=$(split_files "policy/ocp/deprecated/ocp3_11/securitycontextconstraints_v1/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp3_11.securitycontextconstraints_v1"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp3_11.securitycontextconstraints_v1 --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -532,7 +532,7 @@ setup_file() {
 @test "policy/ocp/deprecated/ocp3_11/template_v1" {
   tmp=$(split_files "policy/ocp/deprecated/ocp3_11/template_v1/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp3_11.template_v1"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp3_11.template_v1 --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -545,7 +545,7 @@ setup_file() {
 @test "policy/ocp/deprecated/ocp4_1/buildconfig_custom_strategy" {
   tmp=$(split_files "policy/ocp/deprecated/ocp4_1/buildconfig_custom_strategy/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp4_1.buildconfig_custom_strategy"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp4_1.buildconfig_custom_strategy --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -558,7 +558,7 @@ setup_file() {
 @test "policy/ocp/deprecated/ocp4_2/authorization_openshift" {
   tmp=$(split_files "policy/ocp/deprecated/ocp4_2/authorization_openshift/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp4_2.authorization_openshift"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp4_2.authorization_openshift --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -571,7 +571,7 @@ setup_file() {
 @test "policy/ocp/deprecated/ocp4_2/automationbroker_v1alpha1" {
   tmp=$(split_files "policy/ocp/deprecated/ocp4_2/automationbroker_v1alpha1/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp4_2.automationbroker_v1alpha1"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp4_2.automationbroker_v1alpha1 --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -584,7 +584,7 @@ setup_file() {
 @test "policy/ocp/deprecated/ocp4_2/catalogsourceconfigs_v1" {
   tmp=$(split_files "policy/ocp/deprecated/ocp4_2/catalogsourceconfigs_v1/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp4_2.catalogsourceconfigs_v1"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp4_2.catalogsourceconfigs_v1 --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -597,7 +597,7 @@ setup_file() {
 @test "policy/ocp/deprecated/ocp4_2/catalogsourceconfigs_v2" {
   tmp=$(split_files "policy/ocp/deprecated/ocp4_2/catalogsourceconfigs_v2/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp4_2.catalogsourceconfigs_v2"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp4_2.catalogsourceconfigs_v2 --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -610,7 +610,7 @@ setup_file() {
 @test "policy/ocp/deprecated/ocp4_2/operatorsources_v1" {
   tmp=$(split_files "policy/ocp/deprecated/ocp4_2/operatorsources_v1/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp4_2.operatorsources_v1"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp4_2.operatorsources_v1 --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -623,7 +623,7 @@ setup_file() {
 @test "policy/ocp/deprecated/ocp4_2/osb_v1" {
   tmp=$(split_files "policy/ocp/deprecated/ocp4_2/osb_v1/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp4_2.osb_v1"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp4_2.osb_v1 --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -636,7 +636,7 @@ setup_file() {
 @test "policy/ocp/deprecated/ocp4_2/servicecatalog_v1beta1" {
   tmp=$(split_files "policy/ocp/deprecated/ocp4_2/servicecatalog_v1beta1/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp4_2.servicecatalog_v1beta1"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp4_2.servicecatalog_v1beta1 --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -649,7 +649,7 @@ setup_file() {
 @test "policy/ocp/deprecated/ocp4_3/buildconfig_jenkinspipeline_strategy" {
   tmp=$(split_files "policy/ocp/deprecated/ocp4_3/buildconfig_jenkinspipeline_strategy/test_data/unit")
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp4_3.buildconfig_jenkinspipeline_strategy"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.deprecated.ocp4_3.buildconfig_jenkinspipeline_strategy --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -667,7 +667,7 @@ setup_file() {
   tmp=$(split_files "policy/ocp/requiresinventory/deployment_has_matching_poddisruptionbudget/test_data/unit")
   inventory="policy/ocp/requiresinventory/data_inventory.rego"
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.requiresinventory.deployment_has_matching_poddisruptionbudget --data ${inventory}"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.requiresinventory.deployment_has_matching_poddisruptionbudget --data ${inventory} --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -681,7 +681,7 @@ setup_file() {
   tmp=$(split_files "policy/ocp/requiresinventory/deployment_has_matching_pvc/test_data/unit")
   inventory="policy/ocp/requiresinventory/data_inventory.rego"
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.requiresinventory.deployment_has_matching_pvc --data ${inventory}"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.requiresinventory.deployment_has_matching_pvc --data ${inventory} --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -695,7 +695,7 @@ setup_file() {
   tmp=$(split_files "policy/ocp/requiresinventory/deployment_has_matching_service/test_data/unit")
   inventory="policy/ocp/requiresinventory/data_inventory.rego"
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.requiresinventory.deployment_has_matching_service --data ${inventory}"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.requiresinventory.deployment_has_matching_service --data ${inventory} --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -709,7 +709,7 @@ setup_file() {
   tmp=$(split_files "policy/ocp/requiresinventory/deployment_has_matching_serviceaccount/test_data/unit")
   inventory="policy/ocp/requiresinventory/data_inventory.rego"
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.requiresinventory.deployment_has_matching_serviceaccount --data ${inventory}"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.requiresinventory.deployment_has_matching_serviceaccount --data ${inventory} --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -723,7 +723,7 @@ setup_file() {
   tmp=$(split_files "policy/ocp/requiresinventory/service_has_matching_servicemonitor/test_data/unit")
   inventory="policy/ocp/requiresinventory/data_inventory.rego"
 
-  cmd="conftest test ${tmp} --output tap --namespace ocp.requiresinventory.service_has_matching_servicemonitor --data ${inventory}"
+  cmd="conftest test ${tmp} --output tap --namespace ocp.requiresinventory.service_has_matching_servicemonitor --data ${inventory} --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -741,7 +741,7 @@ setup_file() {
   tmp=$(split_files "policy/podman/history/contains_layer/test_data/unit/jenkins-python-mising.json" "true")
   parameters="policy/podman/data_parameters.rego"
 
-  cmd="conftest test ${tmp}/jenkins-python-mising.json --output tap --namespace podman.history.contains_layer --data ${parameters}"
+  cmd="conftest test ${tmp}/jenkins-python-mising.json --output tap --namespace podman.history.contains_layer --data ${parameters} --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
@@ -755,7 +755,7 @@ setup_file() {
   tmp=$(split_files "policy/podman/images/image_size_not_greater_than/test_data/unit" "true")
   parameters="policy/podman/data_parameters.rego"
 
-  cmd="conftest test ${tmp} --output tap --namespace podman.images.image_size_not_greater_than --data ${parameters}"
+  cmd="conftest test ${tmp} --output tap --namespace podman.images.image_size_not_greater_than --data ${parameters} --rego-version v0"
   run ${cmd}
 
   print_info "${status}" "${output}" "${cmd}" "${tmp}"
