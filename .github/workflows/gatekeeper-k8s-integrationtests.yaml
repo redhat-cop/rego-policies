@@ -57,7 +57,7 @@ jobs:
           echo "files=$(find policy/* -regex '.*test_data\/integration\/.*$' | xargs)" >> "$GITHUB_OUTPUT"
 
       - name: Validate integration test data via kubeconform
-        uses: docker://ghcr.io/yannh/kubeconform:v0.6.7@sha256:0925177fb05b44ce18574076141b5c3d83235e1904d3f952182ac99ddc45762c
+        uses: docker://ghcr.io/yannh/kubeconform:v0.7.0@sha256:85dbef6b4b312b99133decc9c6fc9495e9fc5f92293d4ff3b7e1b30f5611823c
         env:
           # renovate: datasource=github-releases depName=garethahealy/openshift-json-schema
           OCP_SCHEMA_VERSION: "4.17.0"
