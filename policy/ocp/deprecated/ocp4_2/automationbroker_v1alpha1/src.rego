@@ -2,7 +2,7 @@
 # title: 'RHCOP-OCP_DEPRECATED-ocp4_2-00002: automationbroker io v1alpha1 is deprecated'
 # description: |-
 #   'automationbroker.io/v1alpha1' is deprecated in OCP 4.2 and removed in 4.4.
-#   See: https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html#ocp-4-2-deprecated-features
+#   See: https://docs.redhat.com/en/documentation/openshift_container_platform/4.2/html/release_notes/ocp-4-2-release-notes#ocp-4-2-deprecated-features
 #   See: https://docs.openshift.com/container-platform/4.4/release_notes/ocp-4-4-release-notes.html#ocp-4-4-deprecated-removed-features
 # custom:
 #   matchers:

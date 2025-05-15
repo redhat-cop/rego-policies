@@ -2,7 +2,7 @@
 # title: 'RHCOP-OCP_DEPRECATED-ocp4_2-00001: authorization openshift io is deprecated'
 # description: |-
 #   From OCP4.2 onwards, you should migrate from 'authorization.openshift.io' to rbac.authorization.k8s.io/v1.
-#   See: https://docs.openshift.com/container-platform/4.2/release_notes/ocp-4-2-release-notes.html#ocp-4-2-deprecated-features
+#   See: https://docs.redhat.com/en/documentation/openshift_container_platform/4.2/html/release_notes/ocp-4-2-release-notes#ocp-4-2-deprecated-features
 # custom:
 #   matchers:
 #     kinds:
