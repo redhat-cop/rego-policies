@@ -16,7 +16,7 @@ jobs:
       # renovate: datasource=pypi depName=yq
       YQ_VERSION: 3.4.3
       # renovate: datasource=github-releases depName=plexsystems/konstraint
-      KONSTRAINT_VERSION: v0.42.0
+      KONSTRAINT_VERSION: v0.43.0
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@0634a2670c59f64b4a01f0f96f84700a4088b9f0 # v2.12.0
