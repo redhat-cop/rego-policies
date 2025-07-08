@@ -18,7 +18,7 @@ jobs:
       # renovate: datasource=github-releases depName=StyraInc/regal
       REGAL_VERSION: v0.33.1
       # renovate: datasource=github-releases depName=plexsystems/konstraint
-      KONSTRAINT_VERSION: v0.42.0
+      KONSTRAINT_VERSION: v0.43.0
     name: pre-commit
     steps:
       - name: Harden Runner
