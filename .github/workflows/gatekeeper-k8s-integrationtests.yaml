@@ -60,7 +60,7 @@ jobs:
         uses: docker://ghcr.io/yannh/kubeconform:v0.7.0@sha256:85dbef6b4b312b99133decc9c6fc9495e9fc5f92293d4ff3b7e1b30f5611823c
         env:
           # renovate: datasource=github-releases depName=garethahealy/openshift-json-schema
-          OCP_SCHEMA_VERSION: "4.18.0"
+          OCP_SCHEMA_VERSION: "4.19.0"
         with:
           args: -summary -kubernetes-version ${{ env.OCP_SCHEMA_VERSION }} -schema-location "https://raw.githubusercontent.com/garethahealy/openshift-json-schema/main/{{ .NormalizedKubernetesVersion }}/schemas/{{ .ResourceKind }}{{ .KindSuffix }}.json" ${{ steps.data.outputs.files }}
 

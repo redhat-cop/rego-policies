@@ -5,7 +5,7 @@ load test_helper/bats-support/load
 load test_helper/redhatcop-bats-library/load
 
 # renovate: datasource=github-releases depName=garethahealy/openshift-json-schema
-ocp_schema_version="4.18.0"
+ocp_schema_version="4.19.0"
 
 setup_file() {
   rm -rf /tmp/rhcop
