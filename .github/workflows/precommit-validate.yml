@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       # renovate: datasource=github-releases depName=open-policy-agent/opa
-      OPA_VERSION: v1.6.0
+      OPA_VERSION: v1.8.0
       # renovate: datasource=github-releases depName=StyraInc/regal
       REGAL_VERSION: v0.33.1
       # renovate: datasource=github-releases depName=plexsystems/konstraint
