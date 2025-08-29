@@ -9,6 +9,9 @@ rules:
   imports:
     use-rego-v1:
       level: ignore
+    unresolved-reference:
+      except-paths:
+        - data.inventory.cluster.v1.Namespace
   style:
     line-length:
       # if any single word on a line exceeds this length, ignore it

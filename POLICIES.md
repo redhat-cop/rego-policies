@@ -1249,7 +1249,6 @@ import data.lib.openshift
 
 violation[msg] {
   openshift.is_policy_active("RHCOP-OCP_BESTPRACT-00026")
-  openshift.pod
 
   pod_spec := openshift.pod.spec
   konstraint_core.missing_field(pod_spec.affinity, "podAntiAffinity")
