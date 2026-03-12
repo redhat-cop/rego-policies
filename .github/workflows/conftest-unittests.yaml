@@ -32,7 +32,7 @@ jobs:
           pip3 install yq==${YQ_VERSION}
 
       - name: Setup Bats
-        uses: bats-core/bats-action@42fcc8700f773c075a16a90eb11674c0318ad507 # 3.0.1
+        uses: bats-core/bats-action@77d6fb60505b4d0d1d73e48bd035b55074bbfb43 # 4.0.0
 
       - name: Setup Conftest
         uses: princespaghetti/setup-conftest@427bf563268433011fd432d23ae41e567cc24272 # v1.1.26
