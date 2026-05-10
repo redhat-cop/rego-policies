@@ -55,7 +55,7 @@ jobs:
         with:
           cmd: yq -i 'del( .repos[] | select(.rev == "rh-pre-commit-*"))' .pre-commit-config.yaml
 
-      - uses: garethahealy/pre-commit-action@9638b5f3212a29c34d088fd7d239a62061ea621c # v4.5.1-1
+      - uses: garethahealy/pre-commit-action@c93005939a88ad60af0f8334b1e42ab91c30ad75 # v4.6.0
 
       - name: Check if there are changes
         id: changes
