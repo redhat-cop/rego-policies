@@ -18,7 +18,7 @@ jobs:
       # renovate: datasource=github-releases depName=StyraInc/regal
       REGAL_VERSION: v0.41.1
       # renovate: datasource=pypi depName=yq
-      YQ_VERSION: 3.4.3
+      YQ_VERSION: 4.1.1
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@f808768d1510423e83855289c910610ca9b43176 # v2.17.0
