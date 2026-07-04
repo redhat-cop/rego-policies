@@ -49,3 +49,11 @@ repos:
       # Docs: https://source.redhat.com/departments/it/it-information-security/leaktk/leaktk_components/rh_pre_commit
       - id: rh-pre-commit
       - id: rh-pre-commit.commit-msg # Optional for commit-msg attestation
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.16.3
+    hooks:
+      - id: gitleaks
+  - repo: https://github.com/jumanjihouse/pre-commit-hooks
+    rev: 3.0.0
+    hooks:
+      - id: shellcheck
