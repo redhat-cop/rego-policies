@@ -3,8 +3,10 @@
   "extends": [
     "config:best-practices",
     "customManagers:githubActionsVersions",
+    ":enablePreCommit",
     "schedule:earlyMondays"
   ],
+  "timezone": "Etc/UTC",
   "customManagers": [
     {
       "customType": "regex",
