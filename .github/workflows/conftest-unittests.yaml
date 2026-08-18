@@ -38,7 +38,7 @@ jobs:
         uses: princespaghetti/setup-conftest@417586a9b2e806fc5a95c72dfe98e296ef092b6f # v1.2.0
 
       - name: Setup oc
-        uses: redhat-actions/openshift-tools-installer@144527c7d98999f2652264c048c7a9bd103f8a82 # v1
+        uses: redhat-actions/openshift-tools-installer@e3b32c2ab7b064b2ce189121c4a49f509a99a7b4 # v3.0
         with:
           oc: "4"
 
