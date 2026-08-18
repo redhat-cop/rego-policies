@@ -16,7 +16,7 @@ jobs:
       # renovate: datasource=github-releases depName=open-policy-agent/opa
       OPA_VERSION: v1.18.2
       # renovate: datasource=github-releases depName=StyraInc/regal
-      REGAL_VERSION: v0.41.1
+      REGAL_VERSION: v0.42.0
       # renovate: datasource=pypi depName=yq
       YQ_VERSION: 4.1.1
     steps:
