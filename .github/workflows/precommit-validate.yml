@@ -51,7 +51,7 @@ jobs:
           version: ${{ env.REGAL_VERSION }}
 
       - name: Remove rh-pre-commit hook (requires VPN)
-        uses: mikefarah/yq@1b9b4ac5187171d2e5e3129be0cfa827c7f9d53d # v4.53.3
+        uses: mikefarah/yq@c14f446382944492701b16c1ddb48bb9dbe683e3 # v4.53.6
         with:
           cmd: yq -i 'del( .repos[] | select(.rev == "rh-pre-commit-*"))' .pre-commit-config.yaml
 
